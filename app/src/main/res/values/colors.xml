@@ -3,4 +3,5 @@
     <color name="color_teal_500">#009688</color>
     <color name="color_teal_800">#00695C</color>
     <color name="color_orange_200">#fe8d01</color>
+    <color name="color_white">#ffffff</color>
 </resources>

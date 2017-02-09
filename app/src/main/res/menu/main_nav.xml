@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home_white_24px"
+        android:title="@string/title_home"/>
+    <item
+        android:id="@+id/action_guide"
+        android:icon="@drawable/ic_document_white_24px"
+        android:title="@string/title_document"/>
+    <item
+        android:id="@+id/action_feedback"
+        android:icon="@drawable/ic_feedback_white_24px"
+        android:title="@string/title_feedback"/>
+    <item
+        android:id="@+id/action_login"
+        android:icon="@drawable/ic_exit_to_app_white_24px"
+        android:title="@string/title_login"/>
+    <item android:title="@string/title_language">
+        <menu>
+            <item
+                android:id="@+id/action_english"
+                android:title="@string/language_english"/>
+            <item
+                android:id="@+id/action_vietnamese"
+                android:title="@string/language_vietnamese"/>
+            <item
+                android:id="@+id/action_japanese"
+                android:title="@string/language_japanese"/>
+        </menu>
+    </item>
+</menu>

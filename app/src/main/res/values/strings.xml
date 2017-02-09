@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FPoll</string>
+    <string name="title_home">Home</string>
+    <string name="title_document">Guide</string>
+    <string name="title_feedback">Feedback</string>
+    <string name="title_login">Login</string>
+    <string name="title_language">Language</string>
+    <string name="language_english">English</string>
+    <string name="language_vietnamese">Vietnamese</string>
+    <string name="language_japanese">Japanese</string>
 </resources>
