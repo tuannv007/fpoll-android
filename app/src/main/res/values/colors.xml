@@ -4,4 +4,7 @@
     <color name="color_teal_800">#00695C</color>
     <color name="color_orange_200">#fe8d01</color>
     <color name="color_white">#ffffff</color>
+    <color name="color_tit_register">#008B8B</color>
+    <color name="color_gray">#EDEEEE</color>
+    <color name="color_blued">#1976D2</color>
 </resources>

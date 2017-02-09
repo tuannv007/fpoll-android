@@ -8,4 +8,12 @@
     <string name="language_english">English</string>
     <string name="language_vietnamese">Vietnamese</string>
     <string name="language_japanese">Japanese</string>
+    <string name="title_register">Register</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+    <string name="action_forgot_password">Forgot password</string>
+    <string name="title_email">Email</string>
+    <string name="title_username">Username</string>
+    <string name="title_password">Password</string>
+    <string name="action_confirm_password">Confirm password</string>
 </resources>

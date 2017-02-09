@@ -8,4 +8,26 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="RegisterImageViewStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">@dimen/dp_1</item>
+        <item name="android:background">@color/color_gray</item>
+        <item name="android:padding">@dimen/dp_10</item>
+    </style>
+
+    <style name="RegisterLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_50</item>
+        <item name="android:background">@drawable/style_edittext</item>
+        <item name="android:layout_margin">@dimen/dp_5</item>
+    </style>
+
+    <style name="RegisterEditTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>
