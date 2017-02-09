@@ -16,4 +16,13 @@
     <string name="title_username">Username</string>
     <string name="title_password">Password</string>
     <string name="action_confirm_password">Confirm password</string>
+    <string name="remember_account">Remember me</string>
+    <string name="text_facebook">Facebook</string>
+    <string name="text_google">Google</string>
+    <string name="text_twitter">Twitter</string>
+    <string name="text_forget_password">Forget your password?</string>
+    <string name="text_register">Register</string>
+    <string name="hint_email">Enter your email...</string>
+    <string name="hint_password">Enter your password...</string>
+    <string name="server_client_id"/>
 </resources>
