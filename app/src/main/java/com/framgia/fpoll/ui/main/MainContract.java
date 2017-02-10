@@ -8,6 +8,7 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public interface MainContract {
     interface View extends BaseView {
+        void showHelp();
     }
 
     interface Presenter {
