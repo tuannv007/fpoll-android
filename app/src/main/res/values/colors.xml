@@ -7,4 +7,13 @@
     <color name="color_tit_register">#008B8B</color>
     <color name="color_gray">#EDEEEE</color>
     <color name="color_blued">#1976D2</color>
+    <color name="color_yellow_300">#ebf1b2</color>
+    <color name="color_grey_400">#a4acac</color>
+    <color name="color_grey_300">#b9c2c2</color>
+    <color name="color_grey_700">#757575</color>
+    <color name="color_teal_600">#00897B</color>
+    <color name="color_indigo_600">#303F9F</color>
+    <color name="color_orange_700">#E64A19</color>
+    <color name="color_blue">#54acee</color>
+    <color name="color_grey_200">#edeeee</color>
 </resources>
