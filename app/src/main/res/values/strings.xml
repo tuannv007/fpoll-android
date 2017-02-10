@@ -25,4 +25,14 @@
     <string name="hint_email">Enter your email...</string>
     <string name="hint_password">Enter your password...</string>
     <string name="server_client_id"/>
+    <string name="title_setting">Setting</string>
+    <string name="title_option">Option</string>
+    <string name="msg_require_voted">Required to vote</string>
+    <string name="msg_hide_voted">Hide voting result</string>
+    <string name="msg_optimize_poll">Optimize poll link</string>
+    <string name="msg_voting_limit">Set voting limit</string>
+    <string name="action_change_password">Set password</string>
+    <string name="msg_enter_name">Enter name</string>
+    <string name="msg_enter_email">Enter email</string>
+    <string name="msg_enter_name_email">Enter name and email</string>
 </resources>
