@@ -49,4 +49,27 @@
         <item name="android:background">@color/color_grey_200</item>
     </style>
 
+    <style name="TextViewStatusPoll">
+        <item name="android:layout_marginTop">@dimen/dp_10</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_20</item>
+    </style>
+
+    <style name="LayoutInforManagerPoll">
+        <item name="android:layout_margin">@dimen/dp_10</item>
+        <item name="android:layout_marginTop">@dimen/dp_10</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_56</item>
+        <item name="android:background">@drawable/bg_edit_text</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/dp_2</item>
+    </style>
+
+    <style name="EditextInforManagerPoll">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 </resources>
