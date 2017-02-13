@@ -1,0 +1,156 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_grey_200">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_grey_200"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_page_setting"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dp_16">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_56"
+                    android:background="@color/color_teal_800"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingRight="@dimen/dp_16"
+                    android:text="@string/title_information"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_20"/>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle"
+                    android:padding="@dimen/dp_1">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:src="@drawable/ic_person_black_24dp"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/title_username"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:layout_margin="@dimen/dp_1"
+                        android:background="@color/color_gray"
+                        android:padding="@dimen/dp_10"
+                        android:src="@drawable/ic_email_white_24px"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/title_email"
+                        android:inputType="textEmailAddress"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:layout_margin="@dimen/dp_1"
+                        android:background="@color/color_gray"
+                        android:padding="@dimen/dp_10"
+                        android:src="@drawable/ic_title"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/hint_poll_title"
+                        android:inputType="textEmailAddress"/>
+
+                </LinearLayout>
+
+                <Spinner
+                    style="@style/RegisterLayoutStyle"/>
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edit_send_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_16"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/bg_edit_text"
+                    android:gravity="start"
+                    android:hint="@string/title_description_poll"
+                    android:minHeight="@dimen/dp_180"
+                    android:padding="@dimen/dp_8"/>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:layout_margin="@dimen/dp_1"
+                        android:background="@color/color_gray"
+                        android:padding="@dimen/dp_10"
+                        android:src="@drawable/ic_alarm_black_24px"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/hint_choose_time"
+                        android:inputType="textEmailAddress"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:layout_margin="@dimen/dp_1"
+                        android:background="@color/color_gray"
+                        android:padding="@dimen/dp_10"
+                        android:src="@drawable/ic_location_on_black_24px"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/hint_position"
+                        android:inputType="textEmailAddress"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:padding="@dimen/dp_8"
+                app:cardBackgroundColor="@color/color_teal_800">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/action_continue"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_20"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</layout>

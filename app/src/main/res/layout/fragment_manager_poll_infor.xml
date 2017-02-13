@@ -99,7 +99,7 @@
 
                 <ImageView
                     style="@style/ImageViewLogin"
-                    android:src="@drawable/ic_title_poll" />
+                    android:src="@drawable/ic_title" />
 
                 <include layout="@layout/partial_line" />
 

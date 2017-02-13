@@ -19,7 +19,7 @@
 
     <style name="RegisterLayoutStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_50</item>
+        <item name="android:layout_height">@dimen/dp_48</item>
         <item name="android:background">@drawable/bg_edit_text</item>
         <item name="android:layout_margin">@dimen/dp_5</item>
     </style>

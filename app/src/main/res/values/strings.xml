@@ -27,6 +27,7 @@
     <string name="server_client_id"/>
     <string name="title_setting">Setting</string>
     <string name="title_option">Option</string>
+    <string name="title_information">Information</string>
     <string name="msg_require_voted">Required to vote</string>
     <string name="msg_hide_voted">Hide voting result</string>
     <string name="msg_optimize_poll">Optimize poll link</string>
@@ -93,4 +94,7 @@
     <string name="title_latest_activity">Latest activity: $1%s</string>
     <string name="title_view_administer_page">View Administer</string>
     <string name="msg_link">Link</string>
+    <string name="hint_poll_title">Poll\'s title</string>
+    <string name="hint_position">Position</string>
+    <string name="hint_choose_time">Choose time</string>
 </resources>
