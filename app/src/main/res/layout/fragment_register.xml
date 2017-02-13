@@ -23,7 +23,7 @@
                     android:layout_margin="@dimen/dp_1"
                     android:background="@color/color_gray"
                     android:padding="@dimen/dp_10"
-                    android:src="@drawable/ic_markunread_black_24dp"/>
+                    android:src="@drawable/ic_email_white_24px"/>
 
                 <EditText
                     style="@style/RegisterEditTextStyle"
@@ -51,7 +51,7 @@
 
                 <ImageView
                     style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_gender"/>
+                    android:src="@drawable/ic_male"/>
 
                 <Spinner
                     android:layout_width="0dp"
@@ -65,7 +65,7 @@
 
                 <ImageView
                     style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_password"/>
+                    android:src="@drawable/ic_vpn_key_white_24px"/>
 
 
                 <EditText
@@ -80,7 +80,7 @@
 
                 <ImageView
                     style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_password"/>
+                    android:src="@drawable/ic_vpn_key_white_24px"/>
 
                 <EditText
                     style="@style/RegisterEditTextStyle"
@@ -89,12 +89,12 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_margin="@dimen/dp_5"
-                android:padding="@dimen/dp_5"
                 android:layout_width="match_parent"
-                android:background="@drawable/style_edittext"
                 android:layout_height="@dimen/dp_50"
-                android:src="@drawable/ic_image"/>
+                android:layout_margin="@dimen/dp_5"
+                android:background="@drawable/bg_edit_text"
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ic_insert_photo_black_24px"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"/>
         </LinearLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

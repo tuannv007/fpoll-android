@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "969147096778",
+    "firebase_url": "https://f2chat-f1582.firebaseio.com",
+    "project_id": "f2chat-f1582",
+    "storage_bucket": "f2chat-f1582.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969147096778:android:2e9dece0fdf41f3b",
+        "android_client_info": {
+          "package_name": "com.framgia.fpoll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969147096778-gqp005fp58ridfl96tnckjvfbe6n6jds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoXlQRT5-E-KlB2fQn0tUciNQvJEIVRE0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969147096778-gqp005fp58ridfl96tnckjvfbe6n6jds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
