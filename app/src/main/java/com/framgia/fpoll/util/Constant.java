@@ -12,4 +12,8 @@ public class Constant {
         public static final String HELP_URL =
             "https://docs.google.com/viewer?url=" + BASE_URL + "tutorial";
     }
+
+    public static class BundleConstant {
+        public static final String BUNDLE_TYPE_HISTORY = "BUNDLE_TYPE_HISTORY";
+    }
 }
