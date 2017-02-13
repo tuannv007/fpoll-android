@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.history.HistoryFragment"/>
+    </data>
 
     <LinearLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,11 +25,13 @@
             app:tabIndicatorColor="@color/color_white"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/color_white"
-            app:tabTextColor="@color/color_grey_200"/>
+            app:tabTextColor="@color/color_grey_200"
+            bind:viewPager="@{viewPager}"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            bind:adapterViewPager="@{fragment.adapter}"/>
     </LinearLayout>
 </layout>

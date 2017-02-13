@@ -1,0 +1,38 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.pollhistory.PollHistoryPresenter"/>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.pollhistory.PollHistoryFragment"/>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+    </data>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_grey_200"
+        bind:colorSwipeLayout="@{@color/color_teal_600}"
+        bind:refreshSwipeLayout="@{fragment.loadFinish}"
+        bind:swipeOnRefresh="@{presenter}">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            app:adapter="@{fragment.adapter}"
+            app:layoutManager="@{LayoutManageUtil.linear()}"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</layout>
