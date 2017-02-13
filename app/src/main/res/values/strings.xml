@@ -35,4 +35,10 @@
     <string name="msg_enter_name">Enter name</string>
     <string name="msg_enter_email">Enter email</string>
     <string name="msg_enter_name_email">Enter name and email</string>
+    <string name="title_participant">Participant</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_finish">Finish</string>
+    <string name="msg_send_email">If you want send mail to participants, let enter email into below textbox!</string>
+    <string name="hint_enter_email_participant">Enter email of participant</string>
 </resources>
