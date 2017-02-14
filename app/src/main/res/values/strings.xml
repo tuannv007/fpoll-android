@@ -22,8 +22,8 @@
     <string name="text_twitter">Twitter</string>
     <string name="text_forget_password">Forget your password?</string>
     <string name="text_register">Register</string>
-    <string name="hint_email">Enter your email...</string>
-    <string name="hint_password">Enter your password...</string>
+    <string name="hint_email">Enter your email…</string>
+    <string name="hint_password">Enter your password…</string>
     <string name="server_client_id"/>
     <string name="title_setting">Setting</string>
     <string name="title_option">Option</string>
@@ -39,6 +39,39 @@
     <string name="action_previous">Previous</string>
     <string name="action_continue">Continue</string>
     <string name="action_finish">Finish</string>
-    <string name="msg_send_email">If you want send mail to participants, let enter email into below textbox!</string>
+    <string name="msg_send_email_information_poll">If you want send mail to participants, let enter
+        email into
+        below textbox!</string>
     <string name="hint_enter_email_participant">Enter email of participant</string>
+    <string name="title_reset_password">Reset password</string>
+    <string name="msg_thank_user">Thanks ,</string>
+    <string name="msg_poll_created">Your poll has been created</string>
+    <string name="msg_send_email">The following two links have been send to a@gmail.com in one
+        e-mail each.
+    </string>
+    <string name="msg_click_send_email">
+        <u>If you haven\'t receive email. Click me…</u>
+    </string>
+    <string name="msg_participation">Participation link</string>
+    <string name="msg_send_link">Send this link to anyone you wish to invite</string>
+    <string name="title_link_invited">http://poll.framgia.vn/link/Jwrjub4RRndiMEwy</string>
+    <string name="title_coppy_link">Coppy</string>
+    <string name="msg_administration_link">Administration poll</string>
+    <string name="title_admin_screen">
+        <u>Manager Poll</u>
+    </string>
+    <string name="msg_url_poll">url</string>
+    <string name="title_description_poll">Description poll</string>
+    <string name="title_save_data">Save information</string>
+    <string name="title_time_close_poll">Time close poll</string>
+    <string name="title_location">Location</string>
+    <string name="title_link_vote">
+        <u>Link vote</u>
+    </string>
+    <string name="title_view_option">
+        <u>View option</u>
+    </string>
+    <string name="title_view_setting">
+        <u>View setting</u>
+    </string>
 </resources>
