@@ -74,4 +74,14 @@
     <string name="title_view_setting">
         <u>View setting</u>
     </string>
+    <string name="title_result_poll">Result</string>
+    <string name="title_no_option">No</string>
+    <string name="title_vote_number">Vote</string>
+    <string name="msg_status_pool">Poll open</string>
+    <string name="action_view_history">Views History Poll</string>
+    <string name="action_edit_poll">Edit this poll</string>
+    <string name="action_delete_poll">Delete this poll</string>
+    <string name="action_close_poll">Close this poll</string>
+    <string name="action_duplicate_poll">Create duplicate</string>
+    <string name="msg_one">1</string>
 </resources>

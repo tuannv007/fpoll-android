@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20">
+
+                <TextView
+                    android:id="@+id/text_link_vote"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/title_link_vote"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/sp_20" />
+
+                <TextView
+                    android:id="@+id/text_view_option"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/title_view_option"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/sp_20" />
+
+                <TextView
+                    android:id="@+id/text_view_setting"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/title_view_setting"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/sp_20" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_status_poll_manager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/color_teal_500"
+                android:padding="@dimen/dp_10"
+                android:text="@string/msg_status_pool"
+                android:textAllCaps="false"
+                android:textColor="@color/color_white" />
+
+            <LinearLayout
+                style="@style/LayoutManagerPoll"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:src="@drawable/ic_email_white_24px" />
+
+                <include layout="@layout/partial_line" />
+
+                <EditText
+                    android:id="@+id/edit_email_manager_poll"
+                    style="@style/EditTextManagerPoll"
+                    android:inputType="textEmailAddress" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/LayoutManagerPoll">
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:src="@drawable/ic_person_black_24dp" />
+
+                <include layout="@layout/partial_line" />
+
+                <EditText
+                    android:id="@+id/edit_username_manager_poll"
+                    style="@style/EditTextManagerPoll"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/LayoutManagerPoll">
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:src="@drawable/ic_title_poll" />
+
+                <include layout="@layout/partial_line" />
+
+                <EditText
+                    android:id="@+id/edit_title_poll_manager"
+                    style="@style/EditTextManagerPoll" />
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spin_choose"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@drawable/bg_edit_text" />
+
+            <EditText
+                android:id="@+id/edit_description_poll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@drawable/bg_edit_text"
+                android:hint="@string/title_description_poll"
+                android:padding="@dimen/dp_10"
+                android:textSize="@dimen/sp_17" />
+
+            <LinearLayout style="@style/LayoutManagerPoll">
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:src="@drawable/ic_alarm_black_24px" />
+
+                <include layout="@layout/partial_line" />
+
+                <EditText
+                    android:id="@+id/edit_time_close_poll"
+                    style="@style/EditTextManagerPoll"
+                    android:hint="@string/title_time_close_poll"
+                    android:inputType="datetime" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/LayoutManagerPoll">
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:src="@drawable/ic_location_on_black_24px" />
+
+                <include layout="@layout/partial_line" />
+
+                <EditText
+                    android:id="@+id/edit_location_user"
+                    style="@style/EditTextManagerPoll"
+                    android:hint="@string/title_location"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_save_information"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp_20"
+                android:background="@color/color_teal_500"
+                android:text="@string/title_save_data"
+                android:textAllCaps="false"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_17" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
