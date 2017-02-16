@@ -17,7 +17,7 @@ import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
-import com.framgia.fpoll.ui.history.HistoryFragment;
+import com.framgia.fpoll.ui.pollcreation.CreatePollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 
@@ -60,8 +60,11 @@ public class MainActivity extends AppCompatActivity
                 break;
             default:
                 break;
+            case R.id.action_home:
+                addFragment(new CreatePollFragment(), R.string.title_home);
+                break;
         }
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+        mBinding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
