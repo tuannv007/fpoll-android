@@ -13,6 +13,10 @@
         android:icon="@drawable/ic_feedback_white_24px"
         android:title="@string/title_feedback"/>
     <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_history_white_24px"
+        android:title="@string/title_history"/>
+    <item
         android:id="@+id/action_login"
         android:icon="@drawable/ic_exit_to_app_white_24px"
         android:title="@string/title_login"/>

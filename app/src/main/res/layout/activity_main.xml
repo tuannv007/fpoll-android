@@ -16,7 +16,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/partial_toolbar"/>
+            <include
+                android:id="@+id/toolbar_layout"
+                layout="@layout/partial_toolbar"/>
 
             <FrameLayout
                 android:id="@+id/frame_layout"
