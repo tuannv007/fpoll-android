@@ -1,68 +1,68 @@
 <resources>
-    <string name="app_name">FPoll</string>
-    <string name="title_home">Home</string>
-    <string name="title_document">Guide</string>
-    <string name="title_feedback">Feedback</string>
-    <string name="title_login">Login</string>
-    <string name="title_language">Language</string>
-    <string name="language_english">English</string>
-    <string name="language_vietnamese">Vietnamese</string>
-    <string name="language_japanese">Japanese</string>
-    <string name="title_register">Register</string>
-    <string name="action_login">Login</string>
-    <string name="action_register">Register</string>
-    <string name="action_forgot_password">Forgot password</string>
-    <string name="title_email">Email</string>
-    <string name="title_username">Username</string>
-    <string name="title_password">Password</string>
-    <string name="action_confirm_password">Confirm password</string>
-    <string name="remember_account">Remember me</string>
-    <string name="text_facebook">Facebook</string>
-    <string name="text_google">Google</string>
-    <string name="text_twitter">Twitter</string>
-    <string name="text_forget_password">Forget your password?</string>
-    <string name="text_register">Register</string>
-    <string name="hint_email">Enter your email…</string>
-    <string name="hint_password">Enter your password…</string>
-    <string name="server_client_id"/>
-    <string name="title_setting">Setting</string>
-    <string name="title_option">Option</string>
-    <string name="title_information">Information</string>
-    <string name="msg_require_voted">Required to vote</string>
-    <string name="msg_hide_voted">Hide voting result</string>
-    <string name="msg_optimize_poll">Optimize poll link</string>
-    <string name="msg_voting_limit">Set voting limit</string>
-    <string name="action_change_password">Set password</string>
-    <string name="msg_enter_name">Enter name</string>
-    <string name="msg_enter_email">Enter email</string>
-    <string name="msg_enter_name_email">Enter name and email</string>
-    <string name="title_participant">Participant</string>
-    <string name="action_previous">Previous</string>
-    <string name="action_continue">Continue</string>
-    <string name="action_finish">Finish</string>
+	<string name="app_name">FPoll</string>
+	<string name="title_home">Home</string>
+	<string name="title_document">Guide</string>
+	<string name="title_feedback">Feedback</string>
+	<string name="title_login">Login</string>
+	<string name="title_language">Language</string>
+	<string name="language_english">English</string>
+	<string name="language_vietnamese">Vietnamese</string>
+	<string name="language_japanese">Japanese</string>
+	<string name="title_register">Register</string>
+	<string name="action_login">Login</string>
+	<string name="action_register">Register</string>
+	<string name="action_forgot_password">Forgot password</string>
+	<string name="title_email">Email</string>
+	<string name="title_username">Username</string>
+	<string name="title_password">Password</string>
+	<string name="action_confirm_password">Confirm password</string>
+	<string name="remember_account">Remember me</string>
+	<string name="text_facebook">Facebook</string>
+	<string name="text_google">Google</string>
+	<string name="text_twitter">Twitter</string>
+	<string name="text_forget_password">Forget your password?</string>
+	<string name="text_register">Register</string>
+	<string name="hint_email">Enter your email…</string>
+	<string name="hint_password">Enter your password…</string>
+	<string name="server_client_id"/>
+	<string name="title_setting">Setting</string>
+	<string name="title_option">Option</string>
+	<string name="title_information">Information</string>
+	<string name="msg_require_voted">Required to vote</string>
+	<string name="msg_hide_voted">Hide voting result</string>
+	<string name="msg_optimize_poll">Optimize poll link</string>
+	<string name="msg_voting_limit">Set voting limit</string>
+	<string name="action_change_password">Set password</string>
+	<string name="msg_enter_name">Enter name</string>
+	<string name="msg_enter_email">Enter email</string>
+	<string name="msg_enter_name_email">Enter name and email</string>
+	<string name="title_participant">Participant</string>
+	<string name="action_previous">Previous</string>
+	<string name="action_continue">Continue</string>
+	<string name="action_finish">Finish</string>
     <string name="msg_send_email_information_poll">If you want send mail to participants, let enter
         email into
         below textbox!</string>
-    <string name="hint_enter_email_participant">Enter email of participant</string>
-    <string name="title_reset_password">Reset password</string>
-    <string name="msg_thank_user">Thanks ,</string>
-    <string name="msg_poll_created">Your poll has been created</string>
+	<string name="hint_enter_email_participant">Enter email of participant</string>
+	<string name="title_reset_password">Reset password</string>
+	<string name="msg_thank_user">Thanks ,</string>
+	<string name="msg_poll_created">Your poll has been created</string>
     <string name="msg_click_send_email">
         <u>If you haven\'t receive email. Click me…</u>
     </string>
-    <string name="msg_participation">Participation link</string>
-    <string name="msg_send_link">Send this link to anyone you wish to invite</string>
-    <string name="title_link_invited">http://poll.framgia.vn/link/Jwrjub4RRndiMEwy</string>
-    <string name="title_coppy_link">Coppy</string>
-    <string name="msg_administration_link">Administration poll</string>
+	<string name="msg_participation">Participation link</string>
+	<string name="msg_send_link">Send this link to anyone you wish to invite</string>
+	<string name="title_link_invited">http://poll.framgia.vn/link/Jwrjub4RRndiMEwy</string>
+	<string name="title_copy_link">Copy</string>
+	<string name="msg_administration_link">Administration poll</string>
     <string name="title_admin_screen">
         <u>Manager Poll</u>
     </string>
-    <string name="msg_url_poll">url</string>
-    <string name="title_description_poll">Description poll</string>
-    <string name="title_save_data">Save information</string>
-    <string name="title_time_close_poll">Time close poll</string>
-    <string name="title_location">Location</string>
+	<string name="msg_url_poll">url</string>
+	<string name="title_description_poll">Description poll</string>
+	<string name="title_save_data">Save information</string>
+	<string name="title_time_close_poll">Time close poll</string>
+	<string name="title_location">Location</string>
     <string name="title_link_vote">
         <u>Link vote</u>
     </string>
@@ -72,29 +72,37 @@
     <string name="title_view_setting">
         <u>View setting</u>
     </string>
-    <string name="title_result_poll">Result</string>
-    <string name="title_no_option">No</string>
-    <string name="title_vote_number">Vote</string>
-    <string name="msg_status_pool">Poll open</string>
-    <string name="action_view_history">Views History Poll</string>
-    <string name="action_edit_poll">Edit this poll</string>
-    <string name="action_delete_poll">Delete this poll</string>
-    <string name="action_close_poll">Close this poll</string>
-    <string name="action_duplicate_poll">Create duplicate</string>
-    <string name="msg_one">1</string>
-    <string name="msg_send_email">If you want send mail to participants, let enter email into below textbox!</string>
-    <string name="title_poll_initiate">Polls initiated</string>
-    <string name="title_poll_participate">Polls participated</string>
-    <string name="title_poll_close">Polls closed</string>
-    <string name="action_open">Open</string>
-    <string name="action_close">Close</string>
-    <string name="title_history">Poll history</string>
-    <string name="title_subject">Subject: $1%s</string>
-    <string name="title_participants">Participants: $1%d</string>
-    <string name="title_latest_activity">Latest activity: $1%s</string>
-    <string name="title_view_administer_page">View Administer</string>
-    <string name="msg_link">Link</string>
-    <string name="hint_poll_title">Poll\'s title</string>
-    <string name="hint_position">Position</string>
-    <string name="hint_choose_time">Choose time</string>
+	<string name="title_result_poll">Result</string>
+	<string name="title_no_option">No</string>
+	<string name="title_vote_number">Vote</string>
+	<string name="msg_status_pool">Poll open</string>
+	<string name="action_view_history">Views History Poll</string>
+	<string name="action_edit_poll">Edit this poll</string>
+	<string name="action_delete_poll">Delete this poll</string>
+	<string name="action_close_poll">Close this poll</string>
+	<string name="action_duplicate_poll">Create duplicate</string>
+	<string name="msg_one">1</string>
+	<string name="msg_send_email">If you want send mail to participants,
+		let enter email into below textbox!</string>
+	<string name="title_poll_initiate">Polls initiated</string>
+	<string name="title_poll_participate">Polls participated</string>
+	<string name="title_poll_close">Polls closed</string>
+	<string name="action_open">Open</string>
+	<string name="action_close">Close</string>
+	<string name="title_history">Poll history</string>
+	<string name="title_subject">Subject: $1%s</string>
+	<string name="title_participants">Participants: $1%d</string>
+	<string name="title_latest_activity">Latest activity: $1%s</string>
+	<string name="title_view_administer_page">View Administer</string>
+	<string name="msg_link">Link</string>
+	<string name="hint_poll_title">Poll\'s title</string>
+	<string name="hint_position">Position</string>
+	<string name="hint_choose_time">Choose time</string>
+	<string name="msg_register_error">
+		Please enter name!
+		Please enter email!
+		Please enter password!</string>
+	<string name="msg_confirm_pass_not_success">Password confirm incorrect, please check again!</string>
+	<string name="title_male">Male</string>
+	<string name="title_female">Female</string>
 </resources>

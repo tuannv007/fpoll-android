@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity
                 showHelp();
                 break;
             case R.id.action_history:
+/*
                 addFragment(new HistoryFragment(), R.string.title_history);
+*/
                 break;
             default:
                 break;

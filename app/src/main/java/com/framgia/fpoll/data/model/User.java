@@ -6,17 +6,29 @@ package com.framgia.fpoll.data.model;
 public class User {
     private String mUsername;
     private String mEmail;
-    private String mGender;
+    private int mGender;
     private String mPassword;
-    private String mLinkImage;
+    private String mAvatar;
+    private String mChatWorkId;
+    private String mRole;
 
-    public User(String username, String email, String gender, String password,
-                String rePassword, String linkImage) {
+    public User(String username, String email, int gender, String password, String avatar,
+                String chatWorkId, String role) {
         mUsername = username;
         mEmail = email;
         mGender = gender;
         mPassword = password;
-        mLinkImage = linkImage;
+        mAvatar = avatar;
+        mChatWorkId = chatWorkId;
+        mRole = role;
+    }
+
+    public User(String username, String email, int gender, String password, String avatar) {
+        mUsername = username;
+        mEmail = email;
+        mGender = gender;
+        mPassword = password;
+        mAvatar = avatar;
     }
 
     public String getUsername() {
@@ -27,7 +39,7 @@ public class User {
         return mEmail;
     }
 
-    public String getGender() {
+    public int getGender() {
         return mGender;
     }
 
@@ -35,7 +47,15 @@ public class User {
         return mPassword;
     }
 
-    public String getLinkImage() {
-        return mLinkImage;
+    public String getAvatar() {
+        return mAvatar;
+    }
+
+    public String getChatWorkId() {
+        return mChatWorkId;
+    }
+
+    public String getRole() {
+        return mRole;
     }
 }

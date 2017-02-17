@@ -6,6 +6,8 @@ package com.framgia.fpoll.util;
  * <></>
  */
 public class Constant {
+    public static final int IMAGE_PICKER_SELECT = 1;
+
     public static class WebUrl {
         public static final String BASE_URL = "http://poll.framgia.vn/";
         public static final String POLL_URL = BASE_URL + "link/";
