@@ -16,6 +16,6 @@ public class ActivityUtil {
     }
 
     public static void showToast(Context context, int res) {
-        Toast.makeText(context, context.getResources().getString(res), Toast.LENGTH_LONG).show();
+        Toast.makeText(context, res, Toast.LENGTH_LONG).show();
     }
 }
