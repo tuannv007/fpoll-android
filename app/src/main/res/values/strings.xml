@@ -24,7 +24,7 @@
     <string name="text_register">Register</string>
     <string name="hint_email">Enter your email…</string>
     <string name="hint_password">Enter your password…</string>
-    <string name="server_client_id"/>
+    <string name="server_client_id">222836748167-q2gudo6np1o44sqo9v6b8nr336kvcnk8.apps.googleusercontent.com</string>
     <string name="title_setting">Setting</string>
     <string name="title_option">Option</string>
     <string name="title_information">Information</string>
@@ -82,8 +82,8 @@
     <string name="action_close_poll">Close this poll</string>
     <string name="action_duplicate_poll">Create duplicate</string>
     <string name="msg_one">1</string>
-	<string name="msg_send_email">If you want send mail to participants,
-		let enter email into below textbox!</string>
+    <string name="msg_send_email">If you want send mail to participants, let enter email into
+        below textbox!</string>
     <string name="title_poll_initiate">Polls initiated</string>
     <string name="title_poll_participate">Polls participated</string>
     <string name="title_poll_close">Polls closed</string>
@@ -115,4 +115,6 @@
     <string name="title_permissions">Request Permissions</string>
     <string name="title_reques_pemissions">Request Permissions</string>
     <string name="message_request_read_pemissions">required reading for image rights</string>
+    <string name="msg_login_google_error">Login google fault</string>
+    <string name="msg_login_google_success">Login google success</string>
 </resources>
