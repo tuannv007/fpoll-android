@@ -6,4 +6,9 @@
         <item>@string/title_poll_close</item>
     </string-array>
 
+    <string-array name="gender">
+        <item>@string/title_male</item>
+        <item>@string/title_female</item>
+    </string-array>
+
 </resources>

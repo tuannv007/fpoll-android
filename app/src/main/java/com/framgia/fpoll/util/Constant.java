@@ -18,4 +18,9 @@ public class Constant {
     public static class BundleConstant {
         public static final String BUNDLE_TYPE_HISTORY = "BUNDLE_TYPE_HISTORY";
     }
+
+    public static class Gender {
+        public static final int MALE = 1;
+        public static final int FEMALE = 0;
+    }
 }

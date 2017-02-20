@@ -17,20 +17,14 @@ import java.util.List;
  * Created by tuanbg on 2/9/17.
  */
 public class AuthenticationActivity extends AppCompatActivity {
-    private RegisterFragment mChildFragment;
+    private RegisterFragment mRegisterFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication_account);
-        mChildFragment = new RegisterFragment();
-        ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mChildFragment, R
+        mRegisterFragment = RegisterFragment.getInstance();
+        ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mRegisterFragment, R
             .id.handle_activity);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.handle_activity);
-        fragment.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -1,9 +1,15 @@
 package com.framgia.fpoll.util;
 
 import android.databinding.BindingAdapter;
+import android.databinding.InverseBindingAdapter;
+import android.databinding.InverseBindingListener;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.framgia.fpoll.R;
@@ -29,5 +35,35 @@ public class DataBindingUtils {
     @BindingAdapter("bind:background")
     public static void setCardBackground(CardView view, int color) {
         view.setCardBackgroundColor(color);
+    }
+
+    @BindingAdapter("bind:imageUrl")
+    public void setImageUrl(ImageView view, String url) {
+        Glide.with(view.getContext()).load(url).into(view);
+    }
+
+    @BindingAdapter(value = {"bind:selectedValue", "bind:selectedValueAttrChanged"},
+        requireAll = false)
+    public static void bindSpinnerData(Spinner spinner, int selectedPosition, final
+    InverseBindingListener newTextAttrChanged) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                newTextAttrChanged.onChange();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        if (selectedPosition != -1) {
+            spinner.setSelection(selectedPosition, true);
+        }
+    }
+
+    @InverseBindingAdapter(attribute = "bind:selectedValue",
+        event = "bind:selectedValueAttrChanged")
+    public static int captureSelectedValue(Spinner spinner) {
+        return spinner.getSelectedItemPosition();
     }
 }

@@ -105,4 +105,5 @@
 	<string name="msg_confirm_pass_not_success">Password confirm incorrect, please check again!</string>
 	<string name="title_male">Male</string>
 	<string name="title_female">Female</string>
+
 </resources>
