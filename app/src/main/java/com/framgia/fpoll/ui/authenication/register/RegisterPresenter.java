@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.authenication.register;
 
-import android.util.Log;
-
+import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.util.UserValidation;
 
@@ -12,7 +11,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     private final String TAG = this.getClass().getSimpleName();
     private RegisterContract.View mView;
     private User mUser;
-    private String mUrlAvatar;
 
     public RegisterPresenter(RegisterContract.View view, User user) {
         mView = view;
@@ -21,35 +19,33 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     @Override
     public void registerUser() {
-        Log.d(TAG, "registerUser: " + mUser.toString());
-        Log.d(TAG, "registerUser: " + mUrlAvatar);
         new UserValidation(mUser).validate(new UserValidation.CallBack() {
             @Override
             public void onError(UserValidation.Error error) {
-                Log.d(TAG, "onError: " + error);
                 switch (error) {
                     case USER_NAME:
+                        mView.showMessageError(R.string.msg_username_not_empty);
                         break;
-                    case EMAL:
-                        break;
-                    case GENDER:
+                    case EMAIL:
+                        mView.showMessageError(R.string.msg_email_invalidate);
                         break;
                     case PASSWORD:
+                        mView.showMessageError(R.string.msg_password_not_empty);
                         break;
                     case CONFIRM_PASSWORD:
+                        mView.showMessageError(R.string.msg_confirm_pass_not_success);
                         break;
-                    case AVATAR:
+                    case PASSWORD_LENGTH:
+                        mView.showMessageError(R.string.msg_length_password);
                         break;
                     default:
                         break;
                 }
-                mView.onValidateError(error);
             }
 
             @Override
             public void onValidateSuccess() {
                 // TODO: 19/02/2017 Register
-                Log.d(TAG, "onValidateSuccess: ");
             }
         });
     }
@@ -62,8 +58,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     @Override
     public void setUserUrlImage(String url) {
         mUser.setAvatar(url);
-        mUrlAvatar = url;
-        Log.d(TAG, "setUserUrlImage: " + mUser.toString());
     }
 
     public User getUser() {

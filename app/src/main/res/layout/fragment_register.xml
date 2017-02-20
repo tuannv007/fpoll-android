@@ -14,13 +14,11 @@
 
     </data>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp_56"
         android:orientation="vertical">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +28,20 @@
             android:layout_marginTop="@dimen/dp_20"
             android:orientation="vertical"
             android:padding="@dimen/dp_10">
+
+            <LinearLayout
+                style="@style/RegisterLayoutStyle"
+                android:padding="@dimen/dp_1">
+
+                <ImageView
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_person_black_24dp"/>
+
+                <EditText
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/title_username"
+                    android:text="@={presenter.user.username}"/>
+            </LinearLayout>
 
             <LinearLayout style="@style/RegisterLayoutStyle">
 
@@ -48,20 +60,6 @@
                     android:inputType="textEmailAddress"
                     android:text="@={presenter.user.email}"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/RegisterLayoutStyle"
-                android:padding="@dimen/dp_1">
-
-                <ImageView
-                    style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_person_black_24dp"/>
-
-                <EditText
-                    style="@style/RegisterEditTextStyle"
-                    android:hint="@string/title_username"
-                    android:text="@={presenter.user.username}"/>
             </LinearLayout>
 
             <LinearLayout

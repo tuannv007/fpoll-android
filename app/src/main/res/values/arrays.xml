@@ -9,6 +9,7 @@
     <string-array name="gender">
         <item>@string/title_male</item>
         <item>@string/title_female</item>
+        <item>@string/title_other</item>
     </string-array>
 
 </resources>
