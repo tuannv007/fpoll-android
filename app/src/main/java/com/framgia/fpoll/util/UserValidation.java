@@ -9,21 +9,6 @@ import com.framgia.fpoll.data.model.User;
 public class UserValidation {
     private User mUser;
 
-    public enum Error {
-        USER_NAME,
-        EMAIL,
-        GENDER,
-        PASSWORD,
-        CONFIRM_PASSWORD,
-        AVATAR,
-        PASSWORD_LENGTH,
-    }
-
-    public interface CallBack {
-        void onError(Error error);
-        void onValidateSuccess();
-    }
-
     public UserValidation(User user) {
         mUser = user;
     }
@@ -52,6 +37,14 @@ public class UserValidation {
         callBack.onValidateSuccess();
     }
 
+    public void validateResetPass(@NonNull CallBack callBack) {
+        if (!isValidateEmail()) {
+            callBack.onError(Error.EMAIL);
+            return;
+        }
+        callBack.onValidateSuccess();
+    }
+
     public boolean isValidateConfirmPassword() {
         return mUser.getConfirmPassword() != null &&
             mUser.getConfirmPassword().equals(mUser.getPassword());
@@ -73,5 +66,20 @@ public class UserValidation {
     private boolean isValidateLengthPassword() {
         return mUser.getPassword() != null &&
             mUser.getPassword().trim().length() >= Constant.MIN_LENGTH_PASSWORD;
+    }
+
+    public enum Error {
+        USER_NAME,
+        EMAIL,
+        GENDER,
+        PASSWORD,
+        CONFIRM_PASSWORD,
+        AVATAR,
+        PASSWORD_LENGTH,
+    }
+
+    public interface CallBack {
+        void onError(Error error);
+        void onValidateSuccess();
     }
 }

@@ -14,7 +14,7 @@ public class PollHistoryItem extends BaseObservable {
     private int mNumberParticipant;
     private String mLastActivity;
     private String mLinkViewAdmin;
-    
+
     @Bindable
     public String getSubject() {
         return mSubject;

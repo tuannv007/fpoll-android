@@ -32,7 +32,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        mPresenter = new LoginPresenter(this, new FPollGoogleApiClient(getActivity()));
+        mPresenter = new LoginPresenter(this, new FpollGoogleApiClient(getActivity()));
         mBinding.setPresenter((LoginPresenter) mPresenter);
         mBinding.setHandler(new LoginActionHandler((LoginPresenter) mPresenter));
         mPresenter.initGoogle();

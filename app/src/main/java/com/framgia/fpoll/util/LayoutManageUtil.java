@@ -13,10 +13,6 @@ public class LayoutManageUtil {
     protected LayoutManageUtil() {
     }
 
-    public interface LayoutManagerFactory {
-        RecyclerView.LayoutManager create(RecyclerView recyclerView);
-    }
-
     /**
      * A {@link LinearLayoutManager}.
      */
@@ -80,6 +76,10 @@ public class LayoutManageUtil {
                 return new StaggeredGridLayoutManager(spanCount, orientation);
             }
         };
+    }
+
+    public interface LayoutManagerFactory {
+        RecyclerView.LayoutManager create(RecyclerView recyclerView);
     }
 
     @IntDef({LinearLayoutManager.HORIZONTAL, LinearLayoutManager.VERTICAL})

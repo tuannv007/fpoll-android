@@ -8,22 +8,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
  */
 public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.View mView;
-    private FPollGoogleApiClient mFPollGoogleApiClient;
+    private FpollGoogleApiClient mFpollGoogleApiClient;
 
-    public LoginPresenter(LoginContract.View view, FPollGoogleApiClient FPollGoogleApiClient) {
+    public LoginPresenter(LoginContract.View view, FpollGoogleApiClient FpollGoogleApiClient) {
         mView = view;
-        mFPollGoogleApiClient = FPollGoogleApiClient;
+        mFpollGoogleApiClient = FpollGoogleApiClient;
         mView.start();
     }
 
     @Override
     public void initGoogle() {
-        mFPollGoogleApiClient.initGoogle();
+        mFpollGoogleApiClient.initGoogle();
     }
 
     @Override
     public void loginGoogle() {
-        mView.loginGoogle(mFPollGoogleApiClient.getGoogleApiClient());
+        mView.loginGoogle(mFpollGoogleApiClient.getGoogleApiClient());
     }
 
     @Override
@@ -35,7 +35,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void requestGoogleToken(String email) {
-        mFPollGoogleApiClient.requestToken(email, new FPollGoogleApiClient.CallBack() {
+        mFpollGoogleApiClient.requestToken(email, new FpollGoogleApiClient.CallBack() {
                 @Override
                 public void onGetTokenSuccess(String token) {
                     mView.loginGoogleSuccess();
