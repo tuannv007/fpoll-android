@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class ActivityUtil {
     public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
                                              @NonNull Fragment fragment, int frameId) {
-        fragmentManager.beginTransaction().replace(frameId, fragment).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(frameId, fragment).commit();
     }
 
     public static void showToast(Context context, int res) {

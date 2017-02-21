@@ -16,8 +16,13 @@ public class Constant {
             "oauth2:https://www.googleapis.com/auth/userinfo.profile";
     }
 
+    public static class DataConstant {
+        public static final String DATA_PUBLIC_PROFILE = "public_profile";
+    }
+
     public static class BundleConstant {
         public static final String BUNDLE_TYPE_HISTORY = "BUNDLE_TYPE_HISTORY";
+        public static final String BUNDLE_EVENT_SWITCH_UI = "BUNDLE_EVENT_SWITCH_UI";
     }
 
     public static class Gender {

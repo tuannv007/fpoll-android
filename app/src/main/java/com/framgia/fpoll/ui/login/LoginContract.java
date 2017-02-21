@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.login;
 
+import android.content.Intent;
+
 import com.framgia.fpoll.ui.base.BaseView;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -11,8 +13,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public interface LoginContract {
     interface View extends BaseView {
         void loginGoogle(GoogleApiClient googleApiClient);
-        void loginGoogleSuccess();
-        void loginGoogleError();
+        void loginSuccess();
+        void loginError();
+        void loginFacebook();
+        void changeUiForgotPassword();
+        void changeUiRegister();
     }
 
     interface Presenter {
@@ -20,5 +25,10 @@ public interface LoginContract {
         void requestGoogleToken(String email);
         void initGoogle();
         void checkLoginGoogleResult(GoogleSignInResult result);
+        void loginFacebook();
+        void switchForgotPassword();
+        void switchUiRegister();
+        void initFacebook();
+        void checkLoginFacebook(int requestCode, int resultCode, Intent data);
     }
 }

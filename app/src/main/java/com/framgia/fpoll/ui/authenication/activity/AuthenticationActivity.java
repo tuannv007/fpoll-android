@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.ActivityAuthenticationAccountBinding;
+import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
+import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
 import com.framgia.fpoll.ui.login.LoginFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 
@@ -18,7 +20,7 @@ import com.framgia.fpoll.util.ActivityUtil;
  * <.
  */
 public class AuthenticationActivity extends AppCompatActivity
-    implements AuthenticationContract.View {
+    implements AuthenticationContract.View, LoginFragment.EventSwitchUI {
     private ActivityAuthenticationAccountBinding mBinding;
     private AuthenticationContract.Presenter mPresenter;
 
@@ -42,6 +44,17 @@ public class AuthenticationActivity extends AppCompatActivity
 
     @Override
     public void start() {
-        addFragment(LoginFragment.getInstance(), R.string.title_login);
+        setSupportActionBar(mBinding.layoutToolbar.toolbar);
+        addFragment(LoginFragment.getInstance(this), R.string.title_login);
+    }
+
+    @Override
+    public void switchUiForgotPassword() {
+        addFragment(ForgotPasswordFragment.newInstance(), R.string.title_forgot_password);
+    }
+
+    @Override
+    public void switchUiRegister() {
+        addFragment(RegisterFragment.getInstance(), R.string.title_register);
     }
 }
