@@ -2,6 +2,13 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.pollmanage.information.InformationHandler"/>
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,14 +26,17 @@
 
                 <android.support.v7.widget.AppCompatButton
                     style="@style/ButtonInfo"
+                    android:onClick="@{()->handler.clickLinkVote()}"
+                    android:text="@string/title_link_vote"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    style="@style/ButtonInfo"
+                    android:onClick="@{()->handler.clickViewOption()}"
                     android:text="@string/title_view_option"/>
 
                 <android.support.v7.widget.AppCompatButton
                     style="@style/ButtonInfo"
-                    android:text="@string/title_view_setting"/>
-
-                <android.support.v7.widget.AppCompatButton
-                    style="@style/ButtonInfo"
+                    android:onClick="@{()->handler.clickViewSetting()}"
                     android:text="@string/title_view_setting"/>
             </LinearLayout>
 

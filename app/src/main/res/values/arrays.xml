@@ -24,4 +24,9 @@
         <item>@string/title_one_answer</item>
         <item>@string/title_more_answer</item>
     </string-array>
+    <string-array name="array_vote">
+        <item>@string/title_voting</item>
+        <item>@string/title_information</item>
+        <item>@string/title_result_poll</item>
+    </string-array>
 </resources>

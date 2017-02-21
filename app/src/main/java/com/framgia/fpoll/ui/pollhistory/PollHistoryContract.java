@@ -14,9 +14,12 @@ public interface PollHistoryContract {
         void setPollHistory(List<PollHistoryItem> pollHistories);
         void setLoadingTrue();
         void setLoadingFalse();
+        void clickOpenManagePoll(PollHistoryItem pollHistoryItem);
+        void clickReopenPoll(PollHistoryItem pollHistoryItem);
     }
 
     interface Presenter {
         void getData();
+        void clickPollHistory(PollHistoryItem pollHistoryItem);
     }
 }

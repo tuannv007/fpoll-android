@@ -53,23 +53,15 @@
     <string name="title_link_invited">http://poll.framgia.vn/link/Jwrjub4RRndiMEwy</string>
     <string name="title_copy_link">Copy</string>
     <string name="msg_administration_link">Administration poll</string>
-    <string name="title_admin_screen">
-        <u>Manager Poll</u>
-    </string>
+    <string name="title_admin_screen">Manager Poll</string>
     <string name="msg_url_poll">url</string>
     <string name="title_description_poll">Description poll</string>
     <string name="title_save_data">Save information</string>
     <string name="title_time_close_poll">Time close poll</string>
     <string name="title_location">Location</string>
-    <string name="title_link_vote">
-        <u>Link vote</u>
-    </string>
-    <string name="title_view_option">
-        <u>View option</u>
-    </string>
-    <string name="title_view_setting">
-        <u>View setting</u>
-    </string>
+    <string name="title_link_vote">Link vote</string>
+    <string name="title_view_option">View option</string>
+    <string name="title_view_setting">View setting</string>
     <string name="title_result_poll">Result</string>
     <string name="title_no_option">No</string>
     <string name="title_vote_number">Vote number</string>
@@ -88,9 +80,9 @@
     <string name="action_open">Open</string>
     <string name="action_close">Close</string>
     <string name="title_history">Poll history</string>
-    <string name="title_subject">Subject: $1%s</string>
-    <string name="title_participants">Participants: $1%d</string>
-    <string name="title_latest_activity">Latest activity: $1%s</string>
+    <string name="title_subject">Subject: %s</string>
+    <string name="title_participants">Participants: %d</string>
+    <string name="title_latest_activity">Latest activity: %s</string>
     <string name="title_view_administer_page">View Administer</string>
     <string name="msg_link">Link</string>
     <string name="hint_poll_title">Poll\'s title</string>
@@ -156,4 +148,8 @@
     <string name="title_github_company">\"https://github.com/framgia\"</string>
     <string name="title_linkedin_company">https://www.linkedin.com/company/framgia-vietnam</string>
     <string name="msg_not_load_item">Item not load</string>
+    <string name="title_re_open">Reopen</string>
+    <string name="title_manage_poll">Manage poll</string>
+    <string name="title_voting">Voting</string>
+    <string name="msg_url_link">http://poll.framgia.vn/link/</string>
 </resources>

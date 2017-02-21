@@ -5,13 +5,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/dp_4"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingRight="@dimen/dp_16"
-        android:paddingTop="@dimen/dp_16">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/partial_toolbar"/>
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

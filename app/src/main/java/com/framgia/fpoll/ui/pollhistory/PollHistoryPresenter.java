@@ -10,8 +10,7 @@ import java.util.List;
  * Created by Nhahv0902 on 2/14/2017.
  * <></>
  */
-public class PollHistoryPresenter
-    implements PollHistoryContract.Presenter {
+public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     private PollHistoryContract.View mView;
     private PollHistoryType mHistoryType;
 
@@ -27,18 +26,33 @@ public class PollHistoryPresenter
         List<PollHistoryItem> pollHistories = new ArrayList<>();
         switch (mHistoryType) {
             case INITIATE:
-                // TODO: 2/16/2017  refresh data of tab poll initiated
+                // TODO: 2/24/2017 get list of initiate poll
                 break;
             case PARTICIPATE:
-                // TODO: 2/16/2017  refresh data of tab poll participate
+                // TODO: 2/24/2017 get list of participate poll
                 break;
             case CLOSE:
-                // TODO: 2/16/2017  refresh data of tab poll close
+                // TODO: 2/24/2017 get list of close poll
                 break;
             default:
                 break;
         }
         mView.setLoadingFalse();
         mView.setPollHistory(pollHistories);
+    }
+
+    @Override
+    public void clickPollHistory(PollHistoryItem pollHistoryItem) {
+        switch (mHistoryType) {
+            case INITIATE:
+            case PARTICIPATE:
+                mView.clickOpenManagePoll(pollHistoryItem);
+                break;
+            case CLOSE:
+                mView.clickReopenPoll(pollHistoryItem);
+                break;
+            default:
+                break;
+        }
     }
 }

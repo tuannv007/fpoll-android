@@ -5,5 +5,5 @@ package com.framgia.fpoll.ui.history;
  * <></>
  */
 public enum ViewpagerType {
-    HISTORY, MANAGE
+    HISTORY, MANAGE, VOTE;
 }

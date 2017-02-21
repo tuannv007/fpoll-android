@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
 import com.framgia.fpoll.databinding.ItemPollHistoryBinding;
 
@@ -19,9 +20,14 @@ import java.util.List;
 public class PollHistoryAdapter extends RecyclerView.Adapter<PollHistoryAdapter.PollHistoryHolder> {
     private LayoutInflater mInflater;
     private List<PollHistoryItem> mListPollHistory = new ArrayList<>();
+    private PollHistoryType mHistoryType;
+    private PollHistoryContract.Presenter mPresenter;
 
-    public PollHistoryAdapter(List<PollHistoryItem> pollHistories) {
+    public PollHistoryAdapter(List<PollHistoryItem> pollHistories, PollHistoryType pollHistoryType,
+                              PollHistoryContract.Presenter presenter) {
+        mHistoryType = pollHistoryType;
         mListPollHistory.addAll(pollHistories);
+        mPresenter = presenter;
     }
 
     public void update(List<PollHistoryItem> pollHistories) {
@@ -35,6 +41,20 @@ public class PollHistoryAdapter extends RecyclerView.Adapter<PollHistoryAdapter.
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
         ItemPollHistoryBinding binding =
             DataBindingUtil.inflate(mInflater, R.layout.item_poll_history, parent, false);
+        binding.setHandler(new PollHistoryHandler(mPresenter));
+        switch (mHistoryType) {
+            case CLOSE:
+                binding.setTitle(parent.getContext().getString(R.string.title_re_open));
+                binding.setIcon(parent.getContext().getResources().getDrawable(R.drawable.ic_open));
+                break;
+            case INITIATE:
+            case PARTICIPATE:
+            default:
+                binding.setTitle(parent.getContext().getString(R.string.msg_link));
+                binding.setIcon(
+                    parent.getContext().getResources().getDrawable(R.drawable.ic_link_white));
+                break;
+        }
         return new PollHistoryHolder(binding);
     }
 
