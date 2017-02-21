@@ -1,6 +1,5 @@
 package com.framgia.fpoll.util;
 
-import android.app.Activity;
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
@@ -12,13 +11,13 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -26,6 +25,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.ui.pollhistory.PollHistoryPresenter;
+import com.framgia.fpoll.ui.pollsetting.EventSwitchType;
+import com.framgia.fpoll.ui.pollsetting.SettingPresenter;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -129,5 +130,34 @@ public class DataBindingUtils {
         event = "bind:selectedValueAttrChanged")
     public static int captureSelectedValue(Spinner spinner) {
         return spinner.getSelectedItemPosition();
+    }
+
+    @BindingAdapter({"bind:setVisibility", "bind:presenter", "bind:eventType"})
+    public static void setVisibilityLinkPoll(final View view, SwitchCompat switchCompat,
+                                             final SettingPresenter presenter,
+                                             final EventSwitchType event) {
+        view.setVisibility(switchCompat.isChecked() ? View.VISIBLE : View.GONE);
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                view.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                switch (event) {
+                    case REQUIRE_VOTE:
+                        presenter.onCheckedRequireVote(isChecked);
+                        break;
+                    case LINK_POLL:
+                        presenter.onCheckedLinkPoll(isChecked);
+                        break;
+                    case VOTING_LIMIT:
+                        presenter.onCheckedVotingLimit(isChecked);
+                        break;
+                    case PASSWORD:
+                        presenter.onCheckedSetPassword(isChecked);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }

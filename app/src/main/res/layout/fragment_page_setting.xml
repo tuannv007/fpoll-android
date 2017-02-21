@@ -13,6 +13,8 @@
         <variable
             name="presenter"
             type="com.framgia.fpoll.ui.pollsetting.SettingPresenter"/>
+
+        <import type="com.framgia.fpoll.ui.pollsetting.EventSwitchType"/>
     </data>
 
     <ScrollView
@@ -49,7 +51,6 @@
                     android:id="@+id/switch_require_voted"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onCheckedChanged="@{(switch, checked)->handler.checkedRequireVote(checked)}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_require_voted"
                     android:textColor="@color/color_grey_700"
@@ -61,7 +62,9 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/dp_16"
                     android:paddingRight="@dimen/dp_16"
-                    android:visibility="gone">
+                    bind:eventType="@{EventSwitchType.REQUIRE_VOTE}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchRequireVoted}">
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/radio_enter_name"
@@ -102,20 +105,23 @@
                     android:id="@+id/switch_optimize_poll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onCheckedChanged="@{(switch, checked)->handler.checkedLinkPoll(checked)}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_optimize_poll"
                     android:textColor="@color/color_grey_700"
                     android:textSize="@dimen/sp_18"/>
 
                 <LinearLayout
+                    android:id="@+id/linear_link_poll"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_48"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:background="@drawable/bg_edit_text"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dp_1">
+                    android:padding="@dimen/dp_1"
+                    bind:eventType="@{EventSwitchType.LINK_POLL}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchOptimizePoll}">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -140,20 +146,23 @@
                     android:id="@+id/switch_voting_limit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onCheckedChanged="@{(switch, checked)->handler.checkedVotingLimit(checked)}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_voting_limit"
                     android:textColor="@color/color_grey_700"
                     android:textSize="@dimen/sp_18"/>
 
                 <LinearLayout
+                    android:id="@+id/linear_limit_voting"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_48"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:background="@drawable/bg_edit_text"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dp_1">
+                    android:padding="@dimen/dp_1"
+                    bind:eventType="@{EventSwitchType.VOTING_LIMIT}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchVotingLimit}">
 
                     <ImageView
                         style="@style/ImageViewLogin"
@@ -183,20 +192,23 @@
                     android:id="@+id/switch_set_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onCheckedChanged="@{(switch, checked)->handler.checkedSetPassword(checked)}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/action_change_password"
                     android:textColor="@color/color_grey_700"
                     android:textSize="@dimen/sp_18"/>
 
                 <LinearLayout
+                    android:id="@+id/linear_set_password"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_48"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:background="@drawable/bg_edit_text"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dp_1">
+                    android:padding="@dimen/dp_1"
+                    bind:eventType="@{EventSwitchType.PASSWORD}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchSetPassword}">
 
                     <ImageView
                         style="@style/ImageViewLogin"

@@ -4,6 +4,7 @@ import com.framgia.fpoll.ui.base.BaseView;
 
 /**
  * Created by framgia on 23/02/2017.
+ * <></>
  */
 public class SettingPollContract {
     interface View extends BaseView {
@@ -14,5 +15,10 @@ public class SettingPollContract {
     interface Presenter {
         void nextStep();
         void previousStep();
+        void onCheckedRequireVote(boolean checked);
+        void onCheckedVotingResult(boolean checked);
+        void onCheckedLinkPoll(boolean checked);
+        void onCheckedVotingLimit(boolean checked);
+        void onCheckedSetPassword(boolean checked);
     }
 }
