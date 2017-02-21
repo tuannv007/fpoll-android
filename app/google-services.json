@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "969147096778",
-    "firebase_url": "https://f2chat-f1582.firebaseio.com",
-    "project_id": "f2chat-f1582",
-    "storage_bucket": "f2chat-f1582.appspot.com"
+    "project_number": "222836748167",
+    "firebase_url": "https://fpoll-f872a.firebaseio.com",
+    "project_id": "fpoll-f872a",
+    "storage_bucket": "fpoll-f872a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:969147096778:android:2e9dece0fdf41f3b",
+        "mobilesdk_app_id": "1:222836748167:android:2e9dece0fdf41f3b",
         "android_client_info": {
           "package_name": "com.framgia.fpoll"
         }
       },
       "oauth_client": [
         {
-          "client_id": "969147096778-gqp005fp58ridfl96tnckjvfbe6n6jds.apps.googleusercontent.com",
+          "client_id": "222836748167-qsfkd2rv6go1p0ocbj00ohli1fq3ok1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.framgia.fpoll",
+            "certificate_hash": "8BB0050740A266C5DE2D56001E74A11AFAA1CF4F"
+          }
+        },
+        {
+          "client_id": "222836748167-hrmu9477hg4ofujgatiq5ahmivvpe08d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDoXlQRT5-E-KlB2fQn0tUciNQvJEIVRE0"
+          "current_key": "AIzaSyAF_Uy_HmnWFTZawD7LGIbkCRH0Phz1t3o"
         }
       ],
       "services": {
@@ -32,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "969147096778-gqp005fp58ridfl96tnckjvfbe6n6jds.apps.googleusercontent.com",
+              "client_id": "222836748167-hrmu9477hg4ofujgatiq5ahmivvpe08d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

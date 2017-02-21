@@ -3,6 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.login.LoginActionHandler"/>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.login.LoginPresenter"/>
+
+        <import type="com.framgia.fpoll.data.enums.LoginType"/>
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -11,13 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
+            android:paddingLeft="@dimen/dp_32"
+            android:paddingRight="@dimen/dp_32"
             android:paddingTop="@dimen/dp_60">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_56"
+                android:layout_height="@dimen/dp_48"
                 android:background="@drawable/bg_edit_text"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_2">
@@ -28,22 +41,17 @@
 
                 <include layout="@layout/partial_line"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <EditText
-                        android:id="@+id/edit_email"
-                        style="@style/EditTextLogin"
-                        android:hint="@string/hint_email"
-                        android:inputType="textEmailAddress"/>
-                </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/edit_email"
+                    style="@style/EditTextLogin"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_56"
+                android:layout_height="@dimen/dp_48"
                 android:layout_marginTop="@dimen/dp_8"
                 android:background="@drawable/bg_edit_text"
                 android:orientation="horizontal"
@@ -55,16 +63,11 @@
 
                 <include layout="@layout/partial_line"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <EditText
-                        android:id="@+id/edit_password"
-                        style="@style/EditTextLogin"
-                        android:hint="@string/hint_password"
-                        android:inputType="textPassword"/>
-                </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/edit_password"
+                    style="@style/EditTextLogin"
+                    android:hint="@string/hint_password"
+                    android:inputType="textPassword"/>
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatCheckBox
@@ -79,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_56"
                 android:layout_marginTop="@dimen/dp_16"
+                android:onClick="@{()->handler.clickLogin(LoginType.NORMAL)}"
                 app:cardBackgroundColor="@color/color_teal_600"
                 app:cardCornerRadius="@dimen/dp_2"
                 app:cardElevation="@dimen/dp_1"
@@ -98,20 +102,26 @@
             <include
                 layout="@layout/partial_button_login"
                 bind:colorButton="@{@color/color_indigo_600}"
+                bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_facebook}"
-                bind:typeLogin="@{@string/text_facebook}"/>
+                bind:titleLogin="@{@string/text_facebook}"
+                bind:typeLogin="@{LoginType.FACEBOOK}"/>
 
             <include
                 layout="@layout/partial_button_login"
                 bind:colorButton="@{@color/color_orange_700}"
+                bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_google}"
-                bind:typeLogin="@{@string/text_google}"/>
+                bind:titleLogin="@{@string/text_google}"
+                bind:typeLogin="@{LoginType.GOOGLE}"/>
 
             <include
                 layout="@layout/partial_button_login"
                 bind:colorButton="@{@color/color_blue}"
+                bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_twitter}"
-                bind:typeLogin="@{@string/text_twitter}"/>
+                bind:titleLogin="@{@string/text_twitter}"
+                bind:typeLogin="@{LoginType.TWITTER}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
