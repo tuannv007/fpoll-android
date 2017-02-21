@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.login;
+package com.framgia.fpoll.ui.authenication.login;
 
 import com.framgia.fpoll.data.enums.LoginType;
 
@@ -7,9 +7,9 @@ import com.framgia.fpoll.data.enums.LoginType;
  * <></>
  */
 public class LoginActionHandler {
-    private LoginPresenter mListener;
+    private LoginContract.Presenter mListener;
 
-    public LoginActionHandler(LoginPresenter presenter) {
+    public LoginActionHandler(LoginContract.Presenter presenter) {
         mListener = presenter;
     }
 
@@ -17,7 +17,7 @@ public class LoginActionHandler {
         if (mListener == null) return;
         switch (type) {
             case NORMAL:
-                // TODO: 2/20/2017  handle call login normal
+                mListener.loginAccount();
                 break;
             case FACEBOOK:
                 mListener.loginFacebook();
@@ -26,7 +26,7 @@ public class LoginActionHandler {
                 mListener.loginGoogle();
                 break;
             case TWITTER:
-                // TODO: 2/20/2017  handle call login twitter
+                mListener.loginTwitter();
                 break;
             default:
                 break;

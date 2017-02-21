@@ -12,7 +12,7 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.login.LoginActionHandler"/>
+            type="com.framgia.fpoll.ui.authenication.login.LoginActionHandler"/>
 
         <variable
             name="titleLogin"

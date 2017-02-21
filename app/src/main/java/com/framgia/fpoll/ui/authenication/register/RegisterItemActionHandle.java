@@ -19,4 +19,12 @@ public class RegisterItemActionHandle {
         if (mListener == null) return;
         mListener.openGallery();
     }
+
+    public void clickSwitchUiLogin() {
+        mListener.switchUiLogin();
+    }
+
+    public void clickSwitchUiForgotPassword() {
+        mListener.switchUiForgotPassword();
+    }
 }

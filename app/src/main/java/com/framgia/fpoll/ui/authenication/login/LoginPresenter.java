@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.login;
+package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
 
@@ -7,7 +7,11 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.util.UserValidation;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.twitter.sdk.android.core.TwitterException;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -16,11 +20,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 public class LoginPresenter implements LoginContract.Presenter {
     private final LoginContract.View mView;
     private FPollGoogleApiClient mFPollGoogleApiClient;
+    private FPollTwitterAuthClient mFPollTwitterAuthClient;
     private CallbackManager mCallbackManager;
+    private User mUser;
 
-    public LoginPresenter(LoginContract.View view, FPollGoogleApiClient FpollGoogleApiClient) {
+    public LoginPresenter(LoginContract.View view, FPollGoogleApiClient FpollGoogleApiClient,
+                          FPollTwitterAuthClient twitterAuthClient) {
         mView = view;
         mFPollGoogleApiClient = FpollGoogleApiClient;
+        mFPollTwitterAuthClient = twitterAuthClient;
+        mUser = new User();
         mView.start();
     }
 
@@ -52,6 +61,11 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
+    public void initTwitter() {
+        mFPollTwitterAuthClient.initTwitter();
+    }
+
+    @Override
     public void loginGoogle() {
         mView.loginGoogle(mFPollGoogleApiClient.getGoogleApiClient());
     }
@@ -69,6 +83,46 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
+    public void loginTwitter() {
+        mFPollTwitterAuthClient.loginTwitter(new FPollTwitterAuthClient.Callback() {
+            @Override
+            public void loginTwitterSuccess(String token) {
+                mView.loginSuccess();
+            }
+
+            @Override
+            public void loginTwitterError(TwitterException exception) {
+                exception.printStackTrace();
+                mView.loginError();
+            }
+        });
+    }
+
+    @Override
+    public void loginAccount() {
+        new UserValidation(mUser).validateEmailPassword(new UserValidation.CallBack() {
+            @Override
+            public void onError(UserValidation.Error error) {
+                switch (error) {
+                    case EMAIL:
+                        mView.showMessageError(R.string.msg_email_invalidate);
+                        break;
+                    case PASSWORD:
+                        mView.showMessageError(R.string.msg_password_not_empty);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onValidateSuccess() {
+                // TODO: 2/22/2017 handle login account success
+            }
+        });
+    }
+
+    @Override
     public void switchForgotPassword() {
         mView.changeUiForgotPassword();
     }
@@ -79,8 +133,13 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void checkLoginFacebook(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    public boolean checkLoginFacebook(int requestCode, int resultCode, Intent data) {
+        return mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void checkLoginTwitter(int requestCode, int resultCode, Intent data) {
+        mFPollTwitterAuthClient.getAuthClient().onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -97,5 +156,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }
             }
         );
+    }
+
+    public User getUser() {
+        return mUser;
     }
 }

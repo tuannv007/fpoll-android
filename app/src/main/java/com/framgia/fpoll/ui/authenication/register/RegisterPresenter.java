@@ -56,6 +56,16 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     @Override
+    public void switchUiLogin() {
+        mView.switchUiLogin();
+    }
+
+    @Override
+    public void switchUiForgotPassword() {
+        mView.switchUiForgotPassword();
+    }
+
+    @Override
     public void setUserUrlImage(String url) {
         mUser.setAvatar(url);
     }

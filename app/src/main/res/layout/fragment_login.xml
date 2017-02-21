@@ -7,11 +7,11 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.login.LoginActionHandler"/>
+            type="com.framgia.fpoll.ui.authenication.login.LoginActionHandler"/>
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.login.LoginPresenter"/>
+            type="com.framgia.fpoll.ui.authenication.login.LoginPresenter"/>
 
         <import type="com.framgia.fpoll.data.enums.LoginType"/>
     </data>
@@ -45,7 +45,8 @@
                     android:id="@+id/edit_email"
                     style="@style/EditTextLogin"
                     android:hint="@string/hint_email"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress"
+                    android:text="@={presenter.user.email}"/>
 
             </LinearLayout>
 
@@ -67,7 +68,8 @@
                     android:id="@+id/edit_password"
                     style="@style/EditTextLogin"
                     android:hint="@string/hint_password"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:text="@={presenter.user.password}"/>
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatCheckBox

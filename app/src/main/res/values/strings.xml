@@ -122,7 +122,8 @@
     <string name="sex_edit_profile">Gender</string>
     <string name="title_action_edit_profile">Edit</string>
     <string name="title_edit_profile">Edit Profile</string>
-    <string name="msg_login_google_error">Login google fault</string>
-    <string name="msg_login_google_success">Login google success</string>
     <string name="msg_copy_success">Copy Successfully</string>
+    <string name="key_twitter_key">jI2vtDHce6rTrGWoyZegvuC4a</string>
+    <string name="key_twitter_secret">U1lCGwnKsXDXoo7s3MpqVq9IDwTQO8b2Dj9QtOYVni2e4irFc0</string>
+    <string name="key_twitter_value">fe4d33bbc6b2a28f96b8d4b8a45c4f8184009d68</string>
 </resources>

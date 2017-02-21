@@ -4,15 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.ActivityAuthenticationAccountBinding;
+import com.framgia.fpoll.ui.authenication.login.LoginFragment;
 import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
 import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
-import com.framgia.fpoll.ui.login.LoginFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 
 /**
@@ -20,9 +23,34 @@ import com.framgia.fpoll.util.ActivityUtil;
  * <.
  */
 public class AuthenticationActivity extends AppCompatActivity
-    implements AuthenticationContract.View, LoginFragment.EventSwitchUI {
+    implements AuthenticationContract.View {
     private ActivityAuthenticationAccountBinding mBinding;
     private AuthenticationContract.Presenter mPresenter;
+    private EventSwitchUI mEventSwitchUI = new EventSwitchUI() {
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+        }
+
+        @Override
+        public void switchUiForgotPassword() {
+            addFragment(ForgotPasswordFragment.newInstance(), R.string.title_forgot_password);
+        }
+
+        @Override
+        public void switchUiRegister() {
+            addFragment(RegisterFragment.getInstance(mEventSwitchUI), R.string.title_register);
+        }
+
+        @Override
+        public void switchUiLogin() {
+            addFragment(LoginFragment.getInstance(mEventSwitchUI), R.string.title_login);
+        }
+    };
 
     public static Intent getAuthenticationIntent(Context context) {
         return new Intent(context, AuthenticationActivity.class);
@@ -45,16 +73,28 @@ public class AuthenticationActivity extends AppCompatActivity
     @Override
     public void start() {
         setSupportActionBar(mBinding.layoutToolbar.toolbar);
-        addFragment(LoginFragment.getInstance(this), R.string.title_login);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        addFragment(LoginFragment.getInstance(mEventSwitchUI), R.string.title_login);
     }
 
     @Override
-    public void switchUiForgotPassword() {
-        addFragment(ForgotPasswordFragment.newInstance(), R.string.title_forgot_password);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) onBackPressed();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void switchUiRegister() {
-        addFragment(RegisterFragment.getInstance(), R.string.title_register);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    public interface EventSwitchUI extends Parcelable {
+        void switchUiForgotPassword();
+        void switchUiRegister();
+        void switchUiLogin();
     }
 }
