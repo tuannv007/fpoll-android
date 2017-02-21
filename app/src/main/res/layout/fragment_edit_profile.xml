@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.profileedit.EditProfilePresenter"/>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.profileedit.EditProfileHandle"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_16">
+
+            <ImageView
+                android:layout_width="@dimen/dp_150"
+                android:layout_height="@dimen/dp_150"
+                android:background="@drawable/bg_edit_text"
+                android:onClick="@{() -> handler. openGallery()}"
+                bind:imagePath="@{presenter.user.avatar}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/action_edit_profile_avatar"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_18"/>
+
+            <LinearLayout
+                style="@style/RegisterLayoutStyle"
+                android:padding="@dimen/dp_1">
+
+                <ImageView
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_person_black_24dp"/>
+
+                <EditText
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/title_username"
+                    android:text="@={presenter.user.username}"/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/RegisterLayoutStyle">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_2"
+                    android:layout_weight="1"
+                    android:background="@color/color_gray"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/ic_email_white_24px"/>
+
+                <EditText
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/title_email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={presenter.user.email}"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/RegisterLayoutStyle"
+                android:padding="@dimen/dp_1">
+
+                <ImageView
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_male"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:entries="@array/gender"
+                    bind:selectedValue="@={presenter.user.gender}"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/RegisterLayoutStyle"
+                android:padding="@dimen/dp_1">
+
+                <ImageView
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_vpn_key_white_24px"/>
+
+                <EditText
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/title_password"
+                    android:inputType="textPassword"
+                    android:text="@={presenter.user.password}"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/RegisterLayoutStyle"
+                android:padding="@dimen/dp_1">
+
+                <ImageView
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_vpn_key_white_24px"/>
+
+                <EditText
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/action_confirm_password"
+                    android:inputType="textPassword"
+                    android:text="@={presenter.user.confirmPassword}"/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_5"
+                android:background="@color/color_tit_register"
+                android:text="@string/title_action_edit_profile"
+                android:textAllCaps="false"
+                android:onClick="@{() -> handler.submitEditProfile()}"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </ScrollView>
+</layout>
