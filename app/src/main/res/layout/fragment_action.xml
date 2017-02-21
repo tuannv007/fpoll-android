@@ -1,0 +1,130 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_40">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_4"
+                android:paddingTop="@dimen/dp_4"
+                android:text="@string/title_option"
+                android:textColor="@color/color_blued"
+                android:textSize="@dimen/sp_17"/>
+
+            <LinearLayout
+                style="@style/LayoutManagerPoll">
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:src="@drawable/ic_link"/>
+
+                <include layout="@layout/partial_line"/>
+
+                <EditText
+                    style="@style/EditTextManageActivity"
+                    android:inputType="textEmailAddress"/>
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:background="@color/color_teal_500"
+                    android:src="@drawable/ic_done"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_30"
+                android:paddingBottom="@dimen/dp_4"
+                android:paddingTop="@dimen/dp_4"
+                android:text="@string/title_option"
+                android:textColor="@color/color_blued"
+                android:textSize="@dimen/sp_17"/>
+
+            <LinearLayout
+                style="@style/LayoutManagerPoll">
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:src="@drawable/ic_link"/>
+
+                <include layout="@layout/partial_line"/>
+
+                <EditText
+                    style="@style/EditTextManageActivity"
+                    android:inputType="textEmailAddress"/>
+
+                <ImageView
+                    style="@style/ImageViewLogin"
+                    android:background="@color/color_teal_500"
+                    android:src="@drawable/ic_done"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/partial_button_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_2"
+                    android:layout_weight="1"
+                    bind:image="@{@drawable/ic_history_white_24px}"
+                    bind:title="@{@string/title_views_history}"/>
+
+                <include
+                    layout="@layout/partial_button_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_2"
+                    android:layout_weight="1"
+                    bind:image="@{@drawable/ic_mode_edit_black_24px}"
+                    bind:title="@{@string/title_edit_this_poll}"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/partial_button_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_2"
+                    android:layout_weight="1"
+                    bind:image="@{@drawable/ic_cancel_circle}"
+                    bind:title="@{@string/title_close_this_poll}"/>
+
+                <include
+                    layout="@layout/partial_button_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_2"
+                    android:layout_weight="1"
+                    bind:image="@{@drawable/ic_copy}"
+                    bind:title="@{@string/title_create_duplicate}"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>
