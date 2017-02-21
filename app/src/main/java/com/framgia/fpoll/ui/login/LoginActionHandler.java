@@ -20,7 +20,7 @@ public class LoginActionHandler {
                 // TODO: 2/20/2017  handle call login normal
                 break;
             case FACEBOOK:
-                // TODO: 2/20/2017  handle call login facebook
+                mListener.loginFacebook();
                 break;
             case GOOGLE:
                 mListener.loginGoogle();
@@ -31,5 +31,13 @@ public class LoginActionHandler {
             default:
                 break;
         }
+    }
+
+    public void clickForgotPassword() {
+        mListener.switchForgotPassword();
+    }
+
+    public void clickRegister() {
+        mListener.switchUiRegister();
     }
 }

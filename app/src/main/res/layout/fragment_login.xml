@@ -135,6 +135,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:onClick="@{()->handler.clickForgotPassword()}"
+                    android:padding="@dimen/dp_4"
                     android:text="@string/text_forget_password"
                     android:textColor="@color/color_blue"
                     android:textSize="@dimen/sp_18"/>
@@ -144,6 +146,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="end"
+                    android:onClick="@{()->handler.clickRegister()}"
+                    android:padding="@dimen/dp_4"
                     android:text="@string/text_register"
                     android:textColor="@color/color_blue"
                     android:textSize="@dimen/sp_18"/>

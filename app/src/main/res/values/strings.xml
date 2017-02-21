@@ -115,6 +115,8 @@
     <string name="title_permissions">Request Permissions</string>
     <string name="title_reques_pemissions">Request Permissions</string>
     <string name="message_request_read_pemissions">required reading for image rights</string>
-    <string name="msg_login_google_error">Login google fault</string>
-    <string name="msg_login_google_success">Login google success</string>
+    <string name="msg_login_error">Login fault</string>
+    <string name="msg_login_success">Login success</string>
+    <string name="facebook_app_id">1281983528552078</string>
+    <string name="title_forgot_password">Reset password</string>
 </resources>
