@@ -40,9 +40,7 @@
     <string name="action_previous">Previous</string>
     <string name="action_continue">Continue</string>
     <string name="action_finish">Finish</string>
-    <string name="msg_send_email_information_poll">If you want send mail to participants, let enter
-        email into
-        below textbox!</string>
+    <string name="msg_send_email_information_poll">The following two links have been send to</string>
     <string name="hint_enter_email_participant">Enter email of participant</string>
     <string name="title_reset_password">Reset password</string>
     <string name="msg_thank_user">Thanks ,</string>
@@ -124,4 +122,7 @@
     <string name="sex_edit_profile">Gender</string>
     <string name="title_action_edit_profile">Edit</string>
     <string name="title_edit_profile">Edit Profile</string>
+    <string name="msg_login_google_error">Login google fault</string>
+    <string name="msg_login_google_success">Login google success</string>
+    <string name="msg_copy_success">Copy Successfully</string>
 </resources>

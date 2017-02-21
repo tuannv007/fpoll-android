@@ -6,6 +6,7 @@ package com.framgia.fpoll.util;
  */
 public class Constant {
     public static final int MIN_LENGTH_PASSWORD = 6;
+    public static final CharSequence TITLE_TYPE_TEXT = "text";
 
     public static class WebUrl {
         public static final String BASE_URL = "http://poll.framgia.vn/";
