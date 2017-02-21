@@ -22,4 +22,16 @@ public class SettingHandler {
     public void checkedVotingResult(boolean checked) {
         if (mListener != null) mListener.onCheckedVotingResult(checked);
     }
+
+    public void clickShowPassword() {
+        if (mListener != null) mListener.onShowPassword();
+    }
+
+    public void clickMinus() {
+        if (mListener != null) mListener.clickMinus();
+    }
+
+    public void clickAugment() {
+        if (mListener != null) mListener.clickAugment();
+    }
 }

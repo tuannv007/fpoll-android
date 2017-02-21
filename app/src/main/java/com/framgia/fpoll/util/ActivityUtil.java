@@ -15,6 +15,9 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PLASH;
+import static com.framgia.fpoll.util.Constant.DataConstant.NUMBER_SPACE;
+
 /**
  * Created by tuanbg on 2/9/17.
  */
@@ -28,5 +31,7 @@ public class ActivityUtil {
         Toast.makeText(context, res, Toast.LENGTH_LONG).show();
     }
 
-
+    public static String subLinkPoll(String pollLink) {
+        return pollLink.substring(pollLink.lastIndexOf(DATA_PLASH) + NUMBER_SPACE);
+    }
 }

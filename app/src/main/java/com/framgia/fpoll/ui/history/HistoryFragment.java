@@ -14,6 +14,7 @@ import com.framgia.fpoll.ui.pollhistory.PollHistoryFragment;
 import com.framgia.fpoll.ui.pollmanage.action.ActionFragment;
 import com.framgia.fpoll.ui.pollmanage.information.InformationFragment;
 import com.framgia.fpoll.ui.pollmanage.result.ResultFragment;
+import com.framgia.fpoll.ui.vote.VoteFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,12 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void initAdapterVote() {
-        // TODO: 2/27/2017 init adapter vote poll
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(VoteFragment.newIntance());
+        fragments.add(InformationFragment.newInstance());
+        fragments.add(ResultFragment.newInstance());
+        String[] titles = getActivity().getResources().getStringArray(R.array.array_vote);
+        mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
     }
 
     public ViewPagerAdapter getAdapter() {

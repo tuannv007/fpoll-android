@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
@@ -15,6 +14,10 @@
             type="com.framgia.fpoll.ui.pollsetting.SettingPresenter"/>
 
         <import type="com.framgia.fpoll.ui.pollsetting.EventSwitchType"/>
+
+        <import type="java.lang.String"/>
+
+        <import type="com.framgia.fpoll.util.Constant.DataConstant"/>
     </data>
 
     <ScrollView
@@ -62,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/dp_16"
                     android:paddingRight="@dimen/dp_16"
+                    bind:eventRadioGroup="@{presenter}"
                     bind:eventType="@{EventSwitchType.REQUIRE_VOTE}"
                     bind:presenter="@{presenter}"
                     bind:setVisibility="@{switchRequireVoted}">
@@ -139,6 +143,7 @@
                         android:background="@android:color/transparent"
                         android:paddingLeft="@dimen/dp_4"
                         android:paddingRight="@dimen/dp_4"
+                        android:text="@={presenter.linkPoll}"
                         android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
 
@@ -173,18 +178,24 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="@string/hint_number_limit"
+                        android:inputType="number"
+                        android:text="@{presenter.numberLimit > 0 ? String.valueOf(presenter.numberLimit): DataConstant.DATA_SPACE}"/>
 
                     <ImageView
                         android:id="@+id/image_sub"
                         style="@style/ImageViewLogin"
                         android:layout_marginLeft="@dimen/dp_2"
                         android:layout_marginRight="@dimen/dp_2"
+                        android:onClick="@{()->handler.clickMinus()}"
                         android:src="@drawable/ic_remove_black_24px"/>
 
                     <ImageView
                         android:id="@+id/image_add"
                         style="@style/ImageViewLogin"
+                        android:onClick="@{()->handler.clickAugment()}"
                         android:src="@drawable/ic_add_black_24px"/>
                 </LinearLayout>
 
@@ -219,12 +230,16 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@android:color/transparent"/>
+                        android:background="@android:color/transparent"
+                        android:inputType="textPassword"
+                        bind:showPassword="@{presenter.showPassword}"/>
 
                     <ImageView
                         android:id="@+id/image_show"
                         style="@style/ImageViewLogin"
-                        android:src="@drawable/ic_eye"/>
+                        android:onClick="@{()->handler.clickShowPassword()}"
+                        android:src="@drawable/ic_eye"
+                        bind:showImage="@{presenter.showPassword}"/>
                 </LinearLayout>
             </LinearLayout>
 

@@ -154,4 +154,5 @@
     <string name="msg_url_link">http://poll.framgia.vn/link/</string>
     <string name="msg_multi_email">multiple emails separated by spaces \",\"</string>
     <string name="title_introduce_app">Introduce</string>
+    <string name="hint_number_limit">Number limit</string>
 </resources>

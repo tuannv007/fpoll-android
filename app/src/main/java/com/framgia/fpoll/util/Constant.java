@@ -20,6 +20,10 @@ public class Constant {
 
     public static class DataConstant {
         public static final String DATA_PUBLIC_PROFILE = "public_profile";
+        public static final String DATA_SPACE = "";
+        public static final int NUMBER_SPACE = 1;
+        public static final int NUMBER_MIN_LIMIT = -1;
+        public static final String DATA_PLASH = "/";
     }
 
     public static class BundleConstant {

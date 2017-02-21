@@ -2,8 +2,9 @@ package com.framgia.fpoll.ui.pollhistory;
 
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
+import com.framgia.fpoll.data.source.local.DataSource;
+import com.framgia.fpoll.data.source.local.PollHistoryRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,32 +14,31 @@ import java.util.List;
 public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     private PollHistoryContract.View mView;
     private PollHistoryType mHistoryType;
+    private PollHistoryRepository mRepository;
 
-    public PollHistoryPresenter(PollHistoryContract.View view, PollHistoryType typeHistory) {
+    public PollHistoryPresenter(PollHistoryContract.View view, PollHistoryType typeHistory,
+                                PollHistoryRepository repository) {
         mView = view;
         mHistoryType = typeHistory;
+        mRepository = repository;
         mView.start();
     }
 
     @Override
     public void getData() {
         mView.setLoadingTrue();
-        List<PollHistoryItem> pollHistories = new ArrayList<>();
-        switch (mHistoryType) {
-            case INITIATE:
-                // TODO: 2/24/2017 get list of initiate poll
-                break;
-            case PARTICIPATE:
-                // TODO: 2/24/2017 get list of participate poll
-                break;
-            case CLOSE:
-                // TODO: 2/24/2017 get list of close poll
-                break;
-            default:
-                break;
-        }
-        mView.setLoadingFalse();
-        mView.setPollHistory(pollHistories);
+        mRepository.getPollHistory(mHistoryType, new DataSource.GetCallback<PollHistoryItem>() {
+            @Override
+            public void onLoaded(List<PollHistoryItem> data) {
+                mView.setLoadingFalse();
+                mView.setPollHistory(data);
+            }
+
+            @Override
+            public void onNotAvailable() {
+                mView.setLoadingFalse();
+            }
+        });
     }
 
     @Override
