@@ -36,4 +36,12 @@ public class Constant {
         public static final int PERMISSIONS_REQUEST_READ_EXTERNAL = 2;
         public static final int REQUEST_GOOGLE = 3;
     }
+
+        public static class TimeFormat {
+            public static final String DATE_OUTPUT = "dd-MM-yyyy";
+        }
+
+        public static class Tag {
+            public static final String DATE_PICKER_TAG = "Date picker dialog";
+        }
 }

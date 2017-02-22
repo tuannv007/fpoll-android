@@ -2,6 +2,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.pollcreation.CreatePollFragment"/>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.pollcreation.CreatePollActionHandle"/>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.pollcreation.CreationPresenter"/>
+
+        <import type="com.framgia.fpoll.util.TimeUtil"/>
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,7 +98,8 @@
                 </LinearLayout>
 
                 <Spinner
-                    style="@style/RegisterLayoutStyle"/>
+                    style="@style/RegisterLayoutStyle"
+                    android:entries="@array/num_answer"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/edit_send_email"
@@ -98,7 +116,9 @@
                     android:padding="@dimen/dp_8"/>
 
                 <LinearLayout
-                    style="@style/RegisterLayoutStyle">
+                    android:id="@+id/btn_choose_time"
+                    style="@style/RegisterLayoutStyle"
+                    android:onClick="@{() -> handler. showDatePicker()}">
 
                     <ImageView
                         style="@style/RegisterImageViewStyle"
@@ -107,10 +127,11 @@
                         android:padding="@dimen/dp_10"
                         android:src="@drawable/ic_alarm_black_24px"/>
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/edt_choose_time"
                         style="@style/RegisterEditTextStyle"
-                        android:hint="@string/hint_choose_time"
-                        android:inputType="textEmailAddress"/>
+                        android:gravity="center_vertical"
+                        android:text="@{TimeUtil.convertTimeToString(fragment.mTime)}"/>
 
                 </LinearLayout>
 
@@ -139,6 +160,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
+                android:onClick="@{() -> handler. nextStep()}"
                 android:padding="@dimen/dp_8"
                 app:cardBackgroundColor="@color/color_teal_800">
 
