@@ -19,4 +19,14 @@ public class RegisterItemActionHandle {
         if (mListener == null) return;
         mListener.openGallery();
     }
+
+    public void changeScreenToLogin() {
+        if (mListener == null) return;
+        mListener.changeScreenToLogin();
+    }
+
+    public void changeScreenToForgotPassword() {
+        if (mListener == null) return;
+        mListener.changeScreenToForgotPassword();
+    }
 }
