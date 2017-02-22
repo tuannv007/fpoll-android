@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="itemvote"
+            type="com.framgia.fpoll.data.model.VoteItem"/>
+
+        <import type="java.lang.String"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@{itemvote.contentVote}"
+            android:textSize="@dimen/sp_25"/>
+
+        <TextView
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:background="@drawable/bg_circle_textview"
+            android:gravity="center"
+            android:text="@{String.valueOf(itemvote.countVote)}"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</layout>

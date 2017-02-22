@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.vote.VoteFragment"/>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/ic_description"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_20"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:background="@color/color_blued"
+                    android:drawableLeft="@drawable/ic_person_white"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_17"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:background="@color/color_blue"
+                    android:drawableLeft="@drawable/ic_comment_full_white"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_17"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="3"
+                    android:background="@color/color_green_500"
+                    android:drawableLeft="@drawable/ic_alarm_white"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp_17"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="@string/time_close_vote"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sp_15"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sp_15"/>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/button_choose_view_listtype"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/dp_5"
+                android:src="@drawable/ic_eye_blocked"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recle_typelist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:adapter="@{fragment.adapter}"
+                app:layoutManager="@{LayoutManageUtil.linear()}"/>
+
+            <LinearLayout
+                style="@style/RegisterLayoutStyle"
+                android:layout_marginTop="@dimen/dp_20"
+                android:padding="@dimen/dp_1">
+
+                <ImageView
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_person_black_24dp"/>
+
+                <EditText
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/title_username"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/RegisterLayoutStyle"
+                android:padding="@dimen/dp_1">
+
+                <ImageView
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_email_white_24px"/>
+
+                <EditText
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/title_email"/>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_5"
+                android:background="@color/color_tit_register"
+                android:text="@string/title_vote_number"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </ScrollView>
+</layout>
