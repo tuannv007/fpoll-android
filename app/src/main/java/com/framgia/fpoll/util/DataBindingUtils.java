@@ -3,9 +3,12 @@ package com.framgia.fpoll.util;
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
@@ -16,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.ui.pollhistory.PollHistoryPresenter;
 
@@ -35,6 +39,20 @@ public class DataBindingUtils {
             .load(path)
             .placeholder(R.drawable.ic_insert_photo_black_24px)
             .into(view);
+    }
+
+    @BindingAdapter({"bind:imageDrawable"})
+    public static void loadImageDrawable(ImageView view, int source) {
+        Glide.with(view.getContext()).load(source).asBitmap().centerCrop()
+            .into(new BitmapImageViewTarget(view) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(view.getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    view.setImageDrawable(circularBitmapDrawable);
+                }
+            });
     }
 
     @BindingAdapter("bind:background")

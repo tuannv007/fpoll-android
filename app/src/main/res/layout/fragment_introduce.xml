@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.introductapp.IntroduceHandlerAction"/>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.introductapp.IntroduceAppFragment"/>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:adapter="@{fragment.adapter}"
+                app:layoutManager="@{LayoutManageUtil.grid(fragment.typeLayoutGrid())}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_450"
+                android:background="@android:color/black"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:text="@string/app_name"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_30"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_50"
+                        android:src="@drawable/ic_framgia"/>
+
+                    <TextView
+                        style="@style/TextViewIntroduce"
+                        android:text="@string/title_copy_right"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:src="@drawable/ic_location_on_black_24px"/>
+
+                    <TextView
+                        style="@style/TextViewIntroduce"
+                        android:text="@string/title_address_company"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:src="@drawable/ic_phone_in_talk_white_24dp"/>
+
+                    <TextView
+                        style="@style/TextViewIntroduce"
+                        android:text="@string/title_phone_company"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:src="@drawable/ic_email_white_24px"/>
+
+                    <TextView
+                        style="@style/TextViewIntroduce"
+                        android:text="@string/title_email_company"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:text="@string/title_introduce_poll"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_17"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/ImageViewIntroduce"
+                        android:onClick="@{() -> handler.openFacebook()}"
+                        android:src="@drawable/ic_fb"/>
+
+                    <ImageView
+                        style="@style/ImageViewIntroduce"
+                        android:onClick="@{() -> handler.openGitHub()}"
+                        android:src="@drawable/ic_github"/>
+
+                    <ImageView
+                        style="@style/ImageViewIntroduce"
+                        android:onClick="@{() -> handler.openLinkeDin()}"
+                        android:src="@drawable/ic_likedin"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

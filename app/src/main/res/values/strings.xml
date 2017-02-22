@@ -147,4 +147,13 @@
     <string name="title_introduce_export_poll">Can export result to PDF file or EXCEL file</string>
     <string name="title_introduce_support_poll">Support multiple deceive: laptop or mobile</string>
     <string name="title_introduce_share_poll">Share poll by facebook</string>
+    <string name="title_copy_right">Copyright 2016 Framgia, Inc. All rights reserved.</string>
+    <string name="title_address_company">13F Keangnam Landmark 72 Tower, Plot E6, Pham Hung Road, Nam Tu Liem, Ha Noi, Viet Nam</string>
+    <string name="title_phone_company">84–4–3795–5417</string>
+    <string name="title_email_company">hr_team@framgia.com</string>
+    <string name="title_introduce_poll">Fpoll - a simple, convinient and powerfull Poll System</string>
+    <string name="title_facebook_company">https://www.facebook.com/FramgiaVietnam</string>
+    <string name="title_github_company">\"https://github.com/framgia\"</string>
+    <string name="title_linkedin_company">https://www.linkedin.com/company/framgia-vietnam</string>
+    <string name="msg_not_load_item">Item not load</string>
 </resources>
