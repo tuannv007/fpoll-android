@@ -20,7 +20,6 @@ import com.framgia.fpoll.databinding.FragmentEditProfileBinding;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
-import com.framgia.fpoll.util.UserValidation;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -35,6 +34,7 @@ public class EditProfileFragment extends Fragment implements EditProfileContract
     public static EditProfileFragment getInstance() {
         return new EditProfileFragment();
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,7 +51,6 @@ public class EditProfileFragment extends Fragment implements EditProfileContract
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
 
     @Override
     public void chooseImage() {

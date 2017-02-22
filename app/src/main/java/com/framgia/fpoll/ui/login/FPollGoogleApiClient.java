@@ -46,6 +46,11 @@ public class FPollGoogleApiClient {
         return mGoogleApiClient;
     }
 
+    public interface CallBack {
+        void onGetTokenSuccess(String token);
+        void onGetTokenFail();
+    }
+
     public class GetGoogleTokenAsync extends AsyncTask<String, Void, String> {
         private CallBack mCallBack;
 
@@ -71,10 +76,5 @@ public class FPollGoogleApiClient {
             if (token != null) mCallBack.onGetTokenSuccess(token);
             else mCallBack.onGetTokenFail();
         }
-    }
-
-    public interface CallBack {
-        void onGetTokenSuccess(String token);
-        void onGetTokenFail();
     }
 }

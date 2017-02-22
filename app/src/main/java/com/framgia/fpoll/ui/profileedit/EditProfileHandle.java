@@ -6,7 +6,7 @@ package com.framgia.fpoll.ui.profileedit;
 public class EditProfileHandle {
     private EditProfileContract.Presenter mPresenterListenner;
 
-    public EditProfileHandle( EditProfileContract.Presenter listenner) {
+    public EditProfileHandle(EditProfileContract.Presenter listenner) {
         mPresenterListenner = listenner;
     }
 
