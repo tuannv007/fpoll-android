@@ -14,147 +14,157 @@
 
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_56"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_30"
             android:orientation="vertical"
-            android:padding="@dimen/dp_10">
+            android:padding="@dimen/dp_32">
 
             <LinearLayout
-                style="@style/RegisterLayoutStyle"
-                android:padding="@dimen/dp_1">
-
-                <ImageView
-                    style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_person_black_24dp"/>
-
-                <EditText
-                    style="@style/RegisterEditTextStyle"
-                    android:hint="@string/title_username"
-                    android:text="@={presenter.user.username}"/>
-            </LinearLayout>
-
-            <LinearLayout style="@style/RegisterLayoutStyle">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/dp_2"
-                    android:layout_weight="1"
-                    android:background="@color/color_gray"
-                    android:padding="@dimen/dp_10"
-                    android:src="@drawable/ic_email_white_24px"/>
-
-                <EditText
-                    style="@style/RegisterEditTextStyle"
-                    android:hint="@string/title_email"
-                    android:inputType="textEmailAddress"
-                    android:text="@={presenter.user.email}"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/RegisterLayoutStyle"
-                android:padding="@dimen/dp_1">
-
-
-                <ImageView
-                    style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_male"/>
-
-                <Spinner
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:entries="@array/gender"
-                    bind:selectedValue="@={presenter.user.gender}"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/RegisterLayoutStyle"
-                android:padding="@dimen/dp_1">
-
-                <ImageView
-                    style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_vpn_key_white_24px"/>
-
-
-                <EditText
-                    style="@style/RegisterEditTextStyle"
-                    android:hint="@string/title_password"
-                    android:inputType="textPassword"
-                    android:text="@={presenter.user.password}"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/RegisterLayoutStyle"
-                android:padding="@dimen/dp_1">
-
-                <ImageView
-                    style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_vpn_key_white_24px"/>
-
-                <EditText
-                    style="@style/RegisterEditTextStyle"
-                    android:hint="@string/action_confirm_password"
-                    android:inputType="textPassword"
-                    android:text="@={presenter.user.confirmPassword}"/>
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
-                android:layout_margin="@dimen/dp_5"
-                android:background="@drawable/bg_edit_text"
-                android:onClick="@{() -> handler. openGallery()}"
-                android:padding="@dimen/dp_5"
-                bind:imagePath="@{presenter.user.avatar}"/>
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_5"
-                android:background="@color/color_tit_register"
-                android:onClick="@{() -> handler.registerUser()}"
-                android:text="@string/action_register"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"/>
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle"
+                    android:padding="@dimen/dp_1">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:src="@drawable/ic_person_black_24dp"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/title_username"
+                        android:text="@={presenter.user.username}"/>
+                </LinearLayout>
+
+                <LinearLayout style="@style/RegisterLayoutStyle">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/dp_2"
+                        android:layout_weight="1"
+                        android:background="@color/color_gray"
+                        android:padding="@dimen/dp_10"
+                        android:src="@drawable/ic_email_white_24px"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/title_email"
+                        android:inputType="textEmailAddress"
+                        android:text="@={presenter.user.email}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle"
+                    android:padding="@dimen/dp_1">
+
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:src="@drawable/ic_male"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:entries="@array/gender"
+                        bind:selectedValue="@={presenter.user.gender}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle"
+                    android:padding="@dimen/dp_1">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:src="@drawable/ic_vpn_key_white_24px"/>
+
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/title_password"
+                        android:inputType="textPassword"
+                        android:text="@={presenter.user.password}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle"
+                    android:padding="@dimen/dp_1">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:src="@drawable/ic_vpn_key_white_24px"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:hint="@string/action_confirm_password"
+                        android:inputType="textPassword"
+                        android:text="@={presenter.user.confirmPassword}"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@drawable/bg_edit_text"
+                    android:onClick="@{() -> handler. openGallery()}"
+                    android:padding="@dimen/dp_5"
+                    bind:imagePath="@{presenter.user.avatar}"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_tit_register"
+                    android:onClick="@{() -> handler.registerUser()}"
+                    android:text="@string/action_register"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:onClick="@{()->handler.clickSwitchUiLogin()}"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_4"
+                    android:paddingRight="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_8"
+                    android:text="@string/action_login"
+                    android:textColor="@color/color_blued"
+                    android:textSize="@dimen/sp_17"/>
+
+                <TextView
+                    android:onClick="@{()->handler.clickSwitchUiForgotPassword()}"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_4"
+                    android:paddingRight="@dimen/dp_4"
+                    android:paddingTop="@dimen/dp_8"
+                    android:text="@string/action_forgot_password"
+                    android:textColor="@color/color_blued"
+                    android:textSize="@dimen/sp_17"/>
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/text_login_register"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/action_login"
-                android:textColor="@color/color_blued"
-                android:textSize="@dimen/sp_17"/>
-
-            <TextView
-                android:id="@+id/text_forgot_pass_register"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/action_forgot_password"
-                android:textColor="@color/color_blued"
-                android:textSize="@dimen/sp_17"/>
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </layout>

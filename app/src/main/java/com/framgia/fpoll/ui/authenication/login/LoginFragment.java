@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.login;
+package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import com.facebook.login.LoginManager;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.FragmentLoginBinding;
+import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.io.Serializable;
 import java.util.Collections;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT_SWITCH_UI;
@@ -29,12 +29,12 @@ import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_GOOGLE;
 public class LoginFragment extends Fragment implements LoginContract.View {
     private FragmentLoginBinding mBinding;
     private LoginContract.Presenter mPresenter;
-    private EventSwitchUI mEventSwitchUI;
+    private AuthenticationActivity.EventSwitchUI mEventSwitchUI;
 
-    public static LoginFragment getInstance(EventSwitchUI event) {
+    public static LoginFragment getInstance(AuthenticationActivity.EventSwitchUI event) {
         LoginFragment fragment = new LoginFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_EVENT_SWITCH_UI, event);
+        bundle.putParcelable(BUNDLE_EVENT_SWITCH_UI, event);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -43,18 +43,20 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        mPresenter = new LoginPresenter(this, new FPollGoogleApiClient(getActivity()));
+        mPresenter = new LoginPresenter(this, new FPollGoogleApiClient(getActivity()),
+            new FPollTwitterAuthClient(getActivity()));
         mBinding.setPresenter((LoginPresenter) mPresenter);
-        mBinding.setHandler(new LoginActionHandler((LoginPresenter) mPresenter));
+        mBinding.setHandler(new LoginActionHandler(mPresenter));
         mPresenter.initGoogle();
         mPresenter.initFacebook();
+        mPresenter.initTwitter();
         return mBinding.getRoot();
     }
 
     public void getDataFromActivity() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mEventSwitchUI = (EventSwitchUI) bundle.getSerializable(BUNDLE_EVENT_SWITCH_UI);
+            mEventSwitchUI = bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI);
         }
     }
 
@@ -71,7 +73,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             mPresenter.checkLoginGoogleResult(result);
             return;
         }
-        mPresenter.checkLoginFacebook(requestCode, resultCode, data);
+        if (mPresenter.checkLoginFacebook(requestCode, resultCode, data)) return;
+        mPresenter.checkLoginTwitter(requestCode, resultCode, data);
     }
 
     @Override
@@ -104,12 +107,12 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
 
     @Override
-    public void loginError() {
-        ActivityUtil.showToast(getActivity(), R.string.msg_login_error);
+    public void showMessageError(int msg) {
+        ActivityUtil.showToast(getActivity(), msg);
     }
 
-    public interface EventSwitchUI extends Serializable {
-        void switchUiForgotPassword();
-        void switchUiRegister();
+    @Override
+    public void loginError() {
+        ActivityUtil.showToast(getActivity(), R.string.msg_login_error);
     }
 }

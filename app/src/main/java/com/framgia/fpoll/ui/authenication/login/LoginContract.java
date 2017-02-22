@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.login;
+package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
 
@@ -18,17 +18,22 @@ public interface LoginContract {
         void loginFacebook();
         void changeUiForgotPassword();
         void changeUiRegister();
+        void showMessageError(int msg);
     }
 
     interface Presenter {
-        void loginGoogle();
-        void requestGoogleToken(String email);
         void initGoogle();
-        void checkLoginGoogleResult(GoogleSignInResult result);
+        void initFacebook();
+        void initTwitter();
+        void loginGoogle();
         void loginFacebook();
+        void requestGoogleToken(String email);
         void switchForgotPassword();
         void switchUiRegister();
-        void initFacebook();
-        void checkLoginFacebook(int requestCode, int resultCode, Intent data);
+        void checkLoginGoogleResult(GoogleSignInResult result);
+        boolean checkLoginFacebook(int requestCode, int resultCode, Intent data);
+        void loginTwitter();
+        void checkLoginTwitter(int requestCode, int resultCode, Intent data);
+        void loginAccount();
     }
 }

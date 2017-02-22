@@ -13,6 +13,19 @@ public class UserValidation {
         mUser = user;
     }
 
+    public void validateEmailPassword(@NonNull CallBack callBack) {
+        if (callBack == null) return;
+        if (!isValidateEmail()) {
+            callBack.onError(Error.EMAIL);
+            return;
+        }
+        if (!isValidatePassword()) {
+            callBack.onError(Error.PASSWORD);
+            return;
+        }
+        callBack.onValidateSuccess();
+    }
+
     public void validate(@NonNull CallBack callBack) {
         if (!isValidateUserName()) {
             callBack.onError(Error.USER_NAME);

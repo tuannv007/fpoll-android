@@ -17,25 +17,30 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.databinding.FragmentRegisterBinding;
+import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
 
 import static android.app.Activity.RESULT_OK;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT_SWITCH_UI;
 
 /**
  * Created by tuanbg on 2/9/17.
+ * <></>
  */
 public class RegisterFragment extends Fragment implements RegisterContract.View {
     private FragmentRegisterBinding mBinding;
     private RegisterContract.Presenter mPresenter;
+    private AuthenticationActivity.EventSwitchUI mEventSwitchUI;
     private User mUser = new User();
 
-    public RegisterFragment() {
-    }
-
-    public static RegisterFragment getInstance() {
-        return new RegisterFragment();
+    public static RegisterFragment getInstance(AuthenticationActivity.EventSwitchUI event) {
+        RegisterFragment fragment = new RegisterFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BUNDLE_EVENT_SWITCH_UI, event);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Nullable
@@ -49,6 +54,13 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         return mBinding.getRoot();
     }
 
+    public void getDataFromActivity() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mEventSwitchUI = bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI);
+        }
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -57,6 +69,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
     @Override
     public void start() {
+        getDataFromActivity();
     }
 
     @Override
@@ -71,6 +84,16 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
             Intent.ACTION_PICK,
             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, Constant.RequestCode.IMAGE_PICKER_SELECT);
+    }
+
+    @Override
+    public void switchUiLogin() {
+        if (mEventSwitchUI != null) mEventSwitchUI.switchUiLogin();
+    }
+
+    @Override
+    public void switchUiForgotPassword() {
+        if (mEventSwitchUI != null) mEventSwitchUI.switchUiForgotPassword();
     }
 
     public void showMessageError(int message) {

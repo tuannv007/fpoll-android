@@ -9,11 +9,15 @@ public interface RegisterContract {
     interface View extends BaseView {
         void chooseImage();
         void showMessageError(int message);
+        void switchUiLogin();
+        void switchUiForgotPassword();
     }
 
     interface Presenter {
         void registerUser();
         void openGallery();
         void setUserUrlImage(String url);
+        void switchUiLogin();
+        void switchUiForgotPassword();
     }
 }
