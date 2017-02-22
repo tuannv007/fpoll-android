@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         mBinding.navView.setNavigationItemSelectedListener(this);
+        addFragment(CreatePollFragment.newInstance(), R.string.title_home);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(AuthenticationActivity.getAuthenticationIntent(this));
                 break;
             case R.id.action_home:
-                addFragment(new CreatePollFragment(), R.string.title_home);
+                addFragment(CreatePollFragment.newInstance(), R.string.title_home);
                 break;
             default:
                 break;
