@@ -12,7 +12,7 @@ public class CreationPresenter implements CreationContract.Presenter {
 
     @Override
     public void nextStep() {
-         // TODO: next branch
+        if (mView != null) mView.nextStep();
     }
 
     @Override

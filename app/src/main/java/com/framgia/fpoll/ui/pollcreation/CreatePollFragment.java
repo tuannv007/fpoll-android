@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.FragmentCreatePollBinding;
+import com.framgia.fpoll.ui.polloption.OptionPollFragment;
 import com.framgia.fpoll.util.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -23,6 +24,10 @@ public class CreatePollFragment extends Fragment
     private FragmentCreatePollBinding mBinding;
     private CreationContract.Presenter mPresenter;
     public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
+
+    public static CreatePollFragment newInstance() {
+        return new CreatePollFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +63,15 @@ public class CreatePollFragment extends Fragment
             mTime.get().get(Calendar.DAY_OF_MONTH)
         );
         dpd.show(getActivity().getFragmentManager(), Constant.Tag.DATE_PICKER_TAG);
+    }
+
+    @Override
+    public void nextStep() {
+        OptionPollFragment optionPollFragment = OptionPollFragment.newInstance();
+        getFragmentManager().beginTransaction()
+            .replace(R.id.frame_layout, optionPollFragment, null)
+            .addToBackStack(null)
+            .commit();
     }
 
     @Override
