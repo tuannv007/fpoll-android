@@ -14,6 +14,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
         this.mView = view;
         mUser = user;
     }
+
     @Override
     public void resetPassword() {
         new UserValidation(mUser).validateResetPass(new UserValidation.CallBack() {

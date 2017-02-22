@@ -126,9 +126,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_5"
                 android:background="@color/color_tit_register"
+                android:onClick="@{() -> handler.submitEditProfile()}"
                 android:text="@string/title_action_edit_profile"
                 android:textAllCaps="false"
-                android:onClick="@{() -> handler.submitEditProfile()}"
                 android:textColor="@android:color/white"/>
         </LinearLayout>
     </ScrollView>

@@ -1,8 +1,5 @@
 package com.framgia.fpoll.ui.profileedit;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.util.UserValidation;
