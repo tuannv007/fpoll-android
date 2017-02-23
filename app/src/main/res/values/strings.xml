@@ -127,4 +127,7 @@
     <string name="key_twitter_secret">U1lCGwnKsXDXoo7s3MpqVq9IDwTQO8b2Dj9QtOYVni2e4irFc0</string>
     <string name="key_twitter_value">fe4d33bbc6b2a28f96b8d4b8a45c4f8184009d68</string>
     <string name="time_close_vote">Time for close vote :</string>
+    <string name="show_vote_details">Show vote details</string>
+    <string name="title_no">No</string>
+    <string name="title_vote">Vote</string>
 </resources>

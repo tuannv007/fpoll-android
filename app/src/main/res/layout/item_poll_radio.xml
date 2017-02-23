@@ -5,21 +5,42 @@
     <data>
 
         <variable
-            name="itemvote"
+            name="isSingleChoise"
+            type="java.lang.Boolean"/>
+
+        <variable
+            name="voteItem"
             type="com.framgia.fpoll.data.model.VoteItem"/>
 
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.vote.VoteHandler"/>
+
         <import type="java.lang.String"/>
+
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:onClick="@{() -> handler.chooseItemAnswer(voteItem)}"
         android:orientation="horizontal">
 
         <RadioButton
+            android:clickable="false"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:visibility="@{isSingleChoise ? View.VISIBLE: View.GONE}"
+            android:layout_height="wrap_content"
+            android:checked="@{voteItem.checkAnswer}"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:checked="@{voteItem.checkAnswer}"
+            android:visibility="@{isSingleChoise ? View.GONE: View.VISIBLE}"/>
 
         <TextView
             android:layout_width="0dp"
@@ -27,7 +48,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@{itemvote.contentVote}"
+            android:text="@{voteItem.contentVote}"
             android:textSize="@dimen/sp_25"/>
 
         <TextView
@@ -36,7 +57,7 @@
             android:layout_marginRight="@dimen/dp_30"
             android:background="@drawable/bg_circle_textview"
             android:gravity="center"
-            android:text="@{String.valueOf(itemvote.countVote)}"
+            android:text="@{String.valueOf(voteItem.countVote)}"
             android:textStyle="bold"/>
     </LinearLayout>
 </layout>
