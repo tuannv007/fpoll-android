@@ -11,6 +11,4 @@ public class MainPresenter implements MainContract.Presenter {
         mView = view;
         mView.start();
     }
-
-
 }

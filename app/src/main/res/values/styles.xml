@@ -134,4 +134,9 @@
         <item name="android:layout_height">@dimen/dp_50</item>
         <item name="android:layout_margin">@dimen/dp_5</item>
     </style>
+
+    <style name="ImageViewItemVote">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_150</item>
+    </style>
 </resources>

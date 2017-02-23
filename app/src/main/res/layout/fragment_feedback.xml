@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name"
-                android:text="@={presenter.content}"/>
+                android:text="@={presenter.name}"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatTextView
@@ -54,8 +54,7 @@
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            bind:eventRadioGroupFeedback="@{presenter}">
+            android:layout_height="wrap_content">
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:id="@+id/radio_ui"

@@ -42,7 +42,8 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteHolder> {
     @Override
     public void onBindViewHolder(VoteHolder holder, int position) {
         VoteItem voteItem = mVoteItems.get(position);
-        if (voteItem != null) holder.bind(voteItem);
+        if (voteItem == null) return;
+        holder.bind(voteItem);
     }
 
     @Override
