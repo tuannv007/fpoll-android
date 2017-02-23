@@ -1,6 +1,12 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.pollmanage.action.EditPollPresenter"/>
+    </data>
 
     <ScrollView
         android:scrollbars="none"
@@ -20,9 +26,9 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_4"
                 android:paddingTop="@dimen/dp_4"
-                android:text="@string/title_option"
+                android:text="@{@string/title_option_link(presenter.pathLink)}"
                 android:textColor="@color/color_blued"
-                android:textSize="@dimen/sp_17"/>
+                android:textSize="@dimen/sp_12"/>
 
             <LinearLayout
                 style="@style/LayoutManagerPoll">
@@ -35,6 +41,8 @@
 
                 <EditText
                     style="@style/EditTextManageActivity"
+                    android:text="@={presenter.pathLink}"
+                    android:textSize="@dimen/sp_12"
                     android:inputType="textEmailAddress"/>
 
                 <ImageView

@@ -166,4 +166,6 @@
     <string name="msg_send_feedback_success">Send feedback success</string>
     <string name="msg_content_error">Content do not empty</string>
     <string name="msg_name_error">Name do not empty</string>
+    <string name="title_option_link">http://poll.framgia.vn/link/%s</string>
+    <string name="path_link_fake"><![CDATA[DFGHJOIY&awbca78abcjhbsaT]]></string>
 </resources>

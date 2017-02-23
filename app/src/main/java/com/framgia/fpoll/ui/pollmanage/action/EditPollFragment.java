@@ -13,17 +13,24 @@ import com.framgia.fpoll.databinding.FragmentActionBinding;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ActionFragment extends Fragment {
+public class EditPollFragment extends Fragment implements EditPollContract.View {
     private FragmentActionBinding mBinding;
+    private EditPollContract.Presenter mPresenter;
 
-    public static ActionFragment newInstance() {
-        return new ActionFragment();
+    public static EditPollFragment newInstance() {
+        return new EditPollFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_action, container, false);
+        mPresenter = new EditPollPresenter(this);
+        mBinding.setPresenter((EditPollPresenter) mPresenter);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void start() {
     }
 }
