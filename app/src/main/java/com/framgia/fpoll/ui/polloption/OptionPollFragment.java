@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.FragmentPageOptionBinding;
+import com.framgia.fpoll.ui.pollsetting.SettingPollFragment;
 
 /**
  * Created by framgia on 22/02/2017.
@@ -36,7 +37,11 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     @Override
     public void nextStep() {
-        // TODO: next step
+        SettingPollFragment settingPollFragment = SettingPollFragment.newInstance();
+        getFragmentManager().beginTransaction()
+            .replace(R.id.frame_layout, settingPollFragment, null)
+            .addToBackStack(null)
+            .commit();
     }
 
     @Override
