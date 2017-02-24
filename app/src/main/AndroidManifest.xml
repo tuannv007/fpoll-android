@@ -22,9 +22,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.authenication.activity.AuthenticationActivity"/>
+
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="@string/key_twitter_value" />
+            android:value="@string/key_twitter_value"/>
     </application>
 
 </manifest>

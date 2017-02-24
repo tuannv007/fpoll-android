@@ -160,6 +160,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
+                android:layout_marginTop="@dimen/dp_8"
                 android:onClick="@{() -> handler. nextStep()}"
                 android:padding="@dimen/dp_8"
                 app:cardBackgroundColor="@color/color_teal_800">
