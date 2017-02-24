@@ -7,6 +7,7 @@ package com.framgia.fpoll.util;
 public class Constant {
     public static final int MIN_LENGTH_PASSWORD = 6;
     public static final CharSequence TITLE_TYPE_TEXT = "text";
+    public static final int TYPE_LAYOUT_GRID_TWO = 2;
 
     public static class WebUrl {
         public static final String BASE_URL = "http://poll.framgia.vn/";
@@ -37,11 +38,11 @@ public class Constant {
         public static final int REQUEST_GOOGLE = 3;
     }
 
-        public static class TimeFormat {
-            public static final String DATE_OUTPUT = "dd-MM-yyyy";
-        }
+    public static class TimeFormat {
+        public static final String DATE_OUTPUT = "dd-MM-yyyy";
+    }
 
-        public static class Tag {
-            public static final String DATE_PICKER_TAG = "Date picker dialog";
-        }
+    public static class Tag {
+        public static final String DATE_PICKER_TAG = "Date picker dialog";
+    }
 }
