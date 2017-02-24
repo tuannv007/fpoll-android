@@ -1,35 +1,41 @@
 package com.framgia.fpoll.ui.vote;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.VoteItem;
-import com.framgia.fpoll.databinding.ItemPollTypeListBinding;
+import com.framgia.fpoll.databinding.ItemPollRadioBinding;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.framgia.fpoll.ui.vote.TypeItemVote.SINGLE_CHOISE;
 
 /**
  * Created by tran.trung.phong on 22/02/2017.
  */
 public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteHolder> {
+    private VoteContract.Presenter mPresenter;
     private List<VoteItem> mVoteItems;
     private LayoutInflater mInflater;
+    private TypeItemVote mTypeItem;
 
-    public VoteAdapter(List<VoteItem> voteItems) {
+    public VoteAdapter(List<VoteItem> voteItems, VoteContract.Presenter presenter,
+                       TypeItemVote type) {
         mVoteItems = voteItems;
+        mPresenter = presenter;
+        mTypeItem = type;
     }
 
     @Override
     public VoteHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
-        ItemPollTypeListBinding binding = DataBindingUtil.inflate(mInflater, R.layout
-            .item_poll_type_list, parent, false);
+        ItemPollRadioBinding binding =
+            DataBindingUtil.inflate(mInflater, R.layout.item_poll_radio, parent, false);
+        binding.setIsSingleChoise(mTypeItem == SINGLE_CHOISE);
+        binding.setHandler(new VoteHandler(mPresenter));
         return new VoteHolder(binding);
     }
 
@@ -44,17 +50,27 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteHolder> {
         return mVoteItems == null ? 0 : mVoteItems.size();
     }
 
-    public class VoteHolder extends RecyclerView.ViewHolder {
-        private ItemPollTypeListBinding mBinDing;
+    public void updateVoteItem(VoteItem voteItem) {
+        if (mTypeItem == SINGLE_CHOISE) {
+            for (VoteItem item : mVoteItems) {
+                if (item.getContentVote().equals(voteItem.getContentVote())) {
+                    item.setCheckAnswer(true);
+                } else item.setCheckAnswer(false);
+            }
+        } else voteItem.setCheckAnswer(!voteItem.isCheckAnswer());
+    }
 
-        public VoteHolder(ItemPollTypeListBinding binDing) {
+    public class VoteHolder extends RecyclerView.ViewHolder {
+        private ItemPollRadioBinding mBinDingRadio;
+
+        public VoteHolder(ItemPollRadioBinding binDing) {
             super(binDing.getRoot());
-            mBinDing = binDing;
+            mBinDingRadio = binDing;
         }
 
         private void bind(VoteItem item) {
-            mBinDing.setItemvote(item);
-            mBinDing.executePendingBindings();
+            mBinDingRadio.setVoteItem(item);
+            mBinDingRadio.executePendingBindings();
         }
     }
 }

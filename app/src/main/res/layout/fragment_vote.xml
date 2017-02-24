@@ -13,10 +13,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp_20">
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_white"
@@ -115,40 +115,49 @@
                 app:layoutManager="@{LayoutManageUtil.linear()}"/>
 
             <LinearLayout
-                style="@style/RegisterLayoutStyle"
-                android:layout_marginTop="@dimen/dp_20"
-                android:padding="@dimen/dp_1">
-
-                <ImageView
-                    style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_person_black_24dp"/>
-
-                <EditText
-                    style="@style/RegisterEditTextStyle"
-                    android:hint="@string/title_username"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/RegisterLayoutStyle"
-                android:padding="@dimen/dp_1">
-
-                <ImageView
-                    style="@style/RegisterImageViewStyle"
-                    android:src="@drawable/ic_email_white_24px"/>
-
-                <EditText
-                    style="@style/RegisterEditTextStyle"
-                    android:hint="@string/title_email"/>
-            </LinearLayout>
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_5"
-                android:background="@color/color_tit_register"
-                android:text="@string/title_vote_number"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"/>
+                android:background="@color/color_grey_200"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:padding="@dimen/dp_1">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:src="@drawable/ic_person_black_24dp"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:background="@android:color/white"
+                        android:hint="@string/title_username"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/RegisterLayoutStyle"
+                    android:padding="@dimen/dp_1">
+
+                    <ImageView
+                        style="@style/RegisterImageViewStyle"
+                        android:src="@drawable/ic_email_white_24px"/>
+
+                    <EditText
+                        style="@style/RegisterEditTextStyle"
+                        android:background="@android:color/white"
+                        android:hint="@string/title_email"/>
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_5"
+                    android:background="@color/color_tit_register"
+                    android:text="@string/title_vote_number"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </layout>
