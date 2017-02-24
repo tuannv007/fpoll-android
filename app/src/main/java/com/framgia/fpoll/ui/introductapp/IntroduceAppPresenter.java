@@ -2,7 +2,7 @@ package com.framgia.fpoll.ui.introductapp;
 
 import com.framgia.fpoll.data.model.IntroduceItem;
 import com.framgia.fpoll.data.source.local.DataSource;
-import com.framgia.fpoll.data.source.local.introduce.IntroduceLocalDataSource;
+import com.framgia.fpoll.data.source.local.IntroduceRepository;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class IntroduceAppPresenter implements IntroduceAppContract.Presenter {
     private IntroduceAppContract.View mView;
-    private IntroduceLocalDataSource mIntroduceRepository;
+    private IntroduceRepository mIntroduceRepository;
 
     public IntroduceAppPresenter(IntroduceAppContract.View view,
-                                 IntroduceLocalDataSource introduceRepository) {
+                                 IntroduceRepository introduceRepository) {
         this.mView = view;
         this.mIntroduceRepository = introduceRepository;
     }
