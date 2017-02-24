@@ -72,7 +72,7 @@
     </string>
     <string name="title_result_poll">Result</string>
     <string name="title_no_option">No</string>
-    <string name="title_vote_number">Vote</string>
+    <string name="title_vote_number">Vote number</string>
     <string name="msg_status_pool">Poll open</string>
     <string name="action_view_history">Views History Poll</string>
     <string name="action_edit_poll">Edit this poll</string>
@@ -130,4 +130,15 @@
     <string name="show_vote_details">Show vote details</string>
     <string name="title_no">No</string>
     <string name="title_vote">Vote</string>
+    <string name="title_one_answer">Single choice</string>
+    <string name="title_more_answer">Multiple choice</string>
+    <string name="title_views_history">Views History</string>
+    <string name="title_edit_this_poll">Edit this poll</string>
+    <string name="title_close_this_poll">Close this poll</string>
+    <string name="title_create_duplicate">Create duplicate</string>
+    <string name="title_activity_manage">Activity</string>
+    <string name="title_poll">title poll</string>
+    <string name="hint_enter_name">Enter your name</string>
+    <string name="hint_enter_comment">Enter your comment...</string>
+    <string name="action_save_comment">Save Comment</string>
 </resources>

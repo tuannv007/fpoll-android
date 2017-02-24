@@ -5,6 +5,11 @@
         <item>@string/title_poll_participate</item>
         <item>@string/title_poll_close</item>
     </string-array>
+    <string-array name="array_manage">
+        <item>@string/title_information</item>
+        <item>@string/title_result_poll</item>
+        <item>@string/title_activity_manage</item>
+    </string-array>
 
     <string-array name="gender">
         <item>@string/title_male</item>
@@ -15,4 +20,8 @@
         <item>one answer</item>
         <item>multi answer</item>
     </array>
+    <string-array name="array_answer">
+        <item>@string/title_one_answer</item>
+        <item>@string/title_more_answer</item>
+    </string-array>
 </resources>

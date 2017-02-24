@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/ic_divider"
+            android:dividerPadding="@dimen/dp_4"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_info"
+                android:drawablePadding="@dimen/dp_4"
+                android:drawableStart="@drawable/ic_info"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_8"
+                android:text="@string/title_poll"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_8">
+
+                <com.facebook.share.widget.LikeView
+                    android:id="@+id/like_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.facebook.share.widget.ShareButton
+                    android:id="@+id/button_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/like_view"
+                    android:layout_toRightOf="@+id/like_view"/>
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:drawableStart="@drawable/ic_person_black_24dp"/>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_clock"
+                android:drawableStart="@drawable/ic_clock"/>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_time_close"
+                android:drawableStart="@drawable/ic_time_close"/>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_people"
+                android:drawableStart="@drawable/ic_people"/>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_comment"
+                android:drawableStart="@drawable/ic_comment"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_8"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/TextViewPollInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="@string/hint_enter_name"
+                    android:padding="@dimen/dp_8"/>
+
+                <EditText
+                    android:id="@+id/et_comment"
+                    style="@style/TextViewPollInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_8"
+                    android:background="@drawable/bg_edit_text"
+                    android:gravity="top|start"
+                    android:hint="@string/hint_enter_comment"
+                    android:lines="3"
+                    android:padding="@dimen/dp_8"/>
+
+                <Button
+                    style="@style/AppThemeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/dp_8"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:text="@string/action_save_comment"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

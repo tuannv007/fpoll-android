@@ -33,7 +33,7 @@
                 android:layout_height="@dimen/dp_48"
                 android:background="@drawable/bg_edit_text"
                 android:orientation="horizontal"
-                android:padding="@dimen/dp_2">
+                android:padding="@dimen/dp_1">
 
                 <ImageView
                     style="@style/ImageViewLogin"
@@ -56,7 +56,7 @@
                 android:layout_marginTop="@dimen/dp_8"
                 android:background="@drawable/bg_edit_text"
                 android:orientation="horizontal"
-                android:padding="@dimen/dp_2">
+                android:padding="@dimen/dp_1">
 
                 <ImageView
                     style="@style/ImageViewLogin"
