@@ -35,7 +35,9 @@ import com.framgia.fpoll.ui.pollsetting.EventSwitchType;
 import com.framgia.fpoll.ui.pollsetting.RequireVoteType;
 import com.framgia.fpoll.ui.pollsetting.SettingPresenter;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.PieData;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -224,5 +226,10 @@ public class DataBindingUtils {
                 }
             }
         });
+    }
+
+    @BindingAdapter(value = {"bind:pieData"})
+    public static void setPieData(final PieChart pieChart, final PieData pieData) {
+        pieChart.setData(pieData);
     }
 }

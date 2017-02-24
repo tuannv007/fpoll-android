@@ -2,13 +2,10 @@ package com.framgia.fpoll.data.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.graphics.BitmapRegionDecoder;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
-
-import java.io.Serializable;
 
 /**
  * Created by tran.trung.phong on 23/02/2017.
