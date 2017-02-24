@@ -19,7 +19,7 @@ public class IntroduceRepository implements IntroduceDataSource {
         return sIntroduceRepository;
     }
 
-    private IntroduceRepository(IntroduceLocalDataSource introduceLocalDataSource) {
+    public IntroduceRepository(IntroduceLocalDataSource introduceLocalDataSource) {
         mIntroduceRemoteDataSource = introduceLocalDataSource;
     }
 
