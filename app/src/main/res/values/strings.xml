@@ -139,6 +139,12 @@
     <string name="title_activity_manage">Activity</string>
     <string name="title_poll">title poll</string>
     <string name="hint_enter_name">Enter your name</string>
-    <string name="hint_enter_comment">Enter your comment...</string>
+    <string name="hint_enter_comment">Enter your comment…</string>
     <string name="action_save_comment">Save Comment</string>
+    <string name="title_introduce_vote_poll">Create a poll fast and easy</string>
+    <string name="title_introduce_chart_poll">Result illustrated by bar chart and pie chart</string>
+    <string name="title_introduce_security">Guaranteed security by password of poll</string>
+    <string name="title_introduce_export_poll">Can export result to PDF file or EXCEL file</string>
+    <string name="title_introduce_support_poll">Support multiple deceive: laptop or mobile</string>
+    <string name="title_introduce_share_poll">Share poll by facebook</string>
 </resources>
