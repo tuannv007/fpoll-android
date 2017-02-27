@@ -25,6 +25,7 @@ public class Constant {
     public static class BundleConstant {
         public static final String BUNDLE_TYPE_HISTORY = "BUNDLE_TYPE_HISTORY";
         public static final String BUNDLE_EVENT_SWITCH_UI = "BUNDLE_EVENT_SWITCH_UI";
+        public static final String BUNDLE_VIEW_PAGE_TYPE = "BUNDLE_VIEW_PAGE_TYPE";
     }
 
     public static class Gender {

@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.databinding.ActivityAuthenticationAccountBinding;
+import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginFragment;
 import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
 import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
@@ -24,7 +24,7 @@ import com.framgia.fpoll.util.ActivityUtil;
  */
 public class AuthenticationActivity extends AppCompatActivity
     implements AuthenticationContract.View {
-    private ActivityAuthenticationAccountBinding mBinding;
+    private ActivityAuthenticationBinding mBinding;
     private AuthenticationContract.Presenter mPresenter;
     private EventSwitchUI mEventSwitchUI = new EventSwitchUI() {
         @Override
@@ -59,7 +59,7 @@ public class AuthenticationActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication_account);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
         mPresenter = new AuthenticationPresenter(this);
     }
 

@@ -15,6 +15,8 @@ import com.framgia.fpoll.ui.pollhistory.PollHistoryFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_VIEW_PAGE_TYPE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -22,24 +24,57 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     private FragmentHistoryBinding mBinding;
     private HistoryContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
+    private ViewpagerType mViewpagerType;
+
+    public static HistoryFragment newInstance(ViewpagerType type) {
+        HistoryFragment fragment = new HistoryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false);
         mBinding.setFragment(this);
-        mPresenter = new HistoryPresenter(this);
+        getDataFromActivity();
+        mPresenter = new HistoryPresenter(this, mViewpagerType);
+        mPresenter.getAdapterType();
         return mBinding.getRoot();
     }
 
     @Override
+    public void getDataFromActivity() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mViewpagerType = (ViewpagerType) bundle.getSerializable(BUNDLE_VIEW_PAGE_TYPE);
+        }
+    }
+
+    @Override
     public void start() {
+    }
+
+    @Override
+    public void initAdapterHistory() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(PollHistoryFragment.getInstance(PollHistoryType.INITIATE));
         fragments.add(PollHistoryFragment.getInstance(PollHistoryType.PARTICIPATE));
         fragments.add(PollHistoryFragment.getInstance(PollHistoryType.CLOSE));
         String[] titles = getActivity().getResources().getStringArray(R.array.array_history);
         mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
+    }
+
+    @Override
+    public void initAdapterManage() {
+        // TODO: 2/27/2017 init adapter manager poll
+    }
+
+    @Override
+    public void initAdapterVote() {
+        // TODO: 2/27/2017 init adapter vote poll
     }
 
     public ViewPagerAdapter getAdapter() {

@@ -13,6 +13,8 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
+import com.framgia.fpoll.ui.history.ViewpagerType;
+import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.util.Constant;
 
 import java.util.ArrayList;
@@ -53,19 +55,31 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
         getDataFromActivity();
         mPresenter = new PollHistoryPresenter(this, mPollHistoryType);
         mBinding.setPresenter((PollHistoryPresenter) mPresenter);
+        mBinding.setFragment(this);
+        mAdapter.set(new PollHistoryAdapter(mListPollHistory, mPollHistoryType, mPresenter));
         mPresenter.getData();
         return mBinding.getRoot();
     }
 
     @Override
     public void start() {
-        mAdapter.set(new PollHistoryAdapter(mListPollHistory));
     }
 
     @Override
     public void setPollHistory(List<PollHistoryItem> pollHistories) {
         mListPollHistory.clear();
         mListPollHistory.addAll(pollHistories);
+        mAdapter.get().update(mListPollHistory);
+    }
+
+    @Override
+    public void clickOpenManagePoll(PollHistoryItem pollHistoryItem) {
+        startActivity(ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.MANAGE));
+    }
+
+    @Override
+    public void clickReopenPoll(PollHistoryItem pollHistoryItem) {
+        // TODO: 2/23/2017 handler click reopen  poll
     }
 
     @Override

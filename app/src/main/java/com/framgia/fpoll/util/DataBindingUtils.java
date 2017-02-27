@@ -1,5 +1,6 @@
 package com.framgia.fpoll.util;
 
+import android.app.Activity;
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
@@ -11,8 +12,11 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -31,6 +35,11 @@ public class DataBindingUtils {
     @BindingAdapter({"bind:imageResource"})
     public static void loadImage(ImageView view, Drawable drawable) {
         view.setImageDrawable(drawable);
+    }
+
+    @BindingAdapter({"bind:drawableLeftStart"})
+    public static void bindDrawableLeft(AppCompatButton view, Drawable drawable) {
+        view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
     }
 
     @BindingAdapter({"bind:imagePath"})
