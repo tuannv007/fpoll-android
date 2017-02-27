@@ -20,6 +20,10 @@
         android:id="@+id/action_login"
         android:icon="@drawable/ic_exit_to_app_white_24px"
         android:title="@string/title_login"/>
+    <item
+        android:id="@+id/action_introduce"
+        android:icon="@drawable/ic_exit_to_app_white_24px"
+        android:title="@string/title_introduce_app"/>
     <item android:title="@string/title_language">
         <menu>
             <item
