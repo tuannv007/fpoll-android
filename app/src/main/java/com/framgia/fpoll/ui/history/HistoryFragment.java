@@ -11,6 +11,9 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
 import com.framgia.fpoll.ui.pollhistory.PollHistoryFragment;
+import com.framgia.fpoll.ui.pollmanage.action.ActionFragment;
+import com.framgia.fpoll.ui.pollmanage.information.InformationFragment;
+import com.framgia.fpoll.ui.pollmanage.result.ResultFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +72,12 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void initAdapterManage() {
-        // TODO: 2/27/2017 init adapter manager poll
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(InformationFragment.newInstance());
+        fragments.add(ResultFragment.newInstance());
+        fragments.add(ActionFragment.newInstance());
+        String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);
+        mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
     }
 
     @Override

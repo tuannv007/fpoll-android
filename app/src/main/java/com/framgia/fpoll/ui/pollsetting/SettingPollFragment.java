@@ -36,10 +36,13 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     }
 
     @Override
+    public void start() {
+    }
+
+    @Override
     public void nextStep() {
-        ParticipantFragment participantFragment = ParticipantFragment.newInstance();
         getFragmentManager().beginTransaction()
-            .replace(R.id.frame_layout, participantFragment, null)
+            .replace(R.id.frame_layout, ParticipantFragment.newInstance(), null)
             .addToBackStack(null)
             .commit();
     }
@@ -47,9 +50,5 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     @Override
     public void previousStep() {
         getFragmentManager().popBackStack();
-    }
-
-    @Override
-    public void start() {
     }
 }
