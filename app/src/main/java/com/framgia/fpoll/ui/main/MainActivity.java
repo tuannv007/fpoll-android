@@ -20,6 +20,7 @@ import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
+import com.framgia.fpoll.ui.introductapp.IntroduceAppFragment;
 import com.framgia.fpoll.ui.pollcreation.CreatePollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.action_home:
                 addFragment(CreatePollFragment.newInstance(), R.string.title_home);
+                break;
+            case R.id.action_introduce:
+                addFragment(IntroduceAppFragment.newInstance(), R.string.title_introduce_app);
                 break;
             default:
                 break;

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -53,6 +54,16 @@
                     android:text="@string/msg_send_email"
                     android:textSize="@dimen/sp_18"/>
 
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:text="@string/msg_multi_email"
+                    android:textSize="@dimen/sp_17"/>
+
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/edit_send_email"
                     android:layout_width="match_parent"
@@ -65,7 +76,8 @@
                     android:gravity="start"
                     android:hint="@string/hint_enter_email_participant"
                     android:minHeight="@dimen/dp_180"
-                    android:padding="@dimen/dp_8"/>
+                    android:padding="@dimen/dp_8"
+                    bind:textChange="@{presenter}"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -77,9 +89,9 @@
                     android:id="@+id/card_previous"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> handler. previousStep()}"
                     android:padding="@dimen/dp_8"
-                    app:cardBackgroundColor="@color/color_teal_800"
-                    android:onClick="@{() -> handler. previousStep()}">
+                    app:cardBackgroundColor="@color/color_teal_800">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -97,9 +109,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:onClick="@{() -> handler.nextStep()}"
                     android:padding="@dimen/dp_8"
-                    app:cardBackgroundColor="@color/color_teal_800"
-                    android:onClick="@{() -> handler.nextStep()}">
+                    app:cardBackgroundColor="@color/color_teal_800">
 
                     <TextView
                         android:layout_width="wrap_content"

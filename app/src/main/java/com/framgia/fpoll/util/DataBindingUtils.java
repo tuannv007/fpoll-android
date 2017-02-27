@@ -15,9 +15,12 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -25,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.ui.pollhistory.PollHistoryPresenter;
+import com.framgia.fpoll.ui.pollparticipant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollsetting.EventSwitchType;
 import com.framgia.fpoll.ui.pollsetting.SettingPresenter;
 
@@ -159,5 +163,25 @@ public class DataBindingUtils {
                 }
             }
         });
+    }
+
+    @BindingAdapter(value = {"bind:textChange"}, requireAll = false)
+    public static void setTextWatcher(final EditText view,
+                                      final ParticipantPresenter presenter) {
+        TextWatcher values = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                presenter.getEmail(s.toString());
+            }
+        };
+        view.addTextChangedListener(values);
     }
 }

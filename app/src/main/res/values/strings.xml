@@ -152,4 +152,6 @@
     <string name="title_manage_poll">Manage poll</string>
     <string name="title_voting">Voting</string>
     <string name="msg_url_link">http://poll.framgia.vn/link/</string>
+    <string name="msg_multi_email">multiple emails separated by spaces \",\"</string>
+    <string name="title_introduce_app">Introduce</string>
 </resources>
