@@ -6,6 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
+import com.framgia.fpoll.data.model.ResultItem;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by tuanbg on 2/9/17.
  */
@@ -18,4 +27,6 @@ public class ActivityUtil {
     public static void showToast(Context context, int res) {
         Toast.makeText(context, res, Toast.LENGTH_LONG).show();
     }
+
+
 }

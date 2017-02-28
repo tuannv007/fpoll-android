@@ -31,6 +31,8 @@ import com.framgia.fpoll.ui.pollhistory.PollHistoryPresenter;
 import com.framgia.fpoll.ui.pollparticipant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollsetting.EventSwitchType;
 import com.framgia.fpoll.ui.pollsetting.SettingPresenter;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -183,5 +185,10 @@ public class DataBindingUtils {
             }
         };
         view.addTextChangedListener(values);
+    }
+
+    @BindingAdapter({"bind:bindBarChart"})
+    public static void setBarChart(BarChart view, BarData data) {
+        view.setData(data);
     }
 }
