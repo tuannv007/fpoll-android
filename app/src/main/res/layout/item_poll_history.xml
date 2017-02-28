@@ -7,7 +7,7 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.pollhistory.PollHistoryHandler"/>
+            type="com.framgia.fpoll.ui.history.pollhistory.PollHistoryHandler"/>
 
         <variable
             name="title"

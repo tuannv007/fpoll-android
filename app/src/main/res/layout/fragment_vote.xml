@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.vote.VoteFragment"/>
+            type="com.framgia.fpoll.ui.votemanager.vote.VoteFragment"/>
 
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
     </data>

@@ -5,11 +5,11 @@
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.pollcreated.PollCreatedFragment"/>
+            type="com.framgia.fpoll.ui.poll.PollCreatedFragment"/>
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.pollcreated.PollCreatedHandlerAction"/>
+            type="com.framgia.fpoll.ui.poll.PollCreatedHandlerAction"/>
     </data>
 
     <LinearLayout

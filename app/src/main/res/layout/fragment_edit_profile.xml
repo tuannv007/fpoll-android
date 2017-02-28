@@ -7,11 +7,11 @@
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.profileedit.EditProfilePresenter"/>
+            type="com.framgia.fpoll.ui.editprofile.EditProfilePresenter"/>
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.profileedit.EditProfileHandle"/>
+            type="com.framgia.fpoll.ui.editprofile.EditProfileHandle"/>
     </data>
 
     <ScrollView

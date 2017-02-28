@@ -1,5 +1,6 @@
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -53,9 +54,11 @@
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            bind:eventRadioGroupFeedback="@{presenter}">
 
             <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_ui"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/color_grey_700"
@@ -63,6 +66,7 @@
                 android:textColor="@color/color_grey_700"/>
 
             <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_process"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/color_grey_700"
@@ -70,6 +74,7 @@
                 android:textColor="@color/color_grey_700"/>
 
             <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_web_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/color_grey_700"
@@ -77,6 +82,7 @@
                 android:textColor="@color/color_grey_700"/>
 
             <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_others"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/color_grey_700"
@@ -85,12 +91,12 @@
         </RadioGroup>
 
         <android.support.v7.widget.AppCompatButton
-            android:onClick="@{()->handler.clickSendFeedback()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_30"
             android:background="@color/color_teal_500"
+            android:onClick="@{()->handler.clickSendFeedback()}"
             android:paddingBottom="@dimen/dp_8"
             android:paddingLeft="@dimen/dp_16"
             android:paddingRight="@dimen/dp_16"
