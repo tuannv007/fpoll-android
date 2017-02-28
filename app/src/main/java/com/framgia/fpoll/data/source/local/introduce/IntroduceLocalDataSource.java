@@ -20,9 +20,9 @@ public class IntroduceLocalDataSource implements IntroduceDataSource {
         mContext = context;
     }
 
-    public static IntroduceLocalDataSource getInstance() {
+    public static IntroduceLocalDataSource getInstance(Context context) {
         if (sIntroduceLocalDataSource == null) {
-            sIntroduceLocalDataSource = new IntroduceLocalDataSource(mContext);
+            sIntroduceLocalDataSource = new IntroduceLocalDataSource(context);
         }
         return sIntroduceLocalDataSource;
     }
