@@ -2,6 +2,7 @@ package com.framgia.fpoll.data.source.local;
 
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
+import com.framgia.fpoll.data.source.local.pollhistory.DataCallBack;
 import com.framgia.fpoll.data.source.local.pollhistory.PollHistoryLocalDataSource;
 
 import java.util.List;
@@ -26,9 +27,9 @@ public class PollHistoryRepository implements PollDataSource {
     }
 
     @Override
-    public void getPollHistory(PollHistoryType type, final GetCallback<PollHistoryItem> callback) {
+    public void getPollHistory(PollHistoryType type, final DataCallBack<PollHistoryItem> callback) {
         if (callback == null) return;
-        mLocalDataSource.getPollHistory(type, new GetCallback<PollHistoryItem>() {
+        mLocalDataSource.getPollHistory(type, new DataCallBack<PollHistoryItem>() {
             @Override
             public void onLoaded(List<PollHistoryItem> data) {
                 callback.onLoaded(data);

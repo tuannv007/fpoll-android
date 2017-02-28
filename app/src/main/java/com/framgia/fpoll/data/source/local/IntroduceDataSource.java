@@ -1,10 +1,14 @@
 package com.framgia.fpoll.data.source.local;
 
-import com.framgia.fpoll.data.model.IntroduceItem;
+import java.util.List;
 
 /**
  * Created by tuanbg on 2/23/17.
  */
-public interface IntroduceDataSource extends DataSource<IntroduceItem> {
-    void getData(GetCallback<IntroduceItem> callback);
+public interface IntroduceDataSource {
+    interface GetCallback<T> {
+        void onLoaded(List<T> data);
+        void onNotAvailable();
+    }
+    void getData(GetCallback callback);
 }

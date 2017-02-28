@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.authenication.register;
 
+import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -11,6 +12,10 @@ public interface RegisterContract {
         void showMessageError(int message);
         void switchUiLogin();
         void switchUiForgotPassword();
+        void registerSuccess(User user);
+        void showDialog();
+        void dismissDialog();
+        void showRegisterError(String message);
     }
 
     interface Presenter {

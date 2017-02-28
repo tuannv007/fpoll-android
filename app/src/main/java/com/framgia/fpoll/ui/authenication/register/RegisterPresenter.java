@@ -2,6 +2,8 @@ package com.framgia.fpoll.ui.authenication.register;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.source.remote.register.RegisterDataSource;
+import com.framgia.fpoll.data.source.remote.register.RegisterRepository;
 import com.framgia.fpoll.util.UserValidation;
 
 /**
@@ -11,8 +13,11 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     private final String TAG = this.getClass().getSimpleName();
     private RegisterContract.View mView;
     private User mUser;
+    private RegisterRepository mRepository;
 
-    public RegisterPresenter(RegisterContract.View view, User user) {
+    public RegisterPresenter(RegisterContract.View view, User user,
+                             RegisterRepository registerRepository) {
+        mRepository = registerRepository;
         mView = view;
         mUser = user;
     }
@@ -45,7 +50,18 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
             @Override
             public void onValidateSuccess() {
-                // TODO: 19/02/2017 Register
+                mView.showDialog();
+                mRepository.register(mUser, new RegisterDataSource.RegisterCallBack() {
+                    @Override
+                    public void onSuccess(User user) {
+                        mView.registerSuccess(user);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        mView.showRegisterError(message);
+                    }
+                });
             }
         });
     }

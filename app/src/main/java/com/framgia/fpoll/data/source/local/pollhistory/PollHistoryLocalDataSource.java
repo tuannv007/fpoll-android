@@ -21,7 +21,7 @@ public class PollHistoryLocalDataSource implements PollDataSource {
     }
 
     @Override
-    public void getPollHistory(PollHistoryType type, GetCallback<PollHistoryItem> callback) {
+    public void getPollHistory(PollHistoryType type, DataCallBack<PollHistoryItem> callback) {
         if (callback == null) return;
         List<PollHistoryItem> items = new ArrayList<>();
         switch (type) {
