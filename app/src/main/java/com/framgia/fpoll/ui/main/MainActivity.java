@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
+import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.introductapp.IntroduceAppFragment;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_history:
                 addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY),
                     R.string.title_history);
+                break;
+            case R.id.action_feedback:
+                addFragment(FeedbackFragment.newInstance(), R.string.title_feedback);
                 break;
             case R.id.action_login:
                 startActivity(AuthenticationActivity.getAuthenticationIntent(this));
