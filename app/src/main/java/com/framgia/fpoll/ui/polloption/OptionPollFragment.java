@@ -39,7 +39,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     public void nextStep() {
         SettingPollFragment settingPollFragment = SettingPollFragment.newInstance();
         getFragmentManager().beginTransaction()
-            .replace(R.id.frame_layout, settingPollFragment, null)
+            .add(R.id.frame_layout, settingPollFragment, null)
             .addToBackStack(null)
             .commit();
     }

@@ -69,7 +69,7 @@ public class CreatePollFragment extends Fragment
     public void nextStep() {
         OptionPollFragment optionPollFragment = OptionPollFragment.newInstance();
         getFragmentManager().beginTransaction()
-            .replace(R.id.frame_layout, optionPollFragment, null)
+            .add(R.id.frame_layout, optionPollFragment, null)
             .addToBackStack(null)
             .commit();
     }
