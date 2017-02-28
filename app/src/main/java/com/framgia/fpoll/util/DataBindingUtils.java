@@ -5,6 +5,7 @@ import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -18,6 +19,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -29,6 +31,10 @@ import android.widget.Spinner;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.databinding.PartialHeadBinding;
+import com.framgia.fpoll.ui.feedback.FeedbackPresenter;
+import com.framgia.fpoll.ui.feedback.FeedbackType;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
@@ -231,5 +237,53 @@ public class DataBindingUtils {
     @BindingAdapter(value = {"bind:pieData"})
     public static void setPieData(final PieChart pieChart, final PieData pieData) {
         pieChart.setData(pieData);
+    }
+
+    @BindingAdapter({"bind:eventRadioGroupFeedback"})
+    public static void eventRadioGroupFeedback(RadioGroup view, final FeedbackPresenter presenter) {
+        view.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_process:
+                        presenter.setFeedbackType(FeedbackType.PROCESS);
+                        break;
+                    case R.id.radio_web_content:
+                        presenter.setFeedbackType(FeedbackType.WEB_CONTENT);
+                        break;
+                    case R.id.radio_others:
+                        presenter.setFeedbackType(FeedbackType.OTHERS);
+                        break;
+                    case R.id.radio_ui:
+                    default:
+                        presenter.setFeedbackType(FeedbackType.INTERFACE);
+                        break;
+                }
+            }
+        });
+    }
+
+    @BindingAdapter({"bind:bindImage", "bind:bindError"})
+    public static void bindImage(ImageView view, String url, Drawable error) {
+        Glide.with(view.getContext())
+            .load(url)
+            .error(error)
+            .placeholder(error)
+            .thumbnail(0.5f)
+            .into(view);
+    }
+
+    @BindingAdapter({"bind:bindHeader"})
+    public static void loadHeader(NavigationView view, User user) {
+        PartialHeadBinding binding =
+            PartialHeadBinding.inflate(LayoutInflater.from(view.getContext()));
+        binding.setUser(user);
+        binding.executePendingBindings();
+        view.addHeaderView(binding.getRoot());
+    }
+
+    @BindingAdapter({"bind:bindAdapter"})
+    public static void bindAdapterRecycler(RecyclerView view, RecyclerView.Adapter adapter) {
+        view.setAdapter(adapter);
     }
 }

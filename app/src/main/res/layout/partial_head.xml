@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_180"
-    android:background="@color/color_teal_500"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/dp_16"
-    android:paddingLeft="@dimen/dp_16"
-    android:paddingRight="@dimen/dp_16"
-    android:paddingTop="@dimen/dp_16"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/image_avatar"
-        android:layout_width="@dimen/dp_86"
-        android:layout_height="@dimen/dp_86"
-        android:paddingTop="@dimen/dp_16"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_fpoll_logo"/>
+    <data>
 
-    <TextView
-        android:id="@+id/text_name"
+        <variable
+            name="user"
+            type="com.framgia.fpoll.data.model.User"/>
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dp_16"/>
+        android:background="@color/color_teal_500"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_8"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-</LinearLayout>
+        <ImageView
+            android:layout_width="@dimen/dp_86"
+            android:layout_height="@dimen/dp_86"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:scaleType="fitXY"
+            bind:bindError="@{@drawable/ic_fpoll_logo}"
+            bind:bindImage="@{user.avatar}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_8"
+            android:text="@{user.username}"/>
+    </LinearLayout>
+</layout>

@@ -24,7 +24,7 @@ public class ResultVoteFragment extends Fragment {
     private List<ResultItem> mResultItems = new ArrayList<>();
     private ObservableField<ResultVoteAdapter> mAdapter = new ObservableField<>();
 
-    public static ResultVoteFragment getInstance() {
+    public static ResultVoteFragment newInstance() {
         return new ResultVoteFragment();
     }
 

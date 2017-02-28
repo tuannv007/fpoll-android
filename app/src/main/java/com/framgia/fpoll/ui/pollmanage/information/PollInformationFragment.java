@@ -15,12 +15,12 @@ import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InformationFragment extends Fragment implements InformationContract.View {
+public class PollInformationFragment extends Fragment implements PollInformationContract.View {
     private FragmentInformationBinding mBinding;
-    private InformationContract.Presenter mPresenter;
+    private PollInformationContract.Presenter mPresenter;
 
-    public static InformationFragment newInstance() {
-        return new InformationFragment();
+    public static PollInformationFragment newInstance() {
+        return new PollInformationFragment();
     }
 
     @Override
@@ -28,8 +28,8 @@ public class InformationFragment extends Fragment implements InformationContract
                              Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_information, container, false);
-        mPresenter = new InformationPresenter(this);
-        mBinding.setHandler(new InformationHandler(mPresenter));
+        mPresenter = new PollInformationPresenter(this);
+        mBinding.setHandler(new PollInformationHandler(mPresenter));
         return mBinding.getRoot();
     }
 
