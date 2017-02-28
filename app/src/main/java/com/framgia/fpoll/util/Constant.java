@@ -24,6 +24,7 @@ public class Constant {
         public static final int NUMBER_SPACE = 1;
         public static final int NUMBER_MIN_LIMIT = -1;
         public static final String DATA_PLASH = "/";
+        public static final String DATA_NO_TITLE = "";
     }
 
     public static class BundleConstant {
@@ -31,6 +32,7 @@ public class Constant {
         public static final String BUNDLE_EVENT_SWITCH_UI = "BUNDLE_EVENT_SWITCH_UI";
         public static final String BUNDLE_VIEW_PAGE_TYPE = "BUNDLE_VIEW_PAGE_TYPE";
         public static final String BUNDLE_LIST_RESULT_ITEM = "BUNDLE_LIST_RESULT_ITEM";
+        public static final String BUNDLE_LIST_RESULT = "BUNDLE_LIST_RESULT";
     }
 
     public static class Gender {
