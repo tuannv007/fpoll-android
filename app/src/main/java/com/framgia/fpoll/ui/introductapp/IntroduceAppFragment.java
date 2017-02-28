@@ -39,8 +39,7 @@ public class IntroduceAppFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_introduce, container, false);
-        mPresenter = new IntroduceAppPresenter(this, new IntroduceRepository(new
-            IntroduceLocalDataSource(getActivity())));
+        mPresenter = new IntroduceAppPresenter(this, IntroduceRepository.getInstance(getActivity()));
         start();
         mBinding.setHandler(new IntroduceHandlerAction(mPresenter));
         mBinding.setFragment(this);
