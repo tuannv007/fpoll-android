@@ -7,5 +7,4 @@ public interface DataSource<T> {
         void onLoaded(List<T> data);
         void onNotAvailable();
     }
-    void getData(GetCallback callback);
 }

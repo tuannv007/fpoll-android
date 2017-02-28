@@ -20,5 +20,9 @@ public class SettingPollContract {
         void onCheckedLinkPoll(boolean checked);
         void onCheckedVotingLimit(boolean checked);
         void onCheckedSetPassword(boolean checked);
+        void onShowPassword();
+        void clickAugment();
+        void clickMinus();
+        void setRequireVote(RequireVoteType requireVote);
     }
 }

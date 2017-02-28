@@ -17,11 +17,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +32,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.ui.pollhistory.PollHistoryPresenter;
 import com.framgia.fpoll.ui.pollparticipant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollsetting.EventSwitchType;
+import com.framgia.fpoll.ui.pollsetting.RequireVoteType;
 import com.framgia.fpoll.ui.pollsetting.SettingPresenter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -190,5 +193,36 @@ public class DataBindingUtils {
     @BindingAdapter({"bind:bindBarChart"})
     public static void setBarChart(BarChart view, BarData data) {
         view.setData(data);
+    }
+
+    @BindingAdapter({"bind:showImage"})
+    public static void setShowImage(ImageView view, boolean isShow) {
+        view.setImageResource(isShow ? R.drawable.ic_eye : R.drawable.ic_eye_blocked);
+    }
+
+    @BindingAdapter({"bind:showPassword"})
+    public static void setShowImage(EditText view, boolean isShow) {
+        view.setTransformationMethod(isShow ? null : new PasswordTransformationMethod());
+    }
+
+    @BindingAdapter({"bind:eventRadioGroup"})
+    public static void eventRadioGroup(RadioGroup view, final SettingPresenter presenter) {
+        view.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_enter_email:
+                        presenter.setRequireVote(RequireVoteType.EMAIL);
+                        break;
+                    case R.id.radio_enter_name_email:
+                        presenter.setRequireVote(RequireVoteType.NAME_EMAIL);
+                        break;
+                    case R.id.radio_enter_name:
+                    default:
+                        presenter.setRequireVote(RequireVoteType.NAME);
+                        break;
+                }
+            }
+        });
     }
 }

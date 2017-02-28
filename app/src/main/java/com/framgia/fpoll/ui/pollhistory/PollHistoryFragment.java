@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
+import com.framgia.fpoll.data.source.local.PollHistoryRepository;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
@@ -53,7 +54,8 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_poll_history, container, false);
         getDataFromActivity();
-        mPresenter = new PollHistoryPresenter(this, mPollHistoryType);
+        mPresenter =
+            new PollHistoryPresenter(this, mPollHistoryType, PollHistoryRepository.getInstance());
         mBinding.setPresenter((PollHistoryPresenter) mPresenter);
         mBinding.setFragment(this);
         mAdapter.set(new PollHistoryAdapter(mListPollHistory, mPollHistoryType, mPresenter));
