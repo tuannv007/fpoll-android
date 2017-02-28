@@ -39,7 +39,7 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     public void nextStep() {
         PollCreatedFragment pollCreatedFragment = PollCreatedFragment.getInstance();
         getFragmentManager().beginTransaction()
-            .replace(R.id.frame_layout, pollCreatedFragment, null)
+            .add(R.id.frame_layout, pollCreatedFragment, null)
             .addToBackStack(null)
             .commit();
     }

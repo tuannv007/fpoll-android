@@ -42,7 +42,7 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     @Override
     public void nextStep() {
         getFragmentManager().beginTransaction()
-            .replace(R.id.frame_layout, ParticipantFragment.newInstance(), null)
+            .add(R.id.frame_layout, ParticipantFragment.newInstance(), null)
             .addToBackStack(null)
             .commit();
     }
