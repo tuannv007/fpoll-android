@@ -9,6 +9,7 @@ public interface CreationContract {
     interface View extends BaseView {
         void showDatePicker();
         void nextStep();
+        void bindError();
     }
 
     interface Presenter {

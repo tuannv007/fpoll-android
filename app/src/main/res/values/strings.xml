@@ -170,4 +170,5 @@
     <string name="path_link_fake"><![CDATA[DFGHJOIY&awbca78abcjhbsaT]]></string>
     <string name="hint_link_voting">Link voting</string>
     <string name="hint_link_manage_poll">Link manager poll</string>
+    <string name="msg_date_error">Finish time have to bigger than now</string>
 </resources>
