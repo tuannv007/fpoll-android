@@ -33,6 +33,7 @@ public class Constant {
         public static final String BUNDLE_VIEW_PAGE_TYPE = "BUNDLE_VIEW_PAGE_TYPE";
         public static final String BUNDLE_LIST_RESULT_ITEM = "BUNDLE_LIST_RESULT_ITEM";
         public static final String BUNDLE_LIST_RESULT = "BUNDLE_LIST_RESULT";
+        public static final String BUNDLE_TYPE_ITEM_VOTE = "BUNDLE_TYPE_ITEM_VOTE";
     }
 
     public static class Gender {

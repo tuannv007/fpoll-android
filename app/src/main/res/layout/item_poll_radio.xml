@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -21,43 +23,71 @@
         <import type="android.view.View"/>
     </data>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:onClick="@{() -> handler.chooseItemAnswer(voteItem)}"
-        android:orientation="horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/dp_5"
+        android:background="@color/color_grey_200"
+        card_view:cardCornerRadius="@dimen/dp_2"
+        card_view:cardElevation="@dimen/dp_2">
 
-        <RadioButton
-            android:clickable="false"
-            android:layout_width="wrap_content"
-            android:visibility="@{isSingleChoise ? View.VISIBLE: View.GONE}"
-            android:layout_height="wrap_content"
-            android:checked="@{voteItem.checkAnswer}"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:checked="@{voteItem.checkAnswer}"
-            android:visibility="@{isSingleChoise ? View.GONE: View.VISIBLE}"/>
+            <ImageView
+                android:id="@+id/image_item_vote"
+                style="@style/ImageViewItemVote"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_fpoll_logo"
+                android:visibility="@{voteItem.imageItemVote!= null ? View.VISIBLE : View.GONE}"
+                bind:imagePath="@{voteItem.imageItemVote}"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@{voteItem.contentVote}"
-            android:textSize="@dimen/sp_25"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/color_background_item_vote"
+                android:onClick="@{() -> handler.chooseItemAnswer(voteItem)}"
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_30"
-            android:background="@drawable/bg_circle_textview"
-            android:gravity="center"
-            android:text="@{String.valueOf(voteItem.countVote)}"
-            android:textStyle="bold"/>
-    </LinearLayout>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{voteItem.checkAnswer}"
+                    android:clickable="false"
+                    android:visibility="@{isSingleChoise ? View.VISIBLE: View.GONE}"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@{voteItem.contentVote}"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_18"/>
+
+                <TextView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginRight="@dimen/dp_30"
+                    android:background="@drawable/bg_circle_textview"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(voteItem.countVote)}"
+                    android:textStyle="bold"/>
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/color_white"
+                    android:buttonTint="@color/color_white"
+                    android:checked="@{voteItem.checkAnswer}"
+                    android:clickable="false"
+                    android:visibility="@{isSingleChoise ? View.GONE: View.VISIBLE}"/>
+            </LinearLayout>
+        </FrameLayout>
+    </android.support.v7.widget.CardView>
 </layout>

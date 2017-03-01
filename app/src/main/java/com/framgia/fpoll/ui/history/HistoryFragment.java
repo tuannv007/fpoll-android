@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
-import com.framgia.fpoll.ui.pollhistory.PollHistoryFragment;
+import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
 import com.framgia.fpoll.ui.pollmanage.action.ActionFragment;
 import com.framgia.fpoll.ui.pollmanage.information.InformationFragment;
 import com.framgia.fpoll.ui.pollmanage.result.ResultFragment;
-import com.framgia.fpoll.ui.vote.VoteFragment;
+import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 
 import java.util.ArrayList;
 import java.util.List;

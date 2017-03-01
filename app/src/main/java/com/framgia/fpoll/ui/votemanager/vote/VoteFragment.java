@@ -16,6 +16,8 @@ import com.framgia.fpoll.databinding.FragmentVoteBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.fpoll.ui.votemanager.vote.TypeItemVote.MULTI_CHOISE;
+
 /**
  * Created by tran.trung.phong on 22/02/2017.
  */
@@ -37,6 +39,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_vote, container, false);
         mBinding.setFragment(this);
         mPresenter = new VotePresenter(this);
+        mTypeItemVote = MULTI_CHOISE;
         mAdapter.set(new VoteAdapter(mVoteItems, mPresenter, mTypeItemVote));
         return mBinding.getRoot();
     }
