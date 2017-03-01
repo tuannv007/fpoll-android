@@ -4,10 +4,10 @@ package com.framgia.fpoll.ui.pollmanage.information;
  * Created by Nhahv0902 on 2/24/2017.
  * <></>
  */
-public class InformationPresenter implements InformationContract.Presenter {
-    private final InformationContract.View mView;
+public class PollInformationPresenter implements PollInformationContract.Presenter {
+    private final PollInformationContract.View mView;
 
-    public InformationPresenter(InformationContract.View view) {
+    public PollInformationPresenter(PollInformationContract.View view) {
         mView = view;
         mView.start();
     }

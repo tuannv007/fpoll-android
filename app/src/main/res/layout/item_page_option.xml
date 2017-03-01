@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/dp_16">
+<layout xmlns:bind="http://schemas.android.com/tools">
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_edit_text"
-        android:orientation="horizontal"
-        android:padding="@dimen/dp_1">
+        android:orientation="vertical"
+        android:padding="@dimen/dp_16">
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_option_poll"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp_1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edit_option_poll"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/image_insert_photo"
+                style="@style/ImageViewLogin"
+                android:background="@color/color_teal_500"
+                android:src="@drawable/ic_photo_white"/>
+
+            <ImageView
+                android:id="@+id/image_delete"
+                style="@style/ImageViewLogin"
+                android:background="@color/color_red_500"
+                android:src="@drawable/ic_delete_white_24px"/>
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/image_insert_photo"
-            style="@style/ImageViewLogin"
-            android:background="@color/color_teal_500"
-            android:src="@drawable/ic_photo_white"/>
-
-        <ImageView
-            android:id="@+id/image_delete"
-            style="@style/ImageViewLogin"
-            android:background="@color/color_red_500"
-            android:src="@drawable/ic_delete_white_24px"/>
+            android:id="@+id/image_photo"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_150"
+            android:layout_marginTop="@dimen/dp_4"
+            android:scaleType="fitXY"/>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/image_photo"
-        android:layout_width="@dimen/dp_150"
-        android:layout_height="@dimen/dp_150"
-        android:layout_marginTop="@dimen/dp_4"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_fpoll_logo"/>
-</LinearLayout>
+</layout>

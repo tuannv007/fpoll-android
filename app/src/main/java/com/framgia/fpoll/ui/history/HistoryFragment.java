@@ -12,8 +12,10 @@ import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
 import com.framgia.fpoll.ui.pollmanage.action.ActionFragment;
-import com.framgia.fpoll.ui.pollmanage.information.InformationFragment;
+import com.framgia.fpoll.ui.pollmanage.information.PollInformationFragment;
 import com.framgia.fpoll.ui.pollmanage.result.ResultFragment;
+import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
+import com.framgia.fpoll.ui.votemanager.resultvote.ResultVoteFragment;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 
 import java.util.ArrayList;
@@ -74,7 +76,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void initAdapterManage() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(InformationFragment.newInstance());
+        fragments.add(PollInformationFragment.newInstance());
         fragments.add(ResultFragment.newInstance());
         fragments.add(ActionFragment.newInstance());
         String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);
@@ -85,8 +87,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public void initAdapterVote() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(VoteFragment.newIntance());
-        fragments.add(InformationFragment.newInstance());
-        fragments.add(ResultFragment.newInstance());
+        fragments.add(VoteInformationFragment.newInstance());
+        fragments.add(ResultVoteFragment.newInstance());
         String[] titles = getActivity().getResources().getStringArray(R.array.array_vote);
         mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
     }

@@ -4,11 +4,11 @@ package com.framgia.fpoll.ui.pollmanage.information;
  * Created by Nhahv0902 on 2/24/2017.
  * <></>
  */
-public class InformationHandler {
-    private InformationContract.Presenter mListener;
+public class PollInformationHandler {
+    private PollInformationContract.Presenter mListener;
 
-    public InformationHandler(
-        InformationContract.Presenter listener) {
+    public PollInformationHandler(
+        PollInformationContract.Presenter listener) {
         mListener = listener;
     }
 

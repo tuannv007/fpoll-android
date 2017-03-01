@@ -28,7 +28,7 @@ import com.framgia.fpoll.util.Constant;
 
 public class MainActivity extends AppCompatActivity
     implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
-    private MainPresenter mPresenter;
+    private MainContract.Presenter mPresenter;
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
 
@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mPresenter = new MainPresenter(this);
+        mBinding.setPresenter((MainPresenter) mPresenter);
     }
 
     @Override
     public void start() {
         Toolbar toolbar = mBinding.toolbarLayout.toolbar;
         setSupportActionBar(toolbar);
-        setTitle(R.string.title_home);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDrawerLayout = mBinding.drawerLayout;
         ActionBarDrawerToggle toggle =

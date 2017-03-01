@@ -13,9 +13,11 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
     private final FeedbackContract.View mView;
     private ObservableField<String> mContent = new ObservableField<>();
     private ObservableField<String> mName = new ObservableField<>();
+    private FeedbackType mFeedbackType;
 
     public FeedbackPresenter(FeedbackContract.View view) {
         mView = view;
+        mFeedbackType = FeedbackType.INTERFACE;
         mView.start();
     }
 
@@ -44,6 +46,11 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
                     }
                 }
             });
+    }
+
+    @Override
+    public void setFeedbackType(FeedbackType type) {
+        mFeedbackType = type;
     }
 
     public ObservableField<String> getContent() {
