@@ -8,11 +8,11 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.pollparticipant.ParticipantHandler"/>
+            type="com.framgia.fpoll.ui.pollcreation.participant.ParticipantHandler"/>
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.pollparticipant.ParticipantPresenter"/>
+            type="com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter"/>
     </data>
 
     <ScrollView

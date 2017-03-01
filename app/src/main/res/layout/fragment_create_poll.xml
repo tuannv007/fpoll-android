@@ -6,15 +6,15 @@
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.pollcreation.CreatePollFragment"/>
+            type="com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment"/>
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.pollcreation.CreatePollActionHandle"/>
+            type="com.framgia.fpoll.ui.pollcreation.infomation.CreatePollActionHandle"/>
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.pollcreation.CreationPresenter"/>
+            type="com.framgia.fpoll.ui.pollcreation.infomation.CreationPresenter"/>
 
         <import type="com.framgia.fpoll.util.TimeUtil"/>
     </data>

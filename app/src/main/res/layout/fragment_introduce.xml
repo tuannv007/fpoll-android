@@ -6,11 +6,11 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.introductapp.IntroduceHandlerAction"/>
+            type="com.framgia.fpoll.ui.introduction.IntroduceHandlerAction"/>
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.introductapp.IntroduceAppFragment"/>
+            type="com.framgia.fpoll.ui.introduction.IntroduceAppFragment"/>
 
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
     </data>

@@ -7,11 +7,11 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.polloption.OptionHandler"/>
+            type="com.framgia.fpoll.ui.pollcreation.option.OptionHandler"/>
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.polloption.OptionPresenter"/>
+            type="com.framgia.fpoll.ui.pollcreation.option.OptionPresenter"/>
     </data>
 
     <ScrollView

@@ -7,13 +7,13 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.pollsetting.SettingHandler"/>
+            type="com.framgia.fpoll.ui.pollcreation.setting.SettingHandler"/>
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.pollsetting.SettingPresenter"/>
+            type="com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter"/>
 
-        <import type="com.framgia.fpoll.ui.pollsetting.EventSwitchType"/>
+        <import type="com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType"/>
 
         <import type="java.lang.String"/>
 

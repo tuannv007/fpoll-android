@@ -14,7 +14,7 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.vote.VoteHandler"/>
+            type="com.framgia.fpoll.ui.votemanager.vote.VoteHandler"/>
 
         <import type="java.lang.String"/>
 

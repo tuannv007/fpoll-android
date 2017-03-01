@@ -5,11 +5,11 @@
     <data>
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.barchart.BarchartPresenter"/>
+            type="com.framgia.fpoll.ui.votemanager.barchart.BarchartPresenter"/>
 
         <variable
             name="barChart"
-            type="com.framgia.fpoll.ui.barchart.BarchartFragment"/>
+            type="com.framgia.fpoll.ui.votemanager.barchart.BarchartFragment"/>
     </data>
 
     <com.github.mikephil.charting.charts.BarChart

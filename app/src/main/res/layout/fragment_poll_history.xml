@@ -7,11 +7,11 @@
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.pollhistory.PollHistoryPresenter"/>
+            type="com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter"/>
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.pollhistory.PollHistoryFragment"/>
+            type="com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment"/>
 
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
     </data>
