@@ -290,6 +290,7 @@ public class DataBindingUtils {
 
     @BindingAdapter({"bind:bindAdapter"})
     public static void bindAdapterRecycler(RecyclerView view, RecyclerView.Adapter adapter) {
+        view.setNestedScrollingEnabled(false);
         view.setAdapter(adapter);
     }
 
