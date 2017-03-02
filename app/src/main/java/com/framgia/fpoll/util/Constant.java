@@ -8,6 +8,8 @@ public class Constant {
     public static final int MIN_LENGTH_PASSWORD = 6;
     public static final CharSequence TITLE_TYPE_TEXT = "text";
     public static final int TYPE_LAYOUT_GRID_TWO = 2;
+    public static final String TYPE_IMAGE = "image";
+    public static final long TIME_OUT_SERVER = 5;
 
     public static class WebUrl {
         public static final String BASE_URL = "http://poll.framgia.vn/";
@@ -54,5 +56,14 @@ public class Constant {
 
     public static class Tag {
         public static final String DATE_PICKER_TAG = "Date picker dialog";
+    }
+
+    public static class ConstantApi {
+        public static final String BASE_URL = "http://quiet-fjord-67201.herokuapp.com/";
+    }
+
+    public static class ConstantResponseCode {
+        public static final int API_RESPONSE_CODE_OK = 200;
+        public static final int API_RESPONSE_UN_PROCESSABLE = 442;
     }
 }

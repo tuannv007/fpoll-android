@@ -174,4 +174,8 @@
     <string name="title_table">Table</string>
     <string name="title_pie_chart">Pie chart</string>
     <string name="title_bar_chart">Bar chart</string>
+    <string name="msg_register_success">Register success!</string>
+    <string name="msg_register_status_error">Register Error ! Email is exists in database. Please enter a new email</string>
+    <string name="msg_loading">Loading</string>
+    <string name="msg_no_internet">No access internet</string>
 </resources>

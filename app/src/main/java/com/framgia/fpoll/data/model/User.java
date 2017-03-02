@@ -4,19 +4,28 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.framgia.fpoll.BR;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by tuanbg on 2/9/17.
  */
 public class User extends BaseObservable {
+    @SerializedName("name")
     private String mUsername;
+    @SerializedName("email")
     private String mEmail;
+    @SerializedName("gender")
     private int mGender;
+    @SerializedName("password")
     private String mPassword;
+    @SerializedName("password_confirmation")
     private String mConfirmPassword;
+    @SerializedName("getAvatar")
     private String mAvatar;
+    @SerializedName("chatwork_id")
     private String mChatWorkId;
-    private String mRole;
+    @SerializedName("token_verification")
+    private String mToken;
 
     @Bindable
     public String getUsername() {
@@ -77,6 +86,16 @@ public class User extends BaseObservable {
         mAvatar = avatar;
         notifyPropertyChanged(BR.avatar);
     }
+    @Bindable
+    public String getToken() {
+        return mToken;
+    }
+
+    public void setToken(String token) {
+        mToken = token;
+        notifyPropertyChanged(BR.token);
+
+    }
 
     @Bindable
     public String getChatWorkId() {
@@ -88,14 +107,7 @@ public class User extends BaseObservable {
         notifyPropertyChanged(BR.chatWorkId);
     }
 
-    @Bindable
-    public String getRole() {
-        return mRole;
-    }
-
-    public void setRole(String role) {
-        mRole = role;
-        notifyPropertyChanged(BR.role);
+    public User() {
     }
 
     @Override
@@ -108,7 +120,7 @@ public class User extends BaseObservable {
             ", mConfirmPassword='" + mConfirmPassword + '\'' +
             ", mAvatar='" + mAvatar + '\'' +
             ", mChatWorkId='" + mChatWorkId + '\'' +
-            ", mRole='" + mRole + '\'' +
+            ", mToken='" + mToken + '\'' +
             '}';
     }
 }

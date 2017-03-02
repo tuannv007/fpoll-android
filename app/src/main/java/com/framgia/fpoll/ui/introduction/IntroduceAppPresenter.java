@@ -1,7 +1,7 @@
 package com.framgia.fpoll.ui.introduction;
 
 import com.framgia.fpoll.data.model.IntroduceItem;
-import com.framgia.fpoll.data.source.local.DataSource;
+import com.framgia.fpoll.data.source.local.IntroduceDataSource;
 import com.framgia.fpoll.data.source.local.IntroduceRepository;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class IntroduceAppPresenter implements IntroduceAppContract.Presenter {
     }
 
     public void getData() {
-        mIntroduceRepository.getData(new DataSource.GetCallback<IntroduceItem>() {
+        mIntroduceRepository.getData(new IntroduceDataSource.GetCallback<IntroduceItem>() {
             @Override
             public void onLoaded(List<IntroduceItem> data) {
                 mView.updateIntroduceView(data);
