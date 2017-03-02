@@ -265,12 +265,17 @@ public class DataBindingUtils {
 
     @BindingAdapter({"bind:bindImage", "bind:bindError"})
     public static void bindImage(ImageView view, String url, Drawable error) {
-        Glide.with(view.getContext())
-            .load(url)
-            .error(error)
-            .placeholder(error)
-            .thumbnail(0.5f)
-            .into(view);
+        Glide.with(view.getContext()).load(url).asBitmap().error(error).placeholder(error)
+            .centerCrop()
+            .into(new BitmapImageViewTarget(view) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(view.getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    view.setImageDrawable(circularBitmapDrawable);
+                }
+            });
     }
 
     @BindingAdapter({"bind:bindHeader"})

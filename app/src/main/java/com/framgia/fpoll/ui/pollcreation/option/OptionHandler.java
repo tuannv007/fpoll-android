@@ -1,7 +1,10 @@
 package com.framgia.fpoll.ui.pollcreation.option;
 
+import com.framgia.fpoll.data.model.OptionItem;
+
 /**
  * Created by framgia on 22/02/2017.
+ * <></>
  */
 public class OptionHandler {
     private OptionPollContract.Presenter mListener;
@@ -17,4 +20,17 @@ public class OptionHandler {
     public void previousStep() {
         if (mListener != null) mListener.previousStep();
     }
+
+    public void clickPickImage(OptionItem optionItem, int position) {
+        if (mListener != null) mListener.pickImage(optionItem, position);
+    }
+
+    public void clickDeletePoll(OptionItem optionItem, int position) {
+        if (mListener != null) mListener.deletePoll(optionItem, position);
+    }
+
+    public void clickAugmentPoll() {
+        if (mListener != null) mListener.augmentPoll();
+    }
 }
+
