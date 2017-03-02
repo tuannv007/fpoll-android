@@ -12,6 +12,16 @@
             name="image"
             type="android.graphics.drawable.Drawable"/>
 
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.pollmanage.action.EditPollHandler"/>
+
+        <import type="com.framgia.fpoll.ui.pollmanage.action.EditPollType"/>
+
+        <variable
+            name="editType"
+            type="com.framgia.fpoll.ui.pollmanage.action.EditPollType"/>
+
     </data>
 
     <LinearLayout
@@ -19,6 +29,7 @@
         android:layout_height="match_parent"
         android:background="@color/color_teal_500"
         android:gravity="center"
+        android:onClick="@{()->handler.clickEditPoll(editType)}"
         android:orientation="horizontal">
 
         <ImageView

@@ -10,7 +10,11 @@ public interface EditPollContract {
     }
 
     interface Presenter {
-        void submitUpdateEditLink();
-        void submitUpdateVoteLink();
+        void submitSaveLinkManager();
+        void submitSaveLinkVoting();
+        void viewHistory();
+        void editPoll();
+        void closePoll();
+        void createDuplicate();
     }
 }
