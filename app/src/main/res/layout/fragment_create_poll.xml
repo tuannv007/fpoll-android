@@ -1,8 +1,17 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="msgError"
+            type="java.lang.String"/>
+
+        <variable
+            name="information"
+            type="com.framgia.fpoll.data.model.PollInformation"/>
 
         <variable
             name="fragment"
@@ -59,8 +68,11 @@
                         android:src="@drawable/ic_person_black_24dp"/>
 
                     <EditText
+                        android:id="@+id/edt_user_name"
                         style="@style/RegisterEditTextStyle"
-                        android:hint="@string/title_username"/>
+                        android:hint="@string/title_username"
+                        android:text="@={information.userName}"
+                        bind:setErrorEditText="@{msgError}"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -74,9 +86,12 @@
                         android:src="@drawable/ic_email_white_24px"/>
 
                     <EditText
+                        android:id="@+id/edt_email"
                         style="@style/RegisterEditTextStyle"
                         android:hint="@string/title_email"
-                        android:inputType="textEmailAddress"/>
+                        android:inputType="textEmailAddress"
+                        android:text="@={information.email}"
+                        bind:setErrorEditText="@{msgError}"/>
 
                 </LinearLayout>
 
@@ -91,9 +106,12 @@
                         android:src="@drawable/ic_title"/>
 
                     <EditText
+                        android:id="@+id/edt_poll_title"
                         style="@style/RegisterEditTextStyle"
                         android:hint="@string/hint_poll_title"
-                        android:inputType="textEmailAddress"/>
+                        android:inputType="textEmailAddress"
+                        android:text="@={information.pollTitle}"
+                        bind:setErrorEditText="@{msgError}"/>
 
                 </LinearLayout>
 

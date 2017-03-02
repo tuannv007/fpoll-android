@@ -17,6 +17,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
@@ -290,5 +291,10 @@ public class DataBindingUtils {
     @BindingAdapter({"bind:bindAdapter"})
     public static void bindAdapterRecycler(RecyclerView view, RecyclerView.Adapter adapter) {
         view.setAdapter(adapter);
+    }
+
+    @BindingAdapter({"bind:setErrorEditText"})
+    public static void setError(final EditText editText, final String msg) {
+        if (TextUtils.isEmpty(editText.getText())) editText.setError(msg);
     }
 }
