@@ -3,15 +3,22 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.pollmanage.action.EditPollHandler"/>
+
         <variable
             name="presenter"
             type="com.framgia.fpoll.ui.pollmanage.action.EditPollPresenter"/>
+
+        <import type="com.framgia.fpoll.ui.pollmanage.action.EditPollType"/>
     </data>
 
     <ScrollView
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/dp_4"
                 android:paddingTop="@dimen/dp_4"
-                android:text="@{@string/title_option_link(presenter.pathLink)}"
+                android:text="@{@string/title_option_link(presenter.linkManager)}"
                 android:textColor="@color/color_blued"
                 android:textSize="@dimen/sp_12"/>
 
@@ -41,13 +48,16 @@
 
                 <EditText
                     style="@style/EditTextManageActivity"
-                    android:text="@={presenter.pathLink}"
-                    android:textSize="@dimen/sp_12"
-                    android:inputType="textEmailAddress"/>
+                    android:hint="@string/hint_link_manage_poll"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/dp_2"
+                    android:text="@={presenter.linkManager}"
+                    android:textSize="@dimen/sp_12"/>
 
                 <ImageView
                     style="@style/ImageViewLogin"
                     android:background="@color/color_teal_500"
+                    android:onClick="@{()->handler.clickSaveLinkManager()}"
                     android:src="@drawable/ic_done"/>
 
             </LinearLayout>
@@ -58,7 +68,7 @@
                 android:layout_marginTop="@dimen/dp_30"
                 android:paddingBottom="@dimen/dp_4"
                 android:paddingTop="@dimen/dp_4"
-                android:text="@string/title_option"
+                android:text="@{@string/title_option_link(presenter.linkVoting)}"
                 android:textColor="@color/color_blued"
                 android:textSize="@dimen/sp_17"/>
 
@@ -73,11 +83,15 @@
 
                 <EditText
                     style="@style/EditTextManageActivity"
-                    android:inputType="textEmailAddress"/>
+                    android:hint="@string/hint_link_voting"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/dp_2"
+                    android:text="@={presenter.linkVoting}"/>
 
                 <ImageView
                     style="@style/ImageViewLogin"
                     android:background="@color/color_teal_500"
+                    android:onClick="@{()->handler.clickSaveLinkVoting()}"
                     android:src="@drawable/ic_done"/>
 
             </LinearLayout>
@@ -94,6 +108,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dp_2"
                     android:layout_weight="1"
+                    bind:editType="@{EditPollType.VIEW_HISTORY}"
+                    bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_history_white_24px}"
                     bind:title="@{@string/title_views_history}"/>
 
@@ -103,6 +119,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dp_2"
                     android:layout_weight="1"
+                    bind:editType="@{EditPollType.EDIT}"
+                    bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_mode_edit_black_24px}"
                     bind:title="@{@string/title_edit_this_poll}"/>
 
@@ -120,6 +138,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dp_2"
                     android:layout_weight="1"
+                    bind:editType="@{EditPollType.CLOSE}"
+                    bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_cancel_circle}"
                     bind:title="@{@string/title_close_this_poll}"/>
 
@@ -129,6 +149,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dp_2"
                     android:layout_weight="1"
+                    bind:editType="@{EditPollType.CREATE}"
+                    bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_copy}"
                     bind:title="@{@string/title_create_duplicate}"/>
 

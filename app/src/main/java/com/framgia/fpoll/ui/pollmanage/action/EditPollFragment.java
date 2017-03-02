@@ -27,6 +27,7 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_action, container, false);
         mPresenter = new EditPollPresenter(this);
         mBinding.setPresenter((EditPollPresenter) mPresenter);
+        mBinding.setHandler(new EditPollHandler(mPresenter));
         return mBinding.getRoot();
     }
 

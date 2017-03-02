@@ -168,4 +168,6 @@
     <string name="msg_name_error">Name do not empty</string>
     <string name="title_option_link">http://poll.framgia.vn/link/%s</string>
     <string name="path_link_fake"><![CDATA[DFGHJOIY&awbca78abcjhbsaT]]></string>
+    <string name="hint_link_voting">Link voting</string>
+    <string name="hint_link_manage_poll">Link manager poll</string>
 </resources>

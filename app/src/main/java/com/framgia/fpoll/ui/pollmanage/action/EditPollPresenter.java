@@ -5,9 +5,10 @@ import android.databinding.ObservableField;
 /**
  * Created by tran.trung.phong on 01/03/2017.
  */
-public class EditPollPresenter implements EditPollContract.Presenter{
+public class EditPollPresenter implements EditPollContract.Presenter {
     private EditPollContract.View mView;
-    private ObservableField<String> mPathLink = new ObservableField<>();
+    private ObservableField<String> mLinkManager = new ObservableField<>();
+    private ObservableField<String> mLinkVoting = new ObservableField<>();
 
     public EditPollPresenter(EditPollContract.View view) {
         mView = view;
@@ -15,16 +16,40 @@ public class EditPollPresenter implements EditPollContract.Presenter{
     }
 
     @Override
-    public void submitUpdateEditLink() {
-        // TODO call api update edit link poll
+    public void submitSaveLinkManager() {
+        // TODO: 3/2/2017 call api save link manager
     }
 
     @Override
-    public void submitUpdateVoteLink() {
-        // TODO call api update vote link poll
+    public void submitSaveLinkVoting() {
+        // TODO: 3/2/2017 call api save link voting
     }
 
-    public ObservableField<String> getPathLink() {
-        return mPathLink;
+    @Override
+    public void viewHistory() {
+        // TODO: 3/2/2017 call api view history
+    }
+
+    @Override
+    public void editPoll() {
+        // TODO: 3/2/2017 call api edit poll
+    }
+
+    @Override
+    public void closePoll() {
+        // TODO: 3/2/2017 call api close poll
+    }
+
+    @Override
+    public void createDuplicate() {
+        // TODO: 3/2/2017 call api create duplicate
+    }
+
+    public ObservableField<String> getLinkManager() {
+        return mLinkManager;
+    }
+
+    public ObservableField<String> getLinkVoting() {
+        return mLinkVoting;
     }
 }
