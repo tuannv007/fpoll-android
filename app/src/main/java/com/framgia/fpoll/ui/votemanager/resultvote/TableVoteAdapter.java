@@ -14,12 +14,13 @@ import java.util.List;
 
 /**
  * Created by tran.trung.phong on 23/02/2017.
+ * <></>
  */
-public class ResultVoteAdapter extends RecyclerView.Adapter<ResultVoteAdapter.ResultVoteHolder> {
+public class TableVoteAdapter extends RecyclerView.Adapter<TableVoteAdapter.ResultVoteHolder> {
     private List<ResultItem> mResultItems = new ArrayList<>();
     private LayoutInflater mInflater;
 
-    public ResultVoteAdapter(List<ResultItem> resultItems) {
+    public TableVoteAdapter(List<ResultItem> resultItems) {
         mResultItems = resultItems;
     }
 
