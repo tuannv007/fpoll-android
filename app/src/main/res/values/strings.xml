@@ -171,4 +171,7 @@
     <string name="hint_link_voting">Link voting</string>
     <string name="hint_link_manage_poll">Link manager poll</string>
     <string name="msg_date_error">Finish time have to bigger than now</string>
+    <string name="title_table">Table</string>
+    <string name="title_pie_chart">Pie chart</string>
+    <string name="title_bar_chart">Bar chart</string>
 </resources>

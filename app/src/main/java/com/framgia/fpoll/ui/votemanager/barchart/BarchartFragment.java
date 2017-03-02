@@ -27,7 +27,7 @@ public class BarchartFragment extends Fragment implements BarcharContract.View {
     private ObservableList<ResultItem> mItems = new ObservableArrayList<>();
     private BarcharContract.Presenter mPresenter;
 
-    public static BarchartFragment newIntance(List<ResultItem> items) {
+    public static BarchartFragment newInstance(List<ResultItem> items) {
         BarchartFragment fragment = new BarchartFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(BUNDLE_LIST_RESULT_ITEM, (ArrayList<ResultItem>) items);
