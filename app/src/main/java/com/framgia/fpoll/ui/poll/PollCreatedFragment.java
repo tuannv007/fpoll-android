@@ -37,8 +37,9 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_created_poll, container, false);
+        mBinding.setFragment(this);
         start();
-        mBinding.setHandler(new PollCreatedHandlerAction(mPresenter));
+        mBinding.setHandler(new PollCreatedHandler(mPresenter));
         return mBinding.getRoot();
     }
 
