@@ -298,4 +298,11 @@ public class DataBindingUtils {
     public static void setError(final EditText editText, final String msg) {
         if (TextUtils.isEmpty(editText.getText())) editText.setError(msg);
     }
+
+    @BindingAdapter({"bind:setErrorEmail"})
+    public static void setErrorEmail(final EditText editText, final String msg) {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText()).matches()) {
+            editText.setError(msg);
+        }
+    }
 }

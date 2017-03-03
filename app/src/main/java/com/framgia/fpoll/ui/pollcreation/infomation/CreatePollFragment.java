@@ -74,6 +74,7 @@ public class CreatePollFragment extends Fragment
     @Override
     public void bindError() {
         mBinding.setMsgError(getString(R.string.msg_content_error));
+        mBinding.setMsgErrorEmail(getString(R.string.msg_email_invalidate));
     }
 
     @Override

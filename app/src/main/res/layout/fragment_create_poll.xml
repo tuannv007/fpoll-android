@@ -10,6 +10,10 @@
             type="java.lang.String"/>
 
         <variable
+            name="msgErrorEmail"
+            type="java.lang.String"/>
+
+        <variable
             name="information"
             type="com.framgia.fpoll.data.model.PollInformation"/>
 
@@ -92,7 +96,8 @@
                         android:hint="@string/title_email"
                         android:inputType="textEmailAddress"
                         android:text="@={information.email}"
-                        bind:setErrorEditText="@{msgError}"/>
+                        bind:setErrorEditText="@{msgError}"
+                        bind:setErrorEmail="@{msgErrorEmail}"/>
 
                 </LinearLayout>
 
