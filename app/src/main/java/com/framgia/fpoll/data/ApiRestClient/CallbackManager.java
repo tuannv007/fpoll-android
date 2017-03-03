@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.authenticationservice.AuthenticationApi;
 import com.google.gson.Gson;
 
 import java.io.IOException;

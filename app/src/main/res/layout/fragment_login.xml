@@ -13,7 +13,7 @@
             name="presenter"
             type="com.framgia.fpoll.ui.authenication.login.LoginPresenter"/>
 
-        <import type="com.framgia.fpoll.data.enums.LoginType"/>
+        <import type="com.framgia.fpoll.ui.authenication.login.LoginType"/>
     </data>
 
     <ScrollView

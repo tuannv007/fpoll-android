@@ -39,11 +39,6 @@ public class Constant {
         public static final String BUNDLE_OPTION_ITEM = "BUNDLE_OPTION_ITEM";
     }
 
-    public static class Gender {
-        public static final int MALE = 1;
-        public static final int FEMALE = 0;
-    }
-
     public static class RequestCode {
         public static final int IMAGE_PICKER_SELECT = 1;
         public static final int PERMISSIONS_REQUEST_READ_EXTERNAL = 2;
@@ -59,11 +54,11 @@ public class Constant {
     }
 
     public static class ConstantApi {
-        public static final String BASE_URL = "http://quiet-fjord-67201.herokuapp.com/";
-    }
-
-    public static class ConstantResponseCode {
-        public static final int API_RESPONSE_CODE_OK = 200;
-        public static final int API_RESPONSE_UN_PROCESSABLE = 442;
+        /*
+        * do base url cua login khac voi base url cua register len tam thoi de
+        * day va comment
+        * http://quiet-fjord-67201.herokuapp.com/
+        * */
+        public static final String BASE_URL = "https://blooming-gorge-20159.herokuapp.com/";
     }
 }

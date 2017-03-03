@@ -1,7 +1,5 @@
 package com.framgia.fpoll.ui.authenication.login;
 
-import com.framgia.fpoll.data.enums.LoginType;
-
 /**
  * Created by Nhahv0902 on 2/20/2017.
  * <></>

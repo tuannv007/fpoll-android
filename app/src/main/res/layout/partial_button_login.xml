@@ -8,7 +8,8 @@
 
         <variable
             name="typeLogin"
-            type="com.framgia.fpoll.data.enums.LoginType"/>
+            type="com.framgia.fpoll.ui.authenication.login.LoginType"/>
+
 
         <variable
             name="handler"
