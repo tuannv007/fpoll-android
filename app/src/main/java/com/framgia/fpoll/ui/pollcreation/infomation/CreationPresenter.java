@@ -22,7 +22,8 @@ public class CreationPresenter implements CreationContract.Presenter {
         if (mView == null ||
             TextUtils.isEmpty(mPollInformation.getUserName()) ||
             TextUtils.isEmpty(mPollInformation.getEmail()) ||
-            TextUtils.isEmpty(mPollInformation.getPollTitle()))
+            TextUtils.isEmpty(mPollInformation.getPollTitle()) ||
+            (!android.util.Patterns.EMAIL_ADDRESS.matcher(mPollInformation.getEmail()).matches()))
             return;
         mView.nextStep();
     }
