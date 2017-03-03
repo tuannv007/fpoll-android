@@ -178,4 +178,12 @@
     <string name="msg_register_status_error">Register Error ! Email is exists in database. Please enter a new email</string>
     <string name="msg_loading">Loading</string>
     <string name="msg_no_internet">No access internet</string>
+    <string name="post_comment">%d Comment</string>
+    <string name="post_comments">%d Comments</string>
+    <string name="post_user">%d User</string>
+    <string name="post_users">%d Users</string>
+    <string name="error_load_comments">Failed to load comments</string>
+    <string name="action_post_comment">Post comment</string>
+    <string name="action_show_comments">Show comments</string>
+    <string name="action_hide_comments">Hide comments</string>
 </resources>
