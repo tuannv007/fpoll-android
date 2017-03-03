@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
+        app:cardElevation="@dimen/dp_4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_8">
+
+                <com.facebook.share.widget.LikeView
+                    android:id="@+id/like_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.facebook.share.widget.ShareButton
+                    android:id="@+id/button_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"/>
+
+                <TextView
+                    style="@style/TextViewPollInformation"
+                    android:layout_weight="1"
+                    android:drawableRight=
+                        "@{fragment.commentExpand ? @drawable/ic_arrow_drop_up : @drawable/ic_arrow_drop_down}"
+                    android:gravity="end|right|center_vertical"
+                    android:onClick="@{()-> fragment.setCommentsView()}"
+                    android:text="@{fragment.commentExpand ? @string/action_hide_comments : @string/action_show_comments}"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{fragment.commentExpand ? View.VISIBLE : View.GONE}">
+
+                <RelativeLayout
+                    android:id="@+id/relative_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_user_comments"
+                        style="@style/TextViewPollInformation"
+                        android:drawableLeft="@drawable/ic_people"
+                        android:drawableStart="@drawable/ic_people"
+                        android:text="@{fragment.pollInfo.totalComments &lt; 2 ? @string/post_user(fragment.pollInfo.totalCommentUsers): @string/post_user(fragment.pollInfo.totalCommentUsers)}"/>
+
+                    <TextView
+                        style="@style/TextViewPollInformation"
+                        android:layout_alignTop="@id/text_user_comments"
+                        android:layout_toRightOf="@id/text_user_comments"
+                        android:drawableLeft="@drawable/ic_comment"
+                        android:drawableStart="@drawable/ic_comment"
+                        android:text="@{fragment.pollInfo.totalCommentUsers &lt; 2 ? @string/post_user(fragment.pollInfo.totalComments): @string/post_user(fragment.pollInfo.totalComments)}"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_user_comments"
+                        android:padding="@dimen/dp_8"
+                        app:layoutManager="@{LayoutManageUtil.linear()}"
+                        bind:bindAdapter="@{fragment.adapter}"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/error_load_comments"
+                    android:visibility="gone"/>
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>
