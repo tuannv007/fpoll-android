@@ -11,8 +11,10 @@ public interface PollCreatedContract {
     }
 
     interface Presenter {
-        void copyLink();
-        void viewManagerLink(String idPoll);
+        void copyLinkInvite();
+        void viewLinkInvite(String idPoll);
         void resendEmail();
+        void copyLinkManager();
+        void viewLinkManager(String idPoll);
     }
 }
