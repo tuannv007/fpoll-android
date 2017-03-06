@@ -8,7 +8,10 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.SocialData;
 import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.source.remote.login.LoginDataSource;
+import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.util.UserValidation;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.twitter.sdk.android.core.TwitterException;
@@ -23,12 +26,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     private FPollTwitterAuthClient mFPollTwitterAuthClient;
     private CallbackManager mCallbackManager;
     private User mUser;
+    private LoginRepository mRepository;
 
     public LoginPresenter(LoginContract.View view, FPollGoogleApiClient FpollGoogleApiClient,
-                          FPollTwitterAuthClient twitterAuthClient) {
+                          FPollTwitterAuthClient twitterAuthClient, LoginRepository repository) {
         mView = view;
         mFPollGoogleApiClient = FpollGoogleApiClient;
         mFPollTwitterAuthClient = twitterAuthClient;
+        mRepository = repository;
         mUser = new User();
         mView.start();
     }
@@ -45,7 +50,17 @@ public class LoginPresenter implements LoginContract.Presenter {
             new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
-                    // TODO: 2/21/2017 login facebook success
+                    mRepository.loginSocial(LoginType.FACEBOOK.getProvider(),
+                        loginResult.getAccessToken().getToken(), new LoginDataSource.Callback() {
+                            @Override
+                            public void onSuccess(SocialData data) {
+                                // TODO: 3/3/2017  login facebook success
+                            }
+
+                            @Override
+                            public void onError(String msg) {
+                            }
+                        });
                 }
 
                 @Override

@@ -2,8 +2,8 @@ package com.framgia.fpoll.ui.history.pollhistory;
 
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
+import com.framgia.fpoll.data.source.local.PollDataSource;
 import com.framgia.fpoll.data.source.local.PollHistoryRepository;
-import com.framgia.fpoll.data.source.local.pollhistory.DataCallBack;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     @Override
     public void getData() {
         mView.setLoadingTrue();
-        mRepository.getPollHistory(mHistoryType, new DataCallBack<PollHistoryItem>() {
+        mRepository.getPollHistory(mHistoryType, new PollDataSource.PollCallBack<PollHistoryItem>() {
             @Override
             public void onLoaded(List<PollHistoryItem> data) {
                 mView.setLoadingFalse();

@@ -10,5 +10,5 @@ public interface RegisterDataSource {
         void onSuccess(User user);
         void onError(String message);
     }
-    void register(User user,RegisterCallBack callback);
+    void register(User user, RegisterCallBack callback);
 }

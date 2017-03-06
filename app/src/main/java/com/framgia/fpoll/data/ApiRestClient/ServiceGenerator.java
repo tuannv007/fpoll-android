@@ -1,15 +1,16 @@
 package com.framgia.fpoll.data.ApiRestClient;
 
-import com.framgia.fpoll.util.Constant;
-
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.framgia.fpoll.util.Constant.ConstantApi.BASE_URL;
+import static com.framgia.fpoll.util.Constant.TIME_OUT_SERVER;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by tuanbg on 3/2/17.
@@ -18,7 +19,7 @@ public class ServiceGenerator {
     private static OkHttpClient.Builder sHttpClient;
     private static Retrofit.Builder sBuilder =
         new Retrofit.Builder()
-            .baseUrl(Constant.ConstantApi.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create());
 
     public static <S> S createService(Class<S> serviceClass) {
@@ -36,7 +37,7 @@ public class ServiceGenerator {
                 }
             });
         }
-        sHttpClient.connectTimeout(Constant.TIME_OUT_SERVER, TimeUnit.SECONDS);
+        sHttpClient.connectTimeout(TIME_OUT_SERVER, SECONDS);
         OkHttpClient client = sHttpClient.build();
         Retrofit retrofit = sBuilder.client(client).build();
         return retrofit.create(serviceClass);

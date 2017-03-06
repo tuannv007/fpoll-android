@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.facebook.login.LoginManager;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.FragmentLoginBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -44,7 +45,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
         mPresenter = new LoginPresenter(this, new FPollGoogleApiClient(getActivity()),
-            new FPollTwitterAuthClient(getActivity()));
+            new FPollTwitterAuthClient(getActivity()), LoginRepository.getInstance(getActivity()));
         mBinding.setPresenter((LoginPresenter) mPresenter);
         mBinding.setHandler(new LoginActionHandler(mPresenter));
         mPresenter.initGoogle();
