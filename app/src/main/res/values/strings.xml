@@ -22,8 +22,8 @@
     <string name="text_twitter">Twitter</string>
     <string name="text_forget_password">Forget your password?</string>
     <string name="text_register">Register</string>
-    <string name="hint_email">Enter your email…</string>
-    <string name="hint_password">Enter your password…</string>
+    <string name="hint_email">Enter your email</string>
+    <string name="hint_password">Enter your password</string>
     <string name="server_client_id">222836748167-q2gudo6np1o44sqo9v6b8nr336kvcnk8.apps.googleusercontent.com</string>
     <string name="title_setting">Setting</string>
     <string name="title_option">Option</string>
@@ -187,4 +187,6 @@
     <string name="action_post_comment">Post comment</string>
     <string name="action_show_comments">Show comments</string>
     <string name="action_hide_comments">Hide comments</string>
+    <string name="hint_feedback">Enter your feedback</string>
+    <string name="msg_send_feedback_error">Send feedback error</string>
 </resources>

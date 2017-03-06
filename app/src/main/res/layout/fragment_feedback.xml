@@ -1,6 +1,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
 
@@ -21,88 +22,80 @@
         android:paddingRight="@dimen/dp_16"
         android:paddingTop="@dimen/dp_40">
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/dp_48"
+            android:background="@drawable/bg_edit_text"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp_1">
+
+            <ImageView
+                style="@style/ImageViewLogin"
+                android:src="@drawable/ic_person_black_24dp"/>
+
+            <include layout="@layout/partial_line"/>
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/msg_content"
-                android:text="@={presenter.content}"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
+                style="@style/EditTextLogin"
+                android:hint="@string/hint_enter_name"
+                android:inputType="textEmailAddress"
                 android:text="@={presenter.name}"/>
-        </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatTextView
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginTop="@dimen/dp_14"
+            android:background="@drawable/bg_edit_text"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp_1">
+
+            <ImageView
+                style="@style/ImageViewLogin"
+                android:src="@drawable/ic_email_white_24px"/>
+
+            <include layout="@layout/partial_line"/>
+
+            <EditText
+                style="@style/EditTextLogin"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:text="@={presenter.email}"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dp_8"
-            android:paddingTop="@dimen/dp_8"
-            android:text="@string/msg_feedback_about"
-            android:textSize="@dimen/sp_20"/>
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/bg_edit_text"
+            android:gravity="start"
+            android:hint="@string/hint_feedback"
+            android:minHeight="@dimen/dp_240"
+            android:padding="@dimen/dp_4"
+            android:text="@={presenter.content}"/>
 
-        <RadioGroup
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_ui"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/color_grey_700"
-                android:text="@string/msg_interface"
-                android:textColor="@color/color_grey_700"/>
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_process"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/color_grey_700"
-                android:text="@string/msg_process"
-                android:textColor="@color/color_grey_700"/>
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_web_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/color_grey_700"
-                android:text="@string/msg_web_content"
-                android:textColor="@color/color_grey_700"/>
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_others"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/color_grey_700"
-                android:text="@string/msg_others"
-                android:textColor="@color/color_grey_700"/>
-        </RadioGroup>
-
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_30"
-            android:background="@color/color_teal_500"
             android:onClick="@{()->handler.clickSendFeedback()}"
-            android:paddingBottom="@dimen/dp_8"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
-            android:paddingTop="@dimen/dp_8"
-            android:text="@string/title_send"
-            android:textAllCaps="false"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/sp_18"/>
+            app:cardBackgroundColor="@color/color_teal_500"
+            app:cardCornerRadius="@dimen/dp_2"
+            app:cardElevation="@dimen/dp_2"
+            app:cardUseCompatPadding="true">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/dp_14"
+                android:text="@string/title_send"
+                android:textAllCaps="false"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_18"/>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </layout>

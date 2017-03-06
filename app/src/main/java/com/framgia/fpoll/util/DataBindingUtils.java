@@ -34,8 +34,6 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.databinding.PartialHeadBinding;
-import com.framgia.fpoll.ui.feedback.FeedbackPresenter;
-import com.framgia.fpoll.ui.feedback.FeedbackType;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
@@ -238,30 +236,6 @@ public class DataBindingUtils {
     @BindingAdapter(value = {"bind:pieData"})
     public static void setPieData(final PieChart pieChart, final PieData pieData) {
         pieChart.setData(pieData);
-    }
-
-    @BindingAdapter({"bind:eventRadioGroupFeedback"})
-    public static void eventRadioGroupFeedback(RadioGroup view, final FeedbackPresenter presenter) {
-        view.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.radio_process:
-                        presenter.setFeedbackType(FeedbackType.PROCESS);
-                        break;
-                    case R.id.radio_web_content:
-                        presenter.setFeedbackType(FeedbackType.WEB_CONTENT);
-                        break;
-                    case R.id.radio_others:
-                        presenter.setFeedbackType(FeedbackType.OTHERS);
-                        break;
-                    case R.id.radio_ui:
-                    default:
-                        presenter.setFeedbackType(FeedbackType.INTERFACE);
-                        break;
-                }
-            }
-        });
     }
 
     @BindingAdapter({"bind:bindImage", "bind:bindError"})

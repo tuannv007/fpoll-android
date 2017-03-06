@@ -35,4 +35,6 @@
     <dimen name="dp_450">450dp</dimen>
     <dimen name="dp_500">500dp</dimen>
     <dimen name="dp_3">3dp</dimen>
+    <dimen name="dp_14">14dp</dimen>
+    <dimen name="dp_240">240dp</dimen>
 </resources>
