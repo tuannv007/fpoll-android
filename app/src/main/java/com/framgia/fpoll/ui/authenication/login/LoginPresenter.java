@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -8,6 +9,7 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.LoginNormalData;
 import com.framgia.fpoll.data.model.SocialData;
 import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.data.source.remote.login.LoginDataSource;
@@ -35,6 +37,8 @@ public class LoginPresenter implements LoginContract.Presenter {
         mFPollTwitterAuthClient = twitterAuthClient;
         mRepository = repository;
         mUser = new User();
+        mUser.setEmail("tuan.dev.ad@gmail.com");
+        mUser.setPassword("12345678");
         mView.start();
     }
 
@@ -51,7 +55,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
                     mRepository.loginSocial(LoginType.FACEBOOK.getProvider(),
-                        loginResult.getAccessToken().getToken(), new LoginDataSource.Callback() {
+                        loginResult.getAccessToken().getToken(),
+                        new LoginDataSource.Callback<SocialData>() {
                             @Override
                             public void onSuccess(SocialData data) {
                                 // TODO: 3/3/2017  login facebook success
@@ -132,7 +137,17 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void onValidateSuccess() {
-                // TODO: 2/22/2017 handle login account success
+                mRepository.loginNormal(mUser.getEmail(), mUser.getPassword(),
+                    new LoginDataSource.Callback<LoginNormalData>() {
+                        @Override
+                        public void onSuccess(LoginNormalData data) {
+                            // TODO: 2/22/2017 handle login account success
+                        }
+
+                        @Override
+                        public void onError(String msg) {
+                        }
+                    });
             }
         });
     }
