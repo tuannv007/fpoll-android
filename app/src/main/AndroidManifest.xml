@@ -23,9 +23,14 @@
         </activity>
         <activity android:name=".ui.authenication.activity.AuthenticationActivity"/>
         <activity android:name=".ui.pollmanage.ManagePollActivity"/>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="@string/key_twitter_value"/>
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1281983528552078"
+            android:exported="true"/>
     </application>
 
 </manifest>

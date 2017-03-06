@@ -32,6 +32,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         notifyDataSetChanged();
     }
 
+    public void insertComments(FpollComment comment) {
+        if (comment == null) return;
+        mListComment.add(comment);
+        notifyItemInserted(mListComment.size());
+    }
+
     @Override
     public CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());

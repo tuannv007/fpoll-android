@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.AccessToken;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.PollInfo;
@@ -80,9 +81,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
 
     @Override
     public void onPostCommentSuccess(FpollComment comment) {
-        /**
-         * TODO post comment success
-         */
+        mAdapter.get().insertComments(comment);
     }
 
     @Override

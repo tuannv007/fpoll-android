@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.widget.LinearLayout"/>
+
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
 
         <import type="android.view.View"/>
@@ -33,27 +35,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:paddingBottom="@dimen/dp_8"
                 android:paddingLeft="@dimen/dp_8"
-                android:paddingRight="@dimen/dp_8">
+                android:paddingTop="@dimen/dp_8">
 
                 <com.facebook.share.widget.LikeView
                     android:id="@+id/like_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    bind:objectId="@{fragment.pollInfo.linkPoll}"/>
 
                 <com.facebook.share.widget.ShareButton
                     android:id="@+id/button_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8"/>
+                    android:layout_marginRight="@dimen/dp_8"
+                    bind:shareContent="@{fragment.pollInfo.linkPoll}"/>
 
                 <TextView
                     style="@style/TextViewPollInformation"
                     android:layout_weight="1"
                     android:drawableRight=
                         "@{fragment.commentExpand ? @drawable/ic_arrow_drop_up : @drawable/ic_arrow_drop_down}"
-                    android:gravity="end|right|center_vertical"
+                    android:gravity="center|right"
                     android:onClick="@{()-> fragment.setCommentsView()}"
                     android:text="@{fragment.commentExpand ? @string/action_hide_comments : @string/action_show_comments}"/>
 
@@ -74,7 +79,7 @@
                         style="@style/TextViewPollInformation"
                         android:drawableLeft="@drawable/ic_people"
                         android:drawableStart="@drawable/ic_people"
-                        android:text="@{fragment.pollInfo.totalComments &lt; 2 ? @string/post_user(fragment.pollInfo.totalCommentUsers): @string/post_user(fragment.pollInfo.totalCommentUsers)}"/>
+                        android:text="@{fragment.pollInfo.totalCommentUsers &lt; 2 ? @string/post_user(fragment.pollInfo.totalCommentUsers): @string/post_user(fragment.pollInfo.totalCommentUsers)}"/>
 
                     <TextView
                         style="@style/TextViewPollInformation"
@@ -82,7 +87,7 @@
                         android:layout_toRightOf="@id/text_user_comments"
                         android:drawableLeft="@drawable/ic_comment"
                         android:drawableStart="@drawable/ic_comment"
-                        android:text="@{fragment.pollInfo.totalCommentUsers &lt; 2 ? @string/post_user(fragment.pollInfo.totalComments): @string/post_user(fragment.pollInfo.totalComments)}"/>
+                        android:text="@{fragment.pollInfo.totalComments &lt; 2 ? @string/post_user(fragment.pollInfo.totalComments): @string/post_user(fragment.pollInfo.totalComments)}"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
@@ -90,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_user_comments"
                         android:padding="@dimen/dp_8"
-                        app:layoutManager="@{LayoutManageUtil.linear()}"
+                        app:layoutManager="@{LayoutManageUtil.linear(LinearLayout.VERTICAL,true)}"
                         bind:bindAdapter="@{fragment.adapter}"/>
 
                 </RelativeLayout>
