@@ -9,13 +9,19 @@ import android.support.annotation.NonNull;
 public class FeedbackValidation {
     private String mContent;
     private String mName;
+    private String mEmail;
 
-    public FeedbackValidation(String content, String name) {
+    public FeedbackValidation(String content, String name, String email) {
         mContent = content;
         mName = name;
+        mEmail = email;
     }
 
     public void validation(@NonNull Callback callback) {
+        if (!isValidateEmail()) {
+            callback.onError(FeedbackError.EMAIL);
+            return;
+        }
         if (!validateContent()) {
             callback.onError(FeedbackError.CONTENT);
             return;
@@ -27,12 +33,16 @@ public class FeedbackValidation {
         callback.onSuccess();
     }
 
+    private boolean isValidateEmail() {
+        return mEmail != null && android.util.Patterns.EMAIL_ADDRESS.matcher(mEmail).matches();
+    }
+
     private boolean validateContent() {
         return mContent != null && !mContent.isEmpty();
     }
 
     private boolean validateName() {
-        return mName != null && mName.isEmpty();
+        return mName != null && !mName.isEmpty();
     }
 
     public interface Callback {
@@ -41,6 +51,6 @@ public class FeedbackValidation {
     }
 
     public enum FeedbackError {
-        CONTENT, NAME
+        CONTENT, NAME, EMAIL
     }
 }

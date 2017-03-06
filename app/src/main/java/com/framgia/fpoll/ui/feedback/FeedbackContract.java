@@ -14,6 +14,5 @@ public interface FeedbackContract {
 
     interface Presenter {
         void sendFeedback();
-        void setFeedbackType(FeedbackType type);
     }
 }

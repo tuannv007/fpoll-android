@@ -3,6 +3,9 @@ package com.framgia.fpoll.ui.feedback;
 import android.databinding.ObservableField;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.source.remote.feedback.FeedbackDataSource;
+import com.framgia.fpoll.data.source.remote.feedback.FeedbackRepository;
 import com.framgia.fpoll.util.FeedbackValidation;
 
 /**
@@ -13,23 +16,33 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
     private final FeedbackContract.View mView;
     private ObservableField<String> mContent = new ObservableField<>();
     private ObservableField<String> mName = new ObservableField<>();
-    private FeedbackType mFeedbackType;
+    private ObservableField<String> mEmail = new ObservableField<>();
+    private FeedbackRepository mRepository;
 
-    public FeedbackPresenter(FeedbackContract.View view) {
+    public FeedbackPresenter(FeedbackContract.View view, FeedbackRepository repository) {
         mView = view;
-        mFeedbackType = FeedbackType.INTERFACE;
+        mRepository = repository;
         mView.start();
     }
 
     @Override
     public void sendFeedback() {
-        new FeedbackValidation(mContent.get(), mName.get())
-            .validation(new FeedbackValidation.Callback
-                () {
+        new FeedbackValidation(mContent.get(), mName.get(), mEmail.get())
+            .validation(new FeedbackValidation.Callback() {
                 @Override
                 public void onSuccess() {
-                    // TODO: 2/28/2017 handler api send feedback
-                    mView.sendFeedbackSuccess();
+                    mRepository.sendFeedback(mName.get(), mEmail.get(), mContent.get(),
+                        new FeedbackDataSource.Callback() {
+                            @Override
+                            public void onSuccess(ResponseItem<String> data) {
+                                mView.sendFeedbackSuccess();
+                            }
+
+                            @Override
+                            public void onError(String message) {
+                                mView.showMessage(R.string.msg_send_feedback_error);
+                            }
+                        });
                 }
 
                 @Override
@@ -41,16 +54,14 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
                         case NAME:
                             mView.showMessage(R.string.msg_name_error);
                             break;
+                        case EMAIL:
+                            mView.showMessage(R.string.msg_email_invalidate);
+                            break;
                         default:
                             break;
                     }
                 }
             });
-    }
-
-    @Override
-    public void setFeedbackType(FeedbackType type) {
-        mFeedbackType = type;
     }
 
     public ObservableField<String> getContent() {
@@ -59,5 +70,9 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
 
     public ObservableField<String> getName() {
         return mName;
+    }
+
+    public ObservableField<String> getEmail() {
+        return mEmail;
     }
 }
