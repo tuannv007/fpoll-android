@@ -27,6 +27,7 @@ public class CreatePollFragment extends Fragment
     private CreationContract.Presenter mPresenter;
     public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
     private PollInformation mPollInformation = new PollInformation();
+    private Calendar mSavePickCalendar = Calendar.getInstance();
 
     public static CreatePollFragment newInstance() {
         return new CreatePollFragment();
@@ -42,22 +43,26 @@ public class CreatePollFragment extends Fragment
         mBinding.setHandler(new CreatePollActionHandle(mPresenter));
         mBinding.setPresenter((CreationPresenter) mPresenter);
         mBinding.setFragment(this);
+        mTime.set(mSavePickCalendar);
         return mBinding.getRoot();
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar newCalendar = Calendar.getInstance();
-        newCalendar.set(Calendar.YEAR, year);
-        newCalendar.set(Calendar.MONTH, monthOfYear);
-        newCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        if (newCalendar.before(Calendar.getInstance())) {
-            ActivityUtil.showToast(getContext(), R.string.msg_date_error);
-        } else mTime.set(newCalendar);
+        mSavePickCalendar.set(Calendar.YEAR, year);
+        mSavePickCalendar.set(Calendar.MONTH, monthOfYear);
+        mSavePickCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        showTimePicker();
     }
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+        mSavePickCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        mSavePickCalendar.set(Calendar.MINUTE, minute);
+        mSavePickCalendar.set(Calendar.SECOND, second);
+        if (mSavePickCalendar.before(Calendar.getInstance())) {
+            ActivityUtil.showToast(getContext(), R.string.msg_date_error);
+        } else mTime.notifyChange();
     }
 
     @Override
@@ -75,6 +80,18 @@ public class CreatePollFragment extends Fragment
     public void bindError() {
         mBinding.setMsgError(getString(R.string.msg_content_error));
         mBinding.setMsgErrorEmail(getString(R.string.msg_email_invalidate));
+    }
+
+    @Override
+    public void showTimePicker() {
+        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
+            this,
+            mTime.get().get(Calendar.HOUR_OF_DAY),
+            mTime.get().get(Calendar.MINUTE),
+            mTime.get().get(Calendar.SECOND),
+            true
+        );
+        timePickerDialog.show(getActivity().getFragmentManager(), Constant.Tag.TIME_PICKER_TAG);
     }
 
     @Override
