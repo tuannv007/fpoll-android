@@ -14,7 +14,6 @@ public class UserValidation {
     }
 
     public void validateEmailPassword(@NonNull CallBack callBack) {
-        if (callBack == null) return;
         if (!isValidateEmail()) {
             callBack.onError(Error.EMAIL);
             return;

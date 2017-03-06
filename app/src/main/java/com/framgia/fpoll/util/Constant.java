@@ -60,6 +60,6 @@ public class Constant {
         * day va comment
         * http://quiet-fjord-67201.herokuapp.com/
         * */
-        public static final String BASE_URL = "https://blooming-gorge-20159.herokuapp.com/";
+        public static final String BASE_URL = "https://quiet-fjord-67201.herokuapp.com/";
     }
 }

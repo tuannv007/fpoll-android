@@ -1,6 +1,8 @@
 package com.framgia.fpoll.data.ApiRestClient.APIService.authenticationservice;
 
 import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.model.LoginNormalBody;
+import com.framgia.fpoll.data.model.LoginNormalData;
 import com.framgia.fpoll.data.model.SocialData;
 import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.util.Constant;
@@ -11,6 +13,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -41,6 +44,8 @@ public class AuthenticationApi {
         Call<ResponseItem<SocialData>> loginSocial(
             @Query("provider") String provider,
             @Query("token") String token);
+        @POST("api/v1/login")
+        Call<ResponseItem<LoginNormalData>> loginNormal(@Body LoginNormalBody user);
     }
 
     public static MultipartBody.Part getAvatar(User user) {
