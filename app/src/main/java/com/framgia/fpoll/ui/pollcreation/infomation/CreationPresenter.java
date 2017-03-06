@@ -32,4 +32,9 @@ public class CreationPresenter implements CreationContract.Presenter {
     public void showDatePicker() {
         if (mView != null) mView.showDatePicker();
     }
+
+    @Override
+    public void showTimePicker() {
+        if (mView != null) mView.showTimePicker();
+    }
 }

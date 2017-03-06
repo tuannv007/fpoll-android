@@ -10,10 +10,12 @@ public interface CreationContract {
         void showDatePicker();
         void nextStep();
         void bindError();
+        void showTimePicker();
     }
 
     interface Presenter {
         void nextStep();
         void showDatePicker();
+        void showTimePicker();
     }
 }

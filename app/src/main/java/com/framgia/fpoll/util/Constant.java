@@ -46,11 +46,12 @@ public class Constant {
     }
 
     public static class TimeFormat {
-        public static final String DATE_OUTPUT = "dd-MM-yyyy";
+        public static final String DATE_OUTPUT = "dd-MM-yyyy HH:mm";
     }
 
     public static class Tag {
-        public static final String DATE_PICKER_TAG = "Date picker dialog";
+        public static final String DATE_PICKER_TAG = "date_picker_dialog";
+        public static final String TIME_PICKER_TAG = "time_picker_dialog";
     }
 
     public static class ConstantApi {
