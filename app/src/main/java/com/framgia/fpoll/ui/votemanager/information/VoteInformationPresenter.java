@@ -43,10 +43,11 @@ public class VoteInformationPresenter implements VoteInformationContract.Present
              * TODO post comment to server
              */
             mView.onPostCommentSuccess(mFpollComment.get());
+            mFpollComment.set(new FpollComment());
         }
     }
 
-    public FpollComment getFpollComment() {
-        return mFpollComment.get();
+    public ObservableField<FpollComment> getFpollComment() {
+        return mFpollComment;
     }
 }

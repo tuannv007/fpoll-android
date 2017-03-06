@@ -5,6 +5,7 @@ import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,6 +32,9 @@ import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.LikeView;
+import com.facebook.share.widget.ShareButton;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.User;
 import com.framgia.fpoll.databinding.PartialHeadBinding;
@@ -304,5 +308,20 @@ public class DataBindingUtils {
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText()).matches()) {
             editText.setError(msg);
         }
+    }
+
+    @BindingAdapter({"bind:shareContent"})
+    public static void setShareContent(ShareButton shareButton, String linkPoll) {
+        if (linkPoll == null) return;
+        shareButton.setShareContent(new ShareLinkContent.Builder()
+            .setContentUrl(Uri.parse(linkPoll))
+            .build());
+    }
+
+    @BindingAdapter({"bind:objectId"})
+    public static void setObjectId(LikeView likeView, String linkPoll) {
+        if (linkPoll == null) return;
+        likeView.setLikeViewStyle(LikeView.Style.BUTTON);
+        likeView.setObjectIdAndType(linkPoll, LikeView.ObjectType.PAGE);
     }
 }
