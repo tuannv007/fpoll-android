@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment"/>
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        app:cardElevation="@dimen/dp_4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_info"
+                android:drawableStart="@drawable/ic_info"
+                android:text="@{fragment.pollInfo.pollTitle}"
+                android:visibility="@{fragment.pollInfo.pollTitle == null ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:text="@{fragment.pollInfo.user.username}"
+                android:visibility="@{fragment.pollInfo.user.username == null ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_clock"
+                android:drawableStart="@drawable/ic_clock"
+                android:text="@{fragment.pollInfo.createdTime}"
+                android:visibility="@{fragment.pollInfo.createdTime == null ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+                style="@style/TextViewPollInformation"
+                android:drawableLeft="@drawable/ic_time_close"
+                android:drawableStart="@drawable/ic_time_close"
+                android:text="@{fragment.pollInfo.expiredTime}"
+                android:visibility="@{fragment.pollInfo.expiredTime == null ? View.GONE : View.VISIBLE}"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>
