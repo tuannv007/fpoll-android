@@ -17,5 +17,6 @@ public interface EditPollContract {
         void editPoll();
         void closePoll();
         void createDuplicate();
+        void deleteVoting();
     }
 }

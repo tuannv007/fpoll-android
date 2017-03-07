@@ -155,6 +155,18 @@
                     bind:title="@{@string/title_create_duplicate}"/>
 
             </LinearLayout>
+
+            <include
+                layout="@layout/partial_button_activity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:layout_margin="@dimen/dp_2"
+                android:layout_weight="1"
+                bind:editType="@{EditPollType.DELETE}"
+                bind:handler="@{handler}"
+                bind:image="@{@drawable/ic_delete_white_24px}"
+                bind:title="@{@string/title_delete_voting}"/>
+
         </LinearLayout>
     </ScrollView>
 </layout>

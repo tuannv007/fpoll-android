@@ -10,4 +10,5 @@ import com.framgia.fpoll.data.source.DataCallback;
  */
 public interface ManagerDataSource {
     void switchPollStatus(String id, @NonNull DataCallback<String> callback);
+    void deleteVoting(@NonNull String token, @NonNull DataCallback<String> callback);
 }

@@ -36,4 +36,19 @@ public class ManagerRepository implements ManagerDataSource {
             }
         });
     }
+
+    @Override
+    public void deleteVoting(@NonNull String token, @NonNull final DataCallback<String> callback) {
+        mDataSource.deleteVoting(token, new DataCallback<String>() {
+            @Override
+            public void onSuccess(String data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
 }

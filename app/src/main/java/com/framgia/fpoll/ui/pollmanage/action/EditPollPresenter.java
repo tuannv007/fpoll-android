@@ -9,6 +9,7 @@ import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
  * Created by tran.trung.phong on 01/03/2017.
  */
 public class EditPollPresenter implements EditPollContract.Presenter {
+    private static final String TOKEN_POLL = "NWl2uyV25WmAPmOO";
     private EditPollContract.View mView;
     private ObservableField<String> mLinkManager = new ObservableField<>();
     private ObservableField<String> mLinkVoting = new ObservableField<>();
@@ -45,6 +46,22 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     public void closePoll() {
         if (mRepository == null) return;
         mRepository.switchPollStatus(mIdPoll, new DataCallback<String>() {
+            @Override
+            public void onSuccess(String data) {
+                mView.showMessage(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.showMessage(msg);
+            }
+        });
+    }
+
+    @Override
+    public void deleteVoting() {
+        if (mRepository == null) return;
+        mRepository.deleteVoting(TOKEN_POLL, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 mView.showMessage(data);

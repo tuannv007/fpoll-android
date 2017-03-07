@@ -15,6 +15,8 @@ public class LoginNormalData {
     private String mAccessToken;
     @SerializedName("refresh_token")
     private String mRefreshToken;
+    @SerializedName("user")
+    private User mUser;
 
     public String getTokenType() {
         return mTokenType;
@@ -46,5 +48,13 @@ public class LoginNormalData {
 
     public void setRefreshToken(String refreshToken) {
         mRefreshToken = refreshToken;
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
     }
 }

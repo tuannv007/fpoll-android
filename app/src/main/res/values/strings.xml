@@ -89,7 +89,7 @@
     <string name="hint_poll_title">Poll\'s title</string>
     <string name="hint_position">Position</string>
     <string name="hint_choose_time">Choose time</string>
-	<string name="msg_register_error">
+    <string name="msg_register_error">
 		Please enter name!
 		Please enter email!
 		Please enter password!</string>
@@ -190,4 +190,7 @@
     <string name="hint_feedback">Enter your feedback</string>
     <string name="msg_send_feedback_error">Send feedback error</string>
     <string name="title_poll_open">Poll Open</string>
+    <string name="title_log_out">Logout</string>
+    <string name="msg_close_poll_success">Close poll success.</string>
+    <string name="title_delete_voting">Delete all participant</string>
 </resources>
