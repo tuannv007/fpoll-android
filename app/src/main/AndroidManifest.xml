@@ -18,6 +18,7 @@
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -27,10 +28,13 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="@string/key_twitter_value"/>
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1281983528552078"
             android:exported="true"/>
+
+        <activity android:name=".ui.votemanager.LinkVoteActivity"/>
     </application>
 
 </manifest>
