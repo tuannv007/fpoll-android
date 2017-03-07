@@ -17,6 +17,7 @@ import com.framgia.fpoll.ui.pollmanage.result.ResultFragment;
 import com.framgia.fpoll.ui.votemanager.VoteResultFragment;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
+import com.framgia.fpoll.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,14 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     private HistoryContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
     private ViewpagerType mViewpagerType;
+    private ItemPollManager.PollInfo mPollInfo ;
 
-    public static HistoryFragment newInstance(ViewpagerType type) {
+    public static HistoryFragment newInstance(ViewpagerType type,
+                                              ItemPollManager.PollInfo dataList) {
         HistoryFragment fragment = new HistoryFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
+        bundle.putParcelable(Constant.ConstantApi.KEY_HISTORY, dataList);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,6 +60,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mViewpagerType = (ViewpagerType) bundle.getSerializable(BUNDLE_VIEW_PAGE_TYPE);
+            mPollInfo =
+                bundle.getParcelable(Constant.ConstantApi.KEY_HISTORY);
         }
     }
 
@@ -76,7 +82,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void initAdapterManage() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(PollInformationFragment.newInstance());
+        fragments.add(PollInformationFragment.newInstance(mPollInfo));
+
         fragments.add(ResultFragment.newInstance());
         fragments.add(EditPollFragment.newInstance());
         String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);

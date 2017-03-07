@@ -26,6 +26,15 @@ import retrofit2.http.Query;
 public class AuthenticationApi {
     private static String KEY_AVATAR = "avatar";
 
+    public static MultipartBody.Part getAvatar(User user) {
+        if (user.getAvatar() != null) {
+            File file = new File(user.getAvatar());
+            return MultipartBody.Part.createFormData(KEY_AVATAR,
+                file.getName(), RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file));
+        }
+        return null;
+    }
+
     public interface RegisterService {
         @POST("api/v1/register")
         @Multipart
@@ -46,14 +55,5 @@ public class AuthenticationApi {
             @Query("token") String token);
         @POST("api/v1/login")
         Call<ResponseItem<LoginNormalData>> loginNormal(@Body LoginNormalBody user);
-    }
-
-    public static MultipartBody.Part getAvatar(User user) {
-        if (user.getAvatar() != null) {
-            File file = new File(user.getAvatar());
-            return MultipartBody.Part.createFormData(KEY_AVATAR,
-                file.getName(), RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file));
-        }
-        return null;
     }
 }

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollCreatedItem;
 import com.framgia.fpoll.databinding.FragmentCreatedPollBinding;
+import com.framgia.fpoll.ui.history.ViewpagerType;
+import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 
@@ -56,6 +58,11 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
         clipData = ClipData.newPlainText(Constant.TITLE_TYPE_TEXT, mItem.getLink());
         mClipboardManager.setPrimaryClip(clipData);
         ActivityUtil.showToast(getActivity(), R.string.msg_copy_success);
+    }
+
+    @Override
+    public void startUiPollManager(String idPoll) {
+        startActivity(ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.MANAGE, ""));
     }
 
     public PollCreatedItem getItem() {

@@ -31,6 +31,7 @@ public class CallbackManager<T> implements Callback<T> {
         else try {
             ResponseItem error = new Gson().fromJson(response.errorBody()
                 .string(), ResponseItem.class);
+            if (error == null) return;
             String message = "";
             for (Object str : error.getMessage()) message += str + "\n";
             mCallback.onFailure(message);

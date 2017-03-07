@@ -189,4 +189,5 @@
     <string name="action_hide_comments">Hide comments</string>
     <string name="hint_feedback">Enter your feedback</string>
     <string name="msg_send_feedback_error">Send feedback error</string>
+    <string name="title_poll_open">Poll Open</string>
 </resources>

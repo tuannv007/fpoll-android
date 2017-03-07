@@ -14,9 +14,14 @@ public interface ManagePollContract {
         void addFragment(Fragment fragment, int resTitle);
         void startUiViewPageVote();
         void startUiViewPageManage();
+        void onSuccess(ItemPollManager.PollInfo pollInfoList);
+        void onError(String message);
+        void showDialog();
+        void dismissDialog();
     }
 
     interface Presenter {
         void initViewPage();
+        void getAllData(String token);
     }
 }

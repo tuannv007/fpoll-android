@@ -8,6 +8,7 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface PollCreatedContract {
     interface View extends BaseView {
         void copyUrl();
+        void startUiPollManager(String idPoll);
     }
 
     interface Presenter {
