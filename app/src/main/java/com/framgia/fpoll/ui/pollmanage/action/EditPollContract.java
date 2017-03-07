@@ -7,6 +7,7 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public interface EditPollContract {
     interface View extends BaseView {
+        void showMessage(String msg);
     }
 
     interface Presenter {

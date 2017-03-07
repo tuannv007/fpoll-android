@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -12,7 +11,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.LoginNormalData;
 import com.framgia.fpoll.data.model.SocialData;
 import com.framgia.fpoll.data.model.User;
-import com.framgia.fpoll.data.source.remote.login.LoginDataSource;
+import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.util.UserValidation;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -55,8 +54,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
                     mRepository.loginSocial(LoginType.FACEBOOK.getProvider(),
-                        loginResult.getAccessToken().getToken(),
-                        new LoginDataSource.Callback<SocialData>() {
+                        loginResult.getAccessToken().getToken(), new DataCallback<SocialData>() {
                             @Override
                             public void onSuccess(SocialData data) {
                                 // TODO: 3/3/2017  login facebook success
@@ -138,7 +136,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onValidateSuccess() {
                 mRepository.loginNormal(mUser.getEmail(), mUser.getPassword(),
-                    new LoginDataSource.Callback<LoginNormalData>() {
+                    new DataCallback<LoginNormalData>() {
                         @Override
                         public void onSuccess(LoginNormalData data) {
                             // TODO: 2/22/2017 handle login account success

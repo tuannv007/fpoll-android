@@ -7,6 +7,7 @@ import com.framgia.fpoll.data.ApiRestClient.APIService.FeedbackAPI;
 import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
 import com.framgia.fpoll.data.ApiRestClient.CallbackManager;
 import com.framgia.fpoll.data.ApiRestClient.ServiceGenerator;
+import com.framgia.fpoll.data.source.DataCallback;
 
 /**
  * Created by Nhahv0902 on 3/6/2017.
@@ -27,13 +28,13 @@ public class FeedbackRemoteDataSource implements FeedbackDataSource {
 
     @Override
     public void sendFeedback(String name, String email, String content,
-                             @NonNull final Callback callback) {
+                             @NonNull final DataCallback<String> callback) {
         FeedbackAPI.FeedbackBody body = new FeedbackAPI.FeedbackBody(name, email, content);
         ServiceGenerator.createService(FeedbackAPI.class).feedback(body).enqueue(
             new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem<String>>() {
                 @Override
                 public void onResponse(ResponseItem<String> data) {
-                    if (data != null) callback.onSuccess(data);
+                    if (data != null) callback.onSuccess(data.getData());
                 }
 
                 @Override
