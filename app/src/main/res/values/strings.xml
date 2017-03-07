@@ -193,4 +193,6 @@
     <string name="title_log_out">Logout</string>
     <string name="msg_close_poll_success">Close poll success.</string>
     <string name="title_delete_voting">Delete all participant</string>
+    <string name="msg_create_poll_error">create poll error</string>
+    <string name="msg_creating_poll">Creating poll</string>
 </resources>

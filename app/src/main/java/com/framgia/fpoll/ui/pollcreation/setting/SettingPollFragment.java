@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
 import com.framgia.fpoll.databinding.FragmentPageSettingBinding;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantFragment;
+import com.framgia.fpoll.util.Constant;
 
 /**
  * Created by framgia on 23/02/2017.
@@ -19,8 +21,12 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     private FragmentPageSettingBinding mBinding;
     private SettingPollContract.Presenter mPresenter;
 
-    public static SettingPollFragment newInstance() {
-        return new SettingPollFragment();
+    public static SettingPollFragment newInstance(PollItem pollItem) {
+        SettingPollFragment settingPollFragment = new SettingPollFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        settingPollFragment.setArguments(bundle);
+        return settingPollFragment;
     }
 
     @Nullable
@@ -41,8 +47,9 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
 
     @Override
     public void nextStep() {
+        PollItem pollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, ParticipantFragment.newInstance(), null)
+            .add(R.id.frame_layout, ParticipantFragment.newInstance(pollItem), null)
             .addToBackStack(null)
             .commit();
     }
