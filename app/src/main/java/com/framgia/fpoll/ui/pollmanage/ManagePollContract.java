@@ -2,6 +2,8 @@ package com.framgia.fpoll.ui.pollmanage;
 
 import android.support.v4.app.Fragment;
 
+import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -14,7 +16,7 @@ public interface ManagePollContract {
         void addFragment(Fragment fragment, int resTitle);
         void startUiViewPageVote();
         void startUiViewPageManage();
-        void onSuccess(ItemPollManager.PollInfo pollInfoList);
+        void onSuccess(ResponseItem<DataInfoItem> pollInfoList);
         void onError(String message);
         void showDialog();
         void dismissDialog();

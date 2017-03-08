@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
@@ -19,9 +20,9 @@ import com.framgia.fpoll.util.Constant;
 public class PollInformationFragment extends Fragment implements PollInformationContract.View {
     private FragmentInformationBinding mBinding;
     private PollInformationContract.Presenter mPresenter;
-    private ItemPollManager.PollInfo mPollInfo;
+    private DataInfoItem mPollInfo;
 
-    public static PollInformationFragment newInstance(ItemPollManager.PollInfo pollInfo) {
+    public static PollInformationFragment newInstance(DataInfoItem pollInfo) {
         PollInformationFragment fragment = new PollInformationFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constant.ConstantApi.KEY_POLL_INFO, pollInfo);
