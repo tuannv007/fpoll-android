@@ -20,7 +20,7 @@ public class User extends BaseObservable {
     private String mPassword;
     @SerializedName("password_confirmation")
     private String mConfirmPassword;
-    @SerializedName("getAvatar")
+    @SerializedName("avatar")
     private String mAvatar;
     @SerializedName("chatwork_id")
     private String mChatWorkId;

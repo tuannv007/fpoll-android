@@ -70,9 +70,9 @@ public class LoginRemoteDataSource implements LoginDataSource {
     @Override
     public void logout(String header, @NonNull final DataCallback<String> callback) {
         ServiceGenerator.createService(AuthenticationApi.LoginService.class).logout(header).enqueue(
-            new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem<Object>>() {
+            new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem>() {
                 @Override
-                public void onResponse(ResponseItem<Object> data) {
+                public void onResponse(ResponseItem data) {
                     callback.onSuccess(ActivityUtil.byString(data.getMessage()));
                 }
 

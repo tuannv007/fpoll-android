@@ -10,5 +10,7 @@ import retrofit2.http.Path;
  */
 public interface PollManagerAPI {
     @DELETE("api/v1/poll/{id}")
-    Call<ResponseItem<Object>> switchPollStatus(@Path("id") String id);
+    Call<ResponseItem> switchPollStatus(@Path("id") String id);
+    @DELETE("api/v1/poll/participants/{token}")
+    Call<ResponseItem> deleteVoting(@Path("token") String token);
 }

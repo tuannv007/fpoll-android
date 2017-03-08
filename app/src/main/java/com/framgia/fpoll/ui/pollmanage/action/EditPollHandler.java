@@ -36,6 +36,9 @@ public class EditPollHandler {
             case CREATE:
                 mListener.createDuplicate();
                 break;
+            case DELETE:
+                mListener.deleteVoting();
+                break;
             default:
                 break;
         }

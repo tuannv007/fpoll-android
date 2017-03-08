@@ -17,9 +17,11 @@ import com.framgia.fpoll.util.ActivityUtil;
 public class ManagerRemoteDataSource implements ManagerDataSource {
     private static ManagerDataSource sDataSource;
     private Context mContext;
+    private PollManagerAPI mPollManagerAPI;
 
     private ManagerRemoteDataSource(Context context) {
         mContext = context;
+        mPollManagerAPI = ServiceGenerator.createService(PollManagerAPI.class);
     }
 
     public static ManagerDataSource getInstance(Context context) {
@@ -32,9 +34,9 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
         ServiceGenerator.createService(PollManagerAPI.class)
             .switchPollStatus(id)
             .enqueue(new CallbackManager<>(mContext,
-                new CallbackManager.CallBack<ResponseItem<Object>>() {
+                new CallbackManager.CallBack<ResponseItem>() {
                     @Override
-                    public void onResponse(ResponseItem<Object> data) {
+                    public void onResponse(ResponseItem data) {
                         callback.onSuccess(ActivityUtil.byString(data.getMessage()));
                     }
 
@@ -43,5 +45,21 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
                         callback.onError(message);
                     }
                 }));
+    }
+
+    @Override
+    public void deleteVoting(@NonNull String token, @NonNull final DataCallback<String> callback) {
+        mPollManagerAPI.deleteVoting(token).enqueue(
+            new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem>() {
+                @Override
+                public void onResponse(ResponseItem data) {
+                    callback.onSuccess(ActivityUtil.byString(data.getMessage()));
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
     }
 }
