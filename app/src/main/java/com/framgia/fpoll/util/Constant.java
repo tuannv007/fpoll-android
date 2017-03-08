@@ -61,5 +61,15 @@ public class Constant {
         * http://quiet-fjord-67201.herokuapp.com/
         * */
         public static final String BASE_URL = "https://quiet-fjord-67201.herokuapp.com/";
+        public static final String KEY_TOKEN = "token";
+        public static final String KEY_POLL_INFO = "key_poll_info";
+        public static final String KEY_HISTORY = "key_history";
+        public static final int KEY_MULTI_CHOOSE = 1;
+        public static final int KEY_SINGER_CHOOSE = 0;
+    }
+
+    public static class ConstantResponseCode {
+        public static final int API_RESPONSE_CODE_OK = 200;
+        public static final int API_RESPONSE_UN_PROCESSABLE = 442;
     }
 }

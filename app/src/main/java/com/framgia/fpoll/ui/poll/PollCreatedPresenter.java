@@ -34,5 +34,6 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     @Override
     public void viewLinkManager(String idPoll) {
         // TODO: 3/3/2017 open activity manaer poll
+        mView.startUiPollManager(idPoll);
     }
 }

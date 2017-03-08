@@ -11,6 +11,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
+import com.framgia.fpoll.util.Constant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,9 +19,14 @@ import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 public class PollInformationFragment extends Fragment implements PollInformationContract.View {
     private FragmentInformationBinding mBinding;
     private PollInformationContract.Presenter mPresenter;
+    private ItemPollManager.PollInfo mPollInfo;
 
-    public static PollInformationFragment newInstance() {
-        return new PollInformationFragment();
+    public static PollInformationFragment newInstance(ItemPollManager.PollInfo pollInfo) {
+        PollInformationFragment fragment = new PollInformationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constant.ConstantApi.KEY_POLL_INFO, pollInfo);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -28,9 +34,16 @@ public class PollInformationFragment extends Fragment implements PollInformation
                              Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_information, container, false);
+        getData();
         mPresenter = new PollInformationPresenter(this);
         mBinding.setHandler(new PollInformationHandler(mPresenter));
+        mBinding.setInformation(mPollInfo);
         return mBinding.getRoot();
+    }
+
+    public void getData() {
+        Bundle bundle = getArguments();
+        if (bundle != null) mPollInfo = bundle.getParcelable(Constant.ConstantApi.KEY_POLL_INFO);
     }
 
     @Override
@@ -39,6 +52,6 @@ public class PollInformationFragment extends Fragment implements PollInformation
 
     @Override
     public void startUiVoting() {
-        startActivity(ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.VOTE));
+        startActivity(ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.VOTE, ""));
     }
 }

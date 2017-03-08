@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <variable
+            name="information"
+            type="com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.ItemPollManager.PollInfo"/>
 
         <variable
             name="handler"
@@ -17,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/dp_16">
+            android:padding="@dimen/dp_16"
+            android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:padding="@dimen/dp_4"
-                android:text="@string/msg_status_pool"
+                android:text="@{information.data.poll.status ? @string/title_poll_open : @string/title_poll_close}"
                 android:textColor="@color/color_blued"/>
 
             <LinearLayout
@@ -58,9 +64,9 @@
                 <include layout="@layout/partial_line"/>
 
                 <EditText
-                    android:id="@+id/edit_email_manager_poll"
                     style="@style/EditTextLogin"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress"
+                    android:text="@={information.data.poll.email}"/>
 
             </LinearLayout>
 
@@ -73,9 +79,9 @@
                 <include layout="@layout/partial_line"/>
 
                 <EditText
-                    android:id="@+id/edit_username_manager_poll"
                     style="@style/EditTextManagerPoll"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:text="@={information.data.poll.name}"/>
 
             </LinearLayout>
 
@@ -88,26 +94,28 @@
                 <include layout="@layout/partial_line"/>
 
                 <EditText
-                    android:id="@+id/edit_title_poll_manager"
-                    style="@style/EditTextManagerPoll"/>
+                    style="@style/EditTextManagerPoll"
+                    android:text="@={information.data.poll.title}"/>
 
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/spin_choose"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
                 android:layout_marginTop="@dimen/dp_10"
-                android:background="@drawable/bg_edit_text"/>
+                android:layout_weight="0.18"
+                android:background="@drawable/bg_edit_text"
+                android:entries="@array/num_answer"
+                bind:numAnswer="@{information.data.poll.multiple}"/>
 
             <EditText
-                android:id="@+id/edit_description_poll"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_48"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/bg_edit_text"
                 android:hint="@string/title_description_poll"
                 android:padding="@dimen/dp_10"
+                android:text="@={information.data.poll.description}"
                 android:textSize="@dimen/sp_17"/>
 
             <LinearLayout style="@style/LayoutManagerPoll">
@@ -119,10 +127,10 @@
                 <include layout="@layout/partial_line"/>
 
                 <EditText
-                    android:id="@+id/edit_time_close_poll"
                     style="@style/EditTextLogin"
                     android:hint="@string/title_time_close_poll"
-                    android:inputType="datetime"/>
+                    android:inputType="datetime"
+                    android:text="@={information.data.poll.createdAt}"/>
 
             </LinearLayout>
 
@@ -135,10 +143,10 @@
                 <include layout="@layout/partial_line"/>
 
                 <EditText
-                    android:id="@+id/edit_location_user"
                     style="@style/EditTextLogin"
                     android:hint="@string/title_location"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:text="@{information.data.poll.location}"/>
 
             </LinearLayout>
 

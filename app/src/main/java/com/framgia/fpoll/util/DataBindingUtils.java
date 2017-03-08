@@ -298,4 +298,11 @@ public class DataBindingUtils {
         likeView.setLikeViewStyle(LikeView.Style.BUTTON);
         likeView.setObjectIdAndType(linkPoll, LikeView.ObjectType.PAGE);
     }
+
+    @BindingAdapter({"bind:numAnswer"})
+    public static void setNumAnswer(Spinner view, boolean multiple) {
+        int type = multiple ? Constant.ConstantApi.KEY_MULTI_CHOOSE :
+            Constant.ConstantApi.KEY_SINGER_CHOOSE;
+        view.setSelection(type);
+    }
 }

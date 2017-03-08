@@ -37,7 +37,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     private RegisterContract.Presenter mPresenter;
     private AuthenticationActivity.EventSwitchUI mEventSwitchUI;
     private User mUser = new User();
-    private FPollProgressDialog mDialogManager;
+    private FPollProgressDialog mDialog;
 
     public static RegisterFragment getInstance(AuthenticationActivity.EventSwitchUI event) {
         RegisterFragment fragment = new RegisterFragment();
@@ -146,18 +146,18 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
     @Override
     public void showDialog() {
-        if (mDialogManager == null) mDialogManager = new FPollProgressDialog(getActivity());
-        mDialogManager.show();
+        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
+        mDialog.show();
     }
 
     @Override
     public void dismissDialog() {
-        mDialogManager.dismiss();
+        if (mDialog.isShowing() && mDialog != null) mDialog.dismiss();
     }
 
     @Override
     public void showRegisterError(String message) {
-        if (mDialogManager.isShowing() && mDialogManager != null) mDialogManager.dismiss();
+        dismissDialog();
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 }
