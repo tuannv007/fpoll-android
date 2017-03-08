@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
 import com.framgia.fpoll.data.enums.PollHistoryType;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
@@ -32,14 +33,14 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     private HistoryContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
     private ViewpagerType mViewpagerType;
-    private ItemPollManager.PollInfo mPollInfo ;
+    private DataInfoItem mPollInfo;
 
     public static HistoryFragment newInstance(ViewpagerType type,
-                                              ItemPollManager.PollInfo dataList) {
+                                              DataInfoItem dataInfoItemList) {
         HistoryFragment fragment = new HistoryFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
-        bundle.putParcelable(Constant.ConstantApi.KEY_HISTORY, dataList);
+        bundle.putParcelable(Constant.ConstantApi.KEY_HISTORY, dataInfoItemList);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -83,7 +84,6 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public void initAdapterManage() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(PollInformationFragment.newInstance(mPollInfo));
-
         fragments.add(ResultFragment.newInstance());
         fragments.add(EditPollFragment.newInstance());
         String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);

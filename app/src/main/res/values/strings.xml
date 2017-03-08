@@ -89,10 +89,6 @@
     <string name="hint_poll_title">Poll\'s title</string>
     <string name="hint_position">Position</string>
     <string name="hint_choose_time">Choose time</string>
-    <string name="msg_register_error">
-		Please enter name!
-		Please enter email!
-		Please enter password!</string>
     <string name="msg_confirm_pass_not_success">Password confirm incorrect, please check again!</string>
     <string name="title_male">Male</string>
     <string name="title_female">Female</string>

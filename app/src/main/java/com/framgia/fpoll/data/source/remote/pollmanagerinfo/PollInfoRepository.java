@@ -2,6 +2,8 @@ package com.framgia.fpoll.data.source.remote.pollmanagerinfo;
 
 import android.content.Context;
 
+import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 
 /**
@@ -26,9 +28,9 @@ public class PollInfoRepository implements PollInfoDataSource {
     @Override
     public void loadData(String token, final DataCallback callback) {
         if (callback == null) return;
-        mPollInfoDataSource.loadData(token, new DataCallback<ItemPollManager.PollInfo>() {
+        mPollInfoDataSource.loadData(token, new DataCallback<ResponseItem<DataInfoItem>>() {
             @Override
-            public void onSuccess(ItemPollManager.PollInfo pollInfoList) {
+            public void onSuccess(ResponseItem<DataInfoItem> pollInfoList) {
                 callback.onSuccess(pollInfoList);
             }
 

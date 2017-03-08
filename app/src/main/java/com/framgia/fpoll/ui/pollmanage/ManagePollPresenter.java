@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.pollmanage;
 
+import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanagerinfo.PollInfoRepository;
 import com.framgia.fpoll.ui.history.ViewpagerType;
@@ -35,9 +37,9 @@ public class ManagePollPresenter implements ManagePollContract.Presenter {
 
     public void getAllData(String token) {
         mView.showDialog();
-        mRepository.loadData(token, new DataCallback<ItemPollManager.PollInfo>() {
+        mRepository.loadData(token, new DataCallback<ResponseItem<DataInfoItem>>() {
             @Override
-            public void onSuccess(ItemPollManager.PollInfo pollInfoList) {
+            public void onSuccess(ResponseItem<DataInfoItem> pollInfoList) {
                 mView.onSuccess(pollInfoList);
                 mView.dismissDialog();
             }

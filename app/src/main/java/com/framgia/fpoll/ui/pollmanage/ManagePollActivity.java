@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.pollmanagerinfo.PollInfoRepository;
 import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
 import com.framgia.fpoll.ui.history.HistoryFragment;
@@ -25,7 +27,7 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
     private ActivityAuthenticationBinding mBinding;
     private ManagePollContract.Presenter mPresenter;
     private ViewpagerType mViewpagerType;
-    private ObservableField<ItemPollManager.PollInfo> mDataList = new ObservableField<>();
+    private ObservableField<DataInfoItem> mDataList = new ObservableField<>();
     private String mToken;
     private FPollProgressDialog mDialog;
 
@@ -88,8 +90,8 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
     }
 
     @Override
-    public void onSuccess(ItemPollManager.PollInfo dataList) {
-        mDataList.set(dataList);
+    public void onSuccess(ResponseItem<DataInfoItem> dataList) {
+        mDataList.set(dataList.getData());
         startUiViewPageManage();
     }
 

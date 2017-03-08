@@ -7,7 +7,7 @@
 
         <variable
             name="information"
-            type="com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.ItemPollManager.PollInfo"/>
+            type="com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem"/>
 
         <variable
             name="handler"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:padding="@dimen/dp_4"
-                android:text="@{information.data.poll.status ? @string/title_poll_open : @string/title_poll_close}"
+                android:text="@{information.poll.status ? @string/title_poll_open : @string/title_poll_close}"
                 android:textColor="@color/color_blued"/>
 
             <LinearLayout
@@ -66,7 +66,7 @@
                 <EditText
                     style="@style/EditTextLogin"
                     android:inputType="textEmailAddress"
-                    android:text="@={information.data.poll.email}"/>
+                    android:text="@={information.poll.email}"/>
 
             </LinearLayout>
 
@@ -81,7 +81,7 @@
                 <EditText
                     style="@style/EditTextManagerPoll"
                     android:inputType="text"
-                    android:text="@={information.data.poll.name}"/>
+                    android:text="@={information.poll.name}"/>
 
             </LinearLayout>
 
@@ -95,7 +95,7 @@
 
                 <EditText
                     style="@style/EditTextManagerPoll"
-                    android:text="@={information.data.poll.title}"/>
+                    android:text="@={information.poll.title}"/>
 
             </LinearLayout>
 
@@ -106,7 +106,7 @@
                 android:layout_weight="0.18"
                 android:background="@drawable/bg_edit_text"
                 android:entries="@array/num_answer"
-                bind:numAnswer="@{information.data.poll.multiple}"/>
+                bind:numAnswer="@{information.poll.multiple}"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                 android:background="@drawable/bg_edit_text"
                 android:hint="@string/title_description_poll"
                 android:padding="@dimen/dp_10"
-                android:text="@={information.data.poll.description}"
+                android:text="@={information.poll.description}"
                 android:textSize="@dimen/sp_17"/>
 
             <LinearLayout style="@style/LayoutManagerPoll">
@@ -130,7 +130,7 @@
                     style="@style/EditTextLogin"
                     android:hint="@string/title_time_close_poll"
                     android:inputType="datetime"
-                    android:text="@={information.data.poll.createdAt}"/>
+                    android:text="@={information.poll.createdAt}"/>
 
             </LinearLayout>
 
@@ -146,7 +146,7 @@
                     style="@style/EditTextLogin"
                     android:hint="@string/title_location"
                     android:inputType="text"
-                    android:text="@{information.data.poll.location}"/>
+                    android:text="@{information.poll.location}"/>
 
             </LinearLayout>
 
