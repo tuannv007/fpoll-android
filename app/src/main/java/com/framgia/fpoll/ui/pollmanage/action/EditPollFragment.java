@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentActionBinding;
+import com.framgia.fpoll.util.ActivityUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +27,7 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_action, container, false);
-        mPresenter = new EditPollPresenter(this);
+        mPresenter = new EditPollPresenter(this, ManagerRepository.getInstance(getActivity()));
         mBinding.setPresenter((EditPollPresenter) mPresenter);
         mBinding.setHandler(new EditPollHandler(mPresenter));
         return mBinding.getRoot();
@@ -33,5 +35,10 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
 
     @Override
     public void start() {
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        ActivityUtil.showToast(getActivity(), msg);
     }
 }

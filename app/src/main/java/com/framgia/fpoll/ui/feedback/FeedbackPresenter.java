@@ -3,8 +3,7 @@ package com.framgia.fpoll.ui.feedback;
 import android.databinding.ObservableField;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.source.remote.feedback.FeedbackDataSource;
+import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.feedback.FeedbackRepository;
 import com.framgia.fpoll.util.FeedbackValidation;
 
@@ -32,9 +31,9 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
                 @Override
                 public void onSuccess() {
                     mRepository.sendFeedback(mName.get(), mEmail.get(), mContent.get(),
-                        new FeedbackDataSource.Callback() {
+                        new DataCallback<String>() {
                             @Override
-                            public void onSuccess(ResponseItem<String> data) {
+                            public void onSuccess(String data) {
                                 mView.sendFeedbackSuccess();
                             }
 

@@ -1,0 +1,47 @@
+package com.framgia.fpoll.data.source.remote.pollmanager;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+
+import com.framgia.fpoll.data.ApiRestClient.APIService.PollManagerAPI;
+import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.ApiRestClient.CallbackManager;
+import com.framgia.fpoll.data.ApiRestClient.ServiceGenerator;
+import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.util.ActivityUtil;
+
+/**
+ * Created by Nhahv0902 on 3/7/2017.
+ * <></>
+ */
+public class ManagerRemoteDataSource implements ManagerDataSource {
+    private static ManagerDataSource sDataSource;
+    private Context mContext;
+
+    private ManagerRemoteDataSource(Context context) {
+        mContext = context;
+    }
+
+    public static ManagerDataSource getInstance(Context context) {
+        if (sDataSource == null) sDataSource = new ManagerRemoteDataSource(context);
+        return sDataSource;
+    }
+
+    @Override
+    public void switchPollStatus(String id, @NonNull final DataCallback<String> callback) {
+        ServiceGenerator.createService(PollManagerAPI.class)
+            .switchPollStatus(id)
+            .enqueue(new CallbackManager<>(mContext,
+                new CallbackManager.CallBack<ResponseItem<Object>>() {
+                    @Override
+                    public void onResponse(ResponseItem<Object> data) {
+                        callback.onSuccess(ActivityUtil.byString(data.getMessage()));
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        callback.onError(message);
+                    }
+                }));
+    }
+}

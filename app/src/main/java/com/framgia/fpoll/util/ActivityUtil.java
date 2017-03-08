@@ -6,13 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
-import com.framgia.fpoll.data.model.ResultItem;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PLASH;
@@ -27,8 +20,20 @@ public class ActivityUtil {
         fragmentManager.beginTransaction().replace(frameId, fragment).commit();
     }
 
+    public static String byString(List<String> data) {
+        StringBuilder message = new StringBuilder();
+        for (String msg : data) {
+            message.append(msg).append("\n");
+        }
+        return message.toString();
+    }
+
     public static void showToast(Context context, int res) {
         Toast.makeText(context, res, Toast.LENGTH_LONG).show();
+    }
+
+    public static void showToast(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
     public static String subLinkPoll(String pollLink) {
