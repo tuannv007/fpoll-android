@@ -197,4 +197,14 @@
     <string name="action_export_pdf">Export PDF</string>
     <string name="action_export_excel">Export excel</string>
     <string name="title_image">Image</string>
+    <string name="title_input_email">Input email</string>
+    <string name="title_input_name">Input Name</string>
+    <string name="title_input_add_option">AddOption</string>
+    <string name="title_input_count_vote">Count number vote</string>
+    <string name="title_input_edit_link">EditLink</string>
+    <string name="title_input_email_name">Input email and name</string>
+    <string name="title_input_not_equal_email">Not  Middle email</string>
+    <string name="title_input_hident_result_vote">Hident result vote</string>
+    <string name="title_input_create_password">Create Password</string>
+    <string name="title_input_edit_option">Edit Option</string>
 </resources>

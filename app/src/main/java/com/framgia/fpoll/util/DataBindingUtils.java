@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -47,6 +48,17 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
+
+import static com.framgia.fpoll.util.Constant.TypeSetting.HIDENT_RESULT;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_ADD_OPTION;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_COUNT_VOTE;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_CREATE_PASSWORD;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_EDIT_LINK;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_EDIT_OPTION;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_EMAIL;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_EMAIL_NAME;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_NAME;
+import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_NOT_EQUAL_EMAIL;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -304,5 +316,43 @@ public class DataBindingUtils {
         int type = multiple ? Constant.ConstantApi.KEY_MULTI_CHOOSE :
             Constant.ConstantApi.KEY_SINGER_CHOOSE;
         view.setSelection(type);
+    }
+
+    @BindingAdapter({"bind:valueSetting"})
+    public static void setValueSetting(TextView view, int values) {
+        switch (values) {
+            case TYPE_INPUT_EMAIL:
+                view.setText(view.getContext().getString(R.string.title_input_email));
+                break;
+            case TYPE_INPUT_NAME:
+                view.setText(view.getContext().getString(R.string.title_input_name));
+                break;
+            case TYPE_ADD_OPTION:
+                view.setText(view.getContext().getString(R.string.title_input_add_option));
+                break;
+            case TYPE_COUNT_VOTE:
+                view.setText(view.getContext().getString(R.string.title_input_count_vote));
+                break;
+            case TYPE_EDIT_LINK:
+                view.setText(view.getContext().getString(R.string.title_input_edit_link));
+                break;
+            case TYPE_INPUT_EMAIL_NAME:
+                view.setText(view.getContext().getString(R.string.title_input_email_name));
+                break;
+            case TYPE_NOT_EQUAL_EMAIL:
+                view.setText(view.getContext().getString(R.string.title_input_not_equal_email));
+                break;
+            case HIDENT_RESULT:
+                view.setText(view.getContext().getString(R.string.title_input_hident_result_vote));
+                break;
+            case TYPE_CREATE_PASSWORD:
+                view.setText(view.getContext().getString(R.string.title_input_create_password));
+                break;
+            case TYPE_EDIT_OPTION:
+                view.setText(view.getContext().getString(R.string.title_input_edit_option));
+                break;
+            default:
+                break;
+        }
     }
 }
