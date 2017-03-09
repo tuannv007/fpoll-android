@@ -8,8 +8,7 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public interface LinkVoteContract {
     interface View extends BaseView {
-        void showLoading();
-        void hideLoading();
+        void setLoading();
         void onGetVoteInfoSuccess(VoteInfo voteInfo);
         void onGetVoteInfoFailed();
     }

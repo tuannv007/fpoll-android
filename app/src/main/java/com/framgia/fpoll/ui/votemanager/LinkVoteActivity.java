@@ -3,17 +3,23 @@ package com.framgia.fpoll.ui.votemanager;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.voteinfo.Poll;
 import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRemoteDataSource;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
+import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
+import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 
 import java.util.ArrayList;
@@ -23,7 +29,7 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
     private ActivityLinkVoteBinding mBinding;
     private LinkVoteContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
-    private ObservableField<VoteInfo> mVoteInfo = new ObservableField<>();
+    private VoteInfoModel mVoteInfoModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,23 +49,19 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
     }
 
     @Override
-    public void showLoading() {
-        //TODO show loading get vote info
-    }
-
-    @Override
-    public void hideLoading() {
-        //TODO hide loading get vote info
+    public void setLoading() {
+        mVoteInfoModel.setItemStatus(ItemStatus.LOADING);
     }
 
     @Override
     public void onGetVoteInfoSuccess(VoteInfo voteInfo) {
-        mVoteInfo.set(voteInfo);
+        mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+        mVoteInfoModel.setVoteInfo(voteInfo);
     }
 
     @Override
     public void onGetVoteInfoFailed() {
-        //TODO get vote info failed
+        mVoteInfoModel.setItemStatus(ItemStatus.NOT_AVAILABLE);
     }
 
     @Override
@@ -67,9 +69,10 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         setSupportActionBar(mBinding.toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getString(R.string.title_vote));
+        mVoteInfoModel = new VoteInfoModel();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(VoteFragment.newIntance());
-        fragments.add(VoteInformationFragment.newInstance());
+        fragments.add(VoteInformationFragment.newInstance(mVoteInfoModel));
         fragments.add(VoteResultFragment.newInstance());
         String[] titles = getResources().getStringArray(R.array.array_vote);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);

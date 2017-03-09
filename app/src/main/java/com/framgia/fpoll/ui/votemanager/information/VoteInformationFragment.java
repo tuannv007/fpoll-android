@@ -13,10 +13,12 @@ import com.facebook.AccessToken;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.PollInfo;
+import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
 import com.framgia.fpoll.databinding.FragmentVoteInfoBinding;
 import com.framgia.fpoll.databinding.PartialCommentsBinding;
 import com.framgia.fpoll.databinding.PartialPollInfoBinding;
 import com.framgia.fpoll.databinding.PartialPostCommentBinding;
+import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
 import java.util.List;
 
@@ -25,14 +27,19 @@ import java.util.List;
  * <.
  */
 public class VoteInformationFragment extends Fragment implements VoteInformationContract.View {
+    private static final String ARGUMENT_VOTE_INFO = "ARGUMENT_VOTE_INFO";
     private FragmentVoteInfoBinding mBinding;
     private VoteInformationContract.Presenter mPresenter;
-    private PollInfo mPollInfo;
+    private VoteInfoModel mVoteInfoModel;
     private ObservableBoolean mCommentExpand = new ObservableBoolean();
     private ObservableField<CommentAdapter> mAdapter = new ObservableField<>();
 
-    public static VoteInformationFragment newInstance() {
-        return new VoteInformationFragment();
+    public static VoteInformationFragment newInstance(VoteInfoModel voteInfo) {
+        VoteInformationFragment voteInformationFragment = new VoteInformationFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ARGUMENT_VOTE_INFO, voteInfo);
+        voteInformationFragment.setArguments(bundle);
+        return voteInformationFragment;
     }
 
     /**
@@ -41,7 +48,8 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPollInfo = new PollInfo();
+        if (getArguments() != null)
+            mVoteInfoModel = (VoteInfoModel) getArguments().getSerializable(ARGUMENT_VOTE_INFO);
         mPresenter = new VoteInformationPresenter(this);
         mAdapter.set(new CommentAdapter(mPresenter));
     }
@@ -51,9 +59,11 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentVoteInfoBinding.inflate(inflater, container, false);
-        mBinding.layoutPollInfo.setFragment(this);
+        mBinding.setVoteInfoModel(mVoteInfoModel);
+        mBinding.layoutPollInfo.setVoteInfoModel(mVoteInfoModel);
         mBinding.layoutPostComment.setPresenter((VoteInformationPresenter) mPresenter);
         mBinding.layoutComments.setFragment(this);
+        mBinding.layoutComments.setVoteInfoModel(mVoteInfoModel);
         return mBinding.getRoot();
     }
 
@@ -94,10 +104,6 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     @Override
     public void showEmptyError() {
         mBinding.layoutPostComment.setMsgError(getString(R.string.msg_content_error));
-    }
-
-    public PollInfo getPollInfo() {
-        return mPollInfo;
     }
 
     public ObservableBoolean getCommentExpand() {

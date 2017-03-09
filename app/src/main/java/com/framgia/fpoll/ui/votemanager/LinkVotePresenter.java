@@ -1,8 +1,5 @@
 package com.framgia.fpoll.ui.votemanager;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
@@ -24,6 +21,7 @@ public class LinkVotePresenter implements LinkVoteContract.Presenter {
 
     @Override
     public void getVoteInfo(String token) {
+        mView.setLoading();
         mVoteInfoRepository.getVoteInfo(token, new DataCallback<VoteInfo>() {
             @Override
             public void onSuccess(@NotNull VoteInfo data) {
