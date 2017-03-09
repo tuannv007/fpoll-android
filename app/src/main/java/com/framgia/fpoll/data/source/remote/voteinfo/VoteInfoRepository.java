@@ -3,10 +3,8 @@ package com.framgia.fpoll.data.source.remote.voteinfo;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
+import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by anhtv on 07/03/2017.

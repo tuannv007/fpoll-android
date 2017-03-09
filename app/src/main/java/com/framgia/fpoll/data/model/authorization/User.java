@@ -1,4 +1,4 @@
-package com.framgia.fpoll.data.model;
+package com.framgia.fpoll.data.model.authorization;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -86,6 +86,7 @@ public class User extends BaseObservable {
         mAvatar = avatar;
         notifyPropertyChanged(BR.avatar);
     }
+
     @Bindable
     public String getToken() {
         return mToken;
@@ -94,7 +95,6 @@ public class User extends BaseObservable {
     public void setToken(String token) {
         mToken = token;
         notifyPropertyChanged(BR.token);
-
     }
 
     @Bindable

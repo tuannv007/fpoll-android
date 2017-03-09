@@ -1,7 +1,7 @@
 package com.framgia.fpoll.util;
 
 import com.android.annotations.NonNull;
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 
 /**
  * Created by framgia on 19/02/2017.

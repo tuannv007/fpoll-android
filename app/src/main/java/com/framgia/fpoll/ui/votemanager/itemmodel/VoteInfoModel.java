@@ -4,7 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.framgia.fpoll.BR;
-import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
+import com.framgia.fpoll.data.model.poll.VoteInfo;
 
 import java.io.Serializable;
 

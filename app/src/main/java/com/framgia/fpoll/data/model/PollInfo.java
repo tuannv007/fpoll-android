@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.framgia.fpoll.BR;
+import com.framgia.fpoll.data.model.authorization.User;
 
 import java.util.List;
 

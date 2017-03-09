@@ -1,4 +1,4 @@
-package com.framgia.fpoll.data.model;
+package com.framgia.fpoll.data.model.authorization;
 
 import com.google.gson.annotations.SerializedName;
 

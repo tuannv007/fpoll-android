@@ -1,7 +1,8 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService;
+package com.framgia.fpoll.networking.api;
 
 import com.framgia.fpoll.data.model.FpollComment;
-import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
+import com.framgia.fpoll.data.model.poll.VoteInfo;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.google.gson.annotations.SerializedName;
 
 import retrofit2.Call;
@@ -12,6 +13,7 @@ import retrofit2.http.Path;
 
 /**
  * Created by anhtv on 08/03/2017.
+ * <></>
  */
 public interface VoteInfoAPI {
     @GET("/api/v1/link/{token}")

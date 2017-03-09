@@ -3,14 +3,14 @@ package com.framgia.fpoll.data.source.remote.login;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.authenticationservice.AuthenticationApi;
-import com.framgia.fpoll.data.ApiRestClient.CallbackManager;
-import com.framgia.fpoll.data.ApiRestClient.ServiceGenerator;
-import com.framgia.fpoll.data.model.LoginNormalBody;
-import com.framgia.fpoll.data.model.LoginNormalData;
-import com.framgia.fpoll.data.model.SocialData;
+import com.framgia.fpoll.data.model.authorization.LoginNormalBody;
+import com.framgia.fpoll.data.model.authorization.LoginNormalData;
+import com.framgia.fpoll.data.model.authorization.SocialData;
 import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.networking.CallbackManager;
+import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.networking.ServiceGenerator;
+import com.framgia.fpoll.networking.api.AuthenticationApi;
 import com.framgia.fpoll.util.ActivityUtil;
 
 /**

@@ -1,5 +1,6 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService;
+package com.framgia.fpoll.networking.api;
 
+import com.framgia.fpoll.networking.ResponseItem;
 import com.google.gson.annotations.SerializedName;
 
 import retrofit2.Call;

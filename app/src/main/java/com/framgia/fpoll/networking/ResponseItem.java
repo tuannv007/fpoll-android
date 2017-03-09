@@ -1,4 +1,4 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService;
+package com.framgia.fpoll.networking;
 
 import com.google.gson.annotations.SerializedName;
 

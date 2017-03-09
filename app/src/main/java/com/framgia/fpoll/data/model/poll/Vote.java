@@ -1,66 +1,54 @@
-package com.framgia.fpoll.data.model.voteinfo;
+package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.android.databinding.library.baseAdapters.BR;
+import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by anhtv on 07/03/2017.
+ * Created by anhtv on 08/03/2017.
  */
-public class Setting extends BaseObservable {
+public class Vote extends BaseObservable {
     @SerializedName("id")
-    private int mId;
-    @SerializedName("poll_id")
-    private int mPollId;
-    @SerializedName("key")
-    private int mKey;
-    @SerializedName("value")
-    private String mValue;
+    private String mId;
+    @SerializedName("vote_id")
+    private String mVoteId;
+    @SerializedName("option_id")
+    private String mOptionId;
     @SerializedName("created_at")
     private String mCreatedTime;
     @SerializedName("updated_at")
     private String mUpdatedTime;
 
     @Bindable
-    public int getId() {
+    public String getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         mId = id;
         notifyPropertyChanged(BR.id);
     }
 
     @Bindable
-    public int getPollId() {
-        return mPollId;
+    public String getVoteId() {
+        return mVoteId;
     }
 
-    public void setPollId(int pollId) {
-        mPollId = pollId;
-        notifyPropertyChanged(BR.pollId);
-    }
-
-    @Bindable
-    public int getKey() {
-        return mKey;
-    }
-
-    public void setKey(int key) {
-        mKey = key;
-        notifyPropertyChanged(BR.key);
+    public void setVoteId(String voteId) {
+        mVoteId = voteId;
+        notifyPropertyChanged(BR.voteId);
     }
 
     @Bindable
-    public String getValue() {
-        return mValue;
+    public String getOptionId() {
+        return mOptionId;
     }
 
-    public void setValue(String value) {
-        mValue = value;
-        notifyPropertyChanged(BR.value);
+    public void setOptionId(String optionId) {
+        mOptionId = optionId;
+        notifyPropertyChanged(BR.optionId);
     }
 
     @Bindable

@@ -1,6 +1,6 @@
 package com.framgia.fpoll.ui.pollcreation.participant;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.creation.CreationRepository;
 

@@ -1,4 +1,4 @@
-package com.framgia.fpoll.data.model.voteinfo;
+package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.FpollComment;
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

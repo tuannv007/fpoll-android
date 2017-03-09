@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;

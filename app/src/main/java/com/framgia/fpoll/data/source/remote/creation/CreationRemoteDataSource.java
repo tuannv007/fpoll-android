@@ -1,14 +1,15 @@
 package com.framgia.fpoll.data.source.remote.creation;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollCreationApi;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollResponse;
-import com.framgia.fpoll.data.ApiRestClient.CallbackManager;
-import com.framgia.fpoll.data.ApiRestClient.ServiceGenerator;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.networking.CallbackManager;
+import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.networking.ServiceGenerator;
+import com.framgia.fpoll.networking.api.PollCreationApi;
 
 /**
  * Created by framgia on 06/03/2017.
@@ -27,21 +28,22 @@ public class CreationRemoteDataSource implements CreationDataSource {
     }
 
     @Override
-    public void createPoll(PollItem pollItem, final DataCallback callback) {
+    public void createPoll(PollItem pollItem, @NonNull final DataCallback<PollItem> callback) {
         ServiceGenerator.createService(PollCreationApi.PollService.class)
             .createPoll(PollCreationApi.getRequestBody(pollItem))
-            .enqueue(new CallbackManager<>(mContext, new CallbackManager.CallBack<PollResponse>() {
-                @Override
-                public void onResponse(PollResponse data) {
-                    if (data == null) {
-                        callback.onError(mContext.getString(R.string.msg_create_poll_error));
-                    } else callback.onSuccess(data.getPollItem());
-                }
+            .enqueue(new CallbackManager<>(mContext,
+                new CallbackManager.CallBack<ResponseItem<PollItem>>() {
+                    @Override
+                    public void onResponse(ResponseItem<PollItem> data) {
+                        if (data == null) {
+                            callback.onError(mContext.getString(R.string.msg_create_poll_error));
+                        } else callback.onSuccess(data.getData());
+                    }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                    @Override
+                    public void onFailure(String message) {
+                        callback.onError(message);
+                    }
+                }));
     }
 }

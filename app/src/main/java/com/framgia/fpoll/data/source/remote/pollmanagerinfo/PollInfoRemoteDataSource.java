@@ -2,12 +2,12 @@ package com.framgia.fpoll.data.source.remote.pollmanagerinfo;
 
 import android.content.Context;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.PollInfoApi;
-import com.framgia.fpoll.data.ApiRestClient.CallbackManager;
-import com.framgia.fpoll.data.ApiRestClient.ServiceGenerator;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.networking.CallbackManager;
+import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.networking.ServiceGenerator;
+import com.framgia.fpoll.networking.api.PollInfoApi;
 
 /**
  * Created by tuanbg on 3/6/17.

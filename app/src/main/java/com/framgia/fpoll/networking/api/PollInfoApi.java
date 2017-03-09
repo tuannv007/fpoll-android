@@ -1,6 +1,7 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager;
+package com.framgia.fpoll.networking.api;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
+import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.networking.ResponseItem;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,6 +1,6 @@
 package com.framgia.fpoll.ui.history.pollhistory;
 
-import com.framgia.fpoll.data.enums.PollHistoryType;
+import com.framgia.fpoll.ui.history.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
 import com.framgia.fpoll.data.source.local.PollDataSource;
 import com.framgia.fpoll.data.source.local.PollHistoryRepository;

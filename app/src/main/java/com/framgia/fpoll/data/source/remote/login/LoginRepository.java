@@ -3,8 +3,8 @@ package com.framgia.fpoll.data.source.remote.login;
 import android.content.Context;
 
 import com.android.annotations.NonNull;
-import com.framgia.fpoll.data.model.LoginNormalData;
-import com.framgia.fpoll.data.model.SocialData;
+import com.framgia.fpoll.data.model.authorization.LoginNormalData;
+import com.framgia.fpoll.data.model.authorization.SocialData;
 import com.framgia.fpoll.data.source.DataCallback;
 
 /**

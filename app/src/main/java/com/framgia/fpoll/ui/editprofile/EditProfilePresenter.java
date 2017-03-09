@@ -1,7 +1,7 @@
 package com.framgia.fpoll.ui.editprofile;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.util.UserValidation;
 
 /**
