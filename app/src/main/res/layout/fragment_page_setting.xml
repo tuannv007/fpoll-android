@@ -232,6 +232,7 @@
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:inputType="textPassword"
+                        android:text="@={presenter.pass}"
                         bind:showPassword="@{presenter.showPassword}"/>
 
                     <ImageView

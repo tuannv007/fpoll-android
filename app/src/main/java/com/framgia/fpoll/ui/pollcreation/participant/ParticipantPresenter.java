@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.pollcreation.participant;
 
+import android.databinding.ObservableField;
+
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.creation.CreationRepository;
@@ -11,6 +13,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
     private ParticipantPollContract.View mView;
     private CreationRepository mCreationRepository;
     private PollItem mPollItem;
+    private ObservableField<String> mMember = new ObservableField<>();
 
     public ParticipantPresenter(ParticipantPollContract.View view,
                                 CreationRepository creationRepository, PollItem pollItem) {
@@ -22,6 +25,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
     @Override
     public void nextStep() {
         if (mView != null) mView.showDialog();
+        mPollItem.setMembers(mMember.get());
         mCreationRepository.createPoll(mPollItem, new DataCallback() {
             @Override
             public void onSuccess(Object data) {
@@ -51,5 +55,9 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
         for (String email : listEmail) {
             // TODO: 2/27/17 multi email
         }
+    }
+
+    public ObservableField<String> getMember() {
+        return mMember;
     }
 }

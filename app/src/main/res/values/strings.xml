@@ -191,4 +191,5 @@
     <string name="title_delete_voting">Delete all participant</string>
     <string name="msg_create_poll_error">create poll error</string>
     <string name="msg_creating_poll">Creating poll</string>
+    <string name="msg_option_blank">Option can not be blank</string>
 </resources>

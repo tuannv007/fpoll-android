@@ -54,7 +54,7 @@ public class PollCreationApi {
         builder.addFormDataPart(EMAIL, pollItem.getEmail());
         builder.addFormDataPart(TITLE, pollItem.getTitle());
         builder.addFormDataPart(DESCRIPTION, pollItem.getDescription());
-        builder.addFormDataPart(MULTIPLE, String.valueOf(pollItem.isMultiple()));
+        builder.addFormDataPart(MULTIPLE, String.valueOf(pollItem.getMultiple()));
         builder.addFormDataPart(DATE_CLOSE, pollItem.getDateClose());
         builder.addFormDataPart(LOCATION, pollItem.getLocation());
         builder.addFormDataPart(IS_REQUIRE_VOTE, String.valueOf(pollItem.isRequireVote()));
@@ -73,6 +73,7 @@ public class PollCreationApi {
                 .append(String.valueOf(i))
                 .append(CLOSE_SQUARE_BR);
             builder.addFormDataPart(fieldOptionText.toString(), optionItemList.get(i).getTitle());
+            if (optionItemList.get(i).getPathImage() == null) continue;
             File file = new File(optionItemList.get(i).getPathImage());
             if (!file.exists()) continue;
             RequestBody requestBody =

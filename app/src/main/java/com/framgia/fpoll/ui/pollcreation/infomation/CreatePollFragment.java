@@ -101,6 +101,10 @@ public class CreatePollFragment extends Fragment
         pollItem.setEmail(mPollInformation.getEmail());
         pollItem.setTitle(mPollInformation.getPollTitle());
         pollItem.setName(mPollInformation.getUserName());
+        pollItem.setDescription(mPollInformation.getDescription());
+        pollItem.setMultiple(String.valueOf(mPollInformation.getMultiple()));
+        pollItem.setLocation(mPollInformation.getLocation());
+        pollItem.setDateClose(mBinding.edtChooseTime.getText().toString());
         getFragmentManager().beginTransaction()
             .add(R.id.frame_layout, OptionPollFragment.newInstance(pollItem), null)
             .addToBackStack(null)
