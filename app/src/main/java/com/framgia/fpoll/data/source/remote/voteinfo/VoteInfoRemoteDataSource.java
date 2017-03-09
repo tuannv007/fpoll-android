@@ -3,12 +3,12 @@ package com.framgia.fpoll.data.source.remote.voteinfo;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.VoteInfoAPI;
-import com.framgia.fpoll.data.ApiRestClient.CallbackManager;
-import com.framgia.fpoll.data.ApiRestClient.ServiceGenerator;
-import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
+import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.networking.CallbackManager;
+import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.networking.ServiceGenerator;
+import com.framgia.fpoll.networking.api.VoteInfoAPI;
 
 /**
  * Created by anhtv on 07/03/2017.

@@ -1,6 +1,6 @@
 package com.framgia.fpoll.ui.authenication.register;
 
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**

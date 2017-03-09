@@ -1,6 +1,6 @@
 package com.framgia.fpoll.data.source.remote.voteinfo;
 
-import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
+import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 
 /**

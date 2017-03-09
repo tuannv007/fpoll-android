@@ -11,10 +11,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.pollmanagerinfo.PollInfoRepository;
 import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.util.ActivityUtil;

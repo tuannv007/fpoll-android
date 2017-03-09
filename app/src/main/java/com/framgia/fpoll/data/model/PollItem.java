@@ -1,9 +1,8 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice;
+package com.framgia.fpoll.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.framgia.fpoll.data.model.OptionItem;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

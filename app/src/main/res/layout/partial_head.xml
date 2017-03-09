@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="com.framgia.fpoll.data.model.User"/>
+            type="com.framgia.fpoll.data.model.authorization.User"/>
     </data>
 
     <LinearLayout

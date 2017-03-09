@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.remote.register.RegisterRepository;
 import com.framgia.fpoll.databinding.FragmentRegisterBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;

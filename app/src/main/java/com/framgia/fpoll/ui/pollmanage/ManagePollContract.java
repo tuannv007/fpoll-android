@@ -2,8 +2,8 @@ package com.framgia.fpoll.ui.pollmanage;
 
 import android.support.v4.app.Fragment;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
+import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**

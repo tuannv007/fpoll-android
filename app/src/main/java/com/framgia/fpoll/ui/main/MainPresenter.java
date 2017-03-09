@@ -1,6 +1,6 @@
 package com.framgia.fpoll.ui.main;
 
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.

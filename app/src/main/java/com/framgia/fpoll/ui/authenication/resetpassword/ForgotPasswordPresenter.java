@@ -1,6 +1,6 @@
 package com.framgia.fpoll.ui.authenication.resetpassword;
 
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.util.UserValidation;
 
 /**

@@ -1,10 +1,10 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService.authenticationservice;
+package com.framgia.fpoll.networking.api;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.model.LoginNormalBody;
-import com.framgia.fpoll.data.model.LoginNormalData;
-import com.framgia.fpoll.data.model.SocialData;
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.LoginNormalBody;
+import com.framgia.fpoll.data.model.authorization.LoginNormalData;
+import com.framgia.fpoll.data.model.authorization.SocialData;
+import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.Constant;
 
 import java.io.File;

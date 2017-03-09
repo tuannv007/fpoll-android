@@ -1,9 +1,9 @@
 package com.framgia.fpoll.ui.pollmanage;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanagerinfo.PollInfoRepository;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 
 /**

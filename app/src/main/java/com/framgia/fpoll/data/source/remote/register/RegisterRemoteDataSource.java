@@ -2,11 +2,11 @@ package com.framgia.fpoll.data.source.remote.register;
 
 import android.content.Context;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
-import com.framgia.fpoll.data.ApiRestClient.APIService.authenticationservice.AuthenticationApi;
-import com.framgia.fpoll.data.ApiRestClient.CallbackManager;
-import com.framgia.fpoll.data.ApiRestClient.ServiceGenerator;
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.networking.CallbackManager;
+import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.networking.ServiceGenerator;
+import com.framgia.fpoll.networking.api.AuthenticationApi;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.enums.PollHistoryType;
+import com.framgia.fpoll.ui.history.PollHistoryType;
 import com.framgia.fpoll.data.model.PollHistoryItem;
 import com.framgia.fpoll.data.source.local.PollHistoryRepository;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;

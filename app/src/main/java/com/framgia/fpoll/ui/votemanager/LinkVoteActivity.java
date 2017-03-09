@@ -11,9 +11,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.voteinfo.Poll;
-import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRemoteDataSource;
+import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;

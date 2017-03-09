@@ -2,7 +2,7 @@ package com.framgia.fpoll.data.source.remote.register;
 
 import android.content.Context;
 
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 
 /**
  * Created by tuanbg on 2/28/17.

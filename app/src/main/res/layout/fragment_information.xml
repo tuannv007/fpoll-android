@@ -7,7 +7,7 @@
 
         <variable
             name="information"
-            type="com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager.DataInfoItem"/>
+            type="com.framgia.fpoll.data.model.DataInfoItem"/>
 
         <variable
             name="handler"

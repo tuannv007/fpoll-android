@@ -1,7 +1,9 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice;
+package com.framgia.fpoll.networking.api;
 
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.OptionItem;
+import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.Constant;
 
 import java.io.File;
@@ -41,7 +43,7 @@ public class PollCreationApi {
 
     public interface PollService {
         @POST("api/v1/poll")
-        Call<PollResponse> createPoll(@Body RequestBody body);
+        Call<ResponseItem<PollItem>> createPoll(@Body RequestBody body);
     }
 
     public static RequestBody getRequestBody(@NonNull PollItem pollItem) {

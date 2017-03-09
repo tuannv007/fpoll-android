@@ -3,7 +3,7 @@ package com.framgia.fpoll.data.source.remote.creation;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.DataCallback;
 
 /**
@@ -25,10 +25,10 @@ public class CreationRepository implements CreationDataSource {
     }
 
     @Override
-    public void createPoll(PollItem pollItem, @NonNull final DataCallback callback) {
-        mDataSource.createPoll(pollItem, new DataCallback() {
+    public void createPoll(PollItem pollItem, @NonNull final DataCallback<PollItem> callback) {
+        mDataSource.createPoll(pollItem, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(Object data) {
+            public void onSuccess(PollItem data) {
                 callback.onSuccess(data);
             }
 

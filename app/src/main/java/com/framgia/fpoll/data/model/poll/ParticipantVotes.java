@@ -1,4 +1,4 @@
-package com.framgia.fpoll.data.model.voteinfo;
+package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

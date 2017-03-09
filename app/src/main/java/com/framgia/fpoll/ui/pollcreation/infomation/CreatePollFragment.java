@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.PollInformation;
 import com.framgia.fpoll.databinding.FragmentCreatePollBinding;
 import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;

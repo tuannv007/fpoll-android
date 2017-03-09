@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.creation.CreationRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
 import com.framgia.fpoll.ui.poll.PollCreatedFragment;

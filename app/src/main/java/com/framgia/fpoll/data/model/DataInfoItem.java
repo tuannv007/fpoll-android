@@ -1,4 +1,4 @@
-package com.framgia.fpoll.data.ApiRestClient.APIService.pollmanager;
+package com.framgia.fpoll.data.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
-import com.framgia.fpoll.data.model.User;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.google.gson.annotations.SerializedName;
 
 /**

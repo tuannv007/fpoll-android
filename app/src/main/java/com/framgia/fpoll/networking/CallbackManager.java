@@ -1,9 +1,8 @@
-package com.framgia.fpoll.data.ApiRestClient;
+package com.framgia.fpoll.networking;
 
 import android.content.Context;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.ApiRestClient.APIService.ResponseItem;
 import com.google.gson.Gson;
 
 import java.io.IOException;
