@@ -7,8 +7,8 @@
         <import type="android.view.View"/>
 
         <variable
-            name="fragment"
-            type="com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment"/>
+            name="voteInfoModel"
+            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"/>
 
     </data>
 
@@ -17,10 +17,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_16"
-        android:layout_marginRight="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_16"
-        app:cardElevation="@dimen/dp_4">
+        app:cardBackgroundColor="@color/color_grey_200"
+        app:cardElevation="@dimen/dp_8">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,29 +29,29 @@
                 style="@style/TextViewPollInformation"
                 android:drawableLeft="@drawable/ic_info"
                 android:drawableStart="@drawable/ic_info"
-                android:text="@{fragment.pollInfo.pollTitle}"
-                android:visibility="@{fragment.pollInfo.pollTitle == null ? View.GONE : View.VISIBLE}"/>
+                android:text="@{voteInfoModel.voteInfo.poll.title}"
+                android:visibility="@{voteInfoModel.voteInfo.poll.title == null ? View.GONE : View.VISIBLE}"/>
 
             <TextView
                 style="@style/TextViewPollInformation"
                 android:drawableLeft="@drawable/ic_person_black_24dp"
                 android:drawableStart="@drawable/ic_person_black_24dp"
-                android:text="@{fragment.pollInfo.user.username}"
-                android:visibility="@{fragment.pollInfo.user.username == null ? View.GONE : View.VISIBLE}"/>
+                android:text="@{voteInfoModel.voteInfo.poll.name}"
+                android:visibility="@{voteInfoModel.voteInfo.poll.name == null ? View.GONE : View.VISIBLE}"/>
 
             <TextView
                 style="@style/TextViewPollInformation"
                 android:drawableLeft="@drawable/ic_clock"
                 android:drawableStart="@drawable/ic_clock"
-                android:text="@{fragment.pollInfo.createdTime}"
-                android:visibility="@{fragment.pollInfo.createdTime == null ? View.GONE : View.VISIBLE}"/>
+                android:text="@{voteInfoModel.voteInfo.poll.createdTime}"
+                android:visibility="@{voteInfoModel.voteInfo.poll.createdTime == null ? View.GONE : View.VISIBLE}"/>
 
             <TextView
                 style="@style/TextViewPollInformation"
                 android:drawableLeft="@drawable/ic_time_close"
                 android:drawableStart="@drawable/ic_time_close"
-                android:text="@{fragment.pollInfo.expiredTime}"
-                android:visibility="@{fragment.pollInfo.expiredTime == null ? View.GONE : View.VISIBLE}"/>
+                android:text="@{voteInfoModel.voteInfo.poll.dateClose}"
+                android:visibility="@{voteInfoModel.voteInfo.poll.dateClose == null ? View.GONE : View.VISIBLE}"/>
 
         </LinearLayout>
 

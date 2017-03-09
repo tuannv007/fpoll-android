@@ -15,15 +15,19 @@
             name="fragment"
             type="com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment"/>
 
+        <variable
+            name="voteInfoModel"
+            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"/>
+
     </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_16"
-        android:layout_marginRight="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_8"
-        app:cardElevation="@dimen/dp_4">
+        android:layout_marginBottom="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        app:cardBackgroundColor="@color/color_grey_200"
+        app:cardElevation="@dimen/dp_8">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,16 +46,14 @@
                 <com.facebook.share.widget.LikeView
                     android:id="@+id/like_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    bind:objectId="@{fragment.pollInfo.linkPoll}"/>
+                    android:layout_height="wrap_content"/>
 
                 <com.facebook.share.widget.ShareButton
                     android:id="@+id/button_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8"
-                    bind:shareContent="@{fragment.pollInfo.linkPoll}"/>
+                    android:layout_marginRight="@dimen/dp_8"/>
 
                 <TextView
                     style="@style/TextViewPollInformation"
@@ -79,7 +81,7 @@
                         style="@style/TextViewPollInformation"
                         android:drawableLeft="@drawable/ic_people"
                         android:drawableStart="@drawable/ic_people"
-                        android:text="@{fragment.pollInfo.totalCommentUsers &lt; 2 ? @string/post_user(fragment.pollInfo.totalCommentUsers): @string/post_user(fragment.pollInfo.totalCommentUsers)}"/>
+                        android:text="@{voteInfoModel.voteInfo.countParticipant &lt; 2 ? @string/post_user(voteInfoModel.voteInfo.countParticipant): @string/post_user(voteInfoModel.voteInfo.countParticipant)}"/>
 
                     <TextView
                         style="@style/TextViewPollInformation"
@@ -87,7 +89,7 @@
                         android:layout_toRightOf="@id/text_user_comments"
                         android:drawableLeft="@drawable/ic_comment"
                         android:drawableStart="@drawable/ic_comment"
-                        android:text="@{fragment.pollInfo.totalComments &lt; 2 ? @string/post_user(fragment.pollInfo.totalComments): @string/post_user(fragment.pollInfo.totalComments)}"/>
+                        android:text="@{voteInfoModel.voteInfo.countComments &lt; 2 ? @string/post_user(voteInfoModel.voteInfo.countComments): @string/post_user(voteInfoModel.voteInfo.countComments)}"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"

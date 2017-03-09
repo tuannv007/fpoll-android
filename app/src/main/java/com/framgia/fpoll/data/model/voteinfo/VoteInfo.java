@@ -1,19 +1,18 @@
 package com.framgia.fpoll.data.model.voteinfo;
 
-import android.content.ContentValues;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.framgia.fpoll.BR;
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by anhtv on 07/03/2017.
  */
-public class VoteInfo extends BaseObservable {
+public class VoteInfo extends BaseObservable implements Serializable {
     private String mId;
     @SerializedName("poll")
     private Poll mPoll;
