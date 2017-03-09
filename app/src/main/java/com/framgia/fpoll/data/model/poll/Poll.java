@@ -2,6 +2,8 @@ package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.framgia.fpoll.BR;
@@ -14,7 +16,7 @@ import java.util.List;
 /**
  * Created by anhtv on 07/03/2017.
  */
-public class Poll extends BaseObservable {
+public class Poll extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private int mId;
     @SerializedName("user_id")
@@ -47,6 +49,34 @@ public class Poll extends BaseObservable {
     private List<Option> mOptions;
     @SerializedName("comments")
     private List<FpollComment> mComments;
+
+    protected Poll(Parcel in) {
+        mId = in.readInt();
+        mUserId = in.readString();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mLocation = in.readString();
+        mIsOpen = in.readByte() != 0;
+        mIsMultiple = in.readByte() != 0;
+        mCreatedTime = in.readString();
+        mUpdatedTime = in.readString();
+        mDateClose = in.readString();
+        mName = in.readString();
+        mEmail = in.readString();
+        mOptions = in.createTypedArrayList(Option.CREATOR);
+    }
+
+    public static final Creator<Poll> CREATOR = new Creator<Poll>() {
+        @Override
+        public Poll createFromParcel(Parcel in) {
+            return new Poll(in);
+        }
+
+        @Override
+        public Poll[] newArray(int size) {
+            return new Poll[size];
+        }
+    };
 
     @Bindable
     public int getId() {
@@ -206,5 +236,27 @@ public class Poll extends BaseObservable {
     public void setComments(List<FpollComment> comments) {
         mComments = comments;
         notifyPropertyChanged(BR.comments);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeString(mUserId);
+        dest.writeString(mTitle);
+        dest.writeString(mDescription);
+        dest.writeString(mLocation);
+        dest.writeByte((byte) (mIsOpen ? 1 : 0));
+        dest.writeByte((byte) (mIsMultiple ? 1 : 0));
+        dest.writeString(mCreatedTime);
+        dest.writeString(mUpdatedTime);
+        dest.writeString(mDateClose);
+        dest.writeString(mName);
+        dest.writeString(mEmail);
+        dest.writeTypedList(mOptions);
     }
 }

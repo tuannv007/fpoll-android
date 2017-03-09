@@ -2,6 +2,8 @@ package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +13,7 @@ import java.util.List;
 /**
  * Created by anhtv on 07/03/2017.
  */
-public class Option extends BaseObservable {
+public class Option extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private int mId;
     @SerializedName("name")
@@ -28,6 +30,36 @@ public class Option extends BaseObservable {
     private List<Vote> mVotes;
     @SerializedName("participant_votes")
     private List<ParticipantVotes> mParticipantVotes;
+
+    public Option(Parcel in) {
+        mId = in.readInt();
+        mName = in.readString();
+        mImage = in.readString();
+        mPollId = in.readInt();
+        mCreatedTime = in.readString();
+        mUpdatedTime = in.readString();
+    }
+
+    public static final Creator<Option> CREATOR = new Creator<Option>() {
+        @Override
+        public Option createFromParcel(Parcel in) {
+            return new Option(in);
+        }
+
+        @Override
+        public Option[] newArray(int size) {
+            return new Option[size];
+        }
+    };
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
+        notifyPropertyChanged(BR.id);
+    }
 
     @Bindable
     public String getName() {
@@ -64,10 +96,6 @@ public class Option extends BaseObservable {
         notifyPropertyChanged(BR.participantVotes);
     }
 
-    @Bindable
-    public int getId() {
-        return mId;
-    }
 
     @Bindable
     public String getImage() {
@@ -97,5 +125,20 @@ public class Option extends BaseObservable {
     @Bindable
     public List<ParticipantVotes> getParticipantVotes() {
         return mParticipantVotes;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeString(mName);
+        dest.writeString(mImage);
+        dest.writeInt(mPollId);
+        dest.writeString(mCreatedTime);
+        dest.writeString(mUpdatedTime);
     }
 }

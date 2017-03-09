@@ -19,7 +19,7 @@ public class PollInformationPresenter implements PollInformationContract.Present
 
     @Override
     public void clickViewOption() {
-        // TODO: 2/24/2017 handler click view optional
+        mView.viewOption();
     }
 
     @Override

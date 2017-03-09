@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.pollmanage;
 
+import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanagerinfo.PollInfoRepository;
@@ -35,7 +36,7 @@ public class ManagePollPresenter implements ManagePollContract.Presenter {
         }
     }
 
-    public void getAllData(String token) {
+    public void getAllData(@NonNull String token) {
         mView.showDialog();
         mRepository.loadData(token, new DataCallback<ResponseItem<DataInfoItem>>() {
             @Override
