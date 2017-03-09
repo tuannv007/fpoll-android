@@ -16,10 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
 import com.framgia.fpoll.data.model.OptionItem;
 import com.framgia.fpoll.databinding.FragmentPageOptionBinding;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
 
 import java.util.ArrayList;
@@ -42,8 +44,12 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     private List<OptionItem> mListOption = new ArrayList<>();
     private int mPosition = UNSELECTED_POSITION;
 
-    public static OptionPollFragment newInstance() {
-        return new OptionPollFragment();
+    public static OptionPollFragment newInstance(PollItem pollItem) {
+        OptionPollFragment optionPollFragment = new OptionPollFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        optionPollFragment.setArguments(bundle);
+        return optionPollFragment;
     }
 
     @Nullable
@@ -62,8 +68,10 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     @Override
     public void nextStep() {
+        PollItem pollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        pollItem.setOptionItemList(mListOption);
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, SettingPollFragment.newInstance(), null)
+            .add(R.id.frame_layout, SettingPollFragment.newInstance(pollItem), null)
             .addToBackStack(null)
             .commit();
     }

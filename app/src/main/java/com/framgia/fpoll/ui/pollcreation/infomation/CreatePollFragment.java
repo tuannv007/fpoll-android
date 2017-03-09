@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.ApiRestClient.APIService.pollcreationservice.PollItem;
 import com.framgia.fpoll.data.model.PollInformation;
 import com.framgia.fpoll.databinding.FragmentCreatePollBinding;
 import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
@@ -96,9 +97,12 @@ public class CreatePollFragment extends Fragment
 
     @Override
     public void nextStep() {
-        OptionPollFragment optionPollFragment = OptionPollFragment.newInstance();
+        PollItem pollItem = new PollItem();
+        pollItem.setEmail(mPollInformation.getEmail());
+        pollItem.setTitle(mPollInformation.getPollTitle());
+        pollItem.setName(mPollInformation.getUserName());
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, optionPollFragment, null)
+            .add(R.id.frame_layout, OptionPollFragment.newInstance(pollItem), null)
             .addToBackStack(null)
             .commit();
     }

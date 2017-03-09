@@ -9,6 +9,9 @@ public class ParticipantPollContract {
     interface View extends BaseView {
         void nextStep();
         void previousStep();
+        void showCreatePollError(String message);
+        void showDialog();
+        void hideDialog();
     }
 
     interface Presenter {

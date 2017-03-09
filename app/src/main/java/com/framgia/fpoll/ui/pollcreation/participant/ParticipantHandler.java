@@ -17,7 +17,4 @@ public class ParticipantHandler {
     public void previousStep() {
         if (mListener != null) mListener.previousStep();
     }
-    public void finishCreatePoll(){
-        if (mListener != null) mListener.previousStep();
-    }
 }
