@@ -3,6 +3,7 @@ package com.framgia.fpoll.data.source.remote.voteinfo;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
@@ -41,5 +42,23 @@ public class VoteInfoRemoteDataSource implements VoteInfoDataSource {
                     callback.onError(message);
                 }
             }));
+    }
+
+    @Override
+    public void postComment(VoteInfoAPI.CommentBody comment,
+                            final DataCallback<FpollComment> callback) {
+        ServiceGenerator.createService(VoteInfoAPI.class).postComment(comment)
+            .enqueue(new CallbackManager<>(mContext,
+                new CallbackManager.CallBack<ResponseItem<FpollComment>>() {
+                    @Override
+                    public void onResponse(ResponseItem<FpollComment> data) {
+                        if (data != null) callback.onSuccess(data.getData());
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        callback.onError(message);
+                    }
+                }));
     }
 }

@@ -2,6 +2,7 @@ package com.framgia.fpoll.ui.votemanager.information;
 
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.ui.base.BaseView;
+import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
 import java.util.List;
 
@@ -10,16 +11,13 @@ import java.util.List;
  */
 public interface VoteInformationContract {
     interface View extends BaseView {
-        void onGetCommentsSuccess(List<FpollComment> list);
-        void onGetCommentFailed();
         void onPostCommentSuccess(FpollComment comment);
         void onPostCommentFailed();
         void showEmptyError();
+        void setLoading();
     }
 
     interface Presenter {
-        void getComments();
-        void notifyEmpty();
-        void postComment();
+        void postComment(VoteInfoModel voteInfoModel);
     }
 }

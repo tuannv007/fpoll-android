@@ -81,7 +81,7 @@
                         style="@style/TextViewPollInformation"
                         android:drawableLeft="@drawable/ic_people"
                         android:drawableStart="@drawable/ic_people"
-                        android:text="@{voteInfoModel.voteInfo.countParticipant &lt; 2 ? @string/post_user(voteInfoModel.voteInfo.countParticipant): @string/post_user(voteInfoModel.voteInfo.countParticipant)}"/>
+                        android:text="@{voteInfoModel.voteInfo.countParticipant &lt; 2 ? @string/post_user(voteInfoModel.voteInfo.countParticipant): @string/post_users(voteInfoModel.voteInfo.countParticipant)}"/>
 
                     <TextView
                         style="@style/TextViewPollInformation"
@@ -89,7 +89,7 @@
                         android:layout_toRightOf="@id/text_user_comments"
                         android:drawableLeft="@drawable/ic_comment"
                         android:drawableStart="@drawable/ic_comment"
-                        android:text="@{voteInfoModel.voteInfo.countComments &lt; 2 ? @string/post_user(voteInfoModel.voteInfo.countComments): @string/post_user(voteInfoModel.voteInfo.countComments)}"/>
+                        android:text="@{voteInfoModel.voteInfo.countComments &lt; 2 ? @string/post_comment(voteInfoModel.voteInfo.countComments): @string/post_comments(voteInfoModel.voteInfo.countComments)}"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_user_comments"
                         android:padding="@dimen/dp_8"
-                        app:layoutManager="@{LayoutManageUtil.linear(LinearLayout.VERTICAL,true)}"
+                        app:layoutManager="@{LayoutManageUtil.linear()}"
                         bind:bindAdapter="@{fragment.adapter}"/>
 
                 </RelativeLayout>

@@ -24,11 +24,11 @@ public interface VoteInfoAPI {
         @SerializedName("name")
         private String mName;
         @SerializedName("idPoll")
-        private String mIdPoll;
+        private int mIdPoll;
         @SerializedName("content")
         private String mContent;
 
-        public CommentBody(String name, String idPoll, String content) {
+        public CommentBody(String name, int idPoll, String content) {
             mName = name;
             mIdPoll = idPoll;
             mContent = content;
@@ -38,7 +38,7 @@ public interface VoteInfoAPI {
             return mName;
         }
 
-        public String getIdPoll() {
+        public int getIdPoll() {
             return mIdPoll;
         }
 

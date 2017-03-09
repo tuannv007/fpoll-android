@@ -8,13 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
+import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteInfoBinding;
+import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-
-import java.util.List;
 
 /**
  * Created by Nhahv0902 on 2/28/2017.
@@ -44,7 +45,8 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
             mVoteInfoModel = (VoteInfoModel) getArguments().getSerializable(ARGUMENT_VOTE_INFO);
-        mPresenter = new VoteInformationPresenter(this);
+        mPresenter =
+            new VoteInformationPresenter(this, VoteInfoRepository.getInstance(getContext()));
         mAdapter.set(new CommentAdapter(mPresenter));
     }
 
@@ -55,6 +57,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
         mBinding = FragmentVoteInfoBinding.inflate(inflater, container, false);
         mBinding.setVoteInfoModel(mVoteInfoModel);
         mBinding.layoutPollInfo.setVoteInfoModel(mVoteInfoModel);
+        mBinding.layoutPostComment.setVoteInfoModel(mVoteInfoModel);
         mBinding.layoutPostComment.setPresenter((VoteInformationPresenter) mPresenter);
         mBinding.layoutComments.setFragment(this);
         mBinding.layoutComments.setVoteInfoModel(mVoteInfoModel);
@@ -63,7 +66,9 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
 
     public void setCommentsView() {
         mCommentExpand.set(!mCommentExpand.get());
-        if (mCommentExpand.get()) mPresenter.getComments();
+        if (mCommentExpand.get() && mVoteInfoModel.getVoteInfo() != null) {
+            mAdapter.get().updateComments(mVoteInfoModel.getVoteInfo().getPoll().getComments());
+        }
     }
 
     @Override
@@ -72,32 +77,28 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     }
 
     @Override
-    public void onGetCommentsSuccess(List<FpollComment> list) {
-        if (list != null) mAdapter.get().updateComments(list);
-    }
-
-    @Override
-    public void onGetCommentFailed() {
-        /**
-         * TODO get comment failed
-         */
-    }
-
-    @Override
     public void onPostCommentSuccess(FpollComment comment) {
-        mAdapter.get().insertComments(comment);
+        mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+        mCommentExpand.set(true);
+        mVoteInfoModel.getVoteInfo().getPoll().getComments().add(0, comment);
+        mAdapter.get().updateComments(mVoteInfoModel.getVoteInfo().getPoll().getComments());
     }
 
     @Override
     public void onPostCommentFailed() {
-        /**
-         * TODO post comment failed
-         */
+        mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+        Toast.makeText(getContext(), getString(R.string.error_post_comments), Toast.LENGTH_SHORT)
+            .show();
     }
 
     @Override
     public void showEmptyError() {
         mBinding.layoutPostComment.setMsgError(getString(R.string.msg_content_error));
+    }
+
+    @Override
+    public void setLoading() {
+        mVoteInfoModel.setItemStatus(ItemStatus.POSTING);
     }
 
     public ObservableBoolean getCommentExpand() {

@@ -192,4 +192,5 @@
     <string name="msg_create_poll_error">create poll error</string>
     <string name="msg_creating_poll">Creating poll</string>
     <string name="msg_option_blank">Option can not be blank</string>
+    <string name="error_post_comments">Failed to post comment ! Try again</string>
 </resources>
