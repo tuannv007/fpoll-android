@@ -10,6 +10,7 @@ public class Constant {
     public static final int TYPE_LAYOUT_GRID_TWO = 2;
     public static final String TYPE_IMAGE = "image";
     public static final long TIME_OUT_SERVER = 5;
+    public static final String TYPE_DIALOG_FRAGMENT = "type_dialog_fragment";
 
     public static class WebUrl {
         public static final String BASE_URL = "http://poll.framgia.vn/";
@@ -67,6 +68,7 @@ public class Constant {
         public static final String KEY_HISTORY = "key_history";
         public static final int KEY_MULTI_CHOOSE = 1;
         public static final int KEY_SINGER_CHOOSE = 0;
+        public static final String KEY_POLL_OPTION = "key_poll_option";
     }
 
     public static class ConstantResponseCode {
