@@ -4,6 +4,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.util.ActivityUtil;
 
 import static com.framgia.fpoll.util.Constant.DataConstant.NUMBER_MIN_LIMIT;
@@ -18,25 +19,29 @@ public class SettingPresenter implements SettingPollContract.Presenter {
     private SettingPollContract.View mView;
     private ObservableBoolean mShowPassword = new ObservableBoolean();
     private ObservableInt mNumberLimit = new ObservableInt();
+    private ObservableField<String> mPass = new ObservableField<>();
     private ObservableField<String> mLinkPoll = new ObservableField<>();
     private RequireVoteType mRequireVoteType = RequireVoteType.NAME;
+    private PollItem mPollItem;
 
-    public SettingPresenter(SettingPollContract.View view) {
+    public SettingPresenter(SettingPollContract.View view, PollItem pollItem) {
         mView = view;
         mShowPassword.set(false);
         mNumberLimit.set(NUMBER_MIN_LIMIT);
         mLinkPoll.set(ActivityUtil.subLinkPoll(POLL_URL));
+        mPollItem = pollItem;
         mView.start();
     }
 
     @Override
     public void onCheckedRequireVote(boolean checked) {
-        // TODO: 2/27/2017 handler when chose item radio group
+        mPollItem.setRequireVote(checked);
+        if (checked) mPollItem.setRequiteType(mRequireVoteType.getValue());
     }
 
     @Override
     public void onCheckedVotingResult(boolean checked) {
-        // TODO: 2/27/2017 handler when chose item voting result
+        mPollItem.setHideResult(checked);
     }
 
     @Override
@@ -46,12 +51,14 @@ public class SettingPresenter implements SettingPollContract.Presenter {
 
     @Override
     public void onCheckedVotingLimit(boolean checked) {
-        // TODO: 2/27/2017 handler when chose voting limit
+        mPollItem.setMaxVote(checked);
+        if (checked) mPollItem.setNumMaxVote(mNumberLimit.get());
     }
 
     @Override
     public void onCheckedSetPassword(boolean checked) {
-        // TODO: 2/27/2017 handler when chose item set password
+        mPollItem.setHasPass(checked);
+        if (checked) mPollItem.setPass(mPass.get());
     }
 
     @Override
@@ -90,6 +97,10 @@ public class SettingPresenter implements SettingPollContract.Presenter {
 
     public ObservableInt getNumberLimit() {
         return mNumberLimit;
+    }
+
+    public ObservableField<String> getPass() {
+        return mPass;
     }
 
     public ObservableField<String> getLinkPoll() {

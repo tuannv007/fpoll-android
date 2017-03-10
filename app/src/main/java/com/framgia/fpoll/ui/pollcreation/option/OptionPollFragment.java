@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
@@ -43,6 +44,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     private ObservableField<OptionAdapter> mAdapter = new ObservableField<>();
     private List<OptionItem> mListOption = new ArrayList<>();
     private int mPosition = UNSELECTED_POSITION;
+    private PollItem mPollItem;
 
     public static OptionPollFragment newInstance(PollItem pollItem) {
         OptionPollFragment optionPollFragment = new OptionPollFragment();
@@ -58,7 +60,8 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_option, container, false);
-        mPresenter = new OptionPresenter(this);
+        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        mPresenter = new OptionPresenter(this, mPollItem, mListOption);
         mBinding.setHandler(new OptionHandler(mPresenter));
         mBinding.setPresenter((OptionPresenter) mPresenter);
         mBinding.setFragment(this);
@@ -68,10 +71,8 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     @Override
     public void nextStep() {
-        PollItem pollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
-        pollItem.setOptionItemList(mListOption);
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, SettingPollFragment.newInstance(pollItem), null)
+            .add(R.id.frame_layout, SettingPollFragment.newInstance(mPollItem), null)
             .addToBackStack(null)
             .commit();
     }
@@ -101,6 +102,12 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
         Intent intent = new Intent(Intent.ACTION_PICK,
             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMAGE_PICKER_SELECT);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(getContext(), getString(R.string.msg_option_blank), Toast.LENGTH_SHORT)
+            .show();
     }
 
     @Override

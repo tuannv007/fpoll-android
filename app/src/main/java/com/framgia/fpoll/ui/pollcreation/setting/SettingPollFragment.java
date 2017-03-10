@@ -20,6 +20,7 @@ import com.framgia.fpoll.util.Constant;
 public class SettingPollFragment extends Fragment implements SettingPollContract.View {
     private FragmentPageSettingBinding mBinding;
     private SettingPollContract.Presenter mPresenter;
+    private PollItem mPollItem;
 
     public static SettingPollFragment newInstance(PollItem pollItem) {
         SettingPollFragment settingPollFragment = new SettingPollFragment();
@@ -35,7 +36,8 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_setting, container, false);
-        mPresenter = new SettingPresenter(this);
+        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        mPresenter = new SettingPresenter(this, mPollItem);
         mBinding.setHandler(new SettingHandler(mPresenter));
         mBinding.setPresenter((SettingPresenter) mPresenter);
         return mBinding.getRoot();
@@ -47,9 +49,8 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
 
     @Override
     public void nextStep() {
-        PollItem pollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, ParticipantFragment.newInstance(pollItem), null)
+            .add(R.id.frame_layout, ParticipantFragment.newInstance(mPollItem), null)
             .addToBackStack(null)
             .commit();
     }

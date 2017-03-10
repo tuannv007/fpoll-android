@@ -12,6 +12,10 @@ public class PollInformation extends BaseObservable {
     private String mUserName;
     private String mEmail;
     private String mPollTitle;
+    private int mMultiple;
+    private String mDescription;
+    private String mDateClose;
+    private String mLocation;
 
     @Bindable
     public String getUserName() {
@@ -41,5 +45,45 @@ public class PollInformation extends BaseObservable {
     public void setPollTitle(String pollTitle) {
         mPollTitle = pollTitle;
         notifyPropertyChanged(BR.pollTitle);
+    }
+
+    @Bindable
+    public int getMultiple() {
+        return mMultiple;
+    }
+
+    public void setMultiple(int multiple) {
+        mMultiple = multiple;
+        notifyPropertyChanged(BR.multiple);
+    }
+
+    @Bindable
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+        notifyPropertyChanged(BR.description);
+    }
+
+    @Bindable
+    public String getDateClose() {
+        return mDateClose;
+    }
+
+    public void setDateClose(String dateClose) {
+        mDateClose = dateClose;
+        notifyPropertyChanged(BR.dateClose);
+    }
+
+    @Bindable
+    public String getLocation() {
+        return mLocation;
+    }
+
+    public void setLocation(String location) {
+        mLocation = location;
+        notifyPropertyChanged(BR.location);
     }
 }

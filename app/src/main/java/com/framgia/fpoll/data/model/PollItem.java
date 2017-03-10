@@ -3,6 +3,7 @@ package com.framgia.fpoll.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.framgia.fpoll.util.Constant;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class PollItem implements Parcelable {
     @SerializedName("description")
     private String mDescription;
     @SerializedName("multiple")
-    private boolean mIsMultiple;
+    private String mMultiple;
     @SerializedName("date_close")
     private String mDateClose;
     @SerializedName("location")
@@ -70,19 +71,19 @@ public class PollItem implements Parcelable {
     }
 
     public String getDescription() {
-        return mDescription;
+        return (mDescription != null) ? mDescription : Constant.DataConstant.DATA_SPACE;
     }
 
     public void setDescription(String description) {
         mDescription = description;
     }
 
-    public boolean isMultiple() {
-        return mIsMultiple;
+    public String getMultiple() {
+        return (mMultiple != null) ? mMultiple : Constant.DataConstant.DATA_SPACE;
     }
 
-    public void setMultiple(boolean multiple) {
-        mIsMultiple = multiple;
+    public void setMultiple(String multiple) {
+        mMultiple = multiple;
     }
 
     public String getDateClose() {
@@ -94,7 +95,7 @@ public class PollItem implements Parcelable {
     }
 
     public String getLocation() {
-        return mLocation;
+        return (mLocation != null) ? mLocation : Constant.DataConstant.DATA_SPACE;
     }
 
     public void setLocation(String location) {
@@ -150,7 +151,7 @@ public class PollItem implements Parcelable {
     }
 
     public String getPass() {
-        return mPass;
+        return (mPass != null) ? mPass : Constant.DataConstant.DATA_SPACE;
     }
 
     public void setPass(String pass) {
@@ -166,7 +167,7 @@ public class PollItem implements Parcelable {
     }
 
     public String getMembers() {
-        return mMembers;
+        return (mMembers != null) ? mMembers : Constant.DataConstant.DATA_SPACE;
     }
 
     public void setMembers(String members) {
@@ -181,7 +182,7 @@ public class PollItem implements Parcelable {
         mEmail = in.readString();
         mTitle = in.readString();
         mDescription = in.readString();
-        mIsMultiple = in.readByte() != 0x00;
+        mMultiple = in.readString();
         mDateClose = in.readString();
         mLocation = in.readString();
         mIsRequireVote = in.readByte() != 0x00;
@@ -194,7 +195,7 @@ public class PollItem implements Parcelable {
         mIsHideResult = in.readByte() != 0x00;
         mMembers = in.readString();
         if (in.readByte() == 0x01) {
-            mOptionItemList = new ArrayList<OptionItem>();
+            mOptionItemList = new ArrayList<>();
             in.readList(mOptionItemList, OptionItem.class.getClassLoader());
         } else {
             mOptionItemList = null;
@@ -212,7 +213,7 @@ public class PollItem implements Parcelable {
         dest.writeString(mEmail);
         dest.writeString(mTitle);
         dest.writeString(mDescription);
-        dest.writeByte((byte) (mIsMultiple ? 0x01 : 0x00));
+        dest.writeString(mMultiple);
         dest.writeString(mDateClose);
         dest.writeString(mLocation);
         dest.writeByte((byte) (mIsRequireVote ? 0x01 : 0x00));

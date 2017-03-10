@@ -5,5 +5,14 @@ package com.framgia.fpoll.ui.pollcreation.setting;
  * <></>
  */
 public enum RequireVoteType {
-    NAME, EMAIL, NAME_EMAIL
+    NAME(1), EMAIL(7), NAME_EMAIL(8);
+    private int mValue;
+
+    RequireVoteType(int value) {
+        mValue = value;
+    }
+
+    public int getValue() {
+        return mValue;
+    }
 }

@@ -9,15 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.AccessToken;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
-import com.framgia.fpoll.data.model.PollInfo;
-import com.framgia.fpoll.data.model.voteinfo.VoteInfo;
 import com.framgia.fpoll.databinding.FragmentVoteInfoBinding;
-import com.framgia.fpoll.databinding.PartialCommentsBinding;
-import com.framgia.fpoll.databinding.PartialPollInfoBinding;
-import com.framgia.fpoll.databinding.PartialPostCommentBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
 import java.util.List;

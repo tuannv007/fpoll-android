@@ -14,6 +14,7 @@ public class OptionPollContract {
         void deletePoll(int position);
         void augmentPoll();
         void pickImage();
+        void showError();
     }
 
     interface Presenter {

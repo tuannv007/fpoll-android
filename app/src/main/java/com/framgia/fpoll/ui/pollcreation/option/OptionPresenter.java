@@ -1,21 +1,39 @@
 package com.framgia.fpoll.ui.pollcreation.option;
 
 import com.framgia.fpoll.data.model.OptionItem;
+import com.framgia.fpoll.data.model.PollItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by framgia on 22/02/2017.
  */
 public class OptionPresenter implements OptionPollContract.Presenter {
     private OptionPollContract.View mView;
+    private PollItem mPollItem;
+    private List<OptionItem> mListOption;
 
-    public OptionPresenter(OptionPollContract.View view) {
+    public OptionPresenter(OptionPollContract.View view, PollItem pollItem, List listOption) {
         mView = view;
+        mListOption = listOption;
+        mPollItem = pollItem;
         mView.start();
     }
 
     @Override
     public void nextStep() {
-        if (mView != null) mView.nextStep();
+        if (mView == null) return;
+        List listOptionReal = new ArrayList();
+        for (OptionItem optionItem : mListOption) {
+            if (optionItem.getTitle() != null) listOptionReal.add(optionItem);
+        }
+        if (listOptionReal.size() == 0) {
+            mView.showError();
+            return;
+        }
+        mPollItem.setOptionItemList(listOptionReal);
+        mView.nextStep();
     }
 
     @Override
