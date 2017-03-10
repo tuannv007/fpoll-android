@@ -7,12 +7,14 @@ import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by anhtv on 09/03/2017.
  */
 public class VoteInfoModel extends BaseObservable implements Serializable {
     private VoteInfo mVoteInfo;
+    private List<OptionModel> mOptionModels;
     private ItemStatus mItemStatus = ItemStatus.NOT_AVAILABLE;
 
     @Bindable
@@ -33,5 +35,15 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     public void setVoteInfo(VoteInfo voteInfo) {
         mVoteInfo = voteInfo;
         notifyPropertyChanged(BR.voteInfo);
+    }
+
+    @Bindable
+    public List<OptionModel> getOptionModels() {
+        return mOptionModels;
+    }
+
+    public void setOptionModels(List<OptionModel> optionModels) {
+        mOptionModels = optionModels;
+        notifyPropertyChanged(BR.optionModel);
     }
 }

@@ -1,14 +1,19 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.VoteItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemPollRadioBinding;
+import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
+import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.framgia.fpoll.ui.votemanager.vote.TypeItemVote.SINGLE_CHOISE;
@@ -18,15 +23,12 @@ import static com.framgia.fpoll.ui.votemanager.vote.TypeItemVote.SINGLE_CHOISE;
  */
 public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteHolder> {
     private VoteContract.Presenter mPresenter;
-    private List<VoteItem> mVoteItems;
+    private VoteInfoModel mVoteInfoModel;
     private LayoutInflater mInflater;
-    private TypeItemVote mTypeItem;
 
-    public VoteAdapter(List<VoteItem> voteItems, VoteContract.Presenter presenter,
-                       TypeItemVote type) {
-        mVoteItems = voteItems;
+    public VoteAdapter(VoteContract.Presenter presenter, VoteInfoModel voteInfoModel) {
+        mVoteInfoModel = voteInfoModel;
         mPresenter = presenter;
-        mTypeItem = type;
     }
 
     @Override
@@ -34,31 +36,19 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteHolder> {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
         ItemPollRadioBinding binding =
             DataBindingUtil.inflate(mInflater, R.layout.item_poll_radio, parent, false);
-        binding.setIsSingleChoise(mTypeItem == SINGLE_CHOISE);
-        binding.setHandler(new VoteHandler(mPresenter));
+        binding.setPresenter((VotePresenter) mPresenter);
         return new VoteHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(VoteHolder holder, int position) {
-        VoteItem voteItem = mVoteItems.get(position);
-        if (voteItem == null) return;
-        holder.bind(voteItem);
+        holder.bind(mVoteInfoModel.getOptionModels().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mVoteItems == null ? 0 : mVoteItems.size();
-    }
-
-    public void updateVoteItem(VoteItem voteItem) {
-        if (mTypeItem == SINGLE_CHOISE) {
-            for (VoteItem item : mVoteItems) {
-                if (item.getContentVote().equals(voteItem.getContentVote())) {
-                    item.setCheckAnswer(true);
-                } else item.setCheckAnswer(false);
-            }
-        } else voteItem.setCheckAnswer(!voteItem.isCheckAnswer());
+        return mVoteInfoModel.getOptionModels() == null ? 0 :
+            mVoteInfoModel.getOptionModels().size();
     }
 
     public class VoteHolder extends RecyclerView.ViewHolder {
@@ -69,8 +59,9 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteHolder> {
             mBinDingRadio = binDing;
         }
 
-        private void bind(VoteItem item) {
-            mBinDingRadio.setVoteItem(item);
+        private void bind(OptionModel optionModel) {
+            if (optionModel == null) return;
+            mBinDingRadio.setOptionModel(optionModel);
             mBinDingRadio.executePendingBindings();
         }
     }

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.voteinfo.Option;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.util.Constant;
 
 import java.util.ArrayList;

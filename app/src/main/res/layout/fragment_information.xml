@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:padding="@dimen/dp_4"
-                android:text="@{information.poll.status ? @string/title_poll_open : @string/title_poll_close}"
+                android:text="@{information.poll.isOpen ? @string/title_poll_open : @string/title_poll_close}"
                 android:textColor="@color/color_blued"/>
 
             <LinearLayout
@@ -130,7 +130,7 @@
                     style="@style/EditTextLogin"
                     android:hint="@string/title_time_close_poll"
                     android:inputType="datetime"
-                    android:text="@={information.poll.createdAt}"/>
+                    android:text="@={information.poll.createdTime}"/>
 
             </LinearLayout>
 
