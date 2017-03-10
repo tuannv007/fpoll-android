@@ -1,23 +1,19 @@
 package com.framgia.fpoll.ui.votemanager;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRemoteDataSource;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
+import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 
@@ -56,6 +52,11 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
     public void onGetVoteInfoSuccess(VoteInfo voteInfo) {
         mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
         mVoteInfoModel.setVoteInfo(voteInfo);
+        List<OptionModel> list = new ArrayList<>();
+        for (int i = 0; i < voteInfo.getPoll().getOptions().size(); i++) {
+            list.add(new OptionModel(voteInfo.getPoll().getOptions().get(i), false));
+        }
+        mVoteInfoModel.setOptionModels(list);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         setTitle(getString(R.string.title_vote));
         mVoteInfoModel = new VoteInfoModel();
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(VoteFragment.newIntance());
+        fragments.add(VoteFragment.newInstance(mVoteInfoModel));
         fragments.add(VoteInformationFragment.newInstance(mVoteInfoModel));
         fragments.add(VoteResultFragment.newInstance());
         String[] titles = getResources().getStringArray(R.array.array_vote);

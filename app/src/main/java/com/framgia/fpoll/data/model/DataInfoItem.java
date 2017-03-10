@@ -6,11 +6,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
-import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.model.poll.Poll;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 /**
  * Created by tuanbg on 3/6/17.

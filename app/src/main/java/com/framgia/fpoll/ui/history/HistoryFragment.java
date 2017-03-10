@@ -93,7 +93,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void initAdapterVote() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(VoteFragment.newIntance());
+        fragments.add(VoteFragment.newInstance(new VoteInfoModel()));
         fragments.add(VoteInformationFragment.newInstance(new VoteInfoModel()));
         fragments.add(VoteResultFragment.newInstance());
         String[] titles = getActivity().getResources().getStringArray(R.array.array_vote);
