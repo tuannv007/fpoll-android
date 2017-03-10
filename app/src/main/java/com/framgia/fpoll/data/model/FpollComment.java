@@ -4,35 +4,45 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.framgia.fpoll.BR;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by anhtv on 02/03/2017.
  */
 public class FpollComment extends BaseObservable {
-    private String mUserAvatar;
-    private String mUserName;
+    @SerializedName("id")
+    private String mId;
+    @SerializedName("name")
+    private String mName;
+    @SerializedName("content")
     private String mContent;
-    private String mRelativeTime;
+    @SerializedName("poll_id")
+    private String mPollId;
+    @SerializedName("user_id")
+    private String mUserId;
+    @SerializedName("created_at")
+    private String mCreatedTime;
+    @SerializedName("updated_at")
+    private String mUpdatedTime;
 
-    public FpollComment() {
+    @Bindable
+    public String getId() {
+        return mId;
     }
 
-    public FpollComment(String userAvatar, String userName,
-                        String content, String relativeTime) {
-        mUserAvatar = userAvatar;
-        mUserName = userName;
-        mContent = content;
-        mRelativeTime = relativeTime;
+    public void setId(String id) {
+        mId = id;
+        notifyPropertyChanged(BR.id);
     }
 
     @Bindable
-    public String getUserAvatar() {
-        return mUserAvatar;
+    public String getName() {
+        return mName;
     }
 
-    public void setUserAvatar(String userAvatar) {
-        mUserAvatar = userAvatar;
-        notifyPropertyChanged(BR.userAvatar);
+    public void setName(String name) {
+        mName = name;
+        notifyPropertyChanged(BR.name);
     }
 
     @Bindable
@@ -46,22 +56,42 @@ public class FpollComment extends BaseObservable {
     }
 
     @Bindable
-    public String getRelativeTime() {
-        return mRelativeTime;
+    public String getPollId() {
+        return mPollId;
     }
 
-    public void setRelativeTime(String relativeTime) {
-        mRelativeTime = relativeTime;
-        notifyPropertyChanged(BR.relativeTime);
+    public void setPollId(String pollId) {
+        mPollId = pollId;
+        notifyPropertyChanged(BR.pollId);
     }
 
     @Bindable
-    public String getUserName() {
-        return mUserName;
+    public String getUserId() {
+        return mUserId;
     }
 
-    public void setUserName(String userName) {
-        mUserName = userName;
-        notifyPropertyChanged(BR.userName);
+    public void setUserId(String userId) {
+        mUserId = userId;
+        notifyPropertyChanged(BR.userId);
+    }
+
+    @Bindable
+    public String getCreatedTime() {
+        return mCreatedTime;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        mCreatedTime = createdTime;
+        notifyPropertyChanged(BR.createdTime);
+    }
+
+    @Bindable
+    public String getUpdatedTime() {
+        return mUpdatedTime;
+    }
+
+    public void setUpdatedTime(String updatedTime) {
+        mUpdatedTime = updatedTime;
+        notifyPropertyChanged(BR.updatedTime);
     }
 }

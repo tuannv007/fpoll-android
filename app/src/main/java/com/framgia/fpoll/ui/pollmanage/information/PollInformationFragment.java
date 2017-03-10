@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.pollmanage.information;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -12,9 +13,8 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
-import com.framgia.fpoll.ui.history.ViewpagerType;
-import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.pollmanage.information.viewoption.PollOptionDialogFragment;
+import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.Constant;
 
 /**
@@ -56,7 +56,7 @@ public class PollInformationFragment extends Fragment implements PollInformation
 
     @Override
     public void startUiVoting() {
-        startActivity(ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.VOTE, ""));
+        startActivity(new Intent(getContext(), LinkVoteActivity.class));
     }
 
     @Override

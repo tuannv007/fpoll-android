@@ -4,9 +4,17 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
+        <import type="com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus"/>
+
         <variable
             name="msgError"
             type="java.lang.String"/>
+
+        <variable
+            name="voteInfoModel"
+            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"/>
 
         <variable
             name="presenter"
@@ -33,12 +41,13 @@
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_8"
-                android:background="@drawable/bg_edit_text"
+                android:background="@{voteInfoModel.itemStatus == ItemStatus.POSTING ? @drawable/bg_edit_text_unable : @drawable/bg_edit_text}"
+                android:enabled="@{voteInfoModel.itemStatus != ItemStatus.POSTING}"
                 android:hint="@string/hint_enter_name"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="@dimen/dp_8"
-                android:text="@={presenter.fpollComment.userName}"
+                android:text="@={presenter.fpollComment.name}"
                 bind:setErrorEditText="@{msgError}"/>
 
             <EditText
@@ -49,7 +58,8 @@
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_8"
-                android:background="@drawable/bg_edit_text"
+                android:background="@{voteInfoModel.itemStatus == ItemStatus.POSTING ? @drawable/bg_edit_text_unable : @drawable/bg_edit_text}"
+                android:enabled="@{voteInfoModel.itemStatus != ItemStatus.POSTING}"
                 android:gravity="top|start"
                 android:hint="@string/hint_enter_comment"
                 android:inputType="textMultiLine"
@@ -58,15 +68,31 @@
                 android:text="@={presenter.fpollComment.content}"
                 bind:setErrorEditText="@{msgError}"/>
 
-            <Button
-                style="@style/ButtonInfo"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_8"
-                android:onClick="@{() -> presenter.postComment()}"
-                android:text="@string/action_post_comment"
-                android:textAllCaps="false"
-                android:textColor="@color/color_white"/>
+                android:layout_height="wrap_content">
+
+                <Button
+                    style="@style/ButtonInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_8"
+                    android:onClick="@{() -> presenter.postComment(voteInfoModel)}"
+                    android:text="@string/action_post_comment"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_white"/>
+
+                <ProgressBar
+                    style="@android:style/Widget.DeviceDefault.ProgressBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:translationZ="2dp"
+                    android:visibility="@{voteInfoModel.itemStatus == ItemStatus.POSTING ? View.VISIBLE : View.GONE}"/>
+            </FrameLayout>
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </layout>
