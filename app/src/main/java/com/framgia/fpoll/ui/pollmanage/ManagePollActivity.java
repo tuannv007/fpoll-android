@@ -7,6 +7,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
         getDataFromIntent();
         mPresenter = new ManagePollPresenter(this, mViewpagerType,
             PollInfoRepository.getInstance(this));
-        mPresenter.getAllData(mToken);
+        if (!TextUtils.isEmpty(mToken)) mPresenter.getAllData(mToken);
         mPresenter.initViewPage();
     }
 

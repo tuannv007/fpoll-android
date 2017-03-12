@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.votemanager.resultvote;
+package com.framgia.fpoll.ui.pollmanage.result;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -6,22 +6,21 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.ResultItem;
+import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.databinding.ItemResultVoteBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by tran.trung.phong on 23/02/2017.
- * <></>
+ * Created by tuanbg on 3/12/17.
  */
-public class TableVoteAdapter extends RecyclerView.Adapter<TableVoteAdapter.ResultVoteHolder> {
-    private List<ResultItem> mResultItems = new ArrayList<>();
+public class ResultVoteAdapter extends RecyclerView.Adapter<ResultVoteAdapter.ResultVoteHolder> {
+    private List<ResultVoteItem.Result> mListItems = new ArrayList<>();
     private LayoutInflater mInflater;
 
-    public TableVoteAdapter(List<ResultItem> resultItems) {
-        mResultItems = resultItems;
+    public ResultVoteAdapter(List<ResultVoteItem.Result> listItems) {
+        mListItems = listItems;
     }
 
     @Override
@@ -34,24 +33,26 @@ public class TableVoteAdapter extends RecyclerView.Adapter<TableVoteAdapter.Resu
 
     @Override
     public void onBindViewHolder(ResultVoteHolder holder, int position) {
-        ResultItem item = mResultItems.get(position);
+        ResultVoteItem.Result item = mListItems.get(position);
         if (item != null) holder.bind(item);
     }
 
     @Override
     public int getItemCount() {
-        return mResultItems == null ? 0 : mResultItems.size();
+        return mListItems != null ? mListItems.size() : 0;
     }
 
     public class ResultVoteHolder extends RecyclerView.ViewHolder {
-        private ItemResultVoteBinding mBinDing;
+        private ItemResultVoteBinding mBinding;
 
-        public ResultVoteHolder(ItemResultVoteBinding binDing) {
-            super(binDing.getRoot());
-            mBinDing = binDing;
+        public ResultVoteHolder(ItemResultVoteBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
         }
 
-        private void bind(ResultItem item) {
+        private void bind(ResultVoteItem.Result item) {
+            mBinding.setItem(item);
+            mBinding.executePendingBindings();
         }
     }
 }
