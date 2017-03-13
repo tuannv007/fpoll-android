@@ -9,8 +9,8 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface PollInformationContract {
     interface View extends BaseView {
         void startUiVoting();
-        void viewOption();
         void showDialogOption();
+        void showDialogSetting();
     }
 
     interface Presenter {

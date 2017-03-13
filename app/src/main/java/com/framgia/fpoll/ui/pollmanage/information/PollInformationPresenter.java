@@ -19,11 +19,11 @@ public class PollInformationPresenter implements PollInformationContract.Present
 
     @Override
     public void clickViewOption() {
-        mView.viewOption();
+        mView.showDialogOption();
     }
 
     @Override
     public void clickViewSetting() {
-        // TODO: 2/24/2017 handler click view setting
+        mView.showDialogSetting();
     }
 }

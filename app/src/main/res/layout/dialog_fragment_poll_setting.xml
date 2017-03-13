@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment"/>
+    </data>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="@{LayoutManageUtil.linear()}"
+        bind:bindAdapter="@{fragment.adapter}"/>
+</layout>
+
+

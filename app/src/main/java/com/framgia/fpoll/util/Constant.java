@@ -12,6 +12,19 @@ public class Constant {
     public static final long TIME_OUT_SERVER = 5;
     public static final String TYPE_DIALOG_FRAGMENT = "type_dialog_fragment";
 
+    public class TypeSetting {
+        public static final int TYPE_INPUT_EMAIL = 1;
+        public static final int TYPE_INPUT_NAME = 7;
+        public static final int TYPE_INPUT_EMAIL_NAME = 8;
+        public static final int TYPE_NOT_EQUAL_EMAIL = 10;
+        public static final int HIDENT_RESULT = 2;
+        public static final int TYPE_EDIT_LINK = 3;
+        public static final int TYPE_COUNT_VOTE = 4;
+        public static final int TYPE_CREATE_PASSWORD = 5;
+        public static final int TYPE_ADD_OPTION = 9;
+        public static final int TYPE_EDIT_OPTION = 11;
+    }
+
     public static class WebUrl {
         public static final String BASE_URL = "http://poll.framgia.vn/";
         public static final String POLL_URL = BASE_URL + "link/";
@@ -71,6 +84,7 @@ public class Constant {
         public static final int KEY_MULTI_CHOOSE = 1;
         public static final int KEY_SINGER_CHOOSE = 0;
         public static final String KEY_POLL_OPTION = "key_poll_option";
+        public static final String KEY_POLL_SETTING = "key_poll_setting";
     }
 
     public static class ConstantResponseCode {

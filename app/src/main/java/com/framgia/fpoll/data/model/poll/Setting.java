@@ -2,6 +2,8 @@ package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by anhtv on 07/03/2017.
  */
-public class Setting extends BaseObservable {
+public class Setting extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private int mId;
     @SerializedName("poll_id")
@@ -23,7 +25,27 @@ public class Setting extends BaseObservable {
     @SerializedName("updated_at")
     private String mUpdatedTime;
 
-    @Bindable
+    protected Setting(Parcel in) {
+        mId = in.readInt();
+        mPollId = in.readInt();
+        mKey = in.readInt();
+        mValue = in.readString();
+        mCreatedTime = in.readString();
+        mUpdatedTime = in.readString();
+    }
+
+    public static final Creator<Setting> CREATOR = new Creator<Setting>() {
+        @Override
+        public Setting createFromParcel(Parcel in) {
+            return new Setting(in);
+        }
+
+        @Override
+        public Setting[] newArray(int size) {
+            return new Setting[size];
+        }
+    };
+
     public int getId() {
         return mId;
     }
@@ -81,5 +103,20 @@ public class Setting extends BaseObservable {
     public void setUpdatedTime(String updatedTime) {
         mUpdatedTime = updatedTime;
         notifyPropertyChanged(BR.updatedTime);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeInt(mPollId);
+        dest.writeInt(mKey);
+        dest.writeString(mValue);
+        dest.writeString(mCreatedTime);
+        dest.writeString(mUpdatedTime);
     }
 }

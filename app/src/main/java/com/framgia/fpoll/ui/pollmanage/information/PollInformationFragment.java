@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
+import com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment;
 import com.framgia.fpoll.ui.pollmanage.information.viewoption.PollOptionDialogFragment;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.Constant;
@@ -60,16 +61,19 @@ public class PollInformationFragment extends Fragment implements PollInformation
     }
 
     @Override
-    public void viewOption() {
-        if (mPollInfo == null) return;
-        showDialogOption();
-    }
-
-    @Override
     public void showDialogOption() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         DialogFragment optionDialog =
             PollOptionDialogFragment.newInstance(mPollInfo.getPoll().getOptions());
+        optionDialog.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
+    }
+
+    @Override
+    public void showDialogSetting() {
+        if (mPollInfo == null) return;
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        DialogFragment optionDialog =
+            PollSettingDialogFragment.newInstance(mPollInfo.getPoll().getSettings());
         optionDialog.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
     }
 }
