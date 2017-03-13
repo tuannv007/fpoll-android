@@ -193,4 +193,8 @@
     <string name="msg_creating_poll">Creating poll</string>
     <string name="msg_option_blank">Option can not be blank</string>
     <string name="error_post_comments">Failed to post comment ! Try again</string>
+    <string name="action_view_option">View detail option</string>
+    <string name="action_export_pdf">Export PDF</string>
+    <string name="action_export_excel">Export excel</string>
+    <string name="title_image">Image</string>
 </resources>

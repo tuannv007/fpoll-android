@@ -1,7 +1,91 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
+    <data>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.pollmanage.result.ResultActionHandler"/>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment"/>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linear_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_20"
+                android:text="@string/title_image"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="@dimen/dp_20"
+                android:text="@string/title_option"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/sp_15"
+                android:text="@string/title_vote"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear_title"
+            app:layoutManager="@{LayoutManageUtil.linear()}"
+            bind:bindAdapter="@{fragment.adapter}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <Button
+
+                style="@style/ButtonActionPollResult"
+                android:onClick="@{() -> handler.viewOption()}"
+                android:text="@string/action_view_option"/>
+
+            <Button
+                style="@style/ButtonActionPollResult"
+                android:onClick="@{() -> handler.exportPdf()}"
+                android:text="@string/action_export_pdf"/>
+
+            <Button
+                style="@style/ButtonActionPollResult"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:onClick="@{() -> handler.exportExcel()}"
+                android:text="@string/action_export_excel"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </layout>
