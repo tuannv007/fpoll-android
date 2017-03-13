@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.feedback.FeedbackFragment;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mPresenter = new MainPresenter(this);
+        mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext()));
         mBinding.setPresenter((MainPresenter) mPresenter);
     }
 
@@ -77,6 +78,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_introduce:
                 addFragment(IntroduceAppFragment.newInstance(), R.string.title_introduce_app);
                 break;
+            case R.id.action_log_out:
+                mPresenter.logout();
+                break;
             default:
                 break;
         }
@@ -89,6 +93,11 @@ public class MainActivity extends AppCompatActivity
         ActivityUtil
             .addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.frame_layout);
         setTitle(title);
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        ActivityUtil.showToast(getApplicationContext(), msg);
     }
 
     @Override

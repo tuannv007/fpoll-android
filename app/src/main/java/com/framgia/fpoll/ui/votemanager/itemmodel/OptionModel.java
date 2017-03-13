@@ -6,8 +6,6 @@ import android.databinding.Bindable;
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.Option;
 
-import org.apache.commons.codec.binary.Base32;
-
 /**
  * Created by anhtv on 10/03/2017.
  */
