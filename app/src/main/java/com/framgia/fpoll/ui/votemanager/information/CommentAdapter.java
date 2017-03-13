@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.databinding.ItemPollCommentBinding;
+import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,26 +17,14 @@ import java.util.List;
  * Created by anhtv on 27/02/2017.
  */
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
-    private List<FpollComment> mListComment;
     private VoteInformationContract.Presenter mPresenter;
     private LayoutInflater mInflater;
+    private VoteInfoModel mVoteInfoModel;
 
-    public CommentAdapter(VoteInformationContract.Presenter presenter) {
-        mListComment = new ArrayList<>();
+    public CommentAdapter(VoteInformationContract.Presenter presenter,
+                          VoteInfoModel voteInfoModel) {
         mPresenter = presenter;
-    }
-
-    public void updateComments(List<FpollComment> comments) {
-        if (comments == null) return;
-        mListComment.clear();
-        mListComment.addAll(comments);
-        notifyDataSetChanged();
-    }
-
-    public void insertComments(FpollComment comment) {
-        if (comment == null) return;
-        mListComment.add(comment);
-        notifyItemInserted(mListComment.size());
+        mVoteInfoModel = voteInfoModel;
     }
 
     @Override
@@ -46,12 +35,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public void onBindViewHolder(CommentViewHolder holder, int position) {
-        holder.bind(mListComment.get(position));
+        holder.bind(mVoteInfoModel.getVoteInfo().getPoll().getComments().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mListComment == null ? 0 : mListComment.size();
+        return mVoteInfoModel.getVoteInfo().getPoll().getComments() == null ? 0 : mVoteInfoModel
+            .getVoteInfo().getPoll().getComments().size();
     }
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {

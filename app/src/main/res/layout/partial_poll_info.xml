@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -12,48 +12,39 @@
 
     </data>
 
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/color_grey_200"
-        app:cardElevation="@dimen/dp_8">
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <TextView
+            style="@style/TextViewPollInformation"
+            android:drawableLeft="@drawable/ic_info"
+            android:drawableStart="@drawable/ic_info"
+            android:text="@{voteInfoModel.voteInfo.poll.title}"
+            android:visibility="@{voteInfoModel.voteInfo.poll.title == null ? View.GONE : View.VISIBLE}"/>
 
-            <TextView
-                style="@style/TextViewPollInformation"
-                android:drawableLeft="@drawable/ic_info"
-                android:drawableStart="@drawable/ic_info"
-                android:text="@{voteInfoModel.voteInfo.poll.title}"
-                android:visibility="@{voteInfoModel.voteInfo.poll.title == null ? View.GONE : View.VISIBLE}"/>
+        <TextView
+            style="@style/TextViewPollInformation"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:text="@{voteInfoModel.voteInfo.poll.name}"
+            android:visibility="@{voteInfoModel.voteInfo.poll.name == null ? View.GONE : View.VISIBLE}"/>
 
-            <TextView
-                style="@style/TextViewPollInformation"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawableStart="@drawable/ic_person_black_24dp"
-                android:text="@{voteInfoModel.voteInfo.poll.name}"
-                android:visibility="@{voteInfoModel.voteInfo.poll.name == null ? View.GONE : View.VISIBLE}"/>
+        <TextView
+            style="@style/TextViewPollInformation"
+            android:drawableLeft="@drawable/ic_clock"
+            android:drawableStart="@drawable/ic_clock"
+            android:text="@{voteInfoModel.voteInfo.poll.createdTime}"
+            android:visibility="@{voteInfoModel.voteInfo.poll.createdTime == null ? View.GONE : View.VISIBLE}"/>
 
-            <TextView
-                style="@style/TextViewPollInformation"
-                android:drawableLeft="@drawable/ic_clock"
-                android:drawableStart="@drawable/ic_clock"
-                android:text="@{voteInfoModel.voteInfo.poll.createdTime}"
-                android:visibility="@{voteInfoModel.voteInfo.poll.createdTime == null ? View.GONE : View.VISIBLE}"/>
+        <TextView
+            style="@style/TextViewPollInformation"
+            android:drawableLeft="@drawable/ic_time_close"
+            android:drawableStart="@drawable/ic_time_close"
+            android:text="@{voteInfoModel.voteInfo.poll.dateClose}"
+            android:visibility="@{voteInfoModel.voteInfo.poll.dateClose == null ? View.GONE : View.VISIBLE}"/>
 
-            <TextView
-                style="@style/TextViewPollInformation"
-                android:drawableLeft="@drawable/ic_time_close"
-                android:drawableStart="@drawable/ic_time_close"
-                android:text="@{voteInfoModel.voteInfo.poll.dateClose}"
-                android:visibility="@{voteInfoModel.voteInfo.poll.dateClose == null ? View.GONE : View.VISIBLE}"/>
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
 </layout>

@@ -7,7 +7,7 @@ import java.util.List;
 public class ResponseItem<T> {
     @SerializedName("error")
     private boolean mError;
-    @SerializedName("mStatus")
+    @SerializedName("status")
     private int mStatus;
     @SerializedName("data")
     private T mData;

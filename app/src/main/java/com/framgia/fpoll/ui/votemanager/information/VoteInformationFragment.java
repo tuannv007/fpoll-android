@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     private VoteInformationContract.Presenter mPresenter;
     private VoteInfoModel mVoteInfoModel;
     private ObservableBoolean mCommentExpand = new ObservableBoolean();
-    private ObservableField<CommentAdapter> mAdapter = new ObservableField<>();
+    private CommentAdapter mCommentAdapter;
 
     public static VoteInformationFragment newInstance(VoteInfoModel voteInfo) {
         VoteInformationFragment voteInformationFragment = new VoteInformationFragment();
@@ -47,7 +48,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
             mVoteInfoModel = (VoteInfoModel) getArguments().getSerializable(ARGUMENT_VOTE_INFO);
         mPresenter =
             new VoteInformationPresenter(this, VoteInfoRepository.getInstance(getContext()));
-        mAdapter.set(new CommentAdapter(mPresenter));
+        mCommentAdapter = new CommentAdapter(mPresenter, mVoteInfoModel);
     }
 
     @Nullable
@@ -66,9 +67,6 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
 
     public void setCommentsView() {
         mCommentExpand.set(!mCommentExpand.get());
-        if (mCommentExpand.get() && mVoteInfoModel.getVoteInfo() != null) {
-            mAdapter.get().updateComments(mVoteInfoModel.getVoteInfo().getPoll().getComments());
-        }
     }
 
     @Override
@@ -81,7 +79,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
         mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
         mCommentExpand.set(true);
         mVoteInfoModel.getVoteInfo().getPoll().getComments().add(0, comment);
-        mAdapter.get().updateComments(mVoteInfoModel.getVoteInfo().getPoll().getComments());
+        mCommentAdapter.notifyItemInserted(0);
     }
 
     @Override
@@ -106,6 +104,6 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     }
 
     public CommentAdapter getAdapter() {
-        return mAdapter.get();
+        return mCommentAdapter;
     }
 }

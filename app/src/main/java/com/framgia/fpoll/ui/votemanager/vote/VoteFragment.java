@@ -8,20 +8,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.VoteItem;
-import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
+import com.framgia.fpoll.util.ActivityUtil;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.framgia.fpoll.ui.votemanager.vote.TypeItemVote.MULTI_CHOISE;
 
 /**
  * Created by tran.trung.phong on 22/02/2017.
@@ -77,13 +72,13 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     }
 
     @Override
-    public void onSubmitSuccess() {
-        //TODO submit vote success
+    public void onSubmitSuccess(List<String> messages) {
+        //TODO submit vote success switch to result tab
     }
 
     @Override
-    public void onSubmitFailed() {
-        //TODO submit vote failed
+    public void onSubmitFailed(String message) {
+        ActivityUtil.showToast(getContext(), message);
     }
 
     public ObservableField<VoteAdapter> getAdapter() {
