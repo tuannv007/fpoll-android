@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.ui.history.PollHistoryType;
-import com.framgia.fpoll.data.model.PollHistoryItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.databinding.ItemPollHistoryBinding;
 
 import java.util.ArrayList;
@@ -19,18 +19,18 @@ import java.util.List;
  */
 public class PollHistoryAdapter extends RecyclerView.Adapter<PollHistoryAdapter.PollHistoryHolder> {
     private LayoutInflater mInflater;
-    private List<PollHistoryItem> mListPollHistory = new ArrayList<>();
+    private List<HistoryPoll> mListPollHistory = new ArrayList<>();
     private PollHistoryType mHistoryType;
     private PollHistoryContract.Presenter mPresenter;
 
-    public PollHistoryAdapter(List<PollHistoryItem> pollHistories, PollHistoryType pollHistoryType,
+    public PollHistoryAdapter(List<HistoryPoll> pollHistories, PollHistoryType pollHistoryType,
                               PollHistoryContract.Presenter presenter) {
         mHistoryType = pollHistoryType;
         mListPollHistory.addAll(pollHistories);
         mPresenter = presenter;
     }
 
-    public void update(List<PollHistoryItem> pollHistories) {
+    public void update(List<HistoryPoll> pollHistories) {
         mListPollHistory.clear();
         mListPollHistory.addAll(pollHistories);
         notifyDataSetChanged();
@@ -60,7 +60,7 @@ public class PollHistoryAdapter extends RecyclerView.Adapter<PollHistoryAdapter.
 
     @Override
     public void onBindViewHolder(PollHistoryHolder holder, int position) {
-        PollHistoryItem item = mListPollHistory.get(position);
+        HistoryPoll item = mListPollHistory.get(position);
         if (item != null) holder.bind(item);
     }
 
@@ -77,7 +77,7 @@ public class PollHistoryAdapter extends RecyclerView.Adapter<PollHistoryAdapter.
             mBinding = binding;
         }
 
-        private void bind(PollHistoryItem item) {
+        private void bind(HistoryPoll item) {
             mBinding.setPollHistory(item);
             mBinding.executePendingBindings();
         }

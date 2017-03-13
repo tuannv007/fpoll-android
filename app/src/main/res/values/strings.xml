@@ -144,7 +144,7 @@
     <string name="title_facebook_company">https://www.facebook.com/FramgiaVietnam</string>
     <string name="title_github_company">\"https://github.com/framgia\"</string>
     <string name="title_linkedin_company">https://www.linkedin.com/company/framgia-vietnam</string>
-    <string name="msg_not_load_item">Item not load</string>
+    <string name="msg_not_load_item">Load data failed.</string>
     <string name="title_re_open">Reopen</string>
     <string name="title_manage_poll">Manage poll</string>
     <string name="title_voting">Voting</string>

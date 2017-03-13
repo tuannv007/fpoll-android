@@ -26,9 +26,9 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
     public void nextStep() {
         if (mView != null) mView.showDialog();
         mPollItem.setMembers(mMember.get());
-        mCreationRepository.createPoll(mPollItem, new DataCallback() {
+        mCreationRepository.createPoll(mPollItem, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(Object data) {
+            public void onSuccess(PollItem data) {
                 if (mView != null) {
                     mView.hideDialog();
                     mView.nextStep();

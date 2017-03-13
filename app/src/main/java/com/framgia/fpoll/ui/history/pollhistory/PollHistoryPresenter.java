@@ -1,9 +1,10 @@
 package com.framgia.fpoll.ui.history.pollhistory;
 
+import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
+import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.ui.history.PollHistoryType;
-import com.framgia.fpoll.data.model.PollHistoryItem;
-import com.framgia.fpoll.data.source.local.PollDataSource;
-import com.framgia.fpoll.data.source.local.PollHistoryRepository;
 
 import java.util.List;
 
@@ -14,35 +15,37 @@ import java.util.List;
 public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     private PollHistoryContract.View mView;
     private PollHistoryType mHistoryType;
-    private PollHistoryRepository mRepository;
+    private ManagerRepository mRepository;
+    private String mToken = "";
 
     public PollHistoryPresenter(PollHistoryContract.View view, PollHistoryType typeHistory,
-                                PollHistoryRepository repository) {
+                                ManagerRepository repository) {
         mView = view;
-        mHistoryType = typeHistory;
         mRepository = repository;
+        mHistoryType = typeHistory;
         mView.start();
     }
 
     @Override
     public void getData() {
         mView.setLoadingTrue();
-        mRepository.getPollHistory(mHistoryType, new PollDataSource.PollCallBack<PollHistoryItem>() {
+        mRepository.getHistory(mToken, new DataCallback<List<HistoryPoll>>() {
             @Override
-            public void onLoaded(List<PollHistoryItem> data) {
+            public void onSuccess(List<HistoryPoll> data) {
                 mView.setLoadingFalse();
                 mView.setPollHistory(data);
             }
 
             @Override
-            public void onNotAvailable() {
+            public void onError(String msg) {
+                mView.showMessage(R.string.msg_not_load_item);
                 mView.setLoadingFalse();
             }
         });
     }
 
     @Override
-    public void clickPollHistory(PollHistoryItem pollHistoryItem) {
+    public void clickPollHistory(HistoryPoll pollHistoryItem) {
         switch (mHistoryType) {
             case INITIATE:
             case PARTICIPATE:

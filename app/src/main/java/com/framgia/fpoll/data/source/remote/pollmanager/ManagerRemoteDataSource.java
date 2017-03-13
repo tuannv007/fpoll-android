@@ -2,13 +2,17 @@ package com.framgia.fpoll.data.source.remote.pollmanager;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.ServiceGenerator;
 import com.framgia.fpoll.networking.api.PollManagerAPI;
 import com.framgia.fpoll.util.ActivityUtil;
+
+import java.util.List;
 
 /**
  * Created by Nhahv0902 on 3/7/2017.
@@ -54,6 +58,24 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
                 @Override
                 public void onResponse(ResponseItem data) {
                     callback.onSuccess(ActivityUtil.byString(data.getMessage()));
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
+    }
+
+    @Override
+    public void getHistory(@NonNull String token,
+                           @NonNull final DataCallback<List<HistoryPoll>> callback) {
+        if (mPollManagerAPI == null) return;
+        mPollManagerAPI.getHistory(token).enqueue(new CallbackManager<>(mContext,
+            new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
+                @Override
+                public void onResponse(ResponseItem<List<HistoryPoll>> data) {
+                    callback.onSuccess(data.getData());
                 }
 
                 @Override

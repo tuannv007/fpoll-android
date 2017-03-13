@@ -2,7 +2,7 @@ package com.framgia.fpoll.ui.history.pollhistory;
 
 import android.support.annotation.NonNull;
 
-import com.framgia.fpoll.data.model.PollHistoryItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 
 /**
  * Created by Nhahv0902 on 2/23/2017.
@@ -15,7 +15,7 @@ public class PollHistoryHandler {
         mListener = listener;
     }
 
-    public void clickPollHistory(PollHistoryItem item) {
+    public void clickPollHistory(HistoryPoll item) {
         if (mListener == null) return;
         mListener.clickPollHistory(item);
     }

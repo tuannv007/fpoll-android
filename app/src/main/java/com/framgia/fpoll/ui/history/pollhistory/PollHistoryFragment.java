@@ -10,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.ui.history.PollHistoryType;
-import com.framgia.fpoll.data.model.PollHistoryItem;
-import com.framgia.fpoll.data.source.local.PollHistoryRepository;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
+import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
+import com.framgia.fpoll.ui.history.PollHistoryType;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
+import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class PollHistoryFragment extends Fragment implements PollHistoryContract.View {
     private FragmentPollHistoryBinding mBinding;
-    private List<PollHistoryItem> mListPollHistory = new ArrayList<>();
+    private List<HistoryPoll> mListPollHistory = new ArrayList<>();
     private ObservableField<PollHistoryAdapter> mAdapter = new ObservableField<>();
     private ObservableBoolean mLoadFinish = new ObservableBoolean();
     private PollHistoryContract.Presenter mPresenter;
@@ -54,8 +55,8 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_poll_history, container, false);
         getDataFromActivity();
-        mPresenter =
-            new PollHistoryPresenter(this, mPollHistoryType, PollHistoryRepository.getInstance());
+        mPresenter = new PollHistoryPresenter(this, mPollHistoryType,
+            ManagerRepository.getInstance(getActivity()));
         mBinding.setPresenter((PollHistoryPresenter) mPresenter);
         mBinding.setFragment(this);
         mAdapter.set(new PollHistoryAdapter(mListPollHistory, mPollHistoryType, mPresenter));
@@ -68,20 +69,25 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     }
 
     @Override
-    public void setPollHistory(List<PollHistoryItem> pollHistories) {
+    public void setPollHistory(List<HistoryPoll> pollHistories) {
         mListPollHistory.clear();
         mListPollHistory.addAll(pollHistories);
         mAdapter.get().update(mListPollHistory);
     }
 
     @Override
-    public void clickOpenManagePoll(PollHistoryItem pollHistoryItem) {
+    public void clickOpenManagePoll(HistoryPoll pollHistoryItem) {
         startActivity(ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.MANAGE, ""));
     }
 
     @Override
-    public void clickReopenPoll(PollHistoryItem pollHistoryItem) {
+    public void clickReopenPoll(HistoryPoll pollHistoryItem) {
         // TODO: 2/23/2017 handler click reopen  poll
+    }
+
+    @Override
+    public void showMessage(int res) {
+        ActivityUtil.showToast(getActivity(), res);
     }
 
     @Override
