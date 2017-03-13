@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.FpollComment;
@@ -49,6 +48,8 @@ public class Poll extends BaseObservable implements Parcelable {
     private List<Option> mOptions;
     @SerializedName("comments")
     private List<FpollComment> mComments;
+    @SerializedName("links")
+    private List<PollLink> mLink;
 
     protected Poll(Parcel in) {
         mId = in.readInt();
@@ -77,6 +78,16 @@ public class Poll extends BaseObservable implements Parcelable {
             return new Poll[size];
         }
     };
+
+    @Bindable
+    public List<PollLink> getLink() {
+        return mLink;
+    }
+
+    public void setLink(List<PollLink> link) {
+        mLink = link;
+        notifyPropertyChanged(BR.link);
+    }
 
     @Bindable
     public int getId() {

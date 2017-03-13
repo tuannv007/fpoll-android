@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.history;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_VIEW_PAGE_TYPE;
+import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,13 +35,15 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     private HistoryContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
     private ViewpagerType mViewpagerType;
-    private DataInfoItem mPollInfo;
+    private ObservableField<DataInfoItem> mPollInfo = new ObservableField<>();
     private String mToken;
+
     public static HistoryFragment newInstance(ViewpagerType type,
-                                              DataInfoItem dataInfoItemList) {
+                                              DataInfoItem dataInfoItemList, String token) {
         HistoryFragment fragment = new HistoryFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
+        bundle.putString(KEY_TOKEN, token);
         bundle.putParcelable(Constant.ConstantApi.KEY_HISTORY, dataInfoItemList);
         fragment.setArguments(bundle);
         return fragment;
@@ -49,8 +53,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false);
-        mBinding.setFragment(this);
         getDataFromActivity();
+        mBinding.setFragment(this);
         mPresenter = new HistoryPresenter(this, mViewpagerType);
         mPresenter.getAdapterType();
         return mBinding.getRoot();
@@ -61,8 +65,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mViewpagerType = (ViewpagerType) bundle.getSerializable(BUNDLE_VIEW_PAGE_TYPE);
-            mPollInfo =
-                bundle.getParcelable(Constant.ConstantApi.KEY_HISTORY);
+            mPollInfo.set((DataInfoItem) bundle.getParcelable(Constant.ConstantApi.KEY_HISTORY));
+            mToken = bundle.getString(KEY_TOKEN);
         }
     }
 
@@ -83,8 +87,9 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void initAdapterManage() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(PollInformationFragment.newInstance(mPollInfo));
-        fragments.add(ResultVoteFragment.newInstance(mToken));
+        fragments.add(PollInformationFragment.newInstance(mPollInfo.get()));
+        fragments
+            .add(ResultVoteFragment.newInstance(mToken));
         fragments.add(EditPollFragment.newInstance());
         String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);
         mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);

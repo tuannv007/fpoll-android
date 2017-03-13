@@ -44,8 +44,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/hint_enter_email_participant"
-                android:paddingLeft="@dimen/dp_4"
-                bind:showPassword="@{presenter.showPassword}"/>
+                android:paddingLeft="@dimen/dp_4"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

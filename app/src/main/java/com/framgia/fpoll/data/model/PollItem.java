@@ -224,34 +224,6 @@ public class PollItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mName);
-        dest.writeString(mEmail);
-        dest.writeString(mTitle);
-        dest.writeString(mDescription);
-        dest.writeString(mMultiple);
-        dest.writeString(mDateClose);
-        dest.writeString(mLocation);
-        if (mLink == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(mLink);
-        }
-        dest.writeByte((byte) (mIsRequireVote ? 0x01 : 0x00));
-        dest.writeInt(mRequiteType);
-        dest.writeByte((byte) (mIsSameEmail ? 0x01 : 0x00));
-        dest.writeByte((byte) (mIsMaxVote ? 0x01 : 0x00));
-        dest.writeInt(mNumMaxVote);
-        dest.writeByte((byte) (mIsHasPass ? 0x01 : 0x00));
-        dest.writeString(mPass);
-        dest.writeByte((byte) (mIsHideResult ? 0x01 : 0x00));
-        dest.writeString(mMembers);
-        if (mOptionItemList == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(mOptionItemList);
-        }
     }
 
     @SuppressWarnings("unused")

@@ -7,7 +7,7 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -29,8 +29,8 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
     private ManagePollContract.Presenter mPresenter;
     private ViewpagerType mViewpagerType;
     private ObservableField<DataInfoItem> mDataList = new ObservableField<>();
-    private String mToken;
     private FPollProgressDialog mDialog;
+    private String mToken;
 
     public static Intent getManageIntent(Context context, ViewpagerType type, String token) {
         Intent intent = new Intent(context, ManagePollActivity.class);
@@ -46,10 +46,10 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
         getDataFromIntent();
-        mPresenter = new ManagePollPresenter(this, mViewpagerType,
-            PollInfoRepository.getInstance(this));
-        if (!TextUtils.isEmpty(mToken)) mPresenter.getAllData(mToken);
+        mPresenter =
+            new ManagePollPresenter(this, mViewpagerType, PollInfoRepository.getInstance(this));
         mPresenter.initViewPage();
+        if (mToken != null) mPresenter.getAllData(mToken);
     }
 
     @Override
@@ -81,12 +81,13 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
 
     @Override
     public void startUiViewPageVote() {
-        addFragment(HistoryFragment.newInstance(ViewpagerType.VOTE, null), R.string.title_vote);
+        addFragment(HistoryFragment.newInstance(ViewpagerType.VOTE, mDataList.get(), ""),
+            R.string.title_vote);
     }
 
     @Override
     public void startUiViewPageManage() {
-        addFragment(HistoryFragment.newInstance(ViewpagerType.MANAGE, mDataList.get()),
+        addFragment(HistoryFragment.newInstance(ViewpagerType.MANAGE, mDataList.get(), mToken),
             R.string.title_manage_poll);
     }
 

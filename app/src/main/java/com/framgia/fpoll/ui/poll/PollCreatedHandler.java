@@ -25,8 +25,8 @@ public class PollCreatedHandler {
         if (mListener != null) mListener.copyLinkManager();
     }
 
-    public void viewManagerPoll(String idPoll) {
-        if (mListener != null) mListener.viewLinkManager(idPoll);
+    public void viewManagerPoll() {
+        if (mListener != null) mListener.viewLinkManager();
     }
 
     public void clickViewInvite(String idPoll) {
