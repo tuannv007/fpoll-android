@@ -207,4 +207,9 @@
     <string name="title_input_hident_result_vote">Hident result vote</string>
     <string name="title_input_create_password">Create Password</string>
     <string name="title_input_edit_option">Edit Option</string>
+    <string name="action_allow_edit_poll">Allow edit vote of poll</string>
+    <string name="action_allow_add_answer">Allow voters to add new answers</string>
+    <string name="msg_type_email">\@</string>
+    <string name="title_not_same_email_when_vote">Not the same email when vote</string>
+    <string name="title_type_email_when_vote">Add type of email when voted</string>
 </resources>

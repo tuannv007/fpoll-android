@@ -87,6 +87,16 @@ public class SettingPresenter implements SettingPollContract.Presenter {
     }
 
     @Override
+    public void changeAllowEditPoll(boolean checked) {
+        // TODO: 3/13/2017 checked change allow edit
+    }
+
+    @Override
+    public void changeAllowAddAnswer(boolean checked) {
+        // TODO: 3/13/2017 checked change allow edit
+    }
+
+    @Override
     public void setRequireVote(RequireVoteType requireVote) {
         mRequireVoteType = requireVote;
     }
