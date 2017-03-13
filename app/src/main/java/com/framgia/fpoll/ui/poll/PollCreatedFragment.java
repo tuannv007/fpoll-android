@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollCreatedItem;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentCreatedPollBinding;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
@@ -29,8 +30,12 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
     private PollCreatedPresenter mPresenter;
     private ClipboardManager mClipboardManager;
 
-    public static PollCreatedFragment getInstance() {
-        return new PollCreatedFragment();
+    public static PollCreatedFragment getInstance(PollItem pollItem) {
+        PollCreatedFragment pollCreatedFragment = new PollCreatedFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        pollCreatedFragment.setArguments(bundle);
+        return pollCreatedFragment;
     }
 
     @Nullable
