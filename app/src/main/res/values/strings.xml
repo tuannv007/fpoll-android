@@ -209,4 +209,6 @@
     <string name="title_not_same_email_when_vote">Not the same email when vote</string>
     <string name="title_type_email_when_vote">Add type of email when voted</string>
     <string name="title_no_setting">No Setting</string>
+    <string name="msg_export_success">Export successful! File saved </string>
+    <string name="msg_export_error">Export error</string>
 </resources>

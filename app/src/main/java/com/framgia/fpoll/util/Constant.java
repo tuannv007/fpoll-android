@@ -13,6 +13,7 @@ public class Constant {
     public static final String TYPE_DIALOG_FRAGMENT = "type_dialog_fragment";
     public static final int POSITION_LINK_ADMIN = 1;
     public static final int POSITION_LINK_INVITE = 0;
+
     public class TypeSetting {
         public static final int TYPE_INPUT_EMAIL = 1;
         public static final int TYPE_INPUT_NAME = 7;
@@ -58,8 +59,8 @@ public class Constant {
 
     public static class RequestCode {
         public static final int IMAGE_PICKER_SELECT = 1;
-        public static final int PERMISSIONS_REQUEST_READ_EXTERNAL = 2;
         public static final int REQUEST_GOOGLE = 3;
+        public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL = 4;
     }
 
     public static class TimeFormat {
@@ -104,4 +105,8 @@ public class Constant {
         public static final int EMAIL_NOT_DUPLICATE = 10;
         public static final int OPTION_EDITABLE = 11;
     }
+    public static final String FILE_NAME_SAVED = "_save_file.xls";
+    public static final String TITLE_NAME = "name";
+    public static final String TITLE_VOTE = "vote";
+    public static final String FPOLL_FOLDER_NAME = "save_report";
 }

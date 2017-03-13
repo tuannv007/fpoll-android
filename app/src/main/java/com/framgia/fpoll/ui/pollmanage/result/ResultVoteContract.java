@@ -12,6 +12,11 @@ public class ResultVoteContract {
     interface View extends BaseView {
         void onSuccess(ResponseItem<ResultVoteItem> pollInfoList);
         void onError(String message);
+        void dismissDialog();
+        void showDialog();
+        void exportError();
+        void exportSuccess(String path);
+        void startExport();
     }
 
     interface Presenter {
@@ -19,5 +24,6 @@ public class ResultVoteContract {
         void exportPDF();
         void exportExcel();
         void getAllData(@NonNull String token);
+        void export();
     }
 }

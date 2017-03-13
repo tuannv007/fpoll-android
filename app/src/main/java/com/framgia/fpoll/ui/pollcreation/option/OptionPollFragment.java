@@ -30,7 +30,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
-import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL;
+import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
 
 /**
  * Created by nhahv on 22/02/2017.
@@ -126,7 +126,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode != PERMISSIONS_REQUEST_READ_EXTERNAL) return;
+        if (requestCode != PERMISSIONS_REQUEST_WRITE_EXTERNAL) return;
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             pickImage();
         } else ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
