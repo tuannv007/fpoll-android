@@ -28,6 +28,8 @@ public class Constant {
         public static final int NUMBER_MIN_LIMIT = -1;
         public static final String DATA_PLASH = "/";
         public static final String DATA_NO_TITLE = "";
+        public static final String DATA_PREFIX_TOKEN = "Bearer ";
+
     }
 
     public static class BundleConstant {

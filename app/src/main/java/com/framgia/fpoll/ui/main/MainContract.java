@@ -12,8 +12,10 @@ public interface MainContract {
     interface View extends BaseView {
         void showHelp();
         void addFragment(Fragment fragment, int title);
+        void showMessage(String data);
     }
 
     interface Presenter {
+        void logout();
     }
 }
