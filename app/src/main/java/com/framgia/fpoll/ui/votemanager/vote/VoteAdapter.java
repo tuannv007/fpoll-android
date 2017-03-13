@@ -1,22 +1,14 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.VoteItem;
-import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemPollRadioBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.framgia.fpoll.ui.votemanager.vote.TypeItemVote.SINGLE_CHOISE;
 
 /**
  * Created by tran.trung.phong on 22/02/2017.

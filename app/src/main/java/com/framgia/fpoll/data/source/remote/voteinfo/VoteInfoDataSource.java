@@ -5,10 +5,13 @@ import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
 
+import java.util.List;
+
 /**
  * Created by anhtv on 07/03/2017.
  */
 public interface VoteInfoDataSource {
     void getVoteInfo(String token, DataCallback<VoteInfo> getVoteInfoCallback);
     void postComment(VoteInfoAPI.CommentBody comment, DataCallback<FpollComment> callback);
+    void votePoll(VoteInfoAPI.OptionsBody optionsBody, DataCallback<List<String>> callback);
 }

@@ -11,6 +11,14 @@ import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.ServiceGenerator;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
 
+import java.util.List;
+import java.util.Objects;
+
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by anhtv on 07/03/2017.
  */
@@ -53,6 +61,24 @@ public class VoteInfoRemoteDataSource implements VoteInfoDataSource {
                     @Override
                     public void onResponse(ResponseItem<FpollComment> data) {
                         if (data != null) callback.onSuccess(data.getData());
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        callback.onError(message);
+                    }
+                }));
+    }
+
+    @Override
+    public void votePoll(VoteInfoAPI.OptionsBody optionsBody,
+                         final DataCallback<List<String>> callback) {
+        ServiceGenerator.createService(VoteInfoAPI.class).votePoll(optionsBody.getRequestBody())
+            .enqueue(new CallbackManager<>(mContext,
+                new CallbackManager.CallBack<ResponseItem<Object>>() {
+                    @Override
+                    public void onResponse(ResponseItem<Object> data) {
+                        callback.onSuccess(data.getMessage());
                     }
 
                     @Override

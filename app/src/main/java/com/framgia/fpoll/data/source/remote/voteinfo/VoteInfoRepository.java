@@ -8,6 +8,8 @@ import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
 
+import java.util.List;
+
 /**
  * Created by anhtv on 07/03/2017.
  */
@@ -48,6 +50,22 @@ public class VoteInfoRepository implements VoteInfoDataSource {
         mVoteInfoRemoteSource.postComment(comment, new DataCallback<FpollComment>() {
             @Override
             public void onSuccess(FpollComment data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void votePoll(VoteInfoAPI.OptionsBody optionsBody,
+                         final DataCallback<List<String>> callback) {
+        mVoteInfoRemoteSource.votePoll(optionsBody, new DataCallback<List<String>>() {
+            @Override
+            public void onSuccess(List<String> data) {
                 callback.onSuccess(data);
             }
 
