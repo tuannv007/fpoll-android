@@ -23,5 +23,6 @@ public class OptionPollContract {
         void pickImage(OptionItem optionItem, int position);
         void deletePoll(OptionItem optionItem, int position);
         void augmentPoll();
+        void pickDate(OptionItem optionItem, int position);
     }
 }

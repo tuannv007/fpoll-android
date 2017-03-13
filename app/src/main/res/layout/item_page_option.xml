@@ -41,6 +41,12 @@
                 android:text="@={option.title}"/>
 
             <ImageView
+                style="@style/ImageViewPageOption"
+                android:background="@color/color_grey_200"
+                android:onClick="@{()->handler.clickPickDate(option, position)}"
+                android:src="@drawable/ic_date_range_black_24dp"/>
+
+            <ImageView
                 android:id="@+id/image_insert_photo"
                 style="@style/ImageViewPageOption"
                 android:background="@color/color_teal_500"

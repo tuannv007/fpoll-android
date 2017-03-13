@@ -24,5 +24,7 @@ public class SettingPollContract {
         void clickAugment();
         void clickMinus();
         void setRequireVote(RequireVoteType requireVote);
+        void changeAllowEditPoll(boolean checked);
+        void changeAllowAddAnswer(boolean checked);
     }
 }

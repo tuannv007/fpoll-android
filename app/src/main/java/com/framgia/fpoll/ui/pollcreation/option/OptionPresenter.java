@@ -47,6 +47,11 @@ public class OptionPresenter implements OptionPollContract.Presenter {
     }
 
     @Override
+    public void pickDate(OptionItem optionItem, int position) {
+        // TODO: 3/13/2017 pick date
+    }
+
+    @Override
     public void deletePoll(OptionItem optionItem, int position) {
         mView.deletePoll(position);
     }

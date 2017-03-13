@@ -34,4 +34,12 @@ public class SettingHandler {
     public void clickAugment() {
         if (mListener != null) mListener.clickAugment();
     }
+
+    public void changeAllowEdit(boolean checked) {
+       if (mListener != null) mListener.changeAllowEditPoll(checked);
+    }
+
+    public void changeAllowAddAnswer(boolean checked) {
+       if (mListener != null) mListener.changeAllowAddAnswer(checked);
+    }
 }

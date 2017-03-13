@@ -25,6 +25,10 @@ public class OptionHandler {
         if (mListener != null) mListener.pickImage(optionItem, position);
     }
 
+    public void clickPickDate(OptionItem optionItem, int position) {
+        if (mListener != null) mListener.pickDate(optionItem, position);
+    }
+
     public void clickDeletePoll(OptionItem optionItem, int position) {
         if (mListener != null) mListener.deletePoll(optionItem, position);
     }

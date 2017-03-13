@@ -64,7 +64,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/dp_16"
-                    android:paddingRight="@dimen/dp_16"
                     bind:eventRadioGroup="@{presenter}"
                     bind:eventType="@{EventSwitchType.REQUIRE_VOTE}"
                     bind:presenter="@{presenter}"
@@ -87,6 +86,13 @@
                         android:text="@string/msg_enter_email"
                         android:textColor="@color/color_grey_700"/>
 
+                    <include
+                        layout="@layout/partial_require_vote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_8"/>
+
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/radio_enter_name_email"
                         android:layout_width="match_parent"
@@ -94,6 +100,14 @@
                         android:buttonTint="@color/color_grey_700"
                         android:text="@string/msg_enter_name_email"
                         android:textColor="@color/color_grey_700"/>
+
+                    <include
+                        layout="@layout/partial_require_vote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_8"/>
+
                 </RadioGroup>
 
                 <android.support.v7.widget.SwitchCompat
@@ -242,6 +256,24 @@
                         android:src="@drawable/ic_eye"
                         bind:showImage="@{presenter.showPassword}"/>
                 </LinearLayout>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(switch, checked) -> handler.changeAllowAddAnswer(checked)}"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/action_allow_add_answer"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(switch, checked) -> handler.changeAllowEdit(checked)}"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/action_allow_edit_poll"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
             </LinearLayout>
 
             <RelativeLayout
