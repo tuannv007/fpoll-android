@@ -3,15 +3,13 @@ package com.framgia.fpoll.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.framgia.fpoll.data.model.poll.PollLink;
 import com.framgia.fpoll.util.Constant;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by framgia on 06/03/2017.
- */
 public class PollItem implements Parcelable {
     @SerializedName("name")
     private String mName;
@@ -27,6 +25,8 @@ public class PollItem implements Parcelable {
     private String mDateClose;
     @SerializedName("location")
     private String mLocation;
+    @SerializedName("links")
+    private List<PollLink> mLink;
     private boolean mIsRequireVote;
     private int mRequiteType;
     private boolean mIsSameEmail;
@@ -36,6 +36,15 @@ public class PollItem implements Parcelable {
     private String mPass;
     private boolean mIsHideResult;
     private String mMembers;
+
+    public List<PollLink> getLink() {
+        return mLink;
+    }
+
+    public void setLink(List<PollLink> link) {
+        mLink = link;
+    }
+
     private List<OptionItem> mOptionItemList = new ArrayList<>();
 
     public List<OptionItem> getOptionItemList() {
@@ -185,6 +194,12 @@ public class PollItem implements Parcelable {
         mMultiple = in.readString();
         mDateClose = in.readString();
         mLocation = in.readString();
+        if (in.readByte() == 0x01) {
+            mLink = new ArrayList<PollLink>();
+            in.readList(mLink, PollLink.class.getClassLoader());
+        } else {
+            mLink = null;
+        }
         mIsRequireVote = in.readByte() != 0x00;
         mRequiteType = in.readInt();
         mIsSameEmail = in.readByte() != 0x00;
@@ -195,7 +210,7 @@ public class PollItem implements Parcelable {
         mIsHideResult = in.readByte() != 0x00;
         mMembers = in.readString();
         if (in.readByte() == 0x01) {
-            mOptionItemList = new ArrayList<>();
+            mOptionItemList = new ArrayList<OptionItem>();
             in.readList(mOptionItemList, OptionItem.class.getClassLoader());
         } else {
             mOptionItemList = null;
@@ -216,6 +231,12 @@ public class PollItem implements Parcelable {
         dest.writeString(mMultiple);
         dest.writeString(mDateClose);
         dest.writeString(mLocation);
+        if (mLink == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(mLink);
+        }
         dest.writeByte((byte) (mIsRequireVote ? 0x01 : 0x00));
         dest.writeInt(mRequiteType);
         dest.writeByte((byte) (mIsSameEmail ? 0x01 : 0x00));

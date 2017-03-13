@@ -24,6 +24,7 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     private ParticipantPollContract.Presenter mPresenter;
     private FragmentPageParticipantBinding mBinding;
     private ProgressDialog mProgressDialog;
+    private PollItem mPollItem;
 
     public static ParticipantFragment newInstance(PollItem pollItem) {
         ParticipantFragment participantFragment = new ParticipantFragment();
@@ -39,8 +40,9 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_participant, container, false);
-        mPresenter = new ParticipantPresenter(this, CreationRepository.getInstance(getContext()),
-            (PollItem) getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM));
+        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        mPresenter =
+            new ParticipantPresenter(this, CreationRepository.getInstance(getContext()), mPollItem);
         mBinding.setHandler(new ParticipantHandler(mPresenter));
         mBinding.setPresenter((ParticipantPresenter) mPresenter);
         mProgressDialog = new ProgressDialog(getActivity());
@@ -51,7 +53,7 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
 
     @Override
     public void nextStep() {
-        PollCreatedFragment pollCreatedFragment = PollCreatedFragment.getInstance();
+        PollCreatedFragment pollCreatedFragment = PollCreatedFragment.getInstance(mPollItem);
         getFragmentManager().beginTransaction()
             .replace(R.id.frame_layout, pollCreatedFragment, null)
             .addToBackStack(null)
