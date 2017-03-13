@@ -3,7 +3,10 @@ package com.framgia.fpoll.data.source.remote.pollmanager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
+
+import java.util.List;
 
 /**
  * Created by Nhahv0902 on 3/7/2017.
@@ -42,6 +45,23 @@ public class ManagerRepository implements ManagerDataSource {
         mDataSource.deleteVoting(token, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void getHistory(@NonNull String token,
+                           @NonNull final DataCallback<List<HistoryPoll>> callback) {
+        if (mDataSource == null) return;
+        mDataSource.getHistory(token, new DataCallback<List<HistoryPoll>>() {
+            @Override
+            public void onSuccess(List<HistoryPoll> data) {
                 callback.onSuccess(data);
             }
 

@@ -1,6 +1,6 @@
 package com.framgia.fpoll.ui.history.pollhistory;
 
-import com.framgia.fpoll.data.model.PollHistoryItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.ui.base.BaseView;
 
 import java.util.List;
@@ -11,15 +11,16 @@ import java.util.List;
  */
 public interface PollHistoryContract {
     interface View extends BaseView {
-        void setPollHistory(List<PollHistoryItem> pollHistories);
+        void setPollHistory(List<HistoryPoll> pollHistories);
         void setLoadingTrue();
         void setLoadingFalse();
-        void clickOpenManagePoll(PollHistoryItem pollHistoryItem);
-        void clickReopenPoll(PollHistoryItem pollHistoryItem);
+        void clickOpenManagePoll(HistoryPoll pollHistoryItem);
+        void clickReopenPoll(HistoryPoll pollHistoryItem);
+        void showMessage(int res);
     }
 
     interface Presenter {
         void getData();
-        void clickPollHistory(PollHistoryItem pollHistoryItem);
+        void clickPollHistory(HistoryPoll pollHistoryItem);
     }
 }

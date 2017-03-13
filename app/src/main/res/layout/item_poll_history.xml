@@ -19,7 +19,7 @@
 
         <variable
             name="pollHistory"
-            type="com.framgia.fpoll.data.model.PollHistoryItem"/>
+            type="com.framgia.fpoll.data.model.poll.HistoryPoll"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -49,7 +49,7 @@
                     android:layout_marginBottom="@dimen/dp_2"
                     android:layout_marginTop="@dimen/dp_2"
                     android:padding="@dimen/dp_8"
-                    android:text="@{@string/title_subject(pollHistory.subject)}"
+                    android:text="@{@string/title_subject(pollHistory.title)}"
                     android:textSize="@dimen/sp_20"/>
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:layout_marginBottom="@dimen/dp_2"
                     android:layout_marginTop="@dimen/dp_2"
                     android:padding="@dimen/dp_8"
-                    android:text="@{@string/title_participants(pollHistory.numberParticipant)}"/>
+                    android:text="@{@string/title_participants(pollHistory.listActivities.size())}"/>
 
                 <TextView
                     android:id="@+id/text_latest_activity"
@@ -68,7 +68,7 @@
                     android:layout_marginBottom="@dimen/dp_2"
                     android:layout_marginTop="@dimen/dp_2"
                     android:padding="@dimen/dp_8"
-                    android:text="@{@string/title_latest_activity(pollHistory.lastActivity)}"/>
+                    android:text="@{@string/title_latest_activity(pollHistory.updatedTime)}"/>
 
             </LinearLayout>
 
