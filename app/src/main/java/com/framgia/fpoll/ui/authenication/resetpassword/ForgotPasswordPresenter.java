@@ -1,6 +1,12 @@
 package com.framgia.fpoll.ui.authenication.resetpassword;
 
+import android.util.Log;
+
+import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.data.source.remote.resetpassword.ResetDataRepository;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.UserValidation;
 
 /**
@@ -9,10 +15,30 @@ import com.framgia.fpoll.util.UserValidation;
 public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter {
     private ForgotPasswordContract.View mView;
     private User mUser;
+    private ResetDataRepository mRepository;
 
-    public ForgotPasswordPresenter(ForgotPasswordContract.View view, User user) {
-        this.mView = view;
+    public ForgotPasswordPresenter(ForgotPasswordContract.View view, User user,
+                                   ResetDataRepository repository) {
+        mView = view;
         mUser = user;
+        mRepository = repository;
+    }
+
+    public void getAllData(@NonNull User user) {
+        mView.showDialog();
+        mRepository.resetPassword(user, new DataCallback<ResponseItem>() {
+            @Override
+            public void onSuccess(ResponseItem data) {
+                mView.onSuccess(data);
+                mView.dismissDialog();
+            }
+
+            @Override
+            public void onError(String message) {
+                mView.onError(message);
+                mView.dismissDialog();
+            }
+        });
     }
 
     @Override
@@ -25,7 +51,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
 
             @Override
             public void onValidateSuccess() {
-                // TODO: 2/21/17 request server send email
+                getAllData(mUser);
             }
         });
     }

@@ -59,4 +59,10 @@ public class AuthenticationApi {
         @POST("api/v1/logout")
         Call<ResponseItem> logout(@Header("Authorization") String token);
     }
+
+    public interface ResetPasswordService {
+        @POST("api/v1/password/reset")
+        @Multipart
+        Call<ResponseItem> resetPassword(@Part("email") RequestBody email);
+    }
 }
