@@ -2,7 +2,6 @@ package com.framgia.fpoll.data.source.remote.pollmanager;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -72,6 +71,42 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
                            @NonNull final DataCallback<List<HistoryPoll>> callback) {
         if (mPollManagerAPI == null) return;
         mPollManagerAPI.getHistory(token).enqueue(new CallbackManager<>(mContext,
+            new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
+                @Override
+                public void onResponse(ResponseItem<List<HistoryPoll>> data) {
+                    callback.onSuccess(data.getData());
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
+    }
+
+    @Override
+    public void getPollClosed(@NonNull String token,
+                              @NonNull final DataCallback<List<HistoryPoll>> callback) {
+        if (mPollManagerAPI == null) return;
+        mPollManagerAPI.getPollClosed(token).enqueue(new CallbackManager<>(mContext,
+            new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
+                @Override
+                public void onResponse(ResponseItem<List<HistoryPoll>> data) {
+                    callback.onSuccess(data.getData());
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
+    }
+
+    @Override
+    public void getPollParticipated(@NonNull String token,
+                                     @NonNull final DataCallback<List<HistoryPoll>> callback) {
+        if (mPollManagerAPI == null) return;
+        mPollManagerAPI.getPollParticipated(token).enqueue(new CallbackManager<>(mContext,
             new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
                 @Override
                 public void onResponse(ResponseItem<List<HistoryPoll>> data) {

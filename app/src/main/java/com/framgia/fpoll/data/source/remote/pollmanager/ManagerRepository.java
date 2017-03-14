@@ -71,4 +71,38 @@ public class ManagerRepository implements ManagerDataSource {
             }
         });
     }
+
+    @Override
+    public void getPollClosed(@NonNull String token,
+                              @NonNull final DataCallback<List<HistoryPoll>> callback) {
+        if (mDataSource == null) return;
+        mDataSource.getHistory(token, new DataCallback<List<HistoryPoll>>() {
+            @Override
+            public void onSuccess(List<HistoryPoll> data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void getPollParticipated(@NonNull String token,
+                                    @NonNull final DataCallback<List<HistoryPoll>> callback) {
+        if (mDataSource == null) return;
+        mDataSource.getPollParticipated(token, new DataCallback<List<HistoryPoll>>() {
+            @Override
+            public void onSuccess(List<HistoryPoll> data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
 }

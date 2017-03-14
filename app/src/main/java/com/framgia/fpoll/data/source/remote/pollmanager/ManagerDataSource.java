@@ -15,4 +15,7 @@ public interface ManagerDataSource {
     void switchPollStatus(String id, @NonNull DataCallback<String> callback);
     void deleteVoting(@NonNull String token, @NonNull DataCallback<String> callback);
     void getHistory(@NonNull String token, @NonNull final DataCallback<List<HistoryPoll>> callback);
+    void getPollClosed(@NonNull String token, @NonNull DataCallback<List<HistoryPoll>> callback);
+    void getPollParticipated(@NonNull String token,
+                              @NonNull DataCallback<List<HistoryPoll>> callback);
 }

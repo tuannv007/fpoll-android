@@ -29,19 +29,59 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     @Override
     public void getData() {
         mView.setLoadingTrue();
-        mRepository.getHistory(mToken, new DataCallback<List<HistoryPoll>>() {
-            @Override
-            public void onSuccess(List<HistoryPoll> data) {
-                mView.setLoadingFalse();
-                mView.setPollHistory(data);
-            }
+        switch (mHistoryType) {
+            case INITIATE:
+                mRepository.getHistory(mToken, new DataCallback<List<HistoryPoll>>() {
+                    @Override
+                    public void onSuccess(List<HistoryPoll> data) {
+                        loadDataSuccess(data);
+                    }
 
-            @Override
-            public void onError(String msg) {
-                mView.showMessage(R.string.msg_not_load_item);
-                mView.setLoadingFalse();
-            }
-        });
+                    @Override
+                    public void onError(String msg) {
+                        loadDataError();
+                    }
+                });
+                break;
+            case PARTICIPATE:
+                mRepository.getPollParticipated(mToken, new DataCallback<List<HistoryPoll>>() {
+                    @Override
+                    public void onSuccess(List<HistoryPoll> data) {
+                        loadDataSuccess(data);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        loadDataError();
+                    }
+                });
+                break;
+            case CLOSE:
+                mRepository.getPollClosed(mToken, new DataCallback<List<HistoryPoll>>() {
+                    @Override
+                    public void onSuccess(List<HistoryPoll> data) {
+                        loadDataSuccess(data);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        loadDataError();
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void loadDataError() {
+        mView.showMessage(R.string.msg_not_load_item);
+        mView.setLoadingFalse();
+    }
+
+    private void loadDataSuccess(List<HistoryPoll> data) {
+        mView.setLoadingFalse();
+        mView.setPollHistory(data);
     }
 
     @Override
