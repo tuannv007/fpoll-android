@@ -16,6 +16,7 @@ import com.framgia.fpoll.data.source.remote.creation.CreationRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
 import com.framgia.fpoll.ui.poll.PollCreatedFragment;
 import com.framgia.fpoll.util.Constant;
+import com.tokenautocomplete.TokenCompleteTextView;
 
 /**
  * Created by framgia on 23/02/2017.
@@ -82,5 +83,6 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
 
     @Override
     public void start() {
+        mBinding.editSendEmail.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Delete);
     }
 }

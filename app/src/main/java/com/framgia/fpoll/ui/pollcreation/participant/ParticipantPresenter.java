@@ -20,6 +20,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
         mView = view;
         mCreationRepository = creationRepository;
         mPollItem = pollItem;
+        mView.start();
     }
 
     @Override

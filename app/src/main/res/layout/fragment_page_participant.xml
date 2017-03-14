@@ -64,7 +64,7 @@
                     android:text="@string/msg_multi_email"
                     android:textSize="@dimen/sp_17"/>
 
-                <android.support.v7.widget.AppCompatEditText
+                <com.framgia.fpoll.widget.ChipsContactView
                     android:id="@+id/edit_send_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,6 +78,7 @@
                     android:minHeight="@dimen/dp_180"
                     android:padding="@dimen/dp_8"
                     android:text="@={presenter.member}"
+                    android:textColorHint="@color/color_grey_400"
                     bind:textChange="@{presenter}"/>
             </LinearLayout>
 
