@@ -24,4 +24,14 @@ public class ResultActionHandler {
         if (mListener == null) return;
         mListener.exportExcel();
     }
+
+    public void showPieChart() {
+        if (mListener == null) return;
+        mListener.showPieChart();
+    }
+
+    public void showBartChart(){
+        if (mListener == null) return;
+        mListener.showBartChart();
+    }
 }

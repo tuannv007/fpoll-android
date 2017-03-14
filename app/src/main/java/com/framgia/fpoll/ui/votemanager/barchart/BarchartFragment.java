@@ -5,7 +5,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,7 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_LIST_RESULT_
 /**
  * Created by tran.trung.phong on 24/02/2017.
  */
-public class BarchartFragment extends Fragment implements BarcharContract.View {
+public class BarchartFragment extends DialogFragment implements BarcharContract.View {
     private BarChartGraphBinding mBinding;
     private ObservableList<ResultItem> mItems = new ObservableArrayList<>();
     private BarcharContract.Presenter mPresenter;
@@ -59,6 +59,7 @@ public class BarchartFragment extends Fragment implements BarcharContract.View {
 
     @Override
     public void start() {
+        getDialog().setTitle(getString(R.string.title_bar_chart));
     }
 
     public ObservableList<ResultItem> getItems() {

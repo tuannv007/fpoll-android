@@ -3,7 +3,7 @@
         xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="handler"
             type="com.framgia.fpoll.ui.pollmanage.result.ResultActionHandler"/>
@@ -68,8 +68,27 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <Button
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginStart="@dimen/dp_30"
+                android:visibility="@{fragment.vote > 0 ? View.VISIBLE : View.INVISIBLE}">
 
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:onClick="@{() -> handler.showBartChart()}"
+                    android:src="@drawable/ic_pie_chart_black_24px"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:onClick="@{() -> handler.showPieChart()}"
+                    android:src="@drawable/ic_insert_chart_black_24px"/>
+            </LinearLayout>
+
+            <Button
                 style="@style/ButtonActionPollResult"
                 android:onClick="@{() -> handler.viewOption()}"
                 android:text="@string/action_view_option"/>

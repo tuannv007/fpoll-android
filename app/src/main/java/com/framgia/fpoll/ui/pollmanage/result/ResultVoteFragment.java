@@ -3,20 +3,26 @@ package com.framgia.fpoll.ui.pollmanage.result;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.ResultItem;
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.source.remote.resultvote.ResultVoteDataRepository;
 import com.framgia.fpoll.databinding.FragmentVoteResultBinding;
 import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.ui.votemanager.barchart.BarchartFragment;
+import com.framgia.fpoll.ui.votemanager.piechartresult.PieChartFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
@@ -35,6 +41,8 @@ import static com.framgia.fpoll.util.TimeUtil.getCurentTime;
  * A simple {@link Fragment} subclass.
  */
 public class ResultVoteFragment extends Fragment implements ResultVoteContract.View {
+    private static final int SHOW_IMAGE_CHART = 1;
+    private static final int HIDE_IMAGE_CHART = 0;
     private FragmentVoteResultBinding mBinding;
     private ResultVoteContract.Presenter mPresenter;
     private ObservableField<ResultVoteAdapter> mAdapter = new ObservableField<>();
@@ -42,6 +50,8 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
     private String mToken;
     private FPollProgressDialog mDialog;
     private File mFile;
+    private List<ResultItem> mItemList = new ArrayList<>();
+    private ObservableInt mVote = new ObservableInt();
 
     public static ResultVoteFragment newInstance(String token) {
         ResultVoteFragment resultVoteFragment = new ResultVoteFragment();
@@ -64,6 +74,7 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
         mBinding.setFragment(this);
         mBinding.setHandler(new ResultActionHandler(mPresenter));
         mPresenter.getAllData(mToken);
+        mVote.set(HIDE_IMAGE_CHART);
         return mBinding.getRoot();
     }
 
@@ -71,6 +82,12 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
     public void onSuccess(ResponseItem<ResultVoteItem> resultVoteList) {
         mListResultVote.addAll(resultVoteList.getData().getResults());
         mAdapter.set(new ResultVoteAdapter(mListResultVote));
+        if (resultVoteList.getData() == null) return;
+        for (int i = 0; i < resultVoteList.getData().getResults().size(); i++) {
+            if (resultVoteList.getData().getResults().get(i).getVoters() > 0) {
+                mVote.set(SHOW_IMAGE_CHART);
+            }
+        }
     }
 
     @Override
@@ -104,6 +121,32 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
         return PermissionsUtil.isAllowPermissions(getActivity());
     }
 
+    public void setDataItemChart() {
+        mItemList.clear();
+        for (int i = 0; i < mListResultVote.size(); i++) {
+            mItemList.add(new ResultItem(String.valueOf(i), mListResultVote.get(i).getName(), String
+                .valueOf(mListResultVote.get(i).getVoters())));
+        }
+    }
+
+    @Override
+    public void showPieChart() {
+        setDataItemChart();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        DialogFragment pieChartFragment =
+            PieChartFragment.newInstance(mItemList);
+        pieChartFragment.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
+    }
+
+    @Override
+    public void showBartChart() {
+        setDataItemChart();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        DialogFragment bartChartItem =
+            BarchartFragment.newInstance(mItemList);
+        bartChartItem.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
+    }
+
     @Override
     public void start() {
         File exportDir =
@@ -134,5 +177,9 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public ObservableInt getVote() {
+        return mVote;
     }
 }

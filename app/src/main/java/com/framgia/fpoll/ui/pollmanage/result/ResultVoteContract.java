@@ -17,6 +17,8 @@ public class ResultVoteContract {
         void exportError();
         void exportSuccess(String path);
         boolean isAllowPermissions();
+        void showPieChart();
+        void showBartChart();
     }
 
     interface Presenter {
@@ -25,5 +27,7 @@ public class ResultVoteContract {
         void exportExcel();
         void getAllData(@NonNull String token);
         int getKey();
+        void showPieChart();
+        void showBartChart();
     }
 }

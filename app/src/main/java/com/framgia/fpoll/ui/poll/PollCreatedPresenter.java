@@ -23,8 +23,8 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     }
 
     @Override
-    public void viewLinkInvite(String idPoll) {
-        // TODO: 2/21/17 get id poll from server and change to manager link
+    public void viewLinkInvite(String token) {
+        mView.startUiLinkInviteVote();
     }
 
     @Override

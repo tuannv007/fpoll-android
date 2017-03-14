@@ -92,4 +92,14 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
     public int getKey() {
         return mKey;
     }
+
+    @Override
+    public void showPieChart() {
+        mView.showPieChart();
+    }
+
+    @Override
+    public void showBartChart() {
+        mView.showBartChart();
+    }
 }

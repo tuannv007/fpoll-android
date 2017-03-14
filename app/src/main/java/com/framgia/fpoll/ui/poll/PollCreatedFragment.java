@@ -18,6 +18,7 @@ import com.framgia.fpoll.databinding.FragmentCreatedPollBinding;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
+import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 
@@ -112,6 +113,11 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
     @Override
     public void resentError(String msg) {
         ActivityUtil.showToast(getActivity(), msg);
+    }
+
+    @Override
+    public void startUiLinkInviteVote() {
+        startActivity(LinkVoteActivity.getTokenIntent(getActivity(), mLink));
     }
 
     public PollCreatedItem getItem() {
