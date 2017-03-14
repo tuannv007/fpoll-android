@@ -11,7 +11,8 @@ public class Constant {
     public static final String TYPE_IMAGE = "image";
     public static final long TIME_OUT_SERVER = 5;
     public static final String TYPE_DIALOG_FRAGMENT = "type_dialog_fragment";
-
+    public static final int POSITION_LINK_ADMIN = 1;
+    public static final int POSITION_LINK_INVITE = 0;
     public class TypeSetting {
         public static final int TYPE_INPUT_EMAIL = 1;
         public static final int TYPE_INPUT_NAME = 7;

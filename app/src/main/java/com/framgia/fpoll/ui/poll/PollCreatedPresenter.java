@@ -13,7 +13,7 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
 
     @Override
     public void copyLinkInvite() {
-        mView.copyUrl();
+        mView.copyLinkInvite();
     }
 
     @Override
@@ -28,12 +28,11 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
 
     @Override
     public void copyLinkManager() {
-        // TODO: 3/3/2017  copy link manager poll
+        mView.copyLinkManager();
     }
 
     @Override
-    public void viewLinkManager(String idPoll) {
-        // TODO: 3/3/2017 open activity manaer poll
-        mView.startUiPollManager(idPoll);
+    public void viewLinkManager() {
+        mView.startUiPollManager();
     }
 }

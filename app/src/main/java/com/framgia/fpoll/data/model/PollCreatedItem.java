@@ -13,6 +13,16 @@ public class PollCreatedItem extends BaseObservable {
     private String mEmail;
     private String mLink;
     private String mIdPoll;
+    private String mLinkAdmin;
+    @Bindable
+    public String getLinkAdmin() {
+        return mLinkAdmin;
+    }
+
+    public void setLinkAdmin(String linkAdmin) {
+        mLinkAdmin = linkAdmin;
+        notifyPropertyChanged(BR.linkAdmin);
+    }
 
     @Bindable
     public String getUsername() {

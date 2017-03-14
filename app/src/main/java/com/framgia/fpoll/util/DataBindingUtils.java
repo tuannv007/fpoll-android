@@ -352,6 +352,7 @@ public class DataBindingUtils {
                 view.setText(view.getContext().getString(R.string.title_input_edit_option));
                 break;
             default:
+                view.setText(view.getContext().getString(R.string.title_no_setting));
                 break;
         }
     }

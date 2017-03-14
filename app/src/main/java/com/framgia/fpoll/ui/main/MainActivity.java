@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity
                 showHelp();
                 break;
             case R.id.action_history:
-                addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null),
+                addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null,""),
                     R.string.title_history);
                 break;
             case R.id.action_feedback:
