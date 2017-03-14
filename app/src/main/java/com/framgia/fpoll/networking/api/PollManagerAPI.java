@@ -22,4 +22,9 @@ public interface PollManagerAPI {
     Call<ResponseItem> deleteVoting(@Path("token") String token);
     @GET("api/v1/getPollsOfUser")
     Call<ResponseItem<List<HistoryPoll>>> getHistory(@Header("Authorization") String token);
+    @GET("api/v1/getClosedPolls")
+    Call<ResponseItem<List<HistoryPoll>>> getPollClosed(@Header("Authorization") String token);
+    @GET("api/v1/getParticipatedPolls")
+    Call<ResponseItem<List<HistoryPoll>>> getPollParticipated(
+        @Header("Authorization") String token);
 }
