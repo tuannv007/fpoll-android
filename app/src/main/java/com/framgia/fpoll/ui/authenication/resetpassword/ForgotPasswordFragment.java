@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.data.source.remote.resetpassword.ResetDataRepository;
 import com.framgia.fpoll.databinding.FragmentForgotPasswordBinding;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 
 /**
  * Created by tuanbg on 2/21/17.
@@ -20,6 +23,7 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
     private ForgotPasswordPresenter mPresenter;
     private User mUser = new User();
     private FragmentForgotPasswordBinding mBinding;
+    private FPollProgressDialog mDialog;
 
     public static ForgotPasswordFragment newInstance() {
         return new ForgotPasswordFragment();
@@ -29,8 +33,10 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_forgot_password, container,
-            false);
+        mBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_forgot_password, container, false);
+        mPresenter = new ForgotPasswordPresenter(this, mUser, ResetDataRepository
+            .getInstance(getActivity()));
         mBinding.setHandler((new ForgotPasswordActionHandler(mPresenter)));
         mBinding.setPresenter(mPresenter);
         return mBinding.getRoot();
@@ -48,7 +54,27 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
     }
 
     @Override
+    public void onSuccess(ResponseItem data) {
+        ActivityUtil.showToast(getActivity(), data.getMessage().toString());
+    }
+
+    @Override
+    public void onError(String message) {
+        ActivityUtil.showToast(getActivity(), message);
+    }
+
+    @Override
+    public void showDialog() {
+        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
+        mDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+    }
+
+    @Override
     public void start() {
-        mPresenter = new ForgotPasswordPresenter(this, mUser);
     }
 }
