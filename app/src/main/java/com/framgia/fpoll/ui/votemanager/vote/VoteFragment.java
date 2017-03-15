@@ -63,6 +63,9 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public void updateVoteChoice(OptionModel optionModel) {
         optionModel.setChecked(!optionModel.isChecked());
+
+        if (mVoteInfoModel.getVoteInfo().getPoll().isMultiple()) return;
+        //single vote, reset other
         for (int i = 0; i < mVoteInfoModel.getOptionModels().size(); i++) {
             if (optionModel.getOption().getId() !=
                 mVoteInfoModel.getOptionModels().get(i).getOption().getId()) {
