@@ -32,7 +32,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private LoginContract.Presenter mPresenter;
     private AuthenticationActivity.EventSwitchUI mEventSwitchUI;
 
-    public static LoginFragment getInstance(AuthenticationActivity.EventSwitchUI event) {
+    public static LoginFragment newInstance(AuthenticationActivity.EventSwitchUI event) {
         LoginFragment fragment = new LoginFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_EVENT_SWITCH_UI, event);

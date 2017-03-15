@@ -39,7 +39,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     private User mUser = new User();
     private FPollProgressDialog mDialog;
 
-    public static RegisterFragment getInstance(AuthenticationActivity.EventSwitchUI event) {
+    public static RegisterFragment newInstance(AuthenticationActivity.EventSwitchUI event) {
         RegisterFragment fragment = new RegisterFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_EVENT_SWITCH_UI, event);
