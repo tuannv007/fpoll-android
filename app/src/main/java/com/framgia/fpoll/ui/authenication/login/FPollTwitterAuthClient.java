@@ -23,8 +23,8 @@ public class FPollTwitterAuthClient {
     public FPollTwitterAuthClient(Activity activity) {
         mActivity = activity;
         TwitterAuthConfig authConfig =
-            new TwitterAuthConfig(activity.getString(R.string.key_twitter_key),
-                activity.getString(R.string.key_twitter_secret));
+            new TwitterAuthConfig(activity.getString(R.string.TWITTER_KEY),
+                activity.getString(R.string.TWITTER_SECRET));
         Fabric.with(activity, new Twitter(authConfig));
     }
 

@@ -104,7 +104,6 @@
     <string name="message_request_read_pemissions">required reading for image rights</string>
     <string name="msg_login_error">Login fault</string>
     <string name="msg_login_success">Login success</string>
-    <string name="facebook_app_id">1281983528552078</string>
     <string name="title_forgot_password">Reset password</string>
     <string name="action_edit_profile_avatar">Avatar</string>
     <string name="address_edit_profile">Address</string>
@@ -112,9 +111,6 @@
     <string name="title_action_edit_profile">Edit</string>
     <string name="title_edit_profile">Edit Profile</string>
     <string name="msg_copy_success">Copy Successfully</string>
-    <string name="key_twitter_key">jI2vtDHce6rTrGWoyZegvuC4a</string>
-    <string name="key_twitter_secret">U1lCGwnKsXDXoo7s3MpqVq9IDwTQO8b2Dj9QtOYVni2e4irFc0</string>
-    <string name="key_twitter_value">fe4d33bbc6b2a28f96b8d4b8a45c4f8184009d68</string>
     <string name="time_close_vote">Time for close vote :</string>
     <string name="show_vote_details">Show vote details</string>
     <string name="title_no">No</string>
