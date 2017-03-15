@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollCreatedItem;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.source.remote.resentemail.ResentEmailRepository;
 import com.framgia.fpoll.databinding.FragmentCreatedPollBinding;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -56,7 +58,8 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
 
     @Override
     public void start() {
-        mPresenter = new PollCreatedPresenter(this);
+        mPresenter =
+            new PollCreatedPresenter(this, ResentEmailRepository.getInstance(getActivity()));
         mClipboardManager = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
         getData();
     }
@@ -73,6 +76,7 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
         mItem.setLink(Constant.ConstantApi.BASE_URL + mLink);
         mItem.setLinkAdmin(
             Constant.ConstantApi.BASE_URL + mlLinkAdmin);
+        mItem.setIdPoll(item.getId());
     }
 
     @Override
@@ -98,6 +102,16 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
     public void copyLinkManager() {
         if (mItem.getLinkAdmin() == null) return;
         copy(mItem.getLinkAdmin());
+    }
+
+    @Override
+    public void resentSuccess(ResponseItem data) {
+        ActivityUtil.showToast(getActivity(), data.getMessage().toString());
+    }
+
+    @Override
+    public void resentError(String msg) {
+        ActivityUtil.showToast(getActivity(), msg);
     }
 
     public PollCreatedItem getItem() {

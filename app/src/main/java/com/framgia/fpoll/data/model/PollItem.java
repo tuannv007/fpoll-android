@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PollItem implements Parcelable {
+    @SerializedName("id")
+    private int mId;
     @SerializedName("name")
     private String mName;
     @SerializedName("email")
@@ -36,6 +38,39 @@ public class PollItem implements Parcelable {
     private String mPass;
     private boolean mIsHideResult;
     private String mMembers;
+
+    protected PollItem(Parcel in) {
+        mId = in.readInt();
+        mName = in.readString();
+        mEmail = in.readString();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mMultiple = in.readString();
+        mDateClose = in.readString();
+        mLocation = in.readString();
+        mLink = in.createTypedArrayList(PollLink.CREATOR);
+        mIsRequireVote = in.readByte() != 0;
+        mRequiteType = in.readInt();
+        mIsSameEmail = in.readByte() != 0;
+        mIsMaxVote = in.readByte() != 0;
+        mNumMaxVote = in.readInt();
+        mIsHasPass = in.readByte() != 0;
+        mPass = in.readString();
+        mIsHideResult = in.readByte() != 0;
+        mMembers = in.readString();
+    }
+
+    public static final Creator<PollItem> CREATOR = new Creator<PollItem>() {
+        @Override
+        public PollItem createFromParcel(Parcel in) {
+            return new PollItem(in);
+        }
+
+        @Override
+        public PollItem[] newArray(int size) {
+            return new PollItem[size];
+        }
+    };
 
     public List<PollLink> getLink() {
         return mLink;
@@ -186,35 +221,12 @@ public class PollItem implements Parcelable {
     public PollItem() {
     }
 
-    protected PollItem(Parcel in) {
-        mName = in.readString();
-        mEmail = in.readString();
-        mTitle = in.readString();
-        mDescription = in.readString();
-        mMultiple = in.readString();
-        mDateClose = in.readString();
-        mLocation = in.readString();
-        if (in.readByte() == 0x01) {
-            mLink = new ArrayList<PollLink>();
-            in.readList(mLink, PollLink.class.getClassLoader());
-        } else {
-            mLink = null;
-        }
-        mIsRequireVote = in.readByte() != 0x00;
-        mRequiteType = in.readInt();
-        mIsSameEmail = in.readByte() != 0x00;
-        mIsMaxVote = in.readByte() != 0x00;
-        mNumMaxVote = in.readInt();
-        mIsHasPass = in.readByte() != 0x00;
-        mPass = in.readString();
-        mIsHideResult = in.readByte() != 0x00;
-        mMembers = in.readString();
-        if (in.readByte() == 0x01) {
-            mOptionItemList = new ArrayList<OptionItem>();
-            in.readList(mOptionItemList, OptionItem.class.getClassLoader());
-        } else {
-            mOptionItemList = null;
-        }
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
     }
 
     @Override
@@ -224,18 +236,23 @@ public class PollItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeString(mName);
+        dest.writeString(mEmail);
+        dest.writeString(mTitle);
+        dest.writeString(mDescription);
+        dest.writeString(mMultiple);
+        dest.writeString(mDateClose);
+        dest.writeString(mLocation);
+        dest.writeTypedList(mLink);
+        dest.writeByte((byte) (mIsRequireVote ? 1 : 0));
+        dest.writeInt(mRequiteType);
+        dest.writeByte((byte) (mIsSameEmail ? 1 : 0));
+        dest.writeByte((byte) (mIsMaxVote ? 1 : 0));
+        dest.writeInt(mNumMaxVote);
+        dest.writeByte((byte) (mIsHasPass ? 1 : 0));
+        dest.writeString(mPass);
+        dest.writeByte((byte) (mIsHideResult ? 1 : 0));
+        dest.writeString(mMembers);
     }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<PollItem> CREATOR = new Parcelable.Creator<PollItem>() {
-        @Override
-        public PollItem createFromParcel(Parcel in) {
-            return new PollItem(in);
-        }
-
-        @Override
-        public PollItem[] newArray(int size) {
-            return new PollItem[size];
-        }
-    };
 }

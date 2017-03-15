@@ -1,14 +1,20 @@
 package com.framgia.fpoll.ui.poll;
 
+import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.data.source.remote.resentemail.ResentEmailRepository;
+import com.framgia.fpoll.networking.ResponseItem;
+
 /**
  * Created by tuanbg on 2/21/17.
  * <></>
  */
 public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     private PollCreatedContract.View mView;
+    private ResentEmailRepository mRepository;
 
-    public PollCreatedPresenter(PollCreatedContract.View view) {
+    public PollCreatedPresenter(PollCreatedContract.View view, ResentEmailRepository repository) {
         this.mView = view;
+        mRepository = repository;
     }
 
     @Override
@@ -22,8 +28,18 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     }
 
     @Override
-    public void resendEmail() {
-        // TODO: 2/21/17 request server resend email
+    public void resendEmail(int pollId) {
+        mRepository.resentEmail(pollId, new DataCallback<ResponseItem>() {
+            @Override
+            public void onSuccess(ResponseItem data) {
+                mView.resentSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.resentError(msg);
+            }
+        });
     }
 
     @Override
