@@ -25,8 +25,8 @@ public class PermissionsUtil {
                 showConfirmDialog(activity);
             } else {
                 ActivityCompat.requestPermissions(activity, new
-                        String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    Constant.RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL);
+                        String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL);
             }
             return false;
         }
@@ -44,7 +44,7 @@ public class PermissionsUtil {
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.requestPermissions(activity, new
                                 String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            Constant.RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL);
+                            Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL);
                     }
                 })
             .setNegativeButton(android.R.string.no, null);

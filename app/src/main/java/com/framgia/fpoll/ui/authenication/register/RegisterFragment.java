@@ -133,7 +133,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode == Constant.RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL) {
+        if (requestCode == Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL) {
             if (grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 pickImage();

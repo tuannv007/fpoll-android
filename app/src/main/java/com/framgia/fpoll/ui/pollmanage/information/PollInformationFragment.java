@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class PollInformationFragment extends Fragment implements PollInformation
     @Override
     public void startUiVoting() {
         startActivity(new Intent(getContext(), LinkVoteActivity.class));
+        // TODO: 3/13/17 sent token in link vote activity
     }
 
     @Override
