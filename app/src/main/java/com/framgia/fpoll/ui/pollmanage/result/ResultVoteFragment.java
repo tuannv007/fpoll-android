@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_TOKEN;
-import static com.framgia.fpoll.util.Constant.FILE_NAME_SAVED;
-import static com.framgia.fpoll.util.Constant.FPOLL_FOLDER_NAME;
+import static com.framgia.fpoll.util.Constant.Export.FILE_NAME_SAVED_EXCEL;
+import static com.framgia.fpoll.util.Constant.Export.FPOLL_FOLDER_NAME;
 import static com.framgia.fpoll.util.TimeUtil.getCurentTime;
 
 /**
@@ -100,24 +100,22 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
     }
 
     @Override
+    public boolean isAllowPermissions() {
+        return PermissionsUtil.isAllowPermissions(getActivity());
+    }
+
+    @Override
     public void start() {
         File exportDir =
             new File(Environment.getExternalStorageDirectory(), FPOLL_FOLDER_NAME);
         if (!exportDir.exists()) exportDir.mkdirs();
-        mFile = new File(exportDir, getCurentTime() + FILE_NAME_SAVED);
+        mFile = new File(exportDir, getCurentTime() + FILE_NAME_SAVED_EXCEL);
     }
 
     public void getDataFromIntent() {
         Bundle bundle = getArguments();
         if (bundle == null) return;
         mToken = bundle.getString(KEY_TOKEN);
-    }
-
-    @Override
-    public void startExport() {
-        if (PermissionsUtil.isAllowPermissions(getActivity())) {
-            mPresenter.export();
-        }
     }
 
     public ObservableField<ResultVoteAdapter> getAdapter() {
@@ -129,7 +127,8 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
                                            @NonNull int[] grantResults) {
         if (requestCode == Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mPresenter.export();
+                if (mPresenter.getKey() == Constant.Export.TYPE_EXPORT_PDF) mPresenter.exportPDF();
+                else mPresenter.exportExcel();
             } else {
                 ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
             }

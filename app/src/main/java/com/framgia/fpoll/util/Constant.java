@@ -105,8 +105,13 @@ public class Constant {
         public static final int EMAIL_NOT_DUPLICATE = 10;
         public static final int OPTION_EDITABLE = 11;
     }
-    public static final String FILE_NAME_SAVED = "_save_file.xls";
-    public static final String TITLE_NAME = "name";
-    public static final String TITLE_VOTE = "vote";
-    public static final String FPOLL_FOLDER_NAME = "save_report";
+
+    public class Export {
+        public static final String FILE_NAME_SAVED_PDF = "_save_file.pdf";
+        public static final String FILE_NAME_SAVED_EXCEL = "_save_file.xls";
+        public static final String TITLE_NAME = "name";
+        public static final String TITLE_VOTE = "vote";
+        public static final String FPOLL_FOLDER_NAME = "save_report";
+        public static final int TYPE_EXPORT_PDF = 1;
+    }
 }

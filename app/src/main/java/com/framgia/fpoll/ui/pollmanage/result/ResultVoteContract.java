@@ -16,7 +16,7 @@ public class ResultVoteContract {
         void showDialog();
         void exportError();
         void exportSuccess(String path);
-        void startExport();
+        boolean isAllowPermissions();
     }
 
     interface Presenter {
@@ -24,6 +24,6 @@ public class ResultVoteContract {
         void exportPDF();
         void exportExcel();
         void getAllData(@NonNull String token);
-        void export();
+        int getKey();
     }
 }

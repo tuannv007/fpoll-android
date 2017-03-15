@@ -20,8 +20,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
-public class CreatePollFragment extends Fragment
-    implements DatePickerDialog.OnDateSetListener
+public class CreatePollFragment extends Fragment implements DatePickerDialog.OnDateSetListener
     , TimePickerDialog.OnTimeSetListener
     , CreationContract.View {
     private FragmentCreatePollBinding mBinding;

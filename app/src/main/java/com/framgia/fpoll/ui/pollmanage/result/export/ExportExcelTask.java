@@ -11,16 +11,16 @@ import java.util.List;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
-import static com.framgia.fpoll.util.Constant.TITLE_NAME;
-import static com.framgia.fpoll.util.Constant.TITLE_VOTE;
+import static com.framgia.fpoll.util.Constant.Export.TITLE_NAME;
+import static com.framgia.fpoll.util.Constant.Export.TITLE_VOTE;
 
-public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
+public class ExportExcelTask extends AsyncTask<Void, String, String> {
     private File mFile;
     private List<ResultVoteItem.Result> mList;
     private CallBackExport mCallBackExport;
 
-    public ExportDatabaseCSVTask(File file, List<ResultVoteItem.Result> list,
-                                 CallBackExport callBackExport) {
+    public ExportExcelTask(File file, List<ResultVoteItem.Result> list,
+                           CallBackExport callBackExport) {
         mFile = file;
         mList = list;
         mCallBackExport = callBackExport;
@@ -49,7 +49,7 @@ public class ExportDatabaseCSVTask extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected String doInBackground(Void... params) {
         return export();
     }
 

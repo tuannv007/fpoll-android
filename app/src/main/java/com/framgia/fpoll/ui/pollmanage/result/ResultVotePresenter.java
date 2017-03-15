@@ -5,7 +5,9 @@ import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.resultvote.ResultVoteDataRepository;
 import com.framgia.fpoll.networking.ResponseItem;
-import com.framgia.fpoll.ui.pollmanage.result.export.ExportDatabaseCSVTask;
+import com.framgia.fpoll.ui.pollmanage.result.export.ExportExcelTask;
+import com.framgia.fpoll.ui.pollmanage.result.export.ExportPdfTask;
+import com.framgia.fpoll.util.Constant;
 
 import java.io.File;
 import java.util.List;
@@ -18,6 +20,7 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
     private ResultVoteContract.View mView;
     private List<ResultVoteItem.Result> mList;
     private File mFile;
+    private int mKey;
 
     public ResultVotePresenter(ResultVoteDataRepository repository, ResultVoteContract.View view,
                                List<ResultVoteItem.Result> list, File file) {
@@ -34,18 +37,9 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
 
     @Override
     public void exportPDF() {
-        // TODO: 3/12/17 export pdf
-    }
-
-    @Override
-    public void exportExcel() {
-        mView.startExport();
-    }
-
-    @Override
-    public void export() {
-        new ExportDatabaseCSVTask(mFile, mList,
-            new ExportDatabaseCSVTask.CallBackExport() {
+        mKey = Constant.Export.TYPE_EXPORT_PDF;
+        if (mView.isAllowPermissions()) {
+            new ExportPdfTask(mList, new ExportExcelTask.CallBackExport() {
                 @Override
                 public void onExportError() {
                     mView.exportError();
@@ -56,6 +50,24 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
                     mView.exportSuccess(path);
                 }
             }).execute();
+        }
+    }
+
+    @Override
+    public void exportExcel() {
+        if (mView.isAllowPermissions()) {
+            new ExportExcelTask(mFile, mList, new ExportExcelTask.CallBackExport() {
+                @Override
+                public void onExportError() {
+                    mView.exportError();
+                }
+
+                @Override
+                public void onExportSuccess(String path) {
+                    mView.exportSuccess(path);
+                }
+            }).execute();
+        }
     }
 
     @Override
@@ -74,5 +86,10 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
                 mView.dismissDialog();
             }
         });
+    }
+
+    @Override
+    public int getKey() {
+        return mKey;
     }
 }
