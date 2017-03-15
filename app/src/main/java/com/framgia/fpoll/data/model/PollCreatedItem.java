@@ -12,7 +12,7 @@ public class PollCreatedItem extends BaseObservable {
     private String mUsername;
     private String mEmail;
     private String mLink;
-    private String mIdPoll;
+    private int mIdPoll;
     private String mLinkAdmin;
     @Bindable
     public String getLinkAdmin() {
@@ -40,7 +40,7 @@ public class PollCreatedItem extends BaseObservable {
     }
 
     @Bindable
-    public String getIdPoll() {
+    public int getIdPoll() {
         return mIdPoll;
     }
 
@@ -59,7 +59,7 @@ public class PollCreatedItem extends BaseObservable {
         notifyPropertyChanged(BR.link);
     }
 
-    public void setIdPoll(String idPoll) {
+    public void setIdPoll(int idPoll) {
         this.mIdPoll = idPoll;
         notifyPropertyChanged(BR.idPoll);
     }

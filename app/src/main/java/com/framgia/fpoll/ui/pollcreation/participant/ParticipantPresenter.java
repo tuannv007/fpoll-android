@@ -31,6 +31,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
             @Override
             public void onSuccess(PollItem data) {
                 if (mView != null) {
+                    mPollItem.setId(data.getId());
                     mPollItem.setLink(data.getLink());
                     mView.hideDialog();
                     mView.nextStep();

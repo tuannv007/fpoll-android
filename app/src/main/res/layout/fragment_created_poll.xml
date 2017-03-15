@@ -48,7 +48,7 @@
 
         <TextView
             style="@style/TextViewStatusPoll"
-            android:onClick="@{() -> handler.reSendEmail()}"
+            android:onClick="@{() -> handler.reSendEmail(fragment.item.idPoll)}"
             android:text="@string/msg_click_send_email"
             android:textColor="@color/color_blue"
             android:textSize="@dimen/sp_17"/>

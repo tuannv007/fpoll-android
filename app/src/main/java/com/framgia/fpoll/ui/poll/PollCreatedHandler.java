@@ -12,9 +12,9 @@ public class PollCreatedHandler {
         mListener = presenter;
     }
 
-    public void reSendEmail() {
+    public void reSendEmail(int pollId) {
         if (mListener == null) return;
-        mListener.resendEmail();
+        mListener.resendEmail(pollId);
     }
 
     public void copyLinkInvite() {
