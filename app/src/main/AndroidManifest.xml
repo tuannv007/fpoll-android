@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".ui.authenication.activity.AuthenticationActivity"/>
         <activity android:name=".ui.pollmanage.ManagePollActivity"/>
+        <activity android:name=".ui.polledition.ModifyPollActivity"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"

@@ -1,0 +1,39 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.polledition.ModifyPollPresenter"/>
+        <variable
+            name="activity"
+            type="com.framgia.fpoll.ui.polledition.ModifyPollActivity"/>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_teal_600"
+            app:tabBackground="@color/color_teal_600"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/color_white"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/color_white"
+            app:tabTextColor="@color/color_grey_200"
+            bind:viewPager="@{viewPager}"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:adapterViewPager="@{activity.adapter}"/>
+    </LinearLayout>
+</layout>

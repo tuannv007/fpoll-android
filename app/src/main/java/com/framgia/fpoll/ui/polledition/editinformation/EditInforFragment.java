@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.pollcreation.infomation;
+package com.framgia.fpoll.ui.polledition.editinformation;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollInformation;
-import com.framgia.fpoll.data.model.PollItem;
-import com.framgia.fpoll.databinding.FragmentCreatePollBinding;
-import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
+import com.framgia.fpoll.databinding.FragmentEditInforBinding;
+import com.framgia.fpoll.ui.pollcreation.infomation.CreationContract;
+import com.framgia.fpoll.ui.pollcreation.infomation.CreationPresenter;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -20,28 +20,32 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
-public class CreatePollFragment extends Fragment implements DatePickerDialog.OnDateSetListener
+/**
+ * Created by framgia on 16/03/2017.
+ */
+public class EditInforFragment extends Fragment
+    implements DatePickerDialog.OnDateSetListener
     , TimePickerDialog.OnTimeSetListener
     , CreationContract.View {
-    private FragmentCreatePollBinding mBinding;
+    private FragmentEditInforBinding mBinding;
     private CreationContract.Presenter mPresenter;
     public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
     private PollInformation mPollInformation = new PollInformation();
     private Calendar mSavePickCalendar = Calendar.getInstance();
 
-    public static CreatePollFragment newInstance() {
-        return new CreatePollFragment();
+    public static EditInforFragment newInstance() {
+        return new EditInforFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_create_poll, container, false);
+            DataBindingUtil.inflate(inflater, R.layout.fragment_edit_infor, container, false);
         mPresenter = new CreationPresenter(this, mPollInformation);
         mBinding.setInformation(mPollInformation);
-        mBinding.setHandler(new CreatePollActionHandle(mPresenter));
-        mBinding.setPresenter((CreationPresenter) mPresenter);
+        mBinding.setHandler(new EditInforHandle(mPresenter));
+        mBinding.setPresenter((EditInforPresenter) mPresenter);
         mBinding.setFragment(this);
         mTime.set(mSavePickCalendar);
         return mBinding.getRoot();
@@ -96,18 +100,6 @@ public class CreatePollFragment extends Fragment implements DatePickerDialog.OnD
 
     @Override
     public void nextStep() {
-        PollItem pollItem = new PollItem();
-        pollItem.setEmail(mPollInformation.getEmail());
-        pollItem.setTitle(mPollInformation.getPollTitle());
-        pollItem.setName(mPollInformation.getUserName());
-        pollItem.setDescription(mPollInformation.getDescription());
-        pollItem.setMultiple(String.valueOf(mPollInformation.getMultiple()));
-        pollItem.setLocation(mPollInformation.getLocation());
-        pollItem.setDateClose(mBinding.edtChooseTime.getText().toString());
-        getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, OptionPollFragment.newInstance(pollItem), null)
-            .addToBackStack(null)
-            .commit();
     }
 
     @Override
