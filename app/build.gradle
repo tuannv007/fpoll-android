@@ -8,6 +8,10 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.framgia.fpoll"
+        resValue "string", "FACEBOOK_KEY", FACEBOOK_KEY
+        resValue "string", "TWITTER_VALUE", TWITTER_VALUE
+        resValue "string", "TWITTER_SECRET", TWITTER_SECRET
+        resValue "string", "TWITTER_KEY", TWITTER_KEY
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
