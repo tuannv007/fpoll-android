@@ -43,7 +43,6 @@ public class Constant {
         public static final String DATA_PLASH = "/";
         public static final String DATA_NO_TITLE = "";
         public static final String DATA_PREFIX_TOKEN = "Bearer ";
-
     }
 
     public static class BundleConstant {
@@ -91,5 +90,18 @@ public class Constant {
     public static class ConstantResponseCode {
         public static final int API_RESPONSE_CODE_OK = 200;
         public static final int API_RESPONSE_UN_PROCESSABLE = 442;
+    }
+
+    public static class Setting {
+        public static final int EMAIL_REQUIRED = 1;
+        public static final int HIDDEN_RESULT = 2;
+        public static final int LINK_EDITABLE = 3;
+        public static final int LIMIT_VOTE_NUMBER = 4;
+        public static final int PASSWORD_REQUIRED = 5;
+        public static final int NAME_REQUIRED = 7;
+        public static final int NAME_AND_EMAIL_REQUIRED = 8;
+        public static final int CAN_ADD_OPTION = 9;
+        public static final int EMAIL_NOT_DUPLICATE = 10;
+        public static final int OPTION_EDITABLE = 11;
     }
 }

@@ -4,9 +4,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.poll.Setting;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
@@ -16,11 +18,15 @@ import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
+import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.widget.PasswordAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContract.View {
+public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContract.View,
+    PasswordAlertDialog.PasswordDialogCallback {
     private ActivityLinkVoteBinding mBinding;
     private LinkVoteContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
@@ -34,6 +40,7 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         mPresenter = new LinkVotePresenter(this, VoteInfoRepository.getInstance(this));
         //TODO get link vote token by intent
         String token = "";
+        if (TextUtils.isEmpty(token)) return;
         mPresenter.getVoteInfo(token);
     }
 
@@ -50,13 +57,58 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
 
     @Override
     public void onGetVoteInfoSuccess(VoteInfo voteInfo) {
-        mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
         mVoteInfoModel.setVoteInfo(voteInfo);
         List<OptionModel> list = new ArrayList<>();
         for (int i = 0; i < voteInfo.getPoll().getOptions().size(); i++) {
             list.add(new OptionModel(voteInfo.getPoll().getOptions().get(i), false));
         }
         mVoteInfoModel.setOptionModels(list);
+        List<Setting> settingList = voteInfo.getPoll().getSettings();
+        for (int i = 0; i < settingList.size(); i++) {
+            switch (settingList.get(i).getKey()) {
+                case Constant.Setting.NAME_REQUIRED:
+                    mVoteInfoModel.setNameRequired(true);
+                    break;
+                case Constant.Setting.EMAIL_REQUIRED:
+                    mVoteInfoModel.setEmailRequired(true);
+                    break;
+                case Constant.Setting.NAME_AND_EMAIL_REQUIRED:
+                    mVoteInfoModel.setEmailAndNameRequired(true);
+                    break;
+                case Constant.Setting.HIDDEN_RESULT:
+                    mVoteInfoModel.setHiddenResult(true);
+                    break;
+                case Constant.Setting.LINK_EDITABLE:
+                    if (settingList.get(i).getValue() == null) break;
+                    mVoteInfoModel.setLinkEdited(settingList.get(i).getValue());
+                    break;
+                case Constant.Setting.LIMIT_VOTE_NUMBER:
+                    if (settingList.get(i).getValue() == null) break;
+                    mVoteInfoModel
+                        .setNumberVoteLimit(Integer.parseInt(settingList.get(i).getValue()));
+                    break;
+                case Constant.Setting.OPTION_EDITABLE:
+                    mVoteInfoModel.setOptionEditable(true);
+                    break;
+                case Constant.Setting.PASSWORD_REQUIRED:
+                    if (settingList.get(i).getValue() == null) break;
+                    mVoteInfoModel.setPasswordRequired(settingList.get(i).getValue());
+                    break;
+                case Constant.Setting.EMAIL_NOT_DUPLICATE:
+                    mVoteInfoModel.setSpecificEmail(true);
+                    break;
+                case Constant.Setting.CAN_ADD_OPTION:
+                    mVoteInfoModel.setAbleToAddOption(true);
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (mVoteInfoModel.getPasswordRequired() != null) {
+            PasswordAlertDialog.newInstance().show(getSupportFragmentManager(), "");
+        } else {
+            mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+        }
     }
 
     @Override
@@ -76,6 +128,21 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         fragments.add(VoteResultFragment.newInstance());
         String[] titles = getResources().getStringArray(R.array.array_vote);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
+    }
+
+    @Override
+    public void onClickOK(String passwordInput) {
+        if (mVoteInfoModel.getPasswordRequired().equals(passwordInput)) {
+            mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+        } else {
+            ActivityUtil.showToast(this, getString(R.string.msg_confirm_pass_not_success));
+            PasswordAlertDialog.newInstance().show(getSupportFragmentManager(), "");
+        }
+    }
+
+    @Override
+    public void onClickCancel() {
+        finish();
     }
 
     public ViewPagerAdapter getAdapter() {
