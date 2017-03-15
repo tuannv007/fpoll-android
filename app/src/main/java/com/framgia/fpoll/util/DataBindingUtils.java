@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
@@ -39,6 +40,7 @@ import com.facebook.share.widget.ShareButton;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.databinding.PartialHeadBinding;
+import com.framgia.fpoll.ui.authenication.login.LoginType;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
@@ -97,9 +99,25 @@ public class DataBindingUtils {
             });
     }
 
-    @BindingAdapter("bind:background")
-    public static void setCardBackground(CardView view, int color) {
-        view.setCardBackgroundColor(color);
+    @BindingAdapter("bind:cardBackground")
+    public static void setCardBackground(CardView view, LoginType typeLogin) {
+        if (typeLogin == null) typeLogin = LoginType.GOOGLE;
+        switch (typeLogin) {
+            case FACEBOOK:
+                view.setCardBackgroundColor(
+                    ContextCompat.getColor(view.getContext(), R.color.color_indigo_600));
+                break;
+            case GOOGLE:
+                view.setCardBackgroundColor(
+                    ContextCompat.getColor(view.getContext(), R.color.color_red_500));
+                break;
+            case TWITTER:
+                view.setCardBackgroundColor(
+                    ContextCompat.getColor(view.getContext(), R.color.color_blue));
+                break;
+            default:
+                break;
+        }
     }
 
     @BindingAdapter(value = {"bind:selectedValue", "bind:selectedValueAttrChanged"},

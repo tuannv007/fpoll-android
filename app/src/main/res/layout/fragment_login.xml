@@ -103,7 +103,6 @@
 
             <include
                 layout="@layout/partial_button_login"
-                bind:colorButton="@{@color/color_indigo_600}"
                 bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_facebook}"
                 bind:titleLogin="@{@string/text_facebook}"
@@ -111,7 +110,6 @@
 
             <include
                 layout="@layout/partial_button_login"
-                bind:colorButton="@{@color/color_orange_700}"
                 bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_google}"
                 bind:titleLogin="@{@string/text_google}"
@@ -119,7 +117,6 @@
 
             <include
                 layout="@layout/partial_button_login"
-                bind:colorButton="@{@color/color_blue}"
                 bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_twitter}"
                 bind:titleLogin="@{@string/text_twitter}"

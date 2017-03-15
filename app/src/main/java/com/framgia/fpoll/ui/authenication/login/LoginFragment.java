@@ -14,6 +14,7 @@ import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.FragmentLoginBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,7 +46,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
         mPresenter = new LoginPresenter(this, new FPollGoogleApiClient(getActivity()),
-            new FPollTwitterAuthClient(getActivity()), LoginRepository.getInstance(getActivity()));
+            new FPollTwitterAuthClient(getActivity()), LoginRepository.getInstance(getActivity()),
+            SharePreferenceUtil.getIntances(getActivity()));
         mBinding.setPresenter((LoginPresenter) mPresenter);
         mBinding.setHandler(new LoginActionHandler(mPresenter));
         mPresenter.initGoogle();

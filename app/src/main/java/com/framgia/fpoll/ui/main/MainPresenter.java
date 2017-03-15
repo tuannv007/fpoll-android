@@ -4,6 +4,7 @@ import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -14,10 +15,14 @@ public class MainPresenter implements MainContract.Presenter {
     private User mUser = new User();
     private LoginRepository mRepository;
     private String mToken = ""; // Token after login
+    private SharePreferenceUtil mPreference;
 
-    public MainPresenter(MainContract.View view, @NonNull LoginRepository repository) {
+    public MainPresenter(MainContract.View view, @NonNull LoginRepository repository,
+                         @NonNull SharePreferenceUtil preference) {
         mView = view;
         mRepository = repository;
+        mPreference = preference;
+        mUser = mPreference.getUser();
         mView.start();
     }
 
