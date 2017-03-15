@@ -211,4 +211,6 @@
     <string name="title_no_setting">No Setting</string>
     <string name="msg_export_success">Export successful! File saved </string>
     <string name="msg_export_error">Export error</string>
+    <string name="text_votes">Votes</string>
+    <string name="text_options">Options</string>
 </resources>
