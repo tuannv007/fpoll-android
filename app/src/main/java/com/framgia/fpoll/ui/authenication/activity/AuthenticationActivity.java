@@ -16,7 +16,6 @@ import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginFragment;
 import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
 import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
-import com.framgia.fpoll.util.ActivityUtil;
 
 /**
  * Created by tuanbg on 2/9/17.
@@ -26,6 +25,9 @@ public class AuthenticationActivity extends AppCompatActivity
     implements AuthenticationContract.View {
     private ActivityAuthenticationBinding mBinding;
     private AuthenticationContract.Presenter mPresenter;
+    private LoginFragment mLoginFragment;
+    private RegisterFragment mRegisterFragment;
+    private ForgotPasswordFragment mPasswordFragment;
     private EventSwitchUI mEventSwitchUI = new EventSwitchUI() {
         @Override
         public int describeContents() {
@@ -38,17 +40,17 @@ public class AuthenticationActivity extends AppCompatActivity
 
         @Override
         public void switchUiForgotPassword() {
-            addFragment(ForgotPasswordFragment.newInstance(), R.string.title_forgot_password);
+            showForgotPasswordFragment();
         }
 
         @Override
         public void switchUiRegister() {
-            addFragment(RegisterFragment.getInstance(mEventSwitchUI), R.string.title_register);
+            showRegisterFragment();
         }
 
         @Override
         public void switchUiLogin() {
-            addFragment(LoginFragment.getInstance(mEventSwitchUI), R.string.title_login);
+            showLoginFragment();
         }
     };
 
@@ -64,17 +66,14 @@ public class AuthenticationActivity extends AppCompatActivity
     }
 
     @Override
-    public void addFragment(Fragment fragment, int stringResource) {
-        ActivityUtil
-            .addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.frame_layout);
-        setTitle(stringResource);
-    }
-
-    @Override
     public void start() {
         setSupportActionBar(mBinding.layoutToolbar.toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        addFragment(LoginFragment.getInstance(mEventSwitchUI), R.string.title_login);
+        mLoginFragment = LoginFragment.newInstance(mEventSwitchUI);
+        mRegisterFragment = RegisterFragment.newInstance(mEventSwitchUI);
+        mPasswordFragment = ForgotPasswordFragment.newInstance();
+        addFragment();
+        showLoginFragment();
     }
 
     @Override
@@ -90,6 +89,53 @@ public class AuthenticationActivity extends AppCompatActivity
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void addFragment() {
+        getSupportFragmentManager().beginTransaction()
+            .add(R.id.frame_layout, mLoginFragment, getString(R.string.title_login))
+            .add(R.id.frame_layout, mRegisterFragment, getString(R.string.title_register))
+            .add(R.id.frame_layout, mPasswordFragment, getString(R.string.title_forgot_password))
+            .addToBackStack(null)
+            .commit();
+    }
+
+    private void showLoginFragment() {
+        getSupportFragmentManager().beginTransaction()
+            .show(mLoginFragment)
+            .hide(mRegisterFragment)
+            .hide(mPasswordFragment)
+            .commit();
+        setTitle(R.string.title_login);
+    }
+
+    private void showForgotPasswordFragment() {
+        getSupportFragmentManager().beginTransaction()
+            .show(mPasswordFragment)
+            .hide(mRegisterFragment)
+            .hide(mLoginFragment)
+            .commit();
+        setTitle(R.string.title_forgot_password);
+    }
+
+    private void showRegisterFragment() {
+        getSupportFragmentManager().beginTransaction()
+            .show(mRegisterFragment)
+            .hide(mLoginFragment)
+            .hide(mPasswordFragment)
+            .commit();
+        setTitle(R.string.title_register);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment =
+            getSupportFragmentManager().findFragmentByTag(getString(R.string.title_login));
+        if (fragment == null || (fragment instanceof LoginFragment && fragment.isVisible())) {
+            finish();
+            return;
+        }
+        showLoginFragment();
     }
 
     public interface EventSwitchUI extends Parcelable {

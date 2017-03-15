@@ -1,7 +1,5 @@
 package com.framgia.fpoll.ui.authenication.activity;
 
-import android.support.v4.app.Fragment;
-
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -10,7 +8,6 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public interface AuthenticationContract {
     interface View extends BaseView {
-        void addFragment(Fragment fragment, int stringResource);
     }
 
     interface Presenter {
