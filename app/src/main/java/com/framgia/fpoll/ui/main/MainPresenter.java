@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.main;
 
+import android.databinding.ObservableBoolean;
+
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -16,6 +18,7 @@ public class MainPresenter implements MainContract.Presenter {
     private LoginRepository mRepository;
     private String mToken = ""; // Token after login
     private SharePreferenceUtil mPreference;
+    private final ObservableBoolean mIsLogin = new ObservableBoolean(true);
 
     public MainPresenter(MainContract.View view, @NonNull LoginRepository repository,
                          @NonNull SharePreferenceUtil preference) {
@@ -24,6 +27,11 @@ public class MainPresenter implements MainContract.Presenter {
         mPreference = preference;
         mUser = mPreference.getUser();
         mView.start();
+    }
+
+    @Override
+    public void updateProfile() {
+        if (mView != null) mView.startUiProfileEdition();
     }
 
     @Override
@@ -44,5 +52,9 @@ public class MainPresenter implements MainContract.Presenter {
 
     public User getUser() {
         return mUser;
+    }
+
+    public ObservableBoolean getIsLogin() {
+        return mIsLogin;
     }
 }

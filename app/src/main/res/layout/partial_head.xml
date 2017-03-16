@@ -5,6 +5,15 @@
 
     <data>
 
+
+        <variable
+            name="isLogin"
+            type="java.lang.Boolean"/>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.main.MainHandler"/>
+
         <variable
             name="user"
             type="com.framgia.fpoll.data.model.authorization.User"/>
@@ -24,6 +33,8 @@
             android:layout_width="@dimen/dp_86"
             android:layout_height="@dimen/dp_86"
             android:layout_marginLeft="@dimen/dp_16"
+            android:clickable="@{isLogin}"
+            android:onClick="@{()->handler.clickUpdateProfile()}"
             android:scaleType="fitXY"
             bind:bindError="@{@drawable/ic_fpoll_logo}"
             bind:bindImage="@{user.avatar}"/>

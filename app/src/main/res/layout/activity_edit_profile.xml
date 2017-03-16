@@ -1,34 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="handler"
-            type="com.framgia.fpoll.ui.authenication.register.RegisterItemActionHandle"/>
+            name="presenter"
+            type="com.framgia.fpoll.ui.editprofile.EditProfilePresenter"/>
 
         <variable
-            name="presenter"
-            type="com.framgia.fpoll.ui.authenication.register.RegisterPresenter"/>
-
+            name="handler"
+            type="com.framgia.fpoll.ui.editprofile.EditProfileHandle"/>
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_30"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_16">
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_toolbar"
+                layout="@layout/partial_toolbar"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_16">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_150"
+                    android:layout_height="@dimen/dp_150"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:background="@drawable/bg_edit_text"
+                    android:onClick="@{() -> handler.openGallery()}"
+                    bind:imagePath="@{presenter.user.avatar}"/>
 
                 <LinearLayout
                     style="@style/RegisterLayoutStyle">
@@ -65,7 +79,6 @@
                 <LinearLayout
                     style="@style/RegisterLayoutStyle">
 
-
                     <ImageView
                         style="@style/RegisterImageViewStyle"
                         android:src="@drawable/ic_male"/>
@@ -84,7 +97,6 @@
                     <ImageView
                         style="@style/RegisterImageViewStyle"
                         android:src="@drawable/ic_vpn_key_white_24px"/>
-
 
                     <EditText
                         style="@style/RegisterEditTextStyle"
@@ -107,60 +119,17 @@
                         android:text="@={presenter.user.confirmPassword}"/>
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_50"
-                    android:layout_margin="@dimen/dp_8"
-                    android:background="@drawable/bg_edit_text"
-                    android:onClick="@{() -> handler. openGallery()}"
-                    android:padding="@dimen/dp_5"
-                    bind:imagePath="@{presenter.user.avatar}"/>
-
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_5"
+                    android:layout_margin="@dimen/dp_8"
                     android:background="@color/color_tit_register"
-                    android:onClick="@{() -> handler.registerUser()}"
-                    android:text="@string/action_register"
+                    android:onClick="@{() -> handler.submitEditProfile()}"
+                    android:text="@string/title_action_edit_profile"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"/>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_weight="1"
-                    android:onClick="@{()->handler.clickSwitchUiLogin()}"
-                    android:paddingBottom="@dimen/dp_8"
-                    android:paddingLeft="@dimen/dp_4"
-                    android:paddingRight="@dimen/dp_4"
-                    android:paddingTop="@dimen/dp_8"
-                    android:text="@string/action_login"
-                    android:textColor="@color/color_blued"
-                    android:textSize="@dimen/sp_17"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:onClick="@{()->handler.clickSwitchUiForgotPassword()}"
-                    android:paddingBottom="@dimen/dp_8"
-                    android:paddingLeft="@dimen/dp_4"
-                    android:paddingRight="@dimen/dp_4"
-                    android:paddingTop="@dimen/dp_8"
-                    android:text="@string/action_forgot_password"
-                    android:textColor="@color/color_blued"
-                    android:textSize="@dimen/sp_17"/>
-            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 </layout>

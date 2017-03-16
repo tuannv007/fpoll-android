@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.authorization.LoginNormalData;
 import com.framgia.fpoll.data.model.authorization.SocialData;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 
 /**
@@ -63,6 +64,22 @@ public class LoginRepository implements LoginDataSource {
         mDataSource.logout(header, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void updateProfile(@NonNull User user, @NonNull final DataCallback<User> callback) {
+        if (mDataSource == null) return;
+        mDataSource.updateProfile(user, new DataCallback<User>() {
+            @Override
+            public void onSuccess(User data) {
                 callback.onSuccess(data);
             }
 

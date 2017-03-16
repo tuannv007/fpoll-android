@@ -13,9 +13,11 @@ public interface MainContract {
         void showHelp();
         void addFragment(Fragment fragment, int title);
         void showMessage(String data);
+        void startUiProfileEdition();
     }
 
     interface Presenter {
         void logout();
+        void updateProfile();
     }
 }
