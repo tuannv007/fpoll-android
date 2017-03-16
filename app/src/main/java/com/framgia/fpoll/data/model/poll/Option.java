@@ -27,7 +27,7 @@ public class Option extends BaseObservable implements Parcelable {
     @SerializedName("updated_at")
     private String mUpdatedTime;
     @SerializedName("users")
-    private List<Vote> mVotes;
+    private List<ParticipantVotes> mVotes;
     @SerializedName("participants")
     private List<ParticipantVotes> mParticipantVotes;
 
@@ -86,7 +86,7 @@ public class Option extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.updatedTime);
     }
 
-    public void setVotes(List<Vote> votes) {
+    public void setVotes(List<ParticipantVotes> votes) {
         mVotes = votes;
         notifyPropertyChanged(BR.votes);
     }
@@ -95,7 +95,6 @@ public class Option extends BaseObservable implements Parcelable {
         mParticipantVotes = participantVotes;
         notifyPropertyChanged(BR.participantVotes);
     }
-
 
     @Bindable
     public String getImage() {
@@ -118,7 +117,7 @@ public class Option extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public List<Vote> getVotes() {
+    public List<ParticipantVotes> getVotes() {
         return mVotes;
     }
 

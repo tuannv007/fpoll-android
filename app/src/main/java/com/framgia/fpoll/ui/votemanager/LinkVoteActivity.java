@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.votemanager;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,8 +27,6 @@ import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.widget.PasswordAlertDialog;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 
@@ -35,10 +35,18 @@ import java.util.List;
 
 public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContract.View,
     PasswordAlertDialog.PasswordDialogCallback {
+    private static final String EXTRA_TOKEN = "EXTRA_TOKEN";
     private ActivityLinkVoteBinding mBinding;
     private LinkVoteContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
     private VoteInfoModel mVoteInfoModel;
+    private String mToken;
+
+    public static Intent getTokenIntent(Context context, String token) {
+        Intent intent = new Intent(context, LinkVoteActivity.class);
+        intent.putExtra(EXTRA_TOKEN, token);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +54,10 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_link_vote);
         mBinding.setActivity(this);
         mPresenter = new LinkVotePresenter(this, VoteInfoRepository.getInstance(this));
-        //TODO get link vote token by intent
-        String token = "";
-        if (TextUtils.isEmpty(token)) return;
-        mPresenter.getVoteInfo(token);
+        if (getIntent() == null) return;
+        mToken = getIntent().getStringExtra(EXTRA_TOKEN);
+        if (TextUtils.isEmpty(mToken)) return;
+        mPresenter.getVoteInfo(mToken);
     }
 
     @Override
@@ -66,6 +74,7 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
     @Override
     public void onGetVoteInfoSuccess(VoteInfo voteInfo) {
         mVoteInfoModel.setVoteInfo(voteInfo);
+        mVoteInfoModel.setToken(mToken);
         setListOptionModel(voteInfo);
         setListVoteSetting(voteInfo);
         setChartData();

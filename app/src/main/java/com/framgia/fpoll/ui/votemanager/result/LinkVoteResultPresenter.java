@@ -15,7 +15,7 @@ public class LinkVoteResultPresenter implements LinkVoteResultContract.Presenter
 
     @Override
     public void openVoteDetail(Option option) {
-        //TODO open Vote detail
         mView.showDetail(option);
     }
 }
+
