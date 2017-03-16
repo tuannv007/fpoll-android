@@ -26,9 +26,9 @@ import java.util.Calendar;
 public class EditInforFragment extends Fragment
     implements DatePickerDialog.OnDateSetListener
     , TimePickerDialog.OnTimeSetListener
-    , CreationContract.View {
+    , EditInforContract.View {
     private FragmentEditInforBinding mBinding;
-    private CreationContract.Presenter mPresenter;
+    private EditInforContract.Presenter mPresenter;
     public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
     private PollInformation mPollInformation = new PollInformation();
     private Calendar mSavePickCalendar = Calendar.getInstance();
@@ -42,7 +42,7 @@ public class EditInforFragment extends Fragment
                              Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_edit_infor, container, false);
-        mPresenter = new CreationPresenter(this, mPollInformation);
+        mPresenter = new EditInforPresenter(this, mPollInformation);
         mBinding.setInformation(mPollInformation);
         mBinding.setHandler(new EditInforHandle(mPresenter));
         mBinding.setPresenter((EditInforPresenter) mPresenter);

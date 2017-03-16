@@ -6,9 +6,9 @@ import com.framgia.fpoll.ui.pollcreation.infomation.CreationContract;
  * Created by framgia on 16/03/2017.
  */
 public class EditInforHandle {
-    CreationContract.Presenter mListener;
+    EditInforContract.Presenter mListener;
 
-    public EditInforHandle(CreationContract.Presenter listener) {
+    public EditInforHandle(EditInforContract.Presenter listener) {
         mListener = listener;
     }
 
