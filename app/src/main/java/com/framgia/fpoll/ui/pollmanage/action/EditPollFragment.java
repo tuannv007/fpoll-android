@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.pollmanage.action;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentActionBinding;
+import com.framgia.fpoll.ui.polledition.ModifyPollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 
 /**
@@ -40,5 +42,11 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
     @Override
     public void showMessage(String msg) {
         ActivityUtil.showToast(getActivity(), msg);
+    }
+
+    @Override
+    public void startModifyPoll() {
+        Intent intent = new Intent(getActivity(), ModifyPollActivity.class);
+        startActivity(intent);
     }
 }

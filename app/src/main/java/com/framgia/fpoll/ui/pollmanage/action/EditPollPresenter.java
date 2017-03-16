@@ -39,7 +39,7 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void editPoll() {
-        // TODO: 3/2/2017 call api edit poll
+        if (mView != null) mView.startModifyPoll();
     }
 
     @Override
