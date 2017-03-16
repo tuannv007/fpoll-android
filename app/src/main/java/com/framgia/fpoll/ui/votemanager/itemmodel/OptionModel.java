@@ -6,10 +6,12 @@ import android.databinding.Bindable;
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.Option;
 
+import java.io.Serializable;
+
 /**
  * Created by anhtv on 10/03/2017.
  */
-public class OptionModel extends BaseObservable {
+public class OptionModel extends BaseObservable implements Serializable {
     private Option mOption;
     private boolean mIsChecked;
 

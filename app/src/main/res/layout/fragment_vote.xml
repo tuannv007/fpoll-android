@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <data>
 
@@ -24,6 +23,8 @@
     </data>
 
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -36,108 +37,102 @@
             android:minHeight="@dimen/dp_300"
             android:padding="@dimen/dp_16">
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{(voteInfoModel.itemStatus == ItemStatus.AVAILABLE || voteInfoModel.itemStatus == ItemStatus.POSTING) ? View.VISIBLE : View.GONE}"
-                app:cardBackgroundColor="@color/color_grey_200"
-                app:cardElevation="@dimen/dp_8">
+                android:orientation="vertical"
+                android:padding="@dimen/dp_8"
+                android:visibility="@{(voteInfoModel.itemStatus == ItemStatus.AVAILABLE || voteInfoModel.itemStatus == ItemStatus.POSTING) ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    style="@style/TitlePollTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="@{voteInfoModel.voteInfo.poll.title}"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:adapter="@{fragment.adapter}"
+                    app:layoutManager="@{LayoutManageUtil.linear()}"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_8">
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/bg_edit_text"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/dp_32"
+                    android:visibility="@{(voteInfoModel.nameRequired || voteInfoModel.emailAndNameRequired) ? View.VISIBLE : View.GONE}">
 
-                    <TextView
-                        style="@style/TitlePollTextView"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp_10"
-                        android:gravity="center"
-                        android:padding="0dp"
-                        android:text="@{voteInfoModel.voteInfo.poll.title}"/>
+                        android:minWidth="@dimen/dp_40"
+                        android:src="@drawable/ic_person_black_24dp"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:adapter="@{fragment.adapter}"
-                        app:layoutManager="@{LayoutManageUtil.linear()}"/>
+                    <View
+                        android:layout_width="@dimen/dp_1"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/dp_4"
+                        android:background="@android:color/darker_gray"/>
 
-                    <LinearLayout
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:background="@drawable/bg_edit_text"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
                         android:gravity="center_vertical"
-                        android:minHeight="@dimen/dp_48">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:minWidth="@dimen/dp_40"
-                            android:src="@drawable/ic_person_black_24dp"/>
-
-                        <View
-                            android:layout_width="@dimen/dp_1"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/dp_4"
-                            android:background="@android:color/darker_gray"/>
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:gravity="center_vertical"
-                            android:hint="@string/title_username"
-                            android:inputType="text"
-                            android:maxLines="1"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:background="@drawable/bg_edit_text"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/dp_48">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:minWidth="@dimen/dp_40"
-                            android:src="@drawable/ic_email_white_24px"/>
-
-                        <View
-                            android:layout_width="@dimen/dp_1"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/dp_4"
-                            android:background="@android:color/darker_gray"/>
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:gravity="center_vertical"
-                            android:hint="@string/title_email"
-                            android:inputType="textEmailAddress"
-                            android:maxLines="1"/>
-                    </LinearLayout>
-
-                    <Button
-                        style="@style/ButtonInfo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/color_tit_register"
-                        android:onClick="@{()->presenter.submitVote(voteInfoModel)}"
-                        android:text="@string/title_vote_number"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"/>
+                        android:hint="@string/title_username"
+                        android:inputType="text"
+                        android:maxLines="1"/>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/bg_edit_text"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/dp_32"
+                    android:visibility="@{(voteInfoModel.emailRequired || voteInfoModel.emailAndNameRequired) ? View.VISIBLE : View.GONE}">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/dp_40"
+                        android:src="@drawable/ic_email_white_24px"/>
+
+                    <View
+                        android:layout_width="@dimen/dp_1"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/dp_4"
+                        android:background="@android:color/darker_gray"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:hint="@string/title_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"/>
+                </LinearLayout>
+
+                <Button
+                    style="@style/ButtonInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_tit_register"
+                    android:onClick="@{()->presenter.submitVote(voteInfoModel)}"
+                    android:text="@string/title_vote_number"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
 
             <ProgressBar
                 android:layout_width="wrap_content"

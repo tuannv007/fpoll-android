@@ -5,6 +5,8 @@ import android.databinding.Bindable;
 
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.PieData;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,6 +27,8 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     private boolean mSpecificEmail;
     private boolean mOptionEditable;
     private boolean mHiddenResult;
+    private PieData mPieData;
+    private BarData mBarData;
     private ItemStatus mItemStatus = ItemStatus.NOT_AVAILABLE;
 
     @Bindable
@@ -155,5 +159,25 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     public void setHiddenResult(boolean hiddenResult) {
         mHiddenResult = hiddenResult;
         notifyPropertyChanged(BR.hiddenResult);
+    }
+
+    @Bindable
+    public PieData getPieData() {
+        return mPieData;
+    }
+
+    public void setPieData(PieData pieData) {
+        mPieData = pieData;
+        notifyPropertyChanged(BR.pieData);
+    }
+
+    @Bindable
+    public BarData getBarData() {
+        return mBarData;
+    }
+
+    public void setBarData(BarData barData) {
+        mBarData = barData;
+        notifyPropertyChanged(BR.barData);
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus"/>
+
+        <import type="android.view.View"/>
+
+        <import type="com.framgia.fpoll.ui.votemanager.VoteResultType"/>
+
+        <variable
+            name="voteInfoModel"
+            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"/>
+
+        <variable
+            name="fragment"
+            type="com.framgia.fpoll.ui.votemanager.result.LinkVoteResultFragment"/>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_500">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp_16"
+            android:visibility="@{(voteInfoModel.itemStatus == ItemStatus.AVAILABLE || voteInfoModel.itemStatus == ItemStatus.POSTING) ? View.VISIBLE : View.GONE}">
+
+            <include
+                android:id="@+id/layout_table_result"
+                layout="@layout/partial_table_result"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:visibility="@{fragment.voteResultType == VoteResultType.BAR_CHART ?  View.VISIBLE : View.GONE}"
+                bind:bindBarChart="@{voteInfoModel.barData}"/>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:visibility="@{fragment.voteResultType == VoteResultType.PIE_CHAR ?  View.VISIBLE : View.GONE}"
+                bind:pieData="@{voteInfoModel.pieData}"/>
+
+        </FrameLayout>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{voteInfoModel.itemStatus == ItemStatus.LOADING ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=""
+            android:visibility="@{voteInfoModel.itemStatus == ItemStatus.NOT_AVAILABLE ? View.VISIBLE : View.GONE}"/>
+
+    </FrameLayout>
+
+</layout>

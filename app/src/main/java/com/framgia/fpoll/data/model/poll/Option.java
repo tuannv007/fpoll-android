@@ -26,9 +26,9 @@ public class Option extends BaseObservable implements Parcelable {
     private String mCreatedTime;
     @SerializedName("updated_at")
     private String mUpdatedTime;
-    @SerializedName("votes")
+    @SerializedName("users")
     private List<Vote> mVotes;
-    @SerializedName("participant_votes")
+    @SerializedName("participants")
     private List<ParticipantVotes> mParticipantVotes;
 
     public Option(Parcel in) {

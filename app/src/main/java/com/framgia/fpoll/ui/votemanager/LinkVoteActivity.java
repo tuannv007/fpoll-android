@@ -17,10 +17,18 @@ import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
+import com.framgia.fpoll.ui.votemanager.result.LinkVoteResultFragment;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.ChartUtils;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.widget.PasswordAlertDialog;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +66,44 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
     @Override
     public void onGetVoteInfoSuccess(VoteInfo voteInfo) {
         mVoteInfoModel.setVoteInfo(voteInfo);
-        List<OptionModel> list = new ArrayList<>();
-        for (int i = 0; i < voteInfo.getPoll().getOptions().size(); i++) {
-            list.add(new OptionModel(voteInfo.getPoll().getOptions().get(i), false));
+        setListOptionModel(voteInfo);
+        setListVoteSetting(voteInfo);
+        setChartData();
+        if (mVoteInfoModel.getPasswordRequired() != null) {
+            PasswordAlertDialog.newInstance().show(getSupportFragmentManager(), "");
+        } else {
+            mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
         }
-        mVoteInfoModel.setOptionModels(list);
+    }
+
+    @Override
+    public void onGetVoteInfoFailed() {
+        mVoteInfoModel.setItemStatus(ItemStatus.NOT_AVAILABLE);
+    }
+
+    @Override
+    public void start() {
+        setSupportActionBar(mBinding.toolbar);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getString(R.string.title_vote));
+        mVoteInfoModel = new VoteInfoModel();
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(VoteFragment.newInstance(mVoteInfoModel));
+        fragments.add(VoteInformationFragment.newInstance(mVoteInfoModel));
+        fragments.add(LinkVoteResultFragment.newInstance(mVoteInfoModel));
+        String[] titles = getResources().getStringArray(R.array.array_vote);
+        mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
+    }
+
+    private void setChartData() {
+        List<String> labels = ChartUtils.createLabels(mVoteInfoModel);
+        PieDataSet pieDataSet = ChartUtils.createPieData(this, mVoteInfoModel);
+        BarDataSet barDataSet = ChartUtils.createBarData(this, mVoteInfoModel);
+        mVoteInfoModel.setPieData(new PieData(labels, pieDataSet));
+        mVoteInfoModel.setBarData(new BarData(labels, barDataSet));
+    }
+
+    private void setListVoteSetting(VoteInfo voteInfo) {
         List<Setting> settingList = voteInfo.getPoll().getSettings();
         for (int i = 0; i < settingList.size(); i++) {
             switch (settingList.get(i).getKey()) {
@@ -104,30 +145,14 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
                     break;
             }
         }
-        if (mVoteInfoModel.getPasswordRequired() != null) {
-            PasswordAlertDialog.newInstance().show(getSupportFragmentManager(), "");
-        } else {
-            mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+    }
+
+    private void setListOptionModel(VoteInfo voteInfo) {
+        List<OptionModel> list = new ArrayList<>();
+        for (int i = 0; i < voteInfo.getPoll().getOptions().size(); i++) {
+            list.add(new OptionModel(voteInfo.getPoll().getOptions().get(i), false));
         }
-    }
-
-    @Override
-    public void onGetVoteInfoFailed() {
-        mVoteInfoModel.setItemStatus(ItemStatus.NOT_AVAILABLE);
-    }
-
-    @Override
-    public void start() {
-        setSupportActionBar(mBinding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(getString(R.string.title_vote));
-        mVoteInfoModel = new VoteInfoModel();
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(VoteFragment.newInstance(mVoteInfoModel));
-        fragments.add(VoteInformationFragment.newInstance(mVoteInfoModel));
-        fragments.add(VoteResultFragment.newInstance());
-        String[] titles = getResources().getStringArray(R.array.array_vote);
-        mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
+        mVoteInfoModel.setOptionModels(list);
     }
 
     @Override
