@@ -6,12 +6,16 @@ import android.support.annotation.NonNull;
 import com.framgia.fpoll.data.model.authorization.LoginNormalBody;
 import com.framgia.fpoll.data.model.authorization.LoginNormalData;
 import com.framgia.fpoll.data.model.authorization.SocialData;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.ServiceGenerator;
 import com.framgia.fpoll.networking.api.AuthenticationApi;
 import com.framgia.fpoll.util.ActivityUtil;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by Nhahv0902 on 3/3/2017.
@@ -20,9 +24,11 @@ import com.framgia.fpoll.util.ActivityUtil;
 public class LoginRemoteDataSource implements LoginDataSource {
     private static LoginRemoteDataSource sRemoteDataSource;
     private Context mContext;
+    private AuthenticationApi.LoginService mService;
 
     private LoginRemoteDataSource(Context context) {
         mContext = context;
+        mService = ServiceGenerator.createService(AuthenticationApi.LoginService.class);
     }
 
     public static LoginDataSource getInstance(Context context) {
@@ -33,8 +39,8 @@ public class LoginRemoteDataSource implements LoginDataSource {
     @Override
     public void loginSocial(String provider, String token,
                             @NonNull final DataCallback<SocialData> callback) {
-        ServiceGenerator.createService(AuthenticationApi.LoginService.class)
-            .loginSocial(provider, token).enqueue(new CallbackManager<>(mContext,
+        if (mService == null) return;
+        mService.loginSocial(provider, token).enqueue(new CallbackManager<>(mContext,
             new CallbackManager.CallBack<ResponseItem<SocialData>>() {
                 @Override
                 public void onResponse(ResponseItem<SocialData> data) {
@@ -51,9 +57,9 @@ public class LoginRemoteDataSource implements LoginDataSource {
     @Override
     public void loginNormal(String email, String password,
                             @NonNull final DataCallback<LoginNormalData> callback) {
+        if (mService == null) return;
         LoginNormalBody user = new LoginNormalBody(email, password);
-        ServiceGenerator.createService(AuthenticationApi.LoginService.class)
-            .loginNormal(user).enqueue(new CallbackManager<>(mContext,
+        mService.loginNormal(user).enqueue(new CallbackManager<>(mContext,
             new CallbackManager.CallBack<ResponseItem<LoginNormalData>>() {
                 @Override
                 public void onResponse(ResponseItem<LoginNormalData> data) {
@@ -69,11 +75,36 @@ public class LoginRemoteDataSource implements LoginDataSource {
 
     @Override
     public void logout(String header, @NonNull final DataCallback<String> callback) {
-        ServiceGenerator.createService(AuthenticationApi.LoginService.class).logout(header).enqueue(
-            new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem>() {
+        if (mService == null) return;
+        mService.logout(header)
+            .enqueue(new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem>() {
                 @Override
                 public void onResponse(ResponseItem data) {
                     callback.onSuccess(ActivityUtil.byString(data.getMessage()));
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
+    }
+
+    @Override
+    public void updateProfile(@NonNull User user, @NonNull final DataCallback<User> callback) {
+        if (mService == null) return;
+        RequestBody email = RequestBody.create(MultipartBody.FORM, user.getEmail());
+        RequestBody name = RequestBody.create(MultipartBody.FORM, user.getUsername());
+        RequestBody password = RequestBody.create(MultipartBody.FORM, user.getPassword());
+        RequestBody gender =
+            RequestBody.create(MultipartBody.FORM, String.valueOf(user.getGender()));
+        RequestBody chatWorkId = RequestBody.create(MultipartBody.FORM, user.getChatWorkId());
+        MultipartBody.Part avatar = AuthenticationApi.getAvatar(user);
+        mService.updateProfile(name, email, password, gender, chatWorkId, avatar).enqueue(
+            new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem<User>>() {
+                @Override
+                public void onResponse(ResponseItem<User> data) {
+                    callback.onSuccess(data.getData());
                 }
 
                 @Override

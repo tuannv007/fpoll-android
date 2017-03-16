@@ -58,6 +58,14 @@ public class AuthenticationApi {
         Call<ResponseItem<LoginNormalData>> loginNormal(@Body LoginNormalBody user);
         @POST("api/v1/logout")
         Call<ResponseItem> logout(@Header("Authorization") String token);
+        @POST("api/v1/updateProfile")
+        Call<ResponseItem<User>> updateProfile(
+            @Part("name") RequestBody name,
+            @Part("email") RequestBody email,
+            @Part("password") RequestBody password,
+            @Part("gender") RequestBody gender,
+            @Part("chatwork_id") RequestBody chatWorkId,
+            @Part MultipartBody.Part file);
     }
 
     public interface ResetPasswordService {

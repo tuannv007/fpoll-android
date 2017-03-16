@@ -19,6 +19,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
+import com.framgia.fpoll.ui.editprofile.EditProfileActivity;
 import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
@@ -116,5 +117,10 @@ public class MainActivity extends AppCompatActivity
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else super.onBackPressed();
+    }
+
+    @Override
+    public void startUiProfileEdition() {
+        startActivity(EditProfileActivity.getProfileEditionIntent(this));
     }
 }

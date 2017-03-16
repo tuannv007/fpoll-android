@@ -26,6 +26,8 @@ public class User extends BaseObservable {
     private String mChatWorkId;
     @SerializedName("token_verification")
     private String mToken;
+    @SerializedName("is_active")
+    private boolean mIsActive;
 
     @Bindable
     public String getUsername() {
@@ -105,6 +107,16 @@ public class User extends BaseObservable {
     public void setChatWorkId(String chatWorkId) {
         mChatWorkId = chatWorkId;
         notifyPropertyChanged(BR.chatWorkId);
+    }
+
+    @Bindable
+    public boolean isActive() {
+        return mIsActive;
+    }
+
+    public void setActive(boolean active) {
+        mIsActive = active;
+        notifyPropertyChanged(BR.active);
     }
 
     public User() {

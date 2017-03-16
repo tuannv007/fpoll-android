@@ -36,6 +36,7 @@
             android:exported="true"/>
 
         <activity android:name=".ui.votemanager.LinkVoteActivity"/>
+        <activity android:name=".ui.editprofile.EditProfileActivity"/>
     </application>
 
 </manifest>
