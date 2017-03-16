@@ -17,6 +17,7 @@ import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.FragmentLinkVoteResultBinding;
 import com.framgia.fpoll.ui.votemanager.VoteResultType;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
+import com.framgia.fpoll.ui.votemanager.votedetail.VoteDetailDialog;
 
 /**
  * Created by anhtv on 15/03/2017.
@@ -85,7 +86,7 @@ public class LinkVoteResultFragment extends Fragment implements LinkVoteResultCo
 
     @Override
     public void showDetail(Option option) {
-        //TODO show details votes
+        VoteDetailDialog.newInstance(option).show(getChildFragmentManager(), "");
     }
 
     @Override

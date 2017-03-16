@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+
+        <variable
+            name="dialog"
+            type="com.framgia.fpoll.ui.votemanager.votedetail.VoteDetailDialog"/>
+
+        <variable
+            name="option"
+            type="com.framgia.fpoll.data.model.poll.Option"/>
+
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@{option.name}"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="@{LayoutManageUtil.linear()}"
+            bind:adapter="@{dialog.adapter}"/>
+    </LinearLayout>
+</layout>

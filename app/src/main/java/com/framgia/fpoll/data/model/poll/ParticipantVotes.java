@@ -3,7 +3,7 @@ package com.framgia.fpoll.data.model.poll;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import com.android.databinding.library.baseAdapters.BR;
+import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -12,10 +12,14 @@ import com.google.gson.annotations.SerializedName;
 public class ParticipantVotes extends BaseObservable {
     @SerializedName("id")
     private String mId;
-    @SerializedName("participant_id")
-    private String mParticipantId;
-    @SerializedName("option_id")
-    private String mOptionId;
+    @SerializedName("user_id")
+    private String mUserId;
+    @SerializedName("ip_address")
+    private String mIpAddress;
+    @SerializedName("name")
+    private String mName;
+    @SerializedName("email")
+    private String mEmail;
     @SerializedName("created_at")
     private String mCreatedTime;
     @SerializedName("updated_at")
@@ -32,23 +36,23 @@ public class ParticipantVotes extends BaseObservable {
     }
 
     @Bindable
-    public String getParticipantId() {
-        return mParticipantId;
+    public String getUserId() {
+        return mUserId;
     }
 
-    public void setParticipantId(String participantId) {
-        mParticipantId = participantId;
-        notifyPropertyChanged(BR.participantId);
+    public void setUserId(String userId) {
+        mUserId = userId;
+        notifyPropertyChanged(BR.userId);
     }
 
     @Bindable
-    public String getOptionId() {
-        return mOptionId;
+    public String getIpAddress() {
+        return mIpAddress;
     }
 
-    public void setOptionId(String optionId) {
-        mOptionId = optionId;
-        notifyPropertyChanged(BR.optionId);
+    public void setIpAddress(String ipAddress) {
+        mIpAddress = ipAddress;
+        notifyPropertyChanged(BR.ipAddress);
     }
 
     @Bindable
@@ -69,5 +73,25 @@ public class ParticipantVotes extends BaseObservable {
     public void setUpdatedTime(String updatedTime) {
         mUpdatedTime = updatedTime;
         notifyPropertyChanged(BR.updatedTime);
+    }
+
+    @Bindable
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
+        notifyPropertyChanged(BR.name);
+    }
+
+    @Bindable
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String email) {
+        mEmail = email;
+        notifyPropertyChanged(BR.email);
     }
 }

@@ -48,6 +48,7 @@ import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
 
@@ -234,6 +235,14 @@ public class DataBindingUtils {
     @BindingAdapter({"bind:bindBarChart"})
     public static void setBarChart(BarChart view, BarData data) {
         view.setData(data);
+        view.setTouchEnabled(false);
+        view.setDescription("");
+        view.getAxisLeft().setEnabled(false);
+        view.getAxisRight().setEnabled(false);
+        view.getXAxis().setDrawGridLines(false);
+        view.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        view.getLegend().setEnabled(false);
+        view.setDrawGridBackground(false);
     }
 
     @BindingAdapter({"bind:showImage"})
@@ -270,6 +279,9 @@ public class DataBindingUtils {
     @BindingAdapter(value = {"bind:pieData"})
     public static void setPieData(final PieChart pieChart, final PieData pieData) {
         pieChart.setData(pieData);
+        pieChart.setTouchEnabled(false);
+        pieChart.setDescription("");
+        pieChart.setDrawSliceText(false);
     }
 
     @BindingAdapter({"bind:bindImage", "bind:bindError"})
@@ -315,16 +327,18 @@ public class DataBindingUtils {
     }
 
     @BindingAdapter({"bind:shareContent"})
-    public static void setShareContent(ShareButton shareButton, String linkPoll) {
-        if (linkPoll == null) return;
+    public static void setShareContent(ShareButton shareButton, String token) {
+        if (token == null) return;
+        String linkPoll = Constant.WebUrl.POLL_URL + token;
         shareButton.setShareContent(new ShareLinkContent.Builder()
             .setContentUrl(Uri.parse(linkPoll))
             .build());
     }
 
     @BindingAdapter({"bind:objectId"})
-    public static void setObjectId(LikeView likeView, String linkPoll) {
-        if (linkPoll == null) return;
+    public static void setObjectId(LikeView likeView, String token) {
+        if (token == null) return;
+        String linkPoll = Constant.WebUrl.POLL_URL + token;
         likeView.setLikeViewStyle(LikeView.Style.BUTTON);
         likeView.setObjectIdAndType(linkPoll, LikeView.ObjectType.PAGE);
     }

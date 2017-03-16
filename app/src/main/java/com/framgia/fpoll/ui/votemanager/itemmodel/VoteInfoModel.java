@@ -29,6 +29,7 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     private boolean mHiddenResult;
     private PieData mPieData;
     private BarData mBarData;
+    private String mToken;
     private ItemStatus mItemStatus = ItemStatus.NOT_AVAILABLE;
 
     @Bindable
@@ -179,5 +180,15 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     public void setBarData(BarData barData) {
         mBarData = barData;
         notifyPropertyChanged(BR.barData);
+    }
+
+    @Bindable
+    public String getToken() {
+        return mToken;
+    }
+
+    public void setToken(String token) {
+        mToken = token;
+        notifyPropertyChanged(BR.token);
     }
 }

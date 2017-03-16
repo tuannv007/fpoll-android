@@ -38,14 +38,16 @@
             <com.facebook.share.widget.LikeView
                 android:id="@+id/like_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                bind:objectId="@{voteInfoModel.token}"/>
 
             <com.facebook.share.widget.ShareButton
                 android:id="@+id/button_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_8"
-                android:layout_marginRight="@dimen/dp_8"/>
+                android:layout_marginRight="@dimen/dp_8"
+                bind:shareContent="@{voteInfoModel.token}"/>
 
             <TextView
                 style="@style/TextViewPollInformation"
