@@ -16,6 +16,7 @@ import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginFragment;
 import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
 import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
+import com.framgia.fpoll.util.ActivityUtil;
 
 /**
  * Created by tuanbg on 2/9/17.
@@ -72,7 +73,6 @@ public class AuthenticationActivity extends AppCompatActivity
         mLoginFragment = LoginFragment.newInstance(mEventSwitchUI);
         mRegisterFragment = RegisterFragment.newInstance(mEventSwitchUI);
         mPasswordFragment = ForgotPasswordFragment.newInstance();
-        addFragment();
         showLoginFragment();
     }
 
@@ -91,48 +91,29 @@ public class AuthenticationActivity extends AppCompatActivity
         }
     }
 
-    public void addFragment() {
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, mLoginFragment, getString(R.string.title_login))
-            .add(R.id.frame_layout, mRegisterFragment, getString(R.string.title_register))
-            .add(R.id.frame_layout, mPasswordFragment, getString(R.string.title_forgot_password))
-            .addToBackStack(null)
-            .commit();
-    }
-
     private void showLoginFragment() {
-        getSupportFragmentManager().beginTransaction()
-            .show(mLoginFragment)
-            .hide(mRegisterFragment)
-            .hide(mPasswordFragment)
-            .commit();
+        ActivityUtil
+            .addFragmentToActivity(getSupportFragmentManager(), mLoginFragment, R.id.frame_layout);
         setTitle(R.string.title_login);
     }
 
     private void showForgotPasswordFragment() {
-        getSupportFragmentManager().beginTransaction()
-            .show(mPasswordFragment)
-            .hide(mRegisterFragment)
-            .hide(mLoginFragment)
-            .commit();
+        ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mPasswordFragment,
+            R.id.frame_layout);
         setTitle(R.string.title_forgot_password);
     }
 
     private void showRegisterFragment() {
-        getSupportFragmentManager().beginTransaction()
-            .show(mRegisterFragment)
-            .hide(mLoginFragment)
-            .hide(mPasswordFragment)
-            .commit();
+        ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mRegisterFragment,
+            R.id.frame_layout);
         setTitle(R.string.title_register);
     }
 
     @Override
     public void onBackPressed() {
-        Fragment fragment =
-            getSupportFragmentManager().findFragmentByTag(getString(R.string.title_login));
-        if (fragment == null || (fragment instanceof LoginFragment && fragment.isVisible())) {
-            finish();
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (fragment == null || fragment instanceof LoginFragment) {
+            super.onBackPressed();
             return;
         }
         showLoginFragment();

@@ -26,6 +26,7 @@ import com.framgia.fpoll.ui.introduction.IntroduceAppFragment;
 import com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 
 public class MainActivity extends AppCompatActivity
     implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext()));
+        mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext()),
+            SharePreferenceUtil.getIntances(this));
         mBinding.setPresenter((MainPresenter) mPresenter);
     }
 
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity
                 showHelp();
                 break;
             case R.id.action_history:
-                addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null,""),
+                addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
                     R.string.title_history);
                 break;
             case R.id.action_feedback:

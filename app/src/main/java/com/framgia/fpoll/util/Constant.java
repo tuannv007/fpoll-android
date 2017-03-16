@@ -114,4 +114,9 @@ public class Constant {
         public static final String FPOLL_FOLDER_NAME = "save_report";
         public static final int TYPE_EXPORT_PDF = 1;
     }
+
+    public static class PreferenceConstant {
+        public static final String PREF_USER = "PREF_USER";
+        public static final String PREF_TOKEN = "PREF_TOKEN";
+    }
 }

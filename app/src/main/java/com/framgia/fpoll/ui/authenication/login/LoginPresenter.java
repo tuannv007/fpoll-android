@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -13,6 +14,7 @@ import com.framgia.fpoll.data.model.authorization.SocialData;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.util.UserValidation;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.twitter.sdk.android.core.TwitterException;
@@ -27,17 +29,18 @@ public class LoginPresenter implements LoginContract.Presenter {
     private FPollTwitterAuthClient mFPollTwitterAuthClient;
     private CallbackManager mCallbackManager;
     private User mUser;
+    private SharePreferenceUtil mPreference;
     private LoginRepository mRepository;
 
     public LoginPresenter(LoginContract.View view, FPollGoogleApiClient FpollGoogleApiClient,
-                          FPollTwitterAuthClient twitterAuthClient, LoginRepository repository) {
+                          FPollTwitterAuthClient twitterAuthClient, LoginRepository repository,
+                          SharePreferenceUtil preference) {
         mView = view;
         mFPollGoogleApiClient = FpollGoogleApiClient;
         mFPollTwitterAuthClient = twitterAuthClient;
         mRepository = repository;
+        mPreference = preference;
         mUser = new User();
-        mUser.setEmail("tuan.dev.ad@gmail.com");
-        mUser.setPassword("12345678");
         mView.start();
     }
 
@@ -58,6 +61,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                             @Override
                             public void onSuccess(SocialData data) {
                                 // TODO: 3/3/2017  login facebook success
+                                mPreference.writeUser(data.getUser());
+                                mPreference.writeToken(data.getToken());
                             }
 
                             @Override
@@ -140,6 +145,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                         @Override
                         public void onSuccess(LoginNormalData data) {
                             // TODO: 2/22/2017 handle login account success
+                            mPreference.writeUser(data.getUser());
+                            mPreference.writeToken(data.getAccessToken());
                         }
 
                         @Override
