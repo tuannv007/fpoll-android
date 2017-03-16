@@ -182,4 +182,8 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
     public ViewPagerAdapter getAdapter() {
         return mAdapter;
     }
+
+    public VoteInfoModel getVoteInfoModel() {
+        return mVoteInfoModel;
+    }
 }

@@ -15,18 +15,20 @@ public class VoteDetailPresenter implements VoteDetailContract.Presenter {
     @Override
     public List<ParticipantVotes> getListProfile(Option option) {
         List<ParticipantVotes> listProfiles = new ArrayList<>();
-        //Add Header
-        listProfiles.add(null);
-        //Add list votes = user votes + participant votes
-        listProfiles.addAll(option.getVotes());
+        //Add list participant
         listProfiles.addAll(option.getParticipantVotes());
         //Remove anonymous
-        for (int i = 1; i < listProfiles.size(); i++) {
+        for (int i = 0; i < listProfiles.size(); i++) {
             if (listProfiles.get(i).getName().equals(TEXT_NO_NAME)
                 && listProfiles.get(i).getEmail() == null) {
                 listProfiles.remove(i);
+                i--;
             }
         }
+        //Add list user votes
+        listProfiles.addAll(option.getVotes());
+        //Add Header
+        listProfiles.add(0, null);
         return listProfiles;
     }
 }

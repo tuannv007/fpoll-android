@@ -24,10 +24,13 @@ public class VoteDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private LayoutInflater mInflater;
     private Option mOption;
     private List<ParticipantVotes> mListProfiles = new ArrayList<>();
+    private VoteDetailPresenter mPresenter;
 
-    public VoteDetailAdapter(Option option, List<ParticipantVotes> listProfiles) {
+    public VoteDetailAdapter(Option option, List<ParticipantVotes> listProfiles,
+                             VoteDetailPresenter presenter) {
         mOption = option;
         mListProfiles = listProfiles;
+        mPresenter = presenter;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class VoteDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER) {
-            ((HeaderViewHolder) holder).bind(mOption);
+            ((HeaderViewHolder) holder).bind(mOption, mPresenter);
             return;
         }
         ((DetailViewHolder) holder).bind(mListProfiles.get(position));
@@ -67,9 +70,10 @@ public class VoteDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mBinding = binding;
         }
 
-        private void bind(Option option) {
+        private void bind(Option option, VoteDetailPresenter presenter) {
             if (option == null) return;
             mBinding.setOption(option);
+            mBinding.setPresenter(presenter);
             mBinding.executePendingBindings();
         }
     }

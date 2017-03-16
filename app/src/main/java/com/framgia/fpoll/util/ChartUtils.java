@@ -38,7 +38,7 @@ public class ChartUtils {
             pieEntries.add(new Entry(totalVote, i));
         }
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
-        pieDataSet.setValueTextSize(context.getResources().getDimension(R.dimen.dp_16));
+        pieDataSet.setValueTextSize(context.getResources().getDimension(R.dimen.sp_16));
         pieDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
         pieDataSet.setValueFormatter(new RoundFormatter());
         return pieDataSet;
@@ -53,7 +53,7 @@ public class ChartUtils {
             barEntries.add(new BarEntry(totalVote, i));
         }
         BarDataSet barDataSet = new BarDataSet(barEntries, "");
-        barDataSet.setValueTextSize(context.getResources().getDimension(R.dimen.dp_16));
+        barDataSet.setValueTextSize(context.getResources().getDimension(R.dimen.sp_16));
         barDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
         barDataSet.setValueFormatter(new RoundFormatter());
         barDataSet.setBarSpacePercent(50f);

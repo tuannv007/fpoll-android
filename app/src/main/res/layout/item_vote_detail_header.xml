@@ -3,6 +3,12 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.votemanager.votedetail.VoteDetailPresenter"/>
+
         <variable
             name="option"
             type="com.framgia.fpoll.data.model.poll.Option"/>
@@ -24,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_8"
-            android:text="@string/text_public_vote_profile"/>
+            android:text="@string/text_public_vote_profile"
+            android:visibility="@{presenter.getListProfile(option).size() > 1 ? View.VISIBLE : View.GONE}"/>
 
     </LinearLayout>
 

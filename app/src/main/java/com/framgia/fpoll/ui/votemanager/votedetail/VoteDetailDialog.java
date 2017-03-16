@@ -42,7 +42,8 @@ public class VoteDetailDialog extends DialogFragment {
         }
         mPresenter = new VoteDetailPresenter();
         List<ParticipantVotes> participantVotesList = mPresenter.getListProfile(mOption);
-        mDetailAdapter = new VoteDetailAdapter(mOption, participantVotesList);
+        mDetailAdapter = new VoteDetailAdapter
+            (mOption, participantVotesList, (VoteDetailPresenter) mPresenter);
     }
 
     @NonNull
