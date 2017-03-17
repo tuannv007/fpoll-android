@@ -49,6 +49,30 @@ public class UserValidation {
         callBack.onValidateSuccess();
     }
 
+    public void updateProfileValidate(@NonNull CallBack callBack) {
+        if (!isValidateUserName()) {
+            callBack.onError(Error.USER_NAME);
+            return;
+        }
+        if (!isValidateEmail()) {
+            callBack.onError(Error.EMAIL);
+            return;
+        }
+        if (!isValidatePasswordUpdateProfile()) {
+            callBack.onError(Error.PASSWORD);
+            return;
+        }
+        callBack.onValidateSuccess();
+    }
+
+    private boolean isValidatePasswordUpdateProfile() {
+        if ((mUser.getPassword() == null || mUser.getPassword().trim().isEmpty()) &&
+            (mUser.getConfirmPassword() == null || mUser.getConfirmPassword().trim().isEmpty())) {
+            return true;
+        }
+        return isValidatePassword() && isValidateConfirmPassword() && isValidateLengthPassword();
+    }
+
     public void validateResetPass(@NonNull CallBack callBack) {
         if (!isValidateEmail()) {
             callBack.onError(Error.EMAIL);

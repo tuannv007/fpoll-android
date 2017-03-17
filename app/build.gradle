@@ -66,6 +66,7 @@ dependencies {
     compile files('build/libs/opencsv-2.4.jar')
     compile files('libs/opencsv-2.4.jar')
     compile 'com.itextpdf:itextg:5.5.10'
+    compile 'com.android.support:multidex:1.0.1'
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.databinding'

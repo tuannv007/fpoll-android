@@ -18,7 +18,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,44 +30,31 @@
             android:paddingTop="@dimen/dp_60">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_48"
-                android:background="@drawable/bg_edit_text"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_1">
+                style="@style/RegisterLayoutStyle">
 
                 <ImageView
-                    style="@style/ImageViewLogin"
-                    android:src="@drawable/ic_email_white_24px"/>
+                    style="@style/RegisterImageViewStyle"
+                    android:src="@drawable/ic_person_black_24dp"/>
 
                 <include layout="@layout/partial_line"/>
 
                 <EditText
-                    android:id="@+id/edit_email"
-                    style="@style/EditTextLogin"
-                    android:hint="@string/hint_email"
-                    android:inputType="textEmailAddress"
-                    android:text="@={presenter.user.email}"/>
-
+                    style="@style/RegisterEditTextStyle"
+                    android:hint="@string/title_username"
+                    android:text="@={presenter.user.username}"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_48"
-                android:layout_marginTop="@dimen/dp_8"
-                android:background="@drawable/bg_edit_text"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_1">
+                style="@style/RegisterLayoutStyle">
 
                 <ImageView
-                    style="@style/ImageViewLogin"
+                    style="@style/RegisterImageViewStyle"
                     android:src="@drawable/ic_vpn_key_white_24px"/>
 
                 <include layout="@layout/partial_line"/>
 
                 <EditText
-                    android:id="@+id/edit_password"
-                    style="@style/EditTextLogin"
+                    style="@style/RegisterEditTextStyle"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword"
                     android:text="@={presenter.user.password}"/>
@@ -75,6 +63,8 @@
             <android.support.v7.widget.AppCompatCheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_8"
                 android:text="@string/remember_account"
                 android:textColor="@color/color_grey_700"
