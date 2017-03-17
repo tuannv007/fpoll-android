@@ -90,7 +90,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         fragments.add(PollInformationFragment.newInstance(mPollInfo.get()));
         fragments
             .add(ResultVoteFragment.newInstance(mToken));
-        fragments.add(EditPollFragment.newInstance());
+        fragments.add(EditPollFragment.newInstance(mPollInfo.get()));
         String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);
         mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
     }

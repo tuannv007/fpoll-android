@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollInformation;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentEditInforBinding;
-import com.framgia.fpoll.ui.pollcreation.infomation.CreationContract;
-import com.framgia.fpoll.ui.pollcreation.infomation.CreationPresenter;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -33,8 +32,12 @@ public class EditInforFragment extends Fragment
     private PollInformation mPollInformation = new PollInformation();
     private Calendar mSavePickCalendar = Calendar.getInstance();
 
-    public static EditInforFragment newInstance() {
-        return new EditInforFragment();
+    public static EditInforFragment newInstance(PollItem pollItem) {
+        EditInforFragment editInforFragment = new EditInforFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        editInforFragment.setArguments(bundle);
+        return editInforFragment;
     }
 
     @Override
