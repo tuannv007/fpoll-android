@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
@@ -18,6 +20,8 @@ import com.framgia.fpoll.databinding.FragmentVoteBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.util.PermissionsUtil;
 
 import java.util.List;
 
@@ -37,7 +41,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     public static VoteFragment newInstance(VoteInfoModel voteInfo) {
         VoteFragment voteInformationFragment = new VoteFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(ARGUMENT_VOTE_INFO, voteInfo);
+        bundle.putParcelable(ARGUMENT_VOTE_INFO, voteInfo);
         voteInformationFragment.setArguments(bundle);
         return voteInformationFragment;
     }
@@ -46,7 +50,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
-            mVoteInfoModel = (VoteInfoModel) getArguments().getSerializable(ARGUMENT_VOTE_INFO);
+            mVoteInfoModel = getArguments().getParcelable(ARGUMENT_VOTE_INFO);
         mPresenter = new VotePresenter(this, VoteInfoRepository.getInstance(getContext()));
         mAdapter.set(new VoteAdapter(mPresenter, mVoteInfoModel));
     }
@@ -106,7 +110,25 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         mProgressDialog.setContentView(new ProgressBar(getContext()));
     }
 
+    @Override
+    public void showGallery() {
+        if (PermissionsUtil.isAllowPermissions(getActivity())) {
+            Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, Constant.RequestCode.IMAGE_PICKER_SELECT);
+        }
+    }
+
     public ObservableField<VoteAdapter> getAdapter() {
         return mAdapter;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.RequestCode.IMAGE_PICKER_SELECT) {
+            //TODO set image from gallery to UI
+        }
     }
 }

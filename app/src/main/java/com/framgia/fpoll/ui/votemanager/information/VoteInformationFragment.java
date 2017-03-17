@@ -1,11 +1,9 @@
 package com.framgia.fpoll.ui.votemanager.information;
 
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,19 +31,16 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     public static VoteInformationFragment newInstance(VoteInfoModel voteInfo) {
         VoteInformationFragment voteInformationFragment = new VoteInformationFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(ARGUMENT_VOTE_INFO, voteInfo);
+        bundle.putParcelable(ARGUMENT_VOTE_INFO, voteInfo);
         voteInformationFragment.setArguments(bundle);
         return voteInformationFragment;
     }
 
-    /**
-     * TODO get PollInfo by intent
-     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
-            mVoteInfoModel = (VoteInfoModel) getArguments().getSerializable(ARGUMENT_VOTE_INFO);
+            mVoteInfoModel = getArguments().getParcelable(ARGUMENT_VOTE_INFO);
         mPresenter =
             new VoteInformationPresenter(this, VoteInfoRepository.getInstance(getContext()));
         mCommentAdapter = new CommentAdapter(mPresenter, mVoteInfoModel);

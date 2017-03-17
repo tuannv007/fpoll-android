@@ -16,10 +16,12 @@ public interface VoteContract {
         void onSubmitFailed(String messages);
         void onNotifyVote();
         void setLoading(boolean isShow);
+        void showGallery();
     }
 
     interface Presenter {
         void voteOption(OptionModel option);
         void submitVote(VoteInfoModel voteInfoModel);
+        void openGallery();
     }
 }

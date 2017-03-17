@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -25,7 +25,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/dp_16"
         android:scrollbars="none">
 
         <LinearLayout
@@ -34,26 +33,85 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:padding="@dimen/dp_8">
+            android:padding="@dimen/dp_16">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_8"
+                android:text="@string/msg_vote_reach_limit_number"
+                android:textColor="@color/color_red_500"
+                android:textSize="@dimen/sp_20"
+                android:visibility="@{voteInfoModel.voteInfo.countParticipant == voteInfoModel.numberVoteLimit ? View.VISIBLE : View.GONE}"/>
 
             <TextView
                 style="@style/TitlePollTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:gravity="center"
-                android:padding="0dp"
                 android:text="@{voteInfoModel.voteInfo.poll.title}"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:adapter="@{fragment.adapter}"
-                app:layoutManager="@{LayoutManageUtil.linear()}"/>
+                app:layoutManager="@{LayoutManageUtil.linear()}"
+                bind:bindAdapter="@{fragment.adapter}"/>
 
             <LinearLayout
-                style="@style/LinearLayoutStyle">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:orientation="vertical"
+                android:visibility="@{voteInfoModel.ableToAddOption ? View.VISIBLE : View.GONE}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_8">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp_8"
+                        android:onClick="@{() -> presenter.openGallery()}"
+                        android:src="@drawable/ic_insert_photo_black_24px"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/tw__transparent"
+                        android:gravity="center_vertical"
+                        android:hint="Add new option"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="@={presenter.additionOption.optionText}"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/image_addition_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_grey_700"/>
+
+            <LinearLayout
+                style="@style/LinearLayoutStyle"
+                android:visibility="@{voteInfoModel.voteInfo.countParticipant != voteInfoModel.numberVoteLimit ? View.VISIBLE : View.GONE}">
 
                 <ImageView
                     style="@style/ImageViewStyle"
@@ -69,7 +127,8 @@
             </LinearLayout>
 
             <LinearLayout
-                style="@style/LinearLayoutStyle">
+                style="@style/LinearLayoutStyle"
+                android:visibility="@{voteInfoModel.voteInfo.countParticipant != voteInfoModel.numberVoteLimit ? View.VISIBLE : View.GONE}">
 
                 <ImageView
                     style="@style/ImageViewStyle"
@@ -86,9 +145,12 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_height="@dimen/dp_56"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/color_tit_register"
                 android:onClick="@{()->presenter.submitVote(voteInfoModel)}"
+                android:visibility="@{voteInfoModel.voteInfo.countParticipant != voteInfoModel.numberVoteLimit ? View.VISIBLE : View.GONE}"
                 app:cardBackgroundColor="@color/color_teal_600"
                 app:cardCornerRadius="@dimen/dp_3"
                 app:cardElevation="@dimen/dp_1"

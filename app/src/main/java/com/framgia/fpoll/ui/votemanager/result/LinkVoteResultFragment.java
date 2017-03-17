@@ -32,7 +32,7 @@ public class LinkVoteResultFragment extends Fragment implements LinkVoteResultCo
     public static LinkVoteResultFragment newInstance(VoteInfoModel voteInfoModel) {
         LinkVoteResultFragment linkVoteResultFragment = new LinkVoteResultFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(ARGUMENT_VOTE_INFO, voteInfoModel);
+        bundle.putParcelable(ARGUMENT_VOTE_INFO, voteInfoModel);
         linkVoteResultFragment.setArguments(bundle);
         return linkVoteResultFragment;
     }
@@ -41,10 +41,11 @@ public class LinkVoteResultFragment extends Fragment implements LinkVoteResultCo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
-            mVoteInfoModel = (VoteInfoModel) getArguments().getSerializable(ARGUMENT_VOTE_INFO);
+            mVoteInfoModel = getArguments().getParcelable(ARGUMENT_VOTE_INFO);
         mPresenter = new LinkVoteResultPresenter(this);
         mVoteResultType.set(VoteResultType.TABLE);
-        mResultAdapter = new ResultAdapter(mVoteInfoModel, (LinkVoteResultPresenter) mPresenter);
+        mResultAdapter =
+            new ResultAdapter(mVoteInfoModel, (LinkVoteResultPresenter) mPresenter);
         setHasOptionsMenu(true);
     }
 
@@ -53,7 +54,8 @@ public class LinkVoteResultFragment extends Fragment implements LinkVoteResultCo
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         FragmentLinkVoteResultBinding binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_link_vote_result, container, false);
+            DataBindingUtil.inflate
+                (inflater, R.layout.fragment_link_vote_result, container, false);
         binding.setFragment(this);
         binding.setVoteInfoModel(mVoteInfoModel);
         binding.layoutTableResult.setFragment(this);
