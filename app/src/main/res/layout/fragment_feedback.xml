@@ -1,7 +1,6 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -23,20 +22,14 @@
         android:paddingTop="@dimen/dp_40">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
-            android:background="@drawable/bg_edit_text"
-            android:orientation="horizontal"
-            android:padding="@dimen/dp_1">
+            style="@style/LinearLayoutStyle">
 
             <ImageView
-                style="@style/ImageViewLogin"
+                style="@style/ImageViewStyle"
                 android:src="@drawable/ic_person_black_24dp"/>
 
-            <include layout="@layout/partial_line"/>
-
             <EditText
-                style="@style/EditTextLogin"
+                style="@style/EditTextStyle"
                 android:hint="@string/hint_enter_name"
                 android:inputType="textEmailAddress"
                 android:text="@={presenter.name}"/>
@@ -44,21 +37,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
-            android:layout_marginTop="@dimen/dp_14"
-            android:background="@drawable/bg_edit_text"
-            android:orientation="horizontal"
-            android:padding="@dimen/dp_1">
+            style="@style/LinearLayoutStyle">
 
             <ImageView
-                style="@style/ImageViewLogin"
+                style="@style/ImageViewStyle"
                 android:src="@drawable/ic_email_white_24px"/>
 
-            <include layout="@layout/partial_line"/>
-
             <EditText
-                style="@style/EditTextLogin"
+                style="@style/EditTextStyle"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:text="@={presenter.email}"/>

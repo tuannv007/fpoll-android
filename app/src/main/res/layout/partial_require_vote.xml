@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,23 +26,16 @@
             android:textSize="@dimen/sp_14"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
-            android:background="@drawable/bg_edit_text"
-            android:orientation="horizontal"
-            android:padding="@dimen/dp_1">
+            style="@style/LinearLayoutStyle">
 
             <android.support.v7.widget.AppCompatTextView
-                style="@style/ImageViewLogin"
+                style="@style/ImageViewStyle"
                 android:gravity="center"
                 android:text="@string/msg_type_email"
                 android:textSize="@dimen/sp_18"/>
 
             <android.support.v7.widget.AppCompatEditText
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
+                style="@style/EditTextStyle"
                 android:hint="@string/hint_enter_email_participant"
                 android:paddingLeft="@dimen/dp_4"/>
         </LinearLayout>
