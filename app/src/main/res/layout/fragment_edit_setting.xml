@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.pollcreation.setting.SettingHandler"/>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter"/>
+
+        <import type="com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType"/>
+
+        <import type="java.lang.String"/>
+
+        <import type="com.framgia.fpoll.util.Constant.DataConstant"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_grey_200"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_page_setting"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dp_16">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_require_voted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/msg_require_voted"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+
+                <RadioGroup
+                    android:id="@+id/group_require_voted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dp_16"
+                    bind:eventRadioGroup="@{presenter}"
+                    bind:eventType="@{EventSwitchType.REQUIRE_VOTE}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchRequireVoted}">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/radio_enter_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/color_grey_700"
+                        android:checked="true"
+                        android:text="@string/msg_enter_name"
+                        android:textColor="@color/color_grey_700"/>
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/radio_enter_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/color_grey_700"
+                        android:text="@string/msg_enter_email"
+                        android:textColor="@color/color_grey_700"/>
+
+                    <include
+                        layout="@layout/partial_require_vote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_8"/>
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/radio_enter_name_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/color_grey_700"
+                        android:text="@string/msg_enter_name_email"
+                        android:textColor="@color/color_grey_700"/>
+
+                    <include
+                        layout="@layout/partial_require_vote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_8"/>
+
+                </RadioGroup>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(switch, checked)->handler.checkedVotingResult(checked)}"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/msg_hide_voted"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_optimize_poll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/msg_optimize_poll"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_link_poll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:background="@drawable/bg_edit_text"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_1"
+                    bind:eventType="@{EventSwitchType.LINK_POLL}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchOptimizePoll}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_grey_200"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/dp_4"
+                        android:text="@string/msg_url_link"/>
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edit_link_poll"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="@dimen/dp_4"
+                        android:paddingRight="@dimen/dp_4"
+                        android:text="@={presenter.linkPoll}"
+                        android:textSize="@dimen/sp_12"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_voting_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/msg_voting_limit"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_limit_voting"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:background="@drawable/bg_edit_text"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_1"
+                    bind:eventType="@{EventSwitchType.VOTING_LIMIT}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchVotingLimit}">
+
+                    <ImageView
+                        style="@style/ImageViewLogin"
+                        android:src="@drawable/ic_format_number"/>
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edit_limit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="@string/hint_number_limit"
+                        android:inputType="number"
+                        android:text="@{presenter.numberLimit > 0 ? String.valueOf(presenter.numberLimit): DataConstant.DATA_SPACE}"/>
+
+                    <ImageView
+                        android:id="@+id/image_sub"
+                        style="@style/ImageViewLogin"
+                        android:layout_marginLeft="@dimen/dp_2"
+                        android:layout_marginRight="@dimen/dp_2"
+                        android:onClick="@{()->handler.clickMinus()}"
+                        android:src="@drawable/ic_remove_black_24px"/>
+
+                    <ImageView
+                        android:id="@+id/image_add"
+                        style="@style/ImageViewLogin"
+                        android:onClick="@{()->handler.clickAugment()}"
+                        android:src="@drawable/ic_add_black_24px"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_set_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/action_change_password"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_set_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:background="@drawable/bg_edit_text"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_1"
+                    bind:eventType="@{EventSwitchType.PASSWORD}"
+                    bind:presenter="@{presenter}"
+                    bind:setVisibility="@{switchSetPassword}">
+
+                    <ImageView
+                        style="@style/ImageViewLogin"
+                        android:src="@drawable/ic_vpn_key_white_24px"/>
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edit_password"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:inputType="textPassword"
+                        android:text="@={presenter.pass}"
+                        bind:showPassword="@{presenter.showPassword}"/>
+
+                    <ImageView
+                        android:id="@+id/image_show"
+                        style="@style/ImageViewLogin"
+                        android:onClick="@{()->handler.clickShowPassword()}"
+                        android:src="@drawable/ic_eye"
+                        bind:showImage="@{presenter.showPassword}"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(switch, checked) -> handler.changeAllowAddAnswer(checked)}"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/action_allow_add_answer"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(switch, checked) -> handler.changeAllowEdit(checked)}"
+                    android:padding="@dimen/dp_8"
+                    android:text="@string/action_allow_edit_poll"
+                    android:textColor="@color/color_grey_700"
+                    android:textSize="@dimen/sp_18"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_teal_800"
+                    android:onClick="@{() -> handler. previousStep()}"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingRight="@dimen/dp_16"
+                    android:text="@string/action_save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_18"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/color_teal_800"
+                    android:onClick="@{() -> handler. nextStep()}"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingRight="@dimen/dp_16"
+                    android:text="@string/action_back"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/sp_18"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>
