@@ -1,6 +1,9 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
+import android.databinding.ObservableField;
+
 import com.framgia.fpoll.data.model.poll.Option;
+import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
@@ -16,11 +19,15 @@ import java.util.List;
 public class VotePresenter implements VoteContract.Presenter {
     private VoteContract.View mView;
     private VoteInfoRepository mVoteInfoRepository;
+    private ObservableField<String> mName = new ObservableField<>();
+    private ObservableField<String> mEmail = new ObservableField<>();
 
     public VotePresenter(VoteContract.View view, VoteInfoRepository voteInfoRepository) {
         mView = view;
         mVoteInfoRepository = voteInfoRepository;
         mView.start();
+        mName.set("");
+        mEmail.set("");
     }
 
     @Override
@@ -30,8 +37,6 @@ public class VotePresenter implements VoteContract.Presenter {
 
     @Override
     public void submitVote(VoteInfoModel voteInfoModel) {
-        String name = voteInfoModel.getVoteInfo().getPoll().getName();
-        String email = voteInfoModel.getVoteInfo().getPoll().getEmail();
         int idPoll = voteInfoModel.getVoteInfo().getPoll().getId();
         List<Option> options = new ArrayList<>();
         for (int i = 0; i < voteInfoModel.getOptionModels().size(); i++) {
@@ -39,18 +44,33 @@ public class VotePresenter implements VoteContract.Presenter {
                 options.add(voteInfoModel.getOptionModels().get(i).getOption());
             }
         }
+        if (options.size() == 0) {
+            mView.onNotifyVote();
+            return;
+        }
+        mView.setLoading(true);
         VoteInfoAPI.OptionsBody optionBody =
-            new VoteInfoAPI.OptionsBody(name, email, idPoll, options);
+            new VoteInfoAPI.OptionsBody(mName.get(), mEmail.get(), idPoll, options);
         mVoteInfoRepository.votePoll(optionBody, new DataCallback<List<String>>() {
             @Override
             public void onSuccess(List<String> data) {
                 mView.onSubmitSuccess(data);
+                mView.setLoading(false);
             }
 
             @Override
             public void onError(String msg) {
                 mView.onSubmitFailed(msg);
+                mView.setLoading(false);
             }
         });
+    }
+
+    public ObservableField<String> getName() {
+        return mName;
+    }
+
+    public ObservableField<String> getEmail() {
+        return mEmail;
     }
 }

@@ -14,6 +14,8 @@ public interface VoteContract {
         void updateVoteChoice(OptionModel option);
         void onSubmitSuccess(List<String> messages);
         void onSubmitFailed(String messages);
+        void onNotifyVote();
+        void setLoading(boolean isShow);
     }
 
     interface Presenter {

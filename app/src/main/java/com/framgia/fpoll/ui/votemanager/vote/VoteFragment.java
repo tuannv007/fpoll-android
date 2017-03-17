@@ -1,13 +1,16 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
@@ -18,6 +21,8 @@ import com.framgia.fpoll.util.ActivityUtil;
 
 import java.util.List;
 
+import static android.graphics.Color.TRANSPARENT;
+
 /**
  * Created by tran.trung.phong on 22/02/2017.
  */
@@ -27,6 +32,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     private ObservableField<VoteAdapter> mAdapter = new ObservableField<>();
     private VoteInfoModel mVoteInfoModel;
     private VoteContract.Presenter mPresenter;
+    private ProgressDialog mProgressDialog;
 
     public static VoteFragment newInstance(VoteInfoModel voteInfo) {
         VoteFragment voteInformationFragment = new VoteFragment();
@@ -63,7 +69,6 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public void updateVoteChoice(OptionModel optionModel) {
         optionModel.setChecked(!optionModel.isChecked());
-
         if (mVoteInfoModel.getVoteInfo().getPoll().isMultiple()) return;
         //single vote, reset other
         for (int i = 0; i < mVoteInfoModel.getOptionModels().size(); i++) {
@@ -82,6 +87,23 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public void onSubmitFailed(String message) {
         ActivityUtil.showToast(getContext(), message);
+    }
+
+    @Override
+    public void onNotifyVote() {
+        ActivityUtil.showToast(getContext(), getString(R.string.msg_vote_your_option));
+    }
+
+    @Override
+    public void setLoading(boolean isShow) {
+        if (!isShow && mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+            return;
+        }
+        mProgressDialog = ProgressDialog.show(getContext(), null, null, true, false);
+        if (mProgressDialog.getWindow() != null)
+            mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        mProgressDialog.setContentView(new ProgressBar(getContext()));
     }
 
     public ObservableField<VoteAdapter> getAdapter() {

@@ -3,8 +3,6 @@
 
     <data>
 
-        <import type="com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus"/>
-
         <import type="android.view.View"/>
 
         <variable
@@ -17,48 +15,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/dp_300">
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_16">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_16"
-                android:visibility="@{(voteInfoModel.itemStatus == ItemStatus.AVAILABLE || voteInfoModel.itemStatus == ItemStatus.POSTING) ? View.VISIBLE : View.GONE}">
+            <include
+                android:id="@+id/layout_poll_info"
+                layout="@layout/partial_poll_info"/>
 
-                <include
-                    android:id="@+id/layout_poll_info"
-                    layout="@layout/partial_poll_info"/>
+            <include
+                android:id="@+id/layout_post_comment"
+                layout="@layout/partial_post_comment"/>
 
-                <include
-                    android:id="@+id/layout_post_comment"
-                    layout="@layout/partial_post_comment"/>
+            <include
+                android:id="@+id/layout_comments"
+                layout="@layout/partial_comments"/>
 
-                <include
-                    android:id="@+id/layout_comments"
-                    layout="@layout/partial_comments"/>
-
-            </LinearLayout>
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="@{voteInfoModel.itemStatus == ItemStatus.LOADING ? View.VISIBLE : View.GONE}"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text=""
-                android:visibility="@{voteInfoModel.itemStatus == ItemStatus.NOT_AVAILABLE ? View.VISIBLE : View.GONE}"/>
-
-        </FrameLayout>
-
+        </LinearLayout>
     </ScrollView>
 </layout>
