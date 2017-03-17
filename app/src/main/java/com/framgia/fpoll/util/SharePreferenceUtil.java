@@ -33,7 +33,8 @@ public class SharePreferenceUtil {
     }
 
     public User getUser() {
-        return new Gson().fromJson(mPreferences.getString(PREF_USER, null), User.class);
+        User user = new Gson().fromJson(mPreferences.getString(PREF_USER, null), User.class);
+        return user != null ? user : new User();
     }
 
     public void writeToken(String token) {

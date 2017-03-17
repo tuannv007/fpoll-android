@@ -95,10 +95,16 @@ public class LoginRemoteDataSource implements LoginDataSource {
         if (mService == null) return;
         RequestBody email = RequestBody.create(MultipartBody.FORM, user.getEmail());
         RequestBody name = RequestBody.create(MultipartBody.FORM, user.getUsername());
-        RequestBody password = RequestBody.create(MultipartBody.FORM, user.getPassword());
+        RequestBody password = null;
+        if (user.getPassword() != null) {
+            password = RequestBody.create(MultipartBody.FORM, user.getPassword());
+        }
         RequestBody gender =
             RequestBody.create(MultipartBody.FORM, String.valueOf(user.getGender()));
-        RequestBody chatWorkId = RequestBody.create(MultipartBody.FORM, user.getChatWorkId());
+        RequestBody chatWorkId = null;
+        if (user.getChatWorkId() != null) {
+            chatWorkId = RequestBody.create(MultipartBody.FORM, user.getChatWorkId());
+        }
         MultipartBody.Part avatar = AuthenticationApi.getAvatar(user);
         mService.updateProfile(name, email, password, gender, chatWorkId, avatar).enqueue(
             new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem<User>>() {

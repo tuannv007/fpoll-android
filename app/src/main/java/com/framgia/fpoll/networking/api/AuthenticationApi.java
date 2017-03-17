@@ -59,6 +59,7 @@ public class AuthenticationApi {
         @POST("api/v1/logout")
         Call<ResponseItem> logout(@Header("Authorization") String token);
         @POST("api/v1/updateProfile")
+        @Multipart
         Call<ResponseItem<User>> updateProfile(
             @Part("name") RequestBody name,
             @Part("email") RequestBody email,

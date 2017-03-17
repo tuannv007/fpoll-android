@@ -218,4 +218,6 @@
     <string name="text_vote_detail_header">%1$s users and %2$s participants voted this</string>
     <string name="text_public_vote_profile">Public vote profile</string>
     <string name="title_update_profile">Update Profile</string>
+    <string name="msg_password_error">Password is match</string>
+    <string name="msg_update_profile_success">Update profile success</string>
 </resources>

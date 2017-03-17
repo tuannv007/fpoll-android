@@ -1,7 +1,12 @@
 package com.framgia.fpoll.ui.editprofile;
 
+import android.support.annotation.NonNull;
+
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.data.source.remote.login.LoginRepository;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.util.UserValidation;
 
 /**
@@ -9,34 +14,35 @@ import com.framgia.fpoll.util.UserValidation;
  */
 public class EditProfilePresenter implements EditProfileContract.Presenter {
     private String TAG = "EditProfilePresenter";
-    private EditProfileContract.View mEditProfileView;
+    private EditProfileContract.View mView;
     private User mUser;
+    private SharePreferenceUtil mPreference;
+    private LoginRepository mRepository;
 
-    public EditProfilePresenter(EditProfileContract.View view, User user) {
-        mEditProfileView = view;
-        mUser = user;
+    public EditProfilePresenter(@NonNull EditProfileContract.View view,
+                                @NonNull SharePreferenceUtil preference,
+                                @NonNull LoginRepository repository) {
+        mView = view;
+        mPreference = preference;
+        mRepository = repository;
+        mUser = mPreference.getUser();
     }
 
     @Override
     public void submitEditProfile() {
-        new UserValidation(mUser).validate(new UserValidation.CallBack() {
+        if (mRepository == null || mUser == null) return;
+        new UserValidation(mUser).updateProfileValidate(new UserValidation.CallBack() {
             @Override
             public void onError(UserValidation.Error error) {
                 switch (error) {
                     case USER_NAME:
-                        mEditProfileView.showMessageError(R.string.msg_username_not_empty);
+                        mView.showMessageError(R.string.msg_username_not_empty);
                         break;
                     case EMAIL:
-                        mEditProfileView.showMessageError(R.string.msg_email_invalidate);
+                        mView.showMessageError(R.string.msg_email_invalidate);
                         break;
                     case PASSWORD:
-                        mEditProfileView.showMessageError(R.string.msg_password_not_empty);
-                        break;
-                    case CONFIRM_PASSWORD:
-                        mEditProfileView.showMessageError(R.string.msg_confirm_pass_not_success);
-                        break;
-                    case PASSWORD_LENGTH:
-                        mEditProfileView.showMessageError(R.string.msg_length_password);
+                        mView.showMessageError(R.string.msg_password_error);
                         break;
                     default:
                         break;
@@ -45,14 +51,28 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
             @Override
             public void onValidateSuccess() {
-                // show noti edit success
+                mView.showProgressDialog();
+                mRepository.updateProfile(mUser, new DataCallback<User>() {
+                    @Override
+                    public void onSuccess(User data) {
+                        mPreference.writeUser(data);
+                        mView.showMessageError(R.string.msg_update_profile_success);
+                        mView.hideProgressDialog();
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        mView.showMessage(msg);
+                        mView.hideProgressDialog();
+                    }
+                });
             }
         });
     }
 
     @Override
     public void openGallery() {
-        mEditProfileView.chooseImage();
+        mView.chooseImage();
     }
 
     @Override
