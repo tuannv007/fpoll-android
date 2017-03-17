@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.main;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.SharePreferenceUtil;
+
+import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_LOGIN;
 
 public class MainActivity extends AppCompatActivity
     implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
@@ -73,7 +76,8 @@ public class MainActivity extends AppCompatActivity
                 addFragment(FeedbackFragment.newInstance(), R.string.title_feedback);
                 break;
             case R.id.action_login:
-                startActivity(AuthenticationActivity.getAuthenticationIntent(this));
+                startActivityForResult(AuthenticationActivity.getAuthenticationIntent(this),
+                    REQUEST_LOGIN);
                 break;
             case R.id.action_home:
                 addFragment(CreatePollFragment.newInstance(), R.string.title_home);
@@ -110,6 +114,14 @@ public class MainActivity extends AppCompatActivity
         intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.color_teal_500))
             .setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.color_teal_800))
             .build().launchUrl(this, helpUri);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
+            mPresenter.setInformation();
+        }
     }
 
     @Override

@@ -113,7 +113,8 @@ public class AuthenticationActivity extends AppCompatActivity
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
         if (fragment == null || fragment instanceof LoginFragment) {
-            super.onBackPressed();
+            setResult(RESULT_OK);
+            finish();
             return;
         }
         showLoginFragment();

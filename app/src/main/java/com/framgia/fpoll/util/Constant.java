@@ -61,6 +61,7 @@ public class Constant {
         public static final int IMAGE_PICKER_SELECT = 1;
         public static final int REQUEST_GOOGLE = 3;
         public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL = 4;
+        public static final int REQUEST_LOGIN = 5;
     }
 
     public static class TimeFormat {
@@ -118,5 +119,6 @@ public class Constant {
     public static class PreferenceConstant {
         public static final String PREF_USER = "PREF_USER";
         public static final String PREF_TOKEN = "PREF_TOKEN";
+        public static final String PREF_IS_LOGIN = "PREF_IS_LOGIN";
     }
 }

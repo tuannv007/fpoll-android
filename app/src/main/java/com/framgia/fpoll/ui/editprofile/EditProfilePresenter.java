@@ -26,6 +26,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
         mPreference = preference;
         mRepository = repository;
         mUser = mPreference.getUser();
+        mView.start();
     }
 
     @Override
