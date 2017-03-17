@@ -52,35 +52,36 @@
                 android:background="@drawable/bg_page_setting"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/dp_16">
+
                 <LinearLayout
-                    style="@style/RegisterLayoutStyle"
-                    android:padding="@dimen/dp_1">
+                    style="@style/LinearLayoutStyle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8">
 
                     <ImageView
-                        style="@style/RegisterImageViewStyle"
+                        style="@style/ImageViewStyle"
                         android:src="@drawable/ic_person_black_24dp"/>
 
                     <EditText
                         android:id="@+id/edt_user_name"
-                        style="@style/RegisterEditTextStyle"
+                        style="@style/EditTextStyle"
                         android:hint="@string/title_username"
                         android:text="@={information.userName}"
                         bind:setErrorEditText="@{msgError}"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    style="@style/RegisterLayoutStyle">
+                    style="@style/LinearLayoutStyle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8">
 
                     <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
+                        style="@style/ImageViewStyle"
                         android:src="@drawable/ic_email_white_24px"/>
 
                     <EditText
                         android:id="@+id/edt_email"
-                        style="@style/RegisterEditTextStyle"
+                        style="@style/EditTextStyle"
                         android:hint="@string/title_email"
                         android:inputType="textEmailAddress"
                         android:text="@={information.email}"
@@ -90,18 +91,17 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    style="@style/RegisterLayoutStyle">
+                    style="@style/LinearLayoutStyle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8">
 
                     <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
+                        style="@style/ImageViewStyle"
                         android:src="@drawable/ic_title"/>
 
                     <EditText
                         android:id="@+id/edt_poll_title"
-                        style="@style/RegisterEditTextStyle"
+                        style="@style/EditTextStyle"
                         android:hint="@string/hint_poll_title"
                         android:inputType="textEmailAddress"
                         android:text="@={information.pollTitle}"
@@ -110,7 +110,9 @@
                 </LinearLayout>
 
                 <Spinner
-                    style="@style/RegisterLayoutStyle"
+                    style="@style/LinearLayoutStyle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
                     android:entries="@array/array_answer"
                     bind:selectedValue="@={information.multiple}"/>
 
@@ -128,46 +130,44 @@
 
                 <LinearLayout
                     android:id="@+id/btn_choose_time"
-                    style="@style/RegisterLayoutStyle"
+                    style="@style/LinearLayoutStyle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
                     android:onClick="@{() -> handler. showDatePicker()}">
 
                     <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
+                        style="@style/ImageViewStyle"
                         android:src="@drawable/ic_alarm_black_24px"/>
 
                     <TextView
                         android:id="@+id/edt_choose_time"
-                        style="@style/RegisterEditTextStyle"
+                        style="@style/EditTextStyle"
                         android:gravity="center_vertical"
                         android:text="@{TimeUtil.convertTimeToString(fragment.mTime)}"/>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    style="@style/RegisterLayoutStyle">
+                    style="@style/LinearLayoutStyle"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8">
 
                     <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
+                        style="@style/ImageViewStyle"
                         android:src="@drawable/ic_location_on_black_24px"/>
 
                     <EditText
-                        style="@style/RegisterEditTextStyle"
+                        style="@style/EditTextStyle"
                         android:hint="@string/hint_position"
-                        android:inputType="textEmailAddress"
                         android:text="@={information.location}"/>
-
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <android.support.v7.widget.CardView
                     android:id="@+id/card_continue"
                     android:layout_width="wrap_content"
@@ -178,35 +178,43 @@
                     android:padding="@dimen/dp_8"
                     app:cardBackgroundColor="@color/color_teal_800">
 
-                    <TextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="@dimen/dp_8"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:paddingLeft="@dimen/dp_16"
+                        android:paddingRight="@dimen/dp_16"
+                        android:paddingTop="@dimen/dp_8"
                         android:text="@string/action_save"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_20"/>
                 </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:id="@+id/card_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_gravity="right"
                     android:layout_marginTop="@dimen/dp_8"
                     android:onClick="@{() -> handler. nextStep()}"
                     android:padding="@dimen/dp_8"
                     app:cardBackgroundColor="@color/color_teal_800">
 
-                    <TextView
+                    <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="@dimen/dp_8"
+                        android:paddingBottom="@dimen/dp_8"
+                        android:paddingLeft="@dimen/dp_16"
+                        android:paddingRight="@dimen/dp_16"
+                        android:paddingTop="@dimen/dp_8"
                         android:text="@string/action_back"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_20"/>
                 </android.support.v7.widget.CardView>
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </layout>

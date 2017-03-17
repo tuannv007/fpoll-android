@@ -30,31 +30,29 @@
             android:paddingTop="@dimen/dp_60">
 
             <LinearLayout
-                style="@style/RegisterLayoutStyle">
+                style="@style/LinearLayoutStyle">
 
                 <ImageView
-                    style="@style/RegisterImageViewStyle"
+                    style="@style/ImageViewStyle"
+                    android:background="@drawable/bg_image_authorization"
                     android:src="@drawable/ic_person_black_24dp"/>
 
-                <include layout="@layout/partial_line"/>
-
                 <EditText
-                    style="@style/RegisterEditTextStyle"
+                    style="@style/EditTextStyle"
                     android:hint="@string/title_username"
+                    android:inputType="textEmailAddress"
                     android:text="@={presenter.user.username}"/>
             </LinearLayout>
 
             <LinearLayout
-                style="@style/RegisterLayoutStyle">
+                style="@style/LinearLayoutStyle">
 
                 <ImageView
-                    style="@style/RegisterImageViewStyle"
+                    style="@style/ImageViewStyle"
                     android:src="@drawable/ic_vpn_key_white_24px"/>
 
-                <include layout="@layout/partial_line"/>
-
                 <EditText
-                    style="@style/RegisterEditTextStyle"
+                    style="@style/EditTextStyle"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword"
                     android:text="@={presenter.user.password}"/>
@@ -63,12 +61,11 @@
             <android.support.v7.widget.AppCompatCheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:layout_marginRight="@dimen/dp_8"
                 android:layout_marginTop="@dimen/dp_8"
+                android:buttonTint="@color/color_grey_700"
                 android:text="@string/remember_account"
                 android:textColor="@color/color_grey_700"
-                android:textSize="@dimen/sp_18"/>
+                android:textSize="@dimen/sp_16"/>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"

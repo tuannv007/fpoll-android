@@ -38,25 +38,21 @@
                 android:textSize="@dimen/sp_12"/>
 
             <LinearLayout
-                style="@style/LayoutManagerPoll">
+                style="@style/LinearLayoutStyle">
 
                 <ImageView
-                    style="@style/ImageViewLogin"
+                    style="@style/ImageViewStyle"
                     android:src="@drawable/ic_link"/>
-
-                <include layout="@layout/partial_line"/>
 
                 <EditText
                     style="@style/EditTextManageActivity"
                     android:hint="@string/hint_link_manage_poll"
                     android:inputType="textEmailAddress"
-                    android:padding="@dimen/dp_2"
                     android:text="@={presenter.linkManager}"
-                    android:textSize="@dimen/sp_12"/>
+                    android:textSize="@dimen/sp_14"/>
 
                 <ImageView
-                    style="@style/ImageViewLogin"
-                    android:background="@color/color_teal_500"
+                    style="@style/ImageViewManageActivity"
                     android:onClick="@{()->handler.clickSaveLinkManager()}"
                     android:src="@drawable/ic_done"/>
 
@@ -73,24 +69,21 @@
                 android:textSize="@dimen/sp_17"/>
 
             <LinearLayout
-                style="@style/LayoutManagerPoll">
+                style="@style/LinearLayoutStyle">
 
                 <ImageView
-                    style="@style/ImageViewLogin"
+                    style="@style/ImageViewStyle"
                     android:src="@drawable/ic_link"/>
-
-                <include layout="@layout/partial_line"/>
 
                 <EditText
                     style="@style/EditTextManageActivity"
                     android:hint="@string/hint_link_voting"
                     android:inputType="textEmailAddress"
-                    android:padding="@dimen/dp_2"
-                    android:text="@={presenter.linkVoting}"/>
+                    android:text="@={presenter.linkVoting}"
+                    android:textSize="@dimen/sp_14"/>
 
                 <ImageView
-                    style="@style/ImageViewLogin"
-                    android:background="@color/color_teal_500"
+                    style="@style/ImageViewManageActivity"
                     android:onClick="@{()->handler.clickSaveLinkVoting()}"
                     android:src="@drawable/ic_done"/>
 
@@ -166,7 +159,6 @@
                 bind:handler="@{handler}"
                 bind:image="@{@drawable/ic_delete_white_24px}"
                 bind:title="@{@string/title_delete_voting}"/>
-
         </LinearLayout>
     </ScrollView>
 </layout>

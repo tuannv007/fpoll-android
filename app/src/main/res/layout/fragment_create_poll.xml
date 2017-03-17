@@ -65,115 +65,109 @@
                     android:textSize="@dimen/sp_20"/>
 
                 <LinearLayout
-                    style="@style/RegisterLayoutStyle"
-                    android:padding="@dimen/dp_1">
-
-                    <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:src="@drawable/ic_person_black_24dp"/>
-
-                    <EditText
-                        android:id="@+id/edt_user_name"
-                        style="@style/RegisterEditTextStyle"
-                        android:hint="@string/title_username"
-                        android:text="@={information.userName}"
-                        bind:setErrorEditText="@{msgError}"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/RegisterLayoutStyle">
-
-                    <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
-                        android:src="@drawable/ic_email_white_24px"/>
-
-                    <EditText
-                        android:id="@+id/edt_email"
-                        style="@style/RegisterEditTextStyle"
-                        android:hint="@string/title_email"
-                        android:inputType="textEmailAddress"
-                        android:text="@={information.email}"
-                        bind:setErrorEditText="@{msgError}"
-                        bind:setErrorEmail="@{msgErrorEmail}"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/RegisterLayoutStyle">
-
-                    <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
-                        android:src="@drawable/ic_title"/>
-
-                    <EditText
-                        android:id="@+id/edt_poll_title"
-                        style="@style/RegisterEditTextStyle"
-                        android:hint="@string/hint_poll_title"
-                        android:inputType="textEmailAddress"
-                        android:text="@={information.pollTitle}"
-                        bind:setErrorEditText="@{msgError}"/>
-
-                </LinearLayout>
-
-                <Spinner
-                    style="@style/RegisterLayoutStyle"
-                    android:entries="@array/array_answer"
-                    bind:selectedValue="@={information.multiple}"/>
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/edit_send_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_8"
-                    android:background="@drawable/bg_edit_text"
-                    android:gravity="start"
-                    android:hint="@string/title_description_poll"
-                    android:minHeight="@dimen/dp_180"
-                    android:padding="@dimen/dp_8"
-                    android:text="@={information.description}"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_8">
 
-                <LinearLayout
-                    android:id="@+id/btn_choose_time"
-                    style="@style/RegisterLayoutStyle"
-                    android:onClick="@{() -> handler. showDatePicker()}">
+                    <LinearLayout
+                        style="@style/LinearLayoutStyle">
 
-                    <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
-                        android:src="@drawable/ic_alarm_black_24px"/>
+                        <ImageView
+                            style="@style/ImageViewStyle"
+                            android:src="@drawable/ic_person_black_24dp"/>
 
-                    <TextView
-                        android:id="@+id/edt_choose_time"
-                        style="@style/RegisterEditTextStyle"
-                        android:gravity="center_vertical"
-                        android:text="@{TimeUtil.convertTimeToString(fragment.mTime)}"/>
+                        <EditText
+                            android:id="@+id/edt_user_name"
+                            style="@style/EditTextStyle"
+                            android:hint="@string/title_username"
+                            android:text="@={information.userName}"
+                            bind:setErrorEditText="@{msgError}"/>
+                    </LinearLayout>
 
-                </LinearLayout>
+                    <LinearLayout
+                        style="@style/LinearLayoutStyle">
 
-                <LinearLayout
-                    style="@style/RegisterLayoutStyle">
+                        <ImageView
+                            style="@style/ImageViewStyle"
+                            android:src="@drawable/ic_email_white_24px"/>
 
-                    <ImageView
-                        style="@style/RegisterImageViewStyle"
-                        android:layout_margin="@dimen/dp_1"
-                        android:background="@color/color_gray"
-                        android:padding="@dimen/dp_10"
-                        android:src="@drawable/ic_location_on_black_24px"/>
+                        <EditText
+                            android:id="@+id/edt_email"
+                            style="@style/EditTextStyle"
+                            android:hint="@string/title_email"
+                            android:inputType="textEmailAddress"
+                            android:text="@={information.email}"
+                            bind:setErrorEditText="@{msgError}"
+                            bind:setErrorEmail="@{msgErrorEmail}"/>
 
-                    <EditText
-                        style="@style/RegisterEditTextStyle"
-                        android:hint="@string/hint_position"
-                        android:inputType="textEmailAddress"
-                        android:text="@={information.location}"/>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        style="@style/LinearLayoutStyle">
+
+                        <ImageView
+                            style="@style/ImageViewStyle"
+                            android:src="@drawable/ic_title"/>
+
+                        <EditText
+                            android:id="@+id/edt_poll_title"
+                            style="@style/EditTextStyle"
+                            android:hint="@string/hint_poll_title"
+                            android:inputType="textEmailAddress"
+                            android:text="@={information.pollTitle}"
+                            bind:setErrorEditText="@{msgError}"/>
+
+                    </LinearLayout>
+
+                    <Spinner
+                        style="@style/LinearLayoutStyle"
+                        android:entries="@array/array_answer"
+                        bind:selectedValue="@={information.multiple}"/>
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edit_send_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/bg_edit_text"
+                        android:gravity="start"
+                        android:hint="@string/title_description_poll"
+                        android:minHeight="@dimen/dp_180"
+                        android:padding="@dimen/dp_8"
+                        android:text="@={information.description}"/>
+
+                    <LinearLayout
+                        android:id="@+id/btn_choose_time"
+                        style="@style/LinearLayoutStyle"
+                        android:onClick="@{() -> handler. showDatePicker()}">
+
+                        <ImageView
+                            style="@style/ImageViewStyle"
+                            android:src="@drawable/ic_alarm_black_24px"/>
+
+                        <TextView
+                            android:id="@+id/edt_choose_time"
+                            style="@style/EditTextStyle"
+                            android:gravity="center_vertical"
+                            android:text="@{TimeUtil.convertTimeToString(fragment.mTime)}"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LinearLayoutStyle">
+
+                        <ImageView
+                            style="@style/ImageViewStyle"
+                            android:src="@drawable/ic_location_on_black_24px"/>
+
+                        <EditText
+                            style="@style/EditTextStyle"
+                            android:hint="@string/hint_position"
+                            android:text="@={information.location}"/>
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

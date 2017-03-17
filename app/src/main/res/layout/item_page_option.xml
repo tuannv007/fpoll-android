@@ -26,11 +26,7 @@
         android:padding="@dimen/dp_16">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_edit_text"
-            android:orientation="horizontal"
-            android:padding="@dimen/dp_1">
+            style="@style/LinearLayoutStyle">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/edit_option_poll"
@@ -41,23 +37,28 @@
                 android:text="@={option.title}"/>
 
             <ImageView
-                style="@style/ImageViewPageOption"
-                android:background="@color/color_grey_200"
+                style="@style/ImageViewAuthorizationCenter"
                 android:onClick="@{()->handler.clickPickDate(option, position)}"
                 android:src="@drawable/ic_date_range_black_24dp"/>
 
             <ImageView
                 android:id="@+id/image_insert_photo"
-                style="@style/ImageViewPageOption"
-                android:background="@color/color_teal_500"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_image_option_pick"
                 android:onClick="@{()->handler.clickPickImage(option, position)}"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
                 android:src="@drawable/ic_photo_white"/>
 
             <ImageView
                 android:id="@+id/image_delete"
-                style="@style/ImageViewPageOption"
-                android:background="@color/color_red_500"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_image_option_delete_right"
                 android:onClick="@{()->handler.clickDeletePoll(option, position)}"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
                 android:src="@drawable/ic_delete_white_24px"/>
         </LinearLayout>
 

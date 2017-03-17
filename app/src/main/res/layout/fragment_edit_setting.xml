@@ -119,8 +119,7 @@
 
                 <LinearLayout
                     android:id="@+id/linear_link_poll"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_48"
+                    style="@style/LinearLayoutStyle"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:background="@drawable/bg_edit_text"
@@ -131,9 +130,7 @@
                     bind:setVisibility="@{switchOptimizePoll}">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@color/color_grey_200"
+                        style="@style/ImageViewStyle"
                         android:gravity="center_vertical"
                         android:padding="@dimen/dp_4"
                         android:text="@string/msg_url_link"/>
@@ -173,7 +170,7 @@
                     bind:setVisibility="@{switchVotingLimit}">
 
                     <ImageView
-                        style="@style/ImageViewLogin"
+                        style="@style/ImageViewStyle"
                         android:src="@drawable/ic_format_number"/>
 
                     <android.support.v7.widget.AppCompatEditText
@@ -189,15 +186,13 @@
 
                     <ImageView
                         android:id="@+id/image_sub"
-                        style="@style/ImageViewLogin"
-                        android:layout_marginLeft="@dimen/dp_2"
-                        android:layout_marginRight="@dimen/dp_2"
+                        style="@style/ImageViewAuthorizationCenter"
                         android:onClick="@{()->handler.clickMinus()}"
                         android:src="@drawable/ic_remove_black_24px"/>
 
                     <ImageView
                         android:id="@+id/image_add"
-                        style="@style/ImageViewLogin"
+                        style="@style/ImageViewAuthorizationRight"
                         android:onClick="@{()->handler.clickAugment()}"
                         android:src="@drawable/ic_add_black_24px"/>
                 </LinearLayout>
@@ -225,7 +220,7 @@
                     bind:setVisibility="@{switchSetPassword}">
 
                     <ImageView
-                        style="@style/ImageViewLogin"
+                        style="@style/ImageViewStyle"
                         android:src="@drawable/ic_vpn_key_white_24px"/>
 
                     <android.support.v7.widget.AppCompatEditText
@@ -240,7 +235,7 @@
 
                     <ImageView
                         android:id="@+id/image_show"
-                        style="@style/ImageViewLogin"
+                        style="@style/ImageViewAuthorizationRight"
                         android:onClick="@{()->handler.clickShowPassword()}"
                         android:src="@drawable/ic_eye"
                         bind:showImage="@{presenter.showPassword}"/>

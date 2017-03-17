@@ -8,45 +8,67 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="RegisterImageViewStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_margin">2.7dp</item>
-        <item name="android:background">@color/color_gray</item>
-        <item name="android:padding">@dimen/dp_10</item>
-    </style>
-
-    <style name="RegisterLayoutStyle">
+    <style name="LinearLayoutStyle">
+        <item name="android:layout_marginTop">@dimen/dp_10</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_48</item>
         <item name="android:background">@drawable/bg_edit_text</item>
-        <item name="android:layout_margin">@dimen/dp_8</item>
     </style>
 
-    <style name="RegisterEditTextStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">5</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="EditTextLogin">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:paddingLeft">@dimen/dp_2</item>
-        <item name="android:paddingRight">@dimen/dp_2</item>
-        <item name="android:layout_width">match_parent</item>
-    </style>
-
-    <style name="ImageViewLogin">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
+    <style name="ImageViewStyle">
+        <item name="android:background">@drawable/bg_image_authorization</item>
         <item name="android:paddingTop">@dimen/dp_8</item>
         <item name="android:paddingBottom">@dimen/dp_8</item>
         <item name="android:paddingRight">@dimen/dp_16</item>
         <item name="android:paddingLeft">@dimen/dp_16</item>
-        <item name="android:background">@color/color_grey_200</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="ImageViewAuthorizationCenter">
+        <item name="android:background">@drawable/bg_image_authorization_center</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+        <item name="android:paddingRight">@dimen/dp_16</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="ImageViewAuthorizationRight">
+        <item name="android:background">@drawable/bg_image_authorization_right</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+        <item name="android:paddingRight">@dimen/dp_16</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:padding">@dimen/dp_4</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="EditTextManageActivity">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:paddingLeft">@dimen/dp_2</item>
+        <item name="android:paddingRight">@dimen/dp_2</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="ImageViewManageActivity">
+        <item name="android:background">@drawable/bg_image_manager</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+        <item name="android:paddingRight">@dimen/dp_16</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="TextViewStatusPoll">
@@ -54,21 +76,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/sp_20</item>
-    </style>
-
-    <style name="LayoutManagerPoll">
-        <item name="android:layout_marginTop">@dimen/dp_10</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_48</item>
-        <item name="android:background">@drawable/bg_edit_text</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:padding">@dimen/dp_1</item>
-    </style>
-
-    <style name="EditTextManagerPoll">
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="ButtonActionManagerLink">
@@ -81,14 +88,6 @@
         <item name="android:background">@color/color_teal_500</item>
     </style>
 
-    <style name="EditTextManageActivity">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:paddingLeft">@dimen/dp_2</item>
-        <item name="android:paddingRight">@dimen/dp_2</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_width">0dp</item>
-    </style>
 
     <style name="ButtonInfo">
         <item name="android:layout_width">0dp</item>
@@ -138,13 +137,6 @@
     <style name="ImageViewItemVote">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_150</item>
-    </style>
-
-    <style name="ImageViewPageOption">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:padding">@dimen/dp_8</item>
-        <item name="android:background">@color/color_grey_200</item>
     </style>
 
     <style name="TitlePollTextView">
