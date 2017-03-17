@@ -7,6 +7,7 @@ import com.framgia.fpoll.data.model.authorization.User;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_IS_LOGIN;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_TOKEN;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_USER;
 
@@ -43,5 +44,13 @@ public class SharePreferenceUtil {
 
     public String getToken() {
         return mPreferences.getString(PREF_TOKEN, null);
+    }
+
+    public void writeLogin(boolean isLogin) {
+        mPreferences.edit().putBoolean(PREF_IS_LOGIN, isLogin).apply();
+    }
+
+    public boolean isLogin() {
+        return mPreferences.getBoolean(PREF_IS_LOGIN, false);
     }
 }

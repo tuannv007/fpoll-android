@@ -14,18 +14,17 @@ import com.framgia.fpoll.util.SharePreferenceUtil;
  */
 public class MainPresenter implements MainContract.Presenter {
     private final MainContract.View mView;
-    private User mUser = new User();
+    private User mUser;
     private LoginRepository mRepository;
-    private String mToken = ""; // Token after login
     private SharePreferenceUtil mPreference;
-    private final ObservableBoolean mIsLogin = new ObservableBoolean(true);
+    private final ObservableBoolean mIsLogin = new ObservableBoolean();
 
     public MainPresenter(MainContract.View view, @NonNull LoginRepository repository,
                          @NonNull SharePreferenceUtil preference) {
         mView = view;
         mRepository = repository;
         mPreference = preference;
-        mUser = mPreference.getUser();
+        setInformation();
         mView.start();
     }
 
@@ -37,9 +36,13 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void logout() {
         if (mRepository == null) return;
-        mRepository.logout(mToken, new DataCallback<String>() {
+        mRepository.logout(mUser.getToken(), new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
+                mView.showMessage(data);
+                mPreference.writeUser(null);
+                mPreference.writeLogin(false);
+                setInformation();
                 mView.showMessage(data);
             }
 
@@ -48,6 +51,12 @@ public class MainPresenter implements MainContract.Presenter {
                 mView.showMessage(msg);
             }
         });
+    }
+
+    @Override
+    public void setInformation() {
+        mUser = mPreference.getUser();
+        mIsLogin.set(mPreference.isLogin());
     }
 
     public User getUser() {

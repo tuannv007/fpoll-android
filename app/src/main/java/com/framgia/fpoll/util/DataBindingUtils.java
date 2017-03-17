@@ -38,6 +38,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.LikeView;
 import com.facebook.share.widget.ShareButton;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.databinding.PartialHeadBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginType;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
@@ -300,13 +301,16 @@ public class DataBindingUtils {
             });
     }
 
-    @BindingAdapter({"bind:bindHeader"})
-    public static void loadHeader(NavigationView view, MainPresenter presenter) {
+    @BindingAdapter({"bind:bindHeader", "bind:user", "bind:isLogin"})
+    public static void loadHeader(NavigationView view, MainPresenter presenter, User user,
+                                  boolean isLogin) {
         PartialHeadBinding binding =
             PartialHeadBinding.inflate(LayoutInflater.from(view.getContext()));
-        binding.setUser(presenter.getUser());
+        binding.setUser(user);
         binding.setHandler(new MainHandler(presenter));
         binding.setIsLogin(presenter.getIsLogin().get());
+        view.getMenu().findItem(R.id.action_login).setVisible(!isLogin);
+        view.getMenu().findItem(R.id.action_log_out).setVisible(isLogin);
         binding.executePendingBindings();
         view.addHeaderView(binding.getRoot());
     }

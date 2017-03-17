@@ -19,5 +19,6 @@ public interface MainContract {
     interface Presenter {
         void logout();
         void updateProfile();
+        void setInformation();
     }
 }

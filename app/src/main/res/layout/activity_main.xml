@@ -42,7 +42,9 @@
             android:background="@color/color_white"
             android:fitsSystemWindows="true"
             app:menu="@menu/main_nav"
-            bind:bindHeader="@{presenter}"/>
+            bind:bindHeader="@{presenter}"
+            bind:isLogin="@{presenter.isLogin}"
+            bind:user="@{presenter.user}"/>
 
     </android.support.v4.widget.DrawerLayout>
 </layout>

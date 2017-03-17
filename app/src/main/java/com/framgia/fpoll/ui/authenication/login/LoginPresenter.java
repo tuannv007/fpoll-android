@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -60,13 +59,14 @@ public class LoginPresenter implements LoginContract.Presenter {
                         loginResult.getAccessToken().getToken(), new DataCallback<SocialData>() {
                             @Override
                             public void onSuccess(SocialData data) {
-                                // TODO: 3/3/2017  login facebook success
+                                data.getUser().setToken(data.getToken());
                                 mPreference.writeUser(data.getUser());
-                                mPreference.writeToken(data.getToken());
+                                writeLogin();
                             }
 
                             @Override
                             public void onError(String msg) {
+                                mView.loginError();
                             }
                         });
                 }
@@ -144,13 +144,14 @@ public class LoginPresenter implements LoginContract.Presenter {
                     new DataCallback<LoginNormalData>() {
                         @Override
                         public void onSuccess(LoginNormalData data) {
-                            // TODO: 2/22/2017 handle login account success
+                            data.getUser().setToken(data.getAccessToken());
                             mPreference.writeUser(data.getUser());
-                            mPreference.writeToken(data.getAccessToken());
+                            writeLogin();
                         }
 
                         @Override
                         public void onError(String msg) {
+                            mView.loginError();
                         }
                     });
             }
@@ -182,7 +183,20 @@ public class LoginPresenter implements LoginContract.Presenter {
         mFPollGoogleApiClient.requestToken(email, new FPollGoogleApiClient.CallBack() {
                 @Override
                 public void onGetTokenSuccess(String token) {
-                    mView.loginSuccess();
+                    mRepository.loginSocial(LoginType.GOOGLE.toString(), token,
+                        new DataCallback<SocialData>() {
+                            @Override
+                            public void onSuccess(SocialData data) {
+                                data.getUser().setToken(data.getToken());
+                                mPreference.writeUser(data.getUser());
+                                writeLogin();
+                            }
+
+                            @Override
+                            public void onError(String msg) {
+                                mView.loginError();
+                            }
+                        });
                 }
 
                 @Override
@@ -191,6 +205,10 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }
             }
         );
+    }
+
+    public void writeLogin() {
+        mPreference.writeLogin(true);
     }
 
     public User getUser() {
