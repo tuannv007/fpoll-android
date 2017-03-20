@@ -3,7 +3,8 @@ package com.framgia.fpoll.ui.votemanager.piechartresult;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * Created by framgia on 24/02/2017.
  */
-public class PieChartFragment extends Fragment
+public class PieChartFragment extends DialogFragment
     implements PieChartContract.View {
     public static final int TEXT_SIZE = 20;
     private FragmentPieChartBinding mBinding;
@@ -51,5 +52,6 @@ public class PieChartFragment extends Fragment
 
     @Override
     public void start() {
+        getDialog().setTitle(getString(R.string.title_pie_chart));
     }
 }

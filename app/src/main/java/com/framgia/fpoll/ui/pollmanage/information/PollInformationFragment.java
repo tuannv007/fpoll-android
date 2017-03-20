@@ -1,12 +1,10 @@
 package com.framgia.fpoll.ui.pollmanage.information;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +56,8 @@ public class PollInformationFragment extends Fragment implements PollInformation
 
     @Override
     public void startUiVoting() {
-        startActivity(new Intent(getContext(), LinkVoteActivity.class));
-        // TODO: 3/13/17 sent token in link vote activity
+        String token = mPollInfo.getPoll().getLink().get(Constant.POSITION_LINK_INVITE).getToken();
+        startActivity(LinkVoteActivity.getTokenIntent(getActivity(), token));
     }
 
     @Override

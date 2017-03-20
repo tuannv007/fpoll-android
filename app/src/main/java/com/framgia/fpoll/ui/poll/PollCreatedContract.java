@@ -13,6 +13,7 @@ public interface PollCreatedContract {
         void copyLinkManager();
         void resentSuccess(ResponseItem data);
         void resentError(String msg);
+        void startUiLinkInviteVote();
     }
 
     interface Presenter {
