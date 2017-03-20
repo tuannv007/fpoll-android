@@ -13,6 +13,8 @@ import com.framgia.fpoll.util.ActivityUtil;
 
 import java.util.List;
 
+import static com.framgia.fpoll.util.Constant.DataConstant.STATUS_SUCCESS;
+
 /**
  * Created by Nhahv0902 on 3/7/2017.
  * <></>
@@ -74,7 +76,9 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
             new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
                 @Override
                 public void onResponse(ResponseItem<List<HistoryPoll>> data) {
-                    callback.onSuccess(data.getData());
+                    if (data.getStatus() == STATUS_SUCCESS) {
+                        callback.onSuccess(data.getData());
+                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
                 }
 
                 @Override
@@ -92,7 +96,9 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
             new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
                 @Override
                 public void onResponse(ResponseItem<List<HistoryPoll>> data) {
-                    callback.onSuccess(data.getData());
+                    if (data.getStatus() == STATUS_SUCCESS) {
+                        callback.onSuccess(data.getData());
+                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
                 }
 
                 @Override
@@ -104,13 +110,39 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
 
     @Override
     public void getPollParticipated(@NonNull String token,
-                                     @NonNull final DataCallback<List<HistoryPoll>> callback) {
+                                    @NonNull final DataCallback<List<HistoryPoll>> callback) {
         if (mPollManagerAPI == null) return;
         mPollManagerAPI.getPollParticipated(token).enqueue(new CallbackManager<>(mContext,
             new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
                 @Override
                 public void onResponse(ResponseItem<List<HistoryPoll>> data) {
-                    callback.onSuccess(data.getData());
+                    if (data.getStatus() == STATUS_SUCCESS) {
+                        callback.onSuccess(data.getData());
+                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
+    }
+
+    @Override
+    public void updateLinkPoll(@NonNull String token, @NonNull String oldUser,
+                               @NonNull String oldAdmin, @NonNull String newUser,
+                               @NonNull String newAdmin,
+                               @NonNull final DataCallback<String> callback) {
+        if (mPollManagerAPI == null) return;
+        PollManagerAPI.UpdateLinkBody body =
+            new PollManagerAPI.UpdateLinkBody(oldUser, oldAdmin, newUser, newAdmin);
+        mPollManagerAPI.updateLinkPoll(token, body).enqueue(new CallbackManager<>(mContext,
+            new CallbackManager.CallBack<ResponseItem<List<String>>>() {
+                @Override
+                public void onResponse(ResponseItem<List<String>> data) {
+                    if (data.getStatus() == STATUS_SUCCESS) {
+                        callback.onSuccess(ActivityUtil.byString(data.getData()));
+                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
                 }
 
                 @Override

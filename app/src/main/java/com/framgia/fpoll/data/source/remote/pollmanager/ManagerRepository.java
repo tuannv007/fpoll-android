@@ -105,4 +105,24 @@ public class ManagerRepository implements ManagerDataSource {
             }
         });
     }
+
+    @Override
+    public void updateLinkPoll(@NonNull String token, @NonNull String oldUser,
+                               @NonNull String oldAdmin, @NonNull String newUser,
+                               @NonNull String newAdmin,
+                               @NonNull final DataCallback<String> callback) {
+        if (mDataSource == null) return;
+        mDataSource.updateLinkPoll(token, oldUser, oldAdmin, newUser, newAdmin,
+            new DataCallback<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    callback.onSuccess(data);
+                }
+
+                @Override
+                public void onError(String msg) {
+                    callback.onError(msg);
+                }
+            });
+    }
 }

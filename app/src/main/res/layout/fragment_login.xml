@@ -41,7 +41,7 @@
                     style="@style/EditTextStyle"
                     android:hint="@string/title_username"
                     android:inputType="textEmailAddress"
-                    android:text="@={presenter.user.username}"/>
+                    android:text="@={presenter.user.email}"/>
             </LinearLayout>
 
             <LinearLayout

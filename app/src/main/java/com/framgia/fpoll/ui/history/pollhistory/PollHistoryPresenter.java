@@ -10,6 +10,8 @@ import com.framgia.fpoll.util.SharePreferenceUtil;
 
 import java.util.List;
 
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
+
 /**
  * Created by Nhahv0902 on 2/14/2017.
  * <></>
@@ -34,21 +36,22 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
         mView.setLoadingTrue();
         switch (mHistoryType) {
             case INITIATE:
-                mRepository.getHistory(mUser.getToken(), new DataCallback<List<HistoryPoll>>() {
-                    @Override
-                    public void onSuccess(List<HistoryPoll> data) {
-                        loadDataSuccess(data);
-                    }
+                mRepository.getHistory(DATA_PREFIX_TOKEN + mUser.getToken(),
+                    new DataCallback<List<HistoryPoll>>() {
+                        @Override
+                        public void onSuccess(List<HistoryPoll> data) {
+                            loadDataSuccess(data);
+                        }
 
-                    @Override
-                    public void onError(String msg) {
-                        loadDataError();
-                    }
-                });
+                        @Override
+                        public void onError(String msg) {
+                            loadDataError();
+                        }
+                    });
                 break;
             case PARTICIPATE:
-                mRepository
-                    .getPollParticipated(mUser.getToken(), new DataCallback<List<HistoryPoll>>() {
+                mRepository.getPollParticipated(DATA_PREFIX_TOKEN + mUser.getToken(),
+                    new DataCallback<List<HistoryPoll>>() {
                         @Override
                         public void onSuccess(List<HistoryPoll> data) {
                             loadDataSuccess(data);
@@ -61,17 +64,18 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                     });
                 break;
             case CLOSE:
-                mRepository.getPollClosed(mUser.getToken(), new DataCallback<List<HistoryPoll>>() {
-                    @Override
-                    public void onSuccess(List<HistoryPoll> data) {
-                        loadDataSuccess(data);
-                    }
+                mRepository.getPollClosed(DATA_PREFIX_TOKEN + mUser.getToken(),
+                    new DataCallback<List<HistoryPoll>>() {
+                        @Override
+                        public void onSuccess(List<HistoryPoll> data) {
+                            loadDataSuccess(data);
+                        }
 
-                    @Override
-                    public void onError(String msg) {
-                        loadDataError();
-                    }
-                });
+                        @Override
+                        public void onError(String msg) {
+                            loadDataError();
+                        }
+                    });
                 break;
             default:
                 break;

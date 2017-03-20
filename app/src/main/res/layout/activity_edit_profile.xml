@@ -43,6 +43,7 @@
                     android:layout_marginBottom="@dimen/dp_8"
                     android:background="@drawable/bg_edit_text"
                     android:onClick="@{() -> handler.openGallery()}"
+                    android:scaleType="centerCrop"
                     bind:imagePath="@{presenter.user.avatar}"/>
 
                 <LinearLayout
