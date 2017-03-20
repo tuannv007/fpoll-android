@@ -11,11 +11,14 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
 import com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment;
 import com.framgia.fpoll.ui.pollmanage.information.viewoption.PollOptionDialogFragment;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
+import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +27,7 @@ public class PollInformationFragment extends Fragment implements PollInformation
     private FragmentInformationBinding mBinding;
     private PollInformationContract.Presenter mPresenter;
     private DataInfoItem mPollInfo;
+    private FPollProgressDialog mDialog;
 
     public static PollInformationFragment newInstance(DataInfoItem pollInfo) {
         PollInformationFragment fragment = new PollInformationFragment();
@@ -39,7 +43,9 @@ public class PollInformationFragment extends Fragment implements PollInformation
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_information, container, false);
         getData();
-        mPresenter = new PollInformationPresenter(this);
+        mPresenter =
+            new PollInformationPresenter(this, mPollInfo,
+                PollRepository.getInstance(getActivity()));
         mBinding.setHandler(new PollInformationHandler(mPresenter));
         mBinding.setInformation(mPollInfo);
         return mBinding.getRoot();
@@ -75,5 +81,26 @@ public class PollInformationFragment extends Fragment implements PollInformation
         DialogFragment optionDialog =
             PollSettingDialogFragment.newInstance(mPollInfo.getPoll().getSettings());
         optionDialog.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
+    }
+
+    @Override
+    public void saveSuccess(String data) {
+        ActivityUtil.showToast(getActivity(), data);
+    }
+
+    @Override
+    public void onError(String msg) {
+        ActivityUtil.showToast(getActivity(), msg);
+    }
+
+    @Override
+    public void showDialog() {
+        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
+        mDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
     }
 }

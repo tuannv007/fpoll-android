@@ -4,19 +4,19 @@ import android.databinding.ObservableField;
 
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.DataCallback;
-import com.framgia.fpoll.data.source.remote.creation.CreationRepository;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 
 /**
  * Created by framgia on 23/02/2017.
  */
 public class ParticipantPresenter implements ParticipantPollContract.Presenter {
     private ParticipantPollContract.View mView;
-    private CreationRepository mCreationRepository;
+    private PollRepository mCreationRepository;
     private PollItem mPollItem;
     private ObservableField<String> mMember = new ObservableField<>();
 
     public ParticipantPresenter(ParticipantPollContract.View view,
-                                CreationRepository creationRepository, PollItem pollItem) {
+                                PollRepository creationRepository, PollItem pollItem) {
         mView = view;
         mCreationRepository = creationRepository;
         mPollItem = pollItem;

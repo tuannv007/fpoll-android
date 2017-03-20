@@ -14,6 +14,17 @@ public class Constant {
     public static final int POSITION_LINK_ADMIN = 1;
     public static final int POSITION_LINK_INVITE = 0;
 
+    public class TypeChoose {
+        public static final int TYPE_MULTI = 1;
+        public static final int TYPE_SINGER = 0;
+    }
+
+    public class TypeEditPoll {
+        public static final int TYPE_EDIT_POLL = 1;
+        public static final int TYPE_EDIT_OPTION = 2;
+        public static final int TYPE_EDIT_SETTING = 3;
+    }
+
     public class TypeSetting {
         public static final int TYPE_INPUT_EMAIL = 1;
         public static final int TYPE_INPUT_NAME = 7;
