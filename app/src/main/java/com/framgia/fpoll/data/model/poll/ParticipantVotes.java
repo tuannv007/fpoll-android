@@ -2,6 +2,8 @@ package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by anhtv on 07/03/2017.
  */
-public class ParticipantVotes extends BaseObservable {
+public class ParticipantVotes extends BaseObservable implements Parcelable {
     @SerializedName("id")
     private String mId;
     @SerializedName("user_id")
@@ -24,6 +26,28 @@ public class ParticipantVotes extends BaseObservable {
     private String mCreatedTime;
     @SerializedName("updated_at")
     private String mUpdatedTime;
+
+    protected ParticipantVotes(Parcel in) {
+        mId = in.readString();
+        mUserId = in.readString();
+        mIpAddress = in.readString();
+        mName = in.readString();
+        mEmail = in.readString();
+        mCreatedTime = in.readString();
+        mUpdatedTime = in.readString();
+    }
+
+    public static final Creator<ParticipantVotes> CREATOR = new Creator<ParticipantVotes>() {
+        @Override
+        public ParticipantVotes createFromParcel(Parcel in) {
+            return new ParticipantVotes(in);
+        }
+
+        @Override
+        public ParticipantVotes[] newArray(int size) {
+            return new ParticipantVotes[size];
+        }
+    };
 
     @Bindable
     public String getId() {
@@ -93,5 +117,21 @@ public class ParticipantVotes extends BaseObservable {
     public void setEmail(String email) {
         mEmail = email;
         notifyPropertyChanged(BR.email);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mUserId);
+        dest.writeString(mIpAddress);
+        dest.writeString(mName);
+        dest.writeString(mEmail);
+        dest.writeString(mCreatedTime);
+        dest.writeString(mUpdatedTime);
     }
 }

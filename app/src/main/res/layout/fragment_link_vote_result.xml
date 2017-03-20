@@ -3,6 +3,7 @@
         xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View"/>
 
         <import type="com.framgia.fpoll.ui.votemanager.VoteResultType"/>
@@ -21,23 +22,39 @@
         android:layout_height="match_parent"
         android:padding="@dimen/dp_16">
 
-        <include
-            android:id="@+id/layout_table_result"
-            layout="@layout/partial_table_result"/>
-
-        <com.github.mikephil.charting.charts.BarChart
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="false"
-            android:visibility="@{fragment.voteResultType == VoteResultType.BAR_CHART ?  View.VISIBLE : View.GONE}"
-            bind:bindBarChart="@{voteInfoModel.barData}"/>
+            android:visibility="@{voteInfoModel.hiddenResult ? View.GONE : View.VISIBLE}">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="false"
-            android:visibility="@{fragment.voteResultType == VoteResultType.PIE_CHAR ?  View.VISIBLE : View.GONE}"
-            bind:pieData="@{voteInfoModel.pieData}"/>
+            <include
+                android:id="@+id/layout_table_result"
+                layout="@layout/partial_table_result"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:visibility="@{fragment.voteResultType == VoteResultType.BAR_CHART ?  View.VISIBLE : View.GONE}"
+                bind:bindBarChart="@{voteInfoModel.barData}"/>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:visibility="@{fragment.voteResultType == VoteResultType.PIE_CHAR ?  View.VISIBLE : View.GONE}"
+                bind:pieData="@{voteInfoModel.pieData}"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/msg_hidden_poll_result"
+            android:textColor="@color/color_red_500"
+            android:textSize="@dimen/sp_20"
+            android:visibility="@{voteInfoModel.hiddenResult ? View.VISIBLE : View.GONE}"/>
 
     </FrameLayout>
 </layout>

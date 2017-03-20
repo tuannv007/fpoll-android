@@ -222,4 +222,6 @@
     <string name="msg_update_profile_success">Update profile success</string>
     <string name="msg_vote_your_option">Vote your option</string>
     <string name="msg_poll_closed">Poll closed</string>
+    <string name="msg_hidden_poll_result">This poll result is hidden</string>
+    <string name="msg_vote_reach_limit_number">Vote reach limit number</string>
 </resources>

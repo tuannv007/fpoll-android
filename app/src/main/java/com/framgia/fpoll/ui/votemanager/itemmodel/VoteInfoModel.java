@@ -2,19 +2,18 @@ package com.framgia.fpoll.ui.votemanager.itemmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.PieData;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by anhtv on 09/03/2017.
  */
-public class VoteInfoModel extends BaseObservable implements Serializable {
+public class VoteInfoModel extends BaseObservable implements Parcelable {
     private VoteInfo mVoteInfo;
     private List<OptionModel> mOptionModels;
     private boolean mIsEmailRequired;
@@ -27,10 +26,42 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     private boolean mSpecificEmail;
     private boolean mOptionEditable;
     private boolean mHiddenResult;
-    private PieData mPieData;
-    private BarData mBarData;
+    private PollPieData mPieData;
+    private PollBarData mBarData;
     private String mToken;
     private ItemStatus mItemStatus = ItemStatus.NOT_AVAILABLE;
+
+    public VoteInfoModel() {
+        //default vote number limit
+        mNumberVoteLimit = -1;
+    }
+
+    protected VoteInfoModel(Parcel in) {
+        mVoteInfo = in.readParcelable(VoteInfo.class.getClassLoader());
+        mIsEmailRequired = in.readByte() != 0;
+        mIsNameRequired = in.readByte() != 0;
+        mIsEmailAndNameRequired = in.readByte() != 0;
+        mNumberVoteLimit = in.readInt();
+        mPasswordRequired = in.readString();
+        mLinkEdited = in.readString();
+        mAbleToAddOption = in.readByte() != 0;
+        mSpecificEmail = in.readByte() != 0;
+        mOptionEditable = in.readByte() != 0;
+        mHiddenResult = in.readByte() != 0;
+        mToken = in.readString();
+    }
+
+    public static final Creator<VoteInfoModel> CREATOR = new Creator<VoteInfoModel>() {
+        @Override
+        public VoteInfoModel createFromParcel(Parcel in) {
+            return new VoteInfoModel(in);
+        }
+
+        @Override
+        public VoteInfoModel[] newArray(int size) {
+            return new VoteInfoModel[size];
+        }
+    };
 
     @Bindable
     public ItemStatus getItemStatus() {
@@ -163,21 +194,21 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public PieData getPieData() {
+    public PollPieData getPieData() {
         return mPieData;
     }
 
-    public void setPieData(PieData pieData) {
+    public void setPieData(PollPieData pieData) {
         mPieData = pieData;
         notifyPropertyChanged(BR.pieData);
     }
 
     @Bindable
-    public BarData getBarData() {
+    public PollBarData getBarData() {
         return mBarData;
     }
 
-    public void setBarData(BarData barData) {
+    public void setBarData(PollBarData barData) {
         mBarData = barData;
         notifyPropertyChanged(BR.barData);
     }
@@ -190,5 +221,26 @@ public class VoteInfoModel extends BaseObservable implements Serializable {
     public void setToken(String token) {
         mToken = token;
         notifyPropertyChanged(BR.token);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mVoteInfo, flags);
+        dest.writeByte((byte) (mIsEmailRequired ? 1 : 0));
+        dest.writeByte((byte) (mIsNameRequired ? 1 : 0));
+        dest.writeByte((byte) (mIsEmailAndNameRequired ? 1 : 0));
+        dest.writeInt(mNumberVoteLimit);
+        dest.writeString(mPasswordRequired);
+        dest.writeString(mLinkEdited);
+        dest.writeByte((byte) (mAbleToAddOption ? 1 : 0));
+        dest.writeByte((byte) (mSpecificEmail ? 1 : 0));
+        dest.writeByte((byte) (mOptionEditable ? 1 : 0));
+        dest.writeByte((byte) (mHiddenResult ? 1 : 0));
+        dest.writeString(mToken);
     }
 }

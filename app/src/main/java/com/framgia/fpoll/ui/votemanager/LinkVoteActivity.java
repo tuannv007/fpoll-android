@@ -18,6 +18,8 @@ import com.framgia.fpoll.ui.history.ViewPagerAdapter;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
+import com.framgia.fpoll.ui.votemanager.itemmodel.PollBarData;
+import com.framgia.fpoll.ui.votemanager.itemmodel.PollPieData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.ui.votemanager.result.LinkVoteResultFragment;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
@@ -25,9 +27,7 @@ import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.ChartUtils;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.widget.PasswordAlertDialog;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
@@ -108,8 +108,8 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         List<String> labels = ChartUtils.createLabels(mVoteInfoModel);
         PieDataSet pieDataSet = ChartUtils.createPieData(this, mVoteInfoModel);
         BarDataSet barDataSet = ChartUtils.createBarData(this, mVoteInfoModel);
-        mVoteInfoModel.setPieData(new PieData(labels, pieDataSet));
-        mVoteInfoModel.setBarData(new BarData(labels, barDataSet));
+        mVoteInfoModel.setPieData(new PollPieData(labels, pieDataSet));
+        mVoteInfoModel.setBarData(new PollBarData(labels, barDataSet));
     }
 
     private void setListVoteSetting(VoteInfo voteInfo) {

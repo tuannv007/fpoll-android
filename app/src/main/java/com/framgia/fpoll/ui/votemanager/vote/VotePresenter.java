@@ -3,10 +3,10 @@ package com.framgia.fpoll.ui.votemanager.vote;
 import android.databinding.ObservableField;
 
 import com.framgia.fpoll.data.model.poll.Option;
-import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
+import com.framgia.fpoll.ui.votemanager.itemmodel.AdditionOption;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
@@ -21,6 +21,7 @@ public class VotePresenter implements VoteContract.Presenter {
     private VoteInfoRepository mVoteInfoRepository;
     private ObservableField<String> mName = new ObservableField<>();
     private ObservableField<String> mEmail = new ObservableField<>();
+    private ObservableField<AdditionOption> mAdditionOption = new ObservableField<>();
 
     public VotePresenter(VoteContract.View view, VoteInfoRepository voteInfoRepository) {
         mView = view;
@@ -28,11 +29,13 @@ public class VotePresenter implements VoteContract.Presenter {
         mView.start();
         mName.set("");
         mEmail.set("");
+        mAdditionOption.set(new AdditionOption());
     }
 
     @Override
     public void voteOption(OptionModel optionModel) {
         mView.updateVoteChoice(optionModel);
+        mAdditionOption.set(new AdditionOption());
     }
 
     @Override
@@ -66,11 +69,20 @@ public class VotePresenter implements VoteContract.Presenter {
         });
     }
 
+    @Override
+    public void openGallery() {
+        mView.showGallery();
+    }
+
     public ObservableField<String> getName() {
         return mName;
     }
 
     public ObservableField<String> getEmail() {
         return mEmail;
+    }
+
+    public AdditionOption getAdditionOption() {
+        return mAdditionOption.get();
     }
 }
