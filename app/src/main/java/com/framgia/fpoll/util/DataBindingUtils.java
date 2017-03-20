@@ -304,6 +304,9 @@ public class DataBindingUtils {
     @BindingAdapter({"bind:bindHeader", "bind:user", "bind:isLogin"})
     public static void loadHeader(NavigationView view, MainPresenter presenter, User user,
                                   boolean isLogin) {
+        for (int i = 0; i < view.getHeaderCount(); i++) {
+            view.removeHeaderView(view.getHeaderView(i));
+        }
         PartialHeadBinding binding =
             PartialHeadBinding.inflate(LayoutInflater.from(view.getContext()));
         binding.setUser(user);

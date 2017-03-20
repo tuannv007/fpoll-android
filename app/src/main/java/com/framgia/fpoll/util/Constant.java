@@ -44,6 +44,7 @@ public class Constant {
         public static final String DATA_PLASH = "/";
         public static final String DATA_NO_TITLE = "";
         public static final String DATA_PREFIX_TOKEN = "Bearer ";
+        public static final int STATUS_SUCCESS = 200;
     }
 
     public static class BundleConstant {

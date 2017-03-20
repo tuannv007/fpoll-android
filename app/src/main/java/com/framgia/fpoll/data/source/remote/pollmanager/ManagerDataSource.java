@@ -17,5 +17,11 @@ public interface ManagerDataSource {
     void getHistory(@NonNull String token, @NonNull final DataCallback<List<HistoryPoll>> callback);
     void getPollClosed(@NonNull String token, @NonNull DataCallback<List<HistoryPoll>> callback);
     void getPollParticipated(@NonNull String token,
-                              @NonNull DataCallback<List<HistoryPoll>> callback);
+                             @NonNull DataCallback<List<HistoryPoll>> callback);
+    void updateLinkPoll(@NonNull String token,
+                        @NonNull String oldUser,
+                        @NonNull String oldAdmin,
+                        @NonNull String newUser,
+                        @NonNull String newAdmin,
+                        @NonNull DataCallback<String> callback);
 }
