@@ -77,6 +77,7 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
             new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
                 @Override
                 public void onResponse(ResponseItem<List<HistoryPoll>> data) {
+                    if (data == null) return;
                     if (data.getStatus() == STATUS_SUCCESS) {
                         callback.onSuccess(data.getData());
                     } else callback.onError(ActivityUtil.byString(data.getMessage()));
@@ -97,6 +98,7 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
             new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
                 @Override
                 public void onResponse(ResponseItem<List<HistoryPoll>> data) {
+                    if (data == null) return;
                     if (data.getStatus() == STATUS_SUCCESS) {
                         callback.onSuccess(data.getData());
                     } else callback.onError(ActivityUtil.byString(data.getMessage()));
@@ -117,6 +119,7 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
             new CallbackManager.CallBack<ResponseItem<List<HistoryPoll>>>() {
                 @Override
                 public void onResponse(ResponseItem<List<HistoryPoll>> data) {
+                    if (data == null) return;
                     if (data.getStatus() == STATUS_SUCCESS) {
                         callback.onSuccess(data.getData());
                     } else callback.onError(ActivityUtil.byString(data.getMessage()));
@@ -135,22 +138,22 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
                                @NonNull String newAdmin,
                                @NonNull final DataCallback<String> callback) {
         if (mPollManagerAPI == null) return;
-        PollManagerAPI.UpdateLinkBody body =
-            new PollManagerAPI.UpdateLinkBody(oldUser, oldAdmin, newUser, newAdmin);
-        mPollManagerAPI.updateLinkPoll(token, body).enqueue(new CallbackManager<>(mContext,
-            new CallbackManager.CallBack<ResponseItem<List<String>>>() {
-                @Override
-                public void onResponse(ResponseItem<List<String>> data) {
-                    if (data.getStatus() == STATUS_SUCCESS) {
-                        callback.onSuccess(ActivityUtil.byString(data.getData()));
-                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
-                }
+        mPollManagerAPI.updateLinkPoll(token, oldUser, oldAdmin, newUser, newAdmin).enqueue(
+            new CallbackManager<>(mContext,
+                new CallbackManager.CallBack<ResponseItem<List<String>>>() {
+                    @Override
+                    public void onResponse(ResponseItem<List<String>> data) {
+                        if (data == null) return;
+                        if (data.getStatus() == STATUS_SUCCESS) {
+                            callback.onSuccess(ActivityUtil.byString(data.getData()));
+                        } else callback.onError(ActivityUtil.byString(data.getMessage()));
+                    }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                    @Override
+                    public void onFailure(String message) {
+                        callback.onError(message);
+                    }
+                }));
     }
 
     @Override
@@ -160,9 +163,9 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
             new CallbackManager.CallBack<ResponseItem<DataInfoItem>>() {
                 @Override
                 public void onResponse(ResponseItem<DataInfoItem> data) {
-                    if (data.getStatus() == STATUS_SUCCESS) {
-                        callback.onSuccess(data.getData());
-                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
+                    if (data == null) return;
+                    if (data.getStatus() == STATUS_SUCCESS) callback.onSuccess(data.getData());
+                    else callback.onError(ActivityUtil.byString(data.getMessage()));
                 }
 
                 @Override

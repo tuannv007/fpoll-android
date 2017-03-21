@@ -11,7 +11,6 @@ public interface HistoryContract {
         void getDataFromActivity();
         void initAdapterHistory();
         void initAdapterManage();
-        void initAdapterVote();
     }
 
     interface Presenter {

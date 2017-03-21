@@ -228,5 +228,7 @@
     <string name="msg_email_required">Email is required</string>
     <string name="msg_name_and_email_required">Name and Email is required</string>
     <string name="msg_reload_vote_option">Network error, try reload votes!</string>
-
+    <string name="msg_link_user_empty">Link voting not empty</string>
+    <string name="msg_link_admin_empty">Link manager not empty</string>
+    <string name="msg_not_activity"> Not activity</string>
 </resources>

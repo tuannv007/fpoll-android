@@ -124,6 +124,7 @@
                     </LinearLayout>
 
                     <Spinner
+                        android:spinnerMode="dropdown"
                         style="@style/LinearLayoutStyle"
                         android:entries="@array/array_answer"
                         bind:choiceAnswer="@={information.multiple}"/>

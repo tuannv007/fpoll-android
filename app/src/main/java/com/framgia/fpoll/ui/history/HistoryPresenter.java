@@ -23,9 +23,6 @@ public class HistoryPresenter implements HistoryContract.Presenter {
             case MANAGE:
                 mView.initAdapterManage();
                 break;
-            case VOTE:
-                mView.initAdapterVote();
-                break;
             default:
                 break;
         }

@@ -67,6 +67,8 @@ public class Constant {
         public static final String BUNDLE_TYPE_ITEM_VOTE = "BUNDLE_TYPE_ITEM_VOTE";
         public static final String BUNDLE_OPTION_ITEM = "BUNDLE_OPTION_ITEM";
         public static final String BUNDLE_POLL_ITEM = "BUNDLE_POLL_ITEM";
+        public static final String BUNDLE_TOKEN = "BUNDLE_TOKEN";
+        public static final String BUNDLE_HISTORY = "BUNDLE_HISTORY";
     }
 
     public static class RequestCode {
@@ -99,11 +101,6 @@ public class Constant {
         public static final int KEY_SINGER_CHOOSE = 0;
         public static final String KEY_POLL_OPTION = "key_poll_option";
         public static final String KEY_POLL_SETTING = "key_poll_setting";
-    }
-
-    public static class ConstantResponseCode {
-        public static final int API_RESPONSE_CODE_OK = 200;
-        public static final int API_RESPONSE_UN_PROCESSABLE = 442;
     }
 
     public static class Setting {

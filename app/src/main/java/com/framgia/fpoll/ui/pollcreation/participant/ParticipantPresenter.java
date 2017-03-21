@@ -1,7 +1,5 @@
 package com.framgia.fpoll.ui.pollcreation.participant;
 
-import android.databinding.ObservableField;
-
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
@@ -12,27 +10,25 @@ import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 public class ParticipantPresenter implements ParticipantPollContract.Presenter {
     private ParticipantPollContract.View mView;
     private PollRepository mCreationRepository;
-    private PollItem mPollItem;
-    private ObservableField<String> mMember = new ObservableField<>();
+    private PollItem mPoll;
 
     public ParticipantPresenter(ParticipantPollContract.View view,
-                                PollRepository creationRepository, PollItem pollItem) {
+                                PollRepository creationRepository, PollItem poll) {
         mView = view;
         mCreationRepository = creationRepository;
-        mPollItem = pollItem;
+        mPoll = poll;
         mView.start();
     }
 
     @Override
     public void nextStep() {
         if (mView != null) mView.showDialog();
-        mPollItem.setMembers(mMember.get());
-        mCreationRepository.createPoll(mPollItem, new DataCallback<PollItem>() {
+        mCreationRepository.createPoll(mPoll, new DataCallback<PollItem>() {
             @Override
             public void onSuccess(PollItem data) {
                 if (mView != null) {
-                    mPollItem.setId(data.getId());
-                    mPollItem.setLink(data.getLink());
+                    mPoll.setId(data.getId());
+                    mPoll.setLink(data.getLink());
                     mView.hideDialog();
                     mView.nextStep();
                 }
@@ -60,7 +56,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
         }
     }
 
-    public ObservableField<String> getMember() {
-        return mMember;
+    public PollItem getPoll() {
+        return mPoll;
     }
 }

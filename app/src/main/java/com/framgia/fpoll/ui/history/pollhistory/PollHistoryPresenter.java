@@ -17,6 +17,7 @@ import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
  * <></>
  */
 public class PollHistoryPresenter implements PollHistoryContract.Presenter {
+    private static final int NUMBER_LINK_ADMIN = 1;
     private PollHistoryContract.View mView;
     private PollHistoryType mHistoryType;
     private ManagerRepository mRepository;
@@ -93,14 +94,30 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     }
 
     @Override
-    public void clickPollHistory(HistoryPoll pollHistoryItem) {
+    public void clickPollHistory(HistoryPoll data) {
         switch (mHistoryType) {
             case INITIATE:
             case PARTICIPATE:
-                mView.clickOpenManagePoll(pollHistoryItem);
+                if (data != null && data.getLink().get(NUMBER_LINK_ADMIN) != null &&
+                    data.getLink().get(NUMBER_LINK_ADMIN).getToken() != null) {
+                    mView.clickOpenManagePoll(data.getLink().get(NUMBER_LINK_ADMIN).getToken());
+                }
                 break;
             case CLOSE:
-                mView.clickReopenPoll(pollHistoryItem);
+                if (mRepository == null) return;
+                mRepository
+                    .switchPollStatus(String.valueOf(data.getId()), new DataCallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            mView.showMessage(data);
+                            getData();
+                        }
+
+                        @Override
+                        public void onError(String msg) {
+                            mView.showMessage(msg);
+                        }
+                    });
                 break;
             default:
                 break;

@@ -183,7 +183,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mFPollGoogleApiClient.requestToken(email, new FPollGoogleApiClient.CallBack() {
                 @Override
                 public void onGetTokenSuccess(String token) {
-                    mRepository.loginSocial(LoginType.GOOGLE.toString(), token,
+                    mRepository.loginSocial(LoginType.GOOGLE.getProvider(), token,
                         new DataCallback<SocialData>() {
                             @Override
                             public void onSuccess(SocialData data) {

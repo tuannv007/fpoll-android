@@ -86,7 +86,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     @Override
     public void start() {
-        if (mPoll.getOptions().size() == 0) {
+        if (mPoll.getOptions() != null && mPoll.getOptions().size() == 0) {
             for (int i = 0; i < NUMBER_DEFAULT_OPTION; i++) {
                 mPoll.getOptions().add(new Option());
             }

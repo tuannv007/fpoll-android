@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.pollcreation.setting;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -42,8 +41,7 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_page_setting, container, false);
+        mBinding = FragmentPageSettingBinding.inflate(inflater, container, false);
         getDataFromActivity();
         mPresenter = new SettingPresenter(this, mPoll);
         mBinding.setHandler(new SettingHandler(mPresenter));

@@ -5,6 +5,9 @@
 
     <data>
 
+
+        <import type="com.framgia.fpoll.util.TimeUtil"/>
+
         <variable
             name="handler"
             type="com.framgia.fpoll.ui.history.pollhistory.PollHistoryHandler"/>
@@ -68,7 +71,7 @@
                     android:layout_marginBottom="@dimen/dp_2"
                     android:layout_marginTop="@dimen/dp_2"
                     android:padding="@dimen/dp_8"
-                    android:text="@{@string/title_latest_activity(pollHistory.updatedTime)}"/>
+                    android:text="@{@string/title_latest_activity(pollHistory.listActivities.size() > 0 ? TimeUtil.timeToString(pollHistory.listActivities.get(0).updatedTime): @string/msg_not_activity)}"/>
 
             </LinearLayout>
 
