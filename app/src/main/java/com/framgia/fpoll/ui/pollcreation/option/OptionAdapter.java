@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.OptionItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemPageOptionBinding;
 
 import java.util.ArrayList;
@@ -18,16 +18,16 @@ import java.util.List;
  */
 public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHolder> {
     private LayoutInflater mInflater;
-    private List<OptionItem> mListOption = new ArrayList<>();
+    private List<Option> mListOption = new ArrayList<>();
     private OptionPollContract.Presenter mPresenter;
 
-    public OptionAdapter(OptionPollContract.Presenter presenter, List<OptionItem> optionItems) {
+    public OptionAdapter(OptionPollContract.Presenter presenter, List<Option> optionItems) {
         mPresenter = presenter;
         mListOption.addAll(optionItems);
         notifyDataSetChanged();
     }
 
-    public void update(List<OptionItem> optionItems) {
+    public void update(List<Option> optionItems) {
         mListOption.clear();
         mListOption.addAll(optionItems);
         notifyDataSetChanged();
@@ -44,8 +44,8 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHold
 
     @Override
     public void onBindViewHolder(OptionHolder holder, int position) {
-        OptionItem optionItem = mListOption.get(position);
-        if (optionItem != null) holder.bind(optionItem, position);
+        Option option = mListOption.get(position);
+        if (option != null) holder.bind(option, position);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHold
             mBinding = binding;
         }
 
-        private void bind(OptionItem optionItem, int position) {
-            mBinding.setOption(optionItem);
+        private void bind(Option option, int position) {
+            mBinding.setOption(option);
             mBinding.setPosition(position);
             mBinding.executePendingBindings();
         }

@@ -11,22 +11,17 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
-import com.framgia.fpoll.data.model.OptionItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.FragmentPageOptionBinding;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
@@ -43,9 +38,8 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     private FragmentPageOptionBinding mBinding;
     private OptionPollContract.Presenter mPresenter;
     private ObservableField<OptionAdapter> mAdapter = new ObservableField<>();
-    private List<OptionItem> mListOption = new ArrayList<>();
     private int mPosition = UNSELECTED_POSITION;
-    private PollItem mPoll;
+    private PollItem mPoll = new PollItem();
 
     public static OptionPollFragment newInstance(PollItem pollItem) {
         OptionPollFragment optionPollFragment = new OptionPollFragment();
@@ -55,7 +49,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
         return optionPollFragment;
     }
 
-    private void getDataFromBundle() {
+    private void getDataFromActivity() {
         Bundle bundle = getArguments();
         if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
         mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
@@ -68,12 +62,12 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_option, container, false);
-        getDataFromBundle();
-        mPresenter = new OptionPresenter(this, mPoll, mListOption);
+        getDataFromActivity();
+        mPresenter = new OptionPresenter(this, mPoll, mPoll.getOptions());
         mBinding.setHandler(new OptionHandler(mPresenter));
         mBinding.setPresenter((OptionPresenter) mPresenter);
         mBinding.setFragment(this);
-        mAdapter.set(new OptionAdapter(mPresenter, mListOption));
+        mAdapter.set(new OptionAdapter(mPresenter, mPoll.getOptions()));
         return mBinding.getRoot();
     }
 
@@ -92,13 +86,15 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     @Override
     public void start() {
-        for (int i = 0; i < NUMBER_DEFAULT_OPTION; i++) {
-            mListOption.add(new OptionItem());
+        if (mPoll.getOptions().size() == 0) {
+            for (int i = 0; i < NUMBER_DEFAULT_OPTION; i++) {
+                mPoll.getOptions().add(new Option());
+            }
         }
     }
 
     @Override
-    public void openGallery(OptionItem optionItem, int position) {
+    public void openGallery(Option optionItem, int position) {
         mPosition = position;
         if (PermissionsUtil.isAllowPermissions(getActivity())) {
             pickImage();
@@ -114,20 +110,19 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     @Override
     public void showError() {
-        Toast.makeText(getContext(), getString(R.string.msg_option_blank), Toast.LENGTH_SHORT)
-            .show();
+        ActivityUtil.showToast(getActivity(), R.string.msg_option_blank);
     }
 
     @Override
     public void deletePoll(int position) {
-        mListOption.remove(position);
-        mAdapter.get().update(mListOption);
+        mPoll.getOptions().remove(position);
+        mAdapter.get().update(mPoll.getOptions());
     }
 
     @Override
     public void augmentPoll() {
-        mListOption.add(new OptionItem());
-        mAdapter.get().update(mListOption);
+        mPoll.getOptions().add(new Option());
+        mAdapter.get().update(mPoll.getOptions());
     }
 
     @Override
@@ -152,8 +147,8 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
             cursor.moveToFirst();
             String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
             if (mPosition != UNSELECTED_POSITION) {
-                mListOption.get(mPosition).setPathImage(url);
-                mAdapter.get().update(mListOption);
+                mPoll.getOptions().get(mPosition).setImage(url);
+                mAdapter.get().update(mPoll.getOptions());
             }
             cursor.close();
         }

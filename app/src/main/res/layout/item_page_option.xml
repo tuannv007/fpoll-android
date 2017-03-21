@@ -13,7 +13,7 @@
 
         <variable
             name="option"
-            type="com.framgia.fpoll.data.model.OptionItem"/>
+            type="com.framgia.fpoll.data.model.poll.Option"/>
 
         <import type="android.view.View"/>
     </data>
@@ -30,11 +30,8 @@
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/edit_option_poll"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@={option.title}"/>
+                style="@style/EditTextManageActivity"
+                android:text="@={option.name}"/>
 
             <ImageView
                 style="@style/ImageViewAuthorizationCenter"
@@ -69,7 +66,7 @@
             android:layout_marginTop="@dimen/dp_4"
             android:scaleType="fitXY"
             android:src="@drawable/ic_fpoll_logo"
-            android:visibility="@{option.pathImage == null ? View.GONE: View.VISIBLE}"
-            bind:imagePath="@{option.pathImage}"/>
+            android:visibility="@{option.image == null ? View.GONE: View.VISIBLE}"
+            bind:imagePath="@{option.image}"/>
     </LinearLayout>
 </layout>

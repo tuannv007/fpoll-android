@@ -1,7 +1,7 @@
 package com.framgia.fpoll.ui.pollcreation.option;
 
-import com.framgia.fpoll.data.model.OptionItem;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.Option;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class OptionPresenter implements OptionPollContract.Presenter {
     private OptionPollContract.View mView;
     private PollItem mPollItem;
-    private List<OptionItem> mListOption;
+    private List<Option> mListOption;
 
     public OptionPresenter(OptionPollContract.View view, PollItem pollItem, List listOption) {
         mView = view;
@@ -25,14 +25,14 @@ public class OptionPresenter implements OptionPollContract.Presenter {
     public void nextStep() {
         if (mView == null) return;
         List listOptionReal = new ArrayList();
-        for (OptionItem optionItem : mListOption) {
-            if (optionItem.getTitle() != null) listOptionReal.add(optionItem);
+        for (Option optionItem : mListOption) {
+            if (optionItem.getName() != null) listOptionReal.add(optionItem);
         }
         if (listOptionReal.size() == 0) {
             mView.showError();
             return;
         }
-        mPollItem.setOptionItemList(listOptionReal);
+        mPollItem.setOptions(listOptionReal);
         mView.nextStep();
     }
 
@@ -42,17 +42,17 @@ public class OptionPresenter implements OptionPollContract.Presenter {
     }
 
     @Override
-    public void pickImage(OptionItem optionItem, int position) {
+    public void pickImage(Option optionItem, int position) {
         mView.openGallery(optionItem, position);
     }
 
     @Override
-    public void pickDate(OptionItem optionItem, int position) {
+    public void pickDate(Option optionItem, int position) {
         // TODO: 3/13/2017 pick date
     }
 
     @Override
-    public void deletePoll(OptionItem optionItem, int position) {
+    public void deletePoll(Option optionItem, int position) {
         mView.deletePoll(position);
     }
 

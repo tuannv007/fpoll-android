@@ -5,9 +5,6 @@ import android.os.Parcel;
 import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.util.Constant;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PollItem extends Poll {
     private boolean mIsRequireVote;
     private int mRequiteType;
@@ -18,15 +15,6 @@ public class PollItem extends Poll {
     private String mPass;
     private boolean mIsHideResult;
     private String mMembers;
-    private List<OptionItem> mOptionItemList = new ArrayList<>();
-
-    public List<OptionItem> getOptionItemList() {
-        return mOptionItemList;
-    }
-
-    public void setOptionItemList(List<OptionItem> optionItemList) {
-        mOptionItemList = optionItemList;
-    }
 
     public boolean isRequireVote() {
         return mIsRequireVote;

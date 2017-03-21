@@ -31,6 +31,9 @@ public class Option extends BaseObservable implements Parcelable {
     @SerializedName("participants")
     private List<ParticipantVotes> mParticipantVotes;
 
+    public Option() {
+    }
+
     public Option(Parcel in) {
         mId = in.readInt();
         mName = in.readString();

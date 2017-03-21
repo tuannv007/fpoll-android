@@ -1,8 +1,8 @@
 package com.framgia.fpoll.networking.api;
 
 import com.android.annotations.NonNull;
-import com.framgia.fpoll.data.model.OptionItem;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.Constant;
 
@@ -47,7 +47,7 @@ public class PollCreationApi {
     }
 
     public static RequestBody getRequestBody(@NonNull PollItem pollItem) {
-        List<OptionItem> optionItemList = pollItem.getOptionItemList();
+        List<Option> optionItemList = pollItem.getOptions();
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
         builder.addFormDataPart(NAME, pollItem.getName());
@@ -72,9 +72,9 @@ public class PollCreationApi {
             fieldOptionText.append(OPEN_SQUARE_BR)
                 .append(String.valueOf(i))
                 .append(CLOSE_SQUARE_BR);
-            builder.addFormDataPart(fieldOptionText.toString(), optionItemList.get(i).getTitle());
-            if (optionItemList.get(i).getPathImage() == null) continue;
-            File file = new File(optionItemList.get(i).getPathImage());
+            builder.addFormDataPart(fieldOptionText.toString(), optionItemList.get(i).getName());
+            if (optionItemList.get(i).getImage() == null) continue;
+            File file = new File(optionItemList.get(i).getImage());
             if (!file.exists()) continue;
             RequestBody requestBody =
                 RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file);
