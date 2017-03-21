@@ -51,33 +51,8 @@ public class Poll extends BaseObservable implements Parcelable {
     @SerializedName("links")
     private List<PollLink> mLink;
 
-    protected Poll(Parcel in) {
-        mId = in.readInt();
-        mUserId = in.readString();
-        mTitle = in.readString();
-        mDescription = in.readString();
-        mLocation = in.readString();
-        mIsOpen = in.readByte() != 0;
-        mIsMultiple = in.readByte() != 0;
-        mCreatedTime = in.readString();
-        mUpdatedTime = in.readString();
-        mDateClose = in.readString();
-        mName = in.readString();
-        mEmail = in.readString();
-        mOptions = in.createTypedArrayList(Option.CREATOR);
+    public Poll() {
     }
-
-    public static final Creator<Poll> CREATOR = new Creator<Poll>() {
-        @Override
-        public Poll createFromParcel(Parcel in) {
-            return new Poll(in);
-        }
-
-        @Override
-        public Poll[] newArray(int size) {
-            return new Poll[size];
-        }
-    };
 
     @Bindable
     public List<PollLink> getLink() {
@@ -248,6 +223,34 @@ public class Poll extends BaseObservable implements Parcelable {
         mComments = comments;
         notifyPropertyChanged(BR.comments);
     }
+
+    protected Poll(Parcel in) {
+        mId = in.readInt();
+        mUserId = in.readString();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mLocation = in.readString();
+        mIsOpen = in.readByte() != 0;
+        mIsMultiple = in.readByte() != 0;
+        mCreatedTime = in.readString();
+        mUpdatedTime = in.readString();
+        mDateClose = in.readString();
+        mName = in.readString();
+        mEmail = in.readString();
+        mOptions = in.createTypedArrayList(Option.CREATOR);
+    }
+
+    public static final Creator<Poll> CREATOR = new Creator<Poll>() {
+        @Override
+        public Poll createFromParcel(Parcel in) {
+            return new Poll(in);
+        }
+
+        @Override
+        public Poll[] newArray(int size) {
+            return new Poll[size];
+        }
+    };
 
     @Override
     public int describeContents() {

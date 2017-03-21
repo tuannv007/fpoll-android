@@ -13,7 +13,24 @@ import com.google.gson.annotations.SerializedName;
  * Created by tuanbg on 3/6/17.
  */
 public class DataInfoItem extends BaseObservable implements Parcelable {
-    public static final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
+    @SerializedName("poll")
+    private PollItem mPoll;
+    @SerializedName("countParticipant")
+    private int mCountParticipant;
+    @SerializedName("countComments")
+    private int mCountComments;
+
+    @Bindable
+    public PollItem getPoll() {
+        return mPoll;
+    }
+
+    public void setPoll(PollItem poll) {
+        this.mPoll = poll;
+        notifyPropertyChanged(BR.poll);
+    }
+
+    public final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
         @Override
         public DataInfoItem createFromParcel(Parcel in) {
             return new DataInfoItem(in);
@@ -24,27 +41,11 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
             return new DataInfoItem[size];
         }
     };
-    @SerializedName("poll")
-    private Poll mPoll;
-    @SerializedName("countParticipant")
-    private int mCountParticipant;
-    @SerializedName("countComments")
-    private int mCountComments;
 
     public DataInfoItem(Parcel in) {
         mPoll = in.readParcelable(Poll.class.getClassLoader());
         mCountParticipant = in.readInt();
         mCountComments = in.readInt();
-    }
-
-    @Bindable
-    public Poll getPoll() {
-        return mPoll;
-    }
-
-    public void setPoll(Poll poll) {
-        this.mPoll = poll;
-        notifyPropertyChanged(BR.poll);
     }
 
     @Override

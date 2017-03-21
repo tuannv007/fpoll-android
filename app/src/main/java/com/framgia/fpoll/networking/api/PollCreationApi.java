@@ -54,7 +54,7 @@ public class PollCreationApi {
         builder.addFormDataPart(EMAIL, pollItem.getEmail());
         builder.addFormDataPart(TITLE, pollItem.getTitle());
         builder.addFormDataPart(DESCRIPTION, pollItem.getDescription());
-        builder.addFormDataPart(MULTIPLE, String.valueOf(pollItem.getMultiple()));
+        builder.addFormDataPart(MULTIPLE, String.valueOf(pollItem.isMultiple()));
         builder.addFormDataPart(DATE_CLOSE, pollItem.getDateClose());
         builder.addFormDataPart(LOCATION, pollItem.getLocation());
         builder.addFormDataPart(IS_REQUIRE_VOTE, String.valueOf(pollItem.isRequireVote()));

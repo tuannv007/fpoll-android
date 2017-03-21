@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
@@ -30,6 +32,7 @@ import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_LOGIN;
 
 public class MainActivity extends AppCompatActivity
@@ -37,11 +40,27 @@ public class MainActivity extends AppCompatActivity
     private MainContract.Presenter mPresenter;
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
+    private PollItem mPoll = new PollItem();
+
+    public static Intent getMainIntent(Context context, PollItem data) {
+        Intent intent = new Intent(context, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BUNDLE_POLL_ITEM, data);
+        intent.putExtras(bundle);
+        return intent;
+    }
+
+    private void getDataFromIntent() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
+        mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        getDataFromIntent();
         mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext()),
             SharePreferenceUtil.getIntances(this));
         mBinding.setPresenter((MainPresenter) mPresenter);
@@ -59,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         mBinding.navView.setNavigationItemSelectedListener(this);
-        addFragment(CreatePollFragment.newInstance(), R.string.title_home);
+        addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
     }
 
     @Override
@@ -80,7 +99,7 @@ public class MainActivity extends AppCompatActivity
                     REQUEST_LOGIN);
                 break;
             case R.id.action_home:
-                addFragment(CreatePollFragment.newInstance(), R.string.title_home);
+                addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
                 break;
             case R.id.action_introduce:
                 addFragment(IntroduceAppFragment.newInstance(), R.string.title_introduce_app);
@@ -89,6 +108,7 @@ public class MainActivity extends AppCompatActivity
                 mPresenter.logout();
                 break;
             default:
+                addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
                 break;
         }
         mBinding.drawerLayout.closeDrawer(GravityCompat.START);

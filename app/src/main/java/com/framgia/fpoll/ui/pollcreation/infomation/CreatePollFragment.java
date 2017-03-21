@@ -9,28 +9,41 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.PollInformation;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentCreatePollBinding;
 import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.util.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
-public class CreatePollFragment extends Fragment implements DatePickerDialog.OnDateSetListener
-    , TimePickerDialog.OnTimeSetListener
-    , CreationContract.View {
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
+import static com.framgia.fpoll.util.Constant.Tag.TIME_PICKER_TAG;
+
+public class CreatePollFragment extends Fragment
+    implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
+    CreationContract.View {
     private FragmentCreatePollBinding mBinding;
     private CreationContract.Presenter mPresenter;
     public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
-    private PollInformation mPollInformation = new PollInformation();
+    private PollItem mPoll;
     private Calendar mSavePickCalendar = Calendar.getInstance();
 
-    public static CreatePollFragment newInstance() {
-        return new CreatePollFragment();
+    public static CreatePollFragment newInstance(PollItem data) {
+        CreatePollFragment fragment = new CreatePollFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BUNDLE_POLL_ITEM, data);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    private void getDataFromActivity() {
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
+        mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        if (mPoll == null) mPoll = new PollItem();
     }
 
     @Override
@@ -38,8 +51,9 @@ public class CreatePollFragment extends Fragment implements DatePickerDialog.OnD
                              Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_poll, container, false);
-        mPresenter = new CreationPresenter(this, mPollInformation);
-        mBinding.setInformation(mPollInformation);
+        getDataFromActivity();
+        mPresenter = new CreationPresenter(this, mPoll);
+        mBinding.setInformation(mPoll);
         mBinding.setHandler(new CreatePollActionHandle(mPresenter));
         mBinding.setPresenter((CreationPresenter) mPresenter);
         mBinding.setFragment(this);
@@ -73,7 +87,7 @@ public class CreatePollFragment extends Fragment implements DatePickerDialog.OnD
             mTime.get().get(Calendar.MONTH),
             mTime.get().get(Calendar.DAY_OF_MONTH)
         );
-        dpd.show(getActivity().getFragmentManager(), Constant.Tag.DATE_PICKER_TAG);
+        dpd.show(getActivity().getFragmentManager(), DATE_PICKER_TAG);
     }
 
     @Override
@@ -91,21 +105,14 @@ public class CreatePollFragment extends Fragment implements DatePickerDialog.OnD
             mTime.get().get(Calendar.SECOND),
             true
         );
-        timePickerDialog.show(getActivity().getFragmentManager(), Constant.Tag.TIME_PICKER_TAG);
+        timePickerDialog.show(getActivity().getFragmentManager(), TIME_PICKER_TAG);
     }
 
     @Override
     public void nextStep() {
-        PollItem pollItem = new PollItem();
-        pollItem.setEmail(mPollInformation.getEmail());
-        pollItem.setTitle(mPollInformation.getPollTitle());
-        pollItem.setName(mPollInformation.getUserName());
-        pollItem.setDescription(mPollInformation.getDescription());
-        pollItem.setMultiple(String.valueOf(mPollInformation.getMultiple()));
-        pollItem.setLocation(mPollInformation.getLocation());
-        pollItem.setDateClose(mBinding.edtChooseTime.getText().toString());
+        mPoll.setDateClose(mBinding.edtChooseTime.getText().toString());
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, OptionPollFragment.newInstance(pollItem), null)
+            .add(R.id.frame_layout, OptionPollFragment.newInstance(mPoll), null)
             .addToBackStack(null)
             .commit();
     }
