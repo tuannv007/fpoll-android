@@ -56,6 +56,8 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
 
+import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_MULTI_CHOOSE;
+import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_SINGER_CHOOSE;
 import static com.framgia.fpoll.util.Constant.TypeSetting.HIDENT_RESULT;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_ADD_OPTION;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_COUNT_VOTE;
@@ -127,8 +129,8 @@ public class DataBindingUtils {
 
     @BindingAdapter(value = {"bind:selectedValue", "bind:selectedValueAttrChanged"},
         requireAll = false)
-    public static void bindSpinnerData(Spinner spinner, int selectedPosition, final
-    InverseBindingListener newTextAttrChanged) {
+    public static void bindSpinnerData(Spinner spinner, int selectedPosition,
+                                       final InverseBindingListener newTextAttrChanged) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -357,8 +359,8 @@ public class DataBindingUtils {
 
     @BindingAdapter({"bind:numAnswer"})
     public static void setNumAnswer(Spinner view, boolean multiple) {
-        int type = multiple ? Constant.ConstantApi.KEY_MULTI_CHOOSE :
-            Constant.ConstantApi.KEY_SINGER_CHOOSE;
+        int type = multiple ? KEY_MULTI_CHOOSE :
+            KEY_SINGER_CHOOSE;
         view.setSelection(type);
     }
 
@@ -437,5 +439,31 @@ public class DataBindingUtils {
                 }
             }
         });
+    }
+
+    /*
+    * bind spinner choice number answer
+    * */
+    @BindingAdapter(value = {"bind:choiceAnswer", "bind:choiceAnswerChanged"},
+        requireAll = false)
+    public static void spinnerChoiceAnswer(Spinner spinner, boolean selectedPosition,
+                                           final InverseBindingListener newTextAttrChanged) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position,
+                                       long id) {
+                newTextAttrChanged.onChange();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        spinner.setSelection(selectedPosition ? KEY_MULTI_CHOOSE : KEY_SINGER_CHOOSE, true);
+    }
+
+    @InverseBindingAdapter(attribute = "bind:choiceAnswer", event = "bind:choiceAnswerChanged")
+    public static boolean changeChoiceAnswer(Spinner spinner) {
+        return (spinner.getSelectedItemPosition() == KEY_MULTI_CHOOSE);
     }
 }

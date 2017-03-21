@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +23,13 @@ import com.framgia.fpoll.data.model.OptionItem;
 import com.framgia.fpoll.databinding.FragmentPageOptionBinding;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
 
@@ -44,14 +45,21 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     private ObservableField<OptionAdapter> mAdapter = new ObservableField<>();
     private List<OptionItem> mListOption = new ArrayList<>();
     private int mPosition = UNSELECTED_POSITION;
-    private PollItem mPollItem;
+    private PollItem mPoll;
 
     public static OptionPollFragment newInstance(PollItem pollItem) {
         OptionPollFragment optionPollFragment = new OptionPollFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
         optionPollFragment.setArguments(bundle);
         return optionPollFragment;
+    }
+
+    private void getDataFromBundle() {
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
+        mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        if (mPoll == null) mPoll = new PollItem();
     }
 
     @Nullable
@@ -60,8 +68,8 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_option, container, false);
-        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
-        mPresenter = new OptionPresenter(this, mPollItem, mListOption);
+        getDataFromBundle();
+        mPresenter = new OptionPresenter(this, mPoll, mListOption);
         mBinding.setHandler(new OptionHandler(mPresenter));
         mBinding.setPresenter((OptionPresenter) mPresenter);
         mBinding.setFragment(this);
@@ -72,7 +80,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     @Override
     public void nextStep() {
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, SettingPollFragment.newInstance(mPollItem), null)
+            .add(R.id.frame_layout, SettingPollFragment.newInstance(mPoll), null)
             .addToBackStack(null)
             .commit();
     }

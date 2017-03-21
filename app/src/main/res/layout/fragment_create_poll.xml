@@ -15,7 +15,7 @@
 
         <variable
             name="information"
-            type="com.framgia.fpoll.data.model.PollInformation"/>
+            type="com.framgia.fpoll.data.model.PollItem"/>
 
         <variable
             name="fragment"
@@ -30,6 +30,8 @@
             type="com.framgia.fpoll.ui.pollcreation.infomation.CreationPresenter"/>
 
         <import type="com.framgia.fpoll.util.TimeUtil"/>
+
+        <import type="com.framgia.fpoll.util.Constant.ConstantApi"/>
     </data>
 
     <ScrollView
@@ -82,7 +84,7 @@
                             android:id="@+id/edt_user_name"
                             style="@style/EditTextStyle"
                             android:hint="@string/title_username"
-                            android:text="@={information.userName}"
+                            android:text="@={information.name}"
                             bind:setErrorEditText="@{msgError}"/>
                     </LinearLayout>
 
@@ -116,7 +118,7 @@
                             style="@style/EditTextStyle"
                             android:hint="@string/hint_poll_title"
                             android:inputType="textEmailAddress"
-                            android:text="@={information.pollTitle}"
+                            android:text="@={information.title}"
                             bind:setErrorEditText="@{msgError}"/>
 
                     </LinearLayout>
@@ -124,7 +126,7 @@
                     <Spinner
                         style="@style/LinearLayoutStyle"
                         android:entries="@array/array_answer"
-                        bind:selectedValue="@={information.multiple}"/>
+                        bind:choiceAnswer="@={information.multiple}"/>
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edit_send_email"

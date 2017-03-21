@@ -2,6 +2,7 @@ package com.framgia.fpoll.ui.pollmanage.action;
 
 import android.databinding.ObservableField;
 
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 
@@ -73,7 +74,18 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void createDuplicate() {
-        // TODO: 3/2/2017 call api create duplicate
+        if (mRepository == null) return;
+        mRepository.getPoll(TOKEN_POLL, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                mView.startUiPollCreation(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.showMessage(msg);
+            }
+        });
     }
 
     public ObservableField<String> getLinkManager() {
