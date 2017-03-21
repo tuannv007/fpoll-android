@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
-import com.framgia.fpoll.data.source.remote.creation.CreationRepository;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
 import com.framgia.fpoll.ui.poll.PollCreatedFragment;
 import com.framgia.fpoll.util.Constant;
@@ -43,7 +43,7 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_participant, container, false);
         mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         mPresenter =
-            new ParticipantPresenter(this, CreationRepository.getInstance(getContext()), mPollItem);
+            new ParticipantPresenter(this, PollRepository.getInstance(getContext()), mPollItem);
         mBinding.setHandler(new ParticipantHandler(mPresenter));
         mBinding.setPresenter((ParticipantPresenter) mPresenter);
         mProgressDialog = new ProgressDialog(getActivity());

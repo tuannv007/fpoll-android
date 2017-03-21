@@ -11,11 +11,16 @@ public interface PollInformationContract {
         void startUiVoting();
         void showDialogOption();
         void showDialogSetting();
+        void saveSuccess(String message);
+        void onError(String message);
+        void showDialog();
+        void dismissDialog();
     }
 
     interface Presenter {
         void clickLinkVote();
         void clickViewOption();
         void clickViewSetting();
+        void saveInformation(int id);
     }
 }
