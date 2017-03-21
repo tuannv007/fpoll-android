@@ -172,7 +172,8 @@
                             style="@style/ImageViewStyle"
                             android:src="@drawable/ic_location_on_black_24px"/>
 
-                        <EditText
+                        <com.framgia.fpoll.widget.PlaceAutoCompleteView
+                            android:id="@+id/edit_location"
                             style="@style/EditTextStyle"
                             android:hint="@string/hint_position"
                             android:text="@={information.location}"/>

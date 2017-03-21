@@ -30,7 +30,9 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="@string/TWITTER_VALUE"/>
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/GOOGLE_API_KEY"/>
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1281983528552078"
