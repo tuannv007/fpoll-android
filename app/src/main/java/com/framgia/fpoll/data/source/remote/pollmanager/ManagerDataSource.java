@@ -2,6 +2,7 @@ package com.framgia.fpoll.data.source.remote.pollmanager;
 
 import android.support.annotation.NonNull;
 
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
 
@@ -24,4 +25,5 @@ public interface ManagerDataSource {
                         @NonNull String newUser,
                         @NonNull String newAdmin,
                         @NonNull DataCallback<String> callback);
+    void getPoll(@NonNull String token, @NonNull DataCallback<DataInfoItem> callback);
 }

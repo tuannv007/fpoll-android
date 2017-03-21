@@ -3,6 +3,7 @@ package com.framgia.fpoll.data.source.remote.pollmanager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
 
@@ -76,7 +77,7 @@ public class ManagerRepository implements ManagerDataSource {
     public void getPollClosed(@NonNull String token,
                               @NonNull final DataCallback<List<HistoryPoll>> callback) {
         if (mDataSource == null) return;
-        mDataSource.getHistory(token, new DataCallback<List<HistoryPoll>>() {
+        mDataSource.getPollClosed(token, new DataCallback<List<HistoryPoll>>() {
             @Override
             public void onSuccess(List<HistoryPoll> data) {
                 callback.onSuccess(data);
@@ -124,5 +125,21 @@ public class ManagerRepository implements ManagerDataSource {
                     callback.onError(msg);
                 }
             });
+    }
+
+    @Override
+    public void getPoll(@NonNull String token, @NonNull final DataCallback<DataInfoItem> callback) {
+        if (mDataSource == null) return;
+        mDataSource.getPoll(token, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
     }
 }

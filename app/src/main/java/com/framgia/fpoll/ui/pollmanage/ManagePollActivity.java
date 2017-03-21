@@ -7,15 +7,13 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
-import com.framgia.fpoll.data.source.remote.pollmanagerinfo.PollInfoRepository;
+import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
-import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -47,7 +45,7 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
         getDataFromIntent();
         mPresenter =
-            new ManagePollPresenter(this, mViewpagerType, PollInfoRepository.getInstance(this));
+            new ManagePollPresenter(this, mViewpagerType, ManagerRepository.getInstance(this));
         mPresenter.initViewPage();
         if (mToken != null) mPresenter.getAllData(mToken);
     }
@@ -92,8 +90,8 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
     }
 
     @Override
-    public void onSuccess(ResponseItem<DataInfoItem> dataList) {
-        mDataList.set(dataList.getData());
+    public void onSuccess(DataInfoItem data) {
+        mDataList.set(data);
         startUiViewPageManage();
     }
 

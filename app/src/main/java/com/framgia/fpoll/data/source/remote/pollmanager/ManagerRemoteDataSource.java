@@ -3,6 +3,7 @@ package com.framgia.fpoll.data.source.remote.pollmanager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
@@ -142,6 +143,25 @@ public class ManagerRemoteDataSource implements ManagerDataSource {
                 public void onResponse(ResponseItem<List<String>> data) {
                     if (data.getStatus() == STATUS_SUCCESS) {
                         callback.onSuccess(ActivityUtil.byString(data.getData()));
+                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
+    }
+
+    @Override
+    public void getPoll(@NonNull String token, @NonNull final DataCallback<DataInfoItem> callback) {
+        if (mPollManagerAPI == null) return;
+        mPollManagerAPI.getPoll(token).enqueue(new CallbackManager<>(mContext,
+            new CallbackManager.CallBack<ResponseItem<DataInfoItem>>() {
+                @Override
+                public void onResponse(ResponseItem<DataInfoItem> data) {
+                    if (data.getStatus() == STATUS_SUCCESS) {
+                        callback.onSuccess(data.getData());
                     } else callback.onError(ActivityUtil.byString(data.getMessage()));
                 }
 

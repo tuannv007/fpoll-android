@@ -53,7 +53,7 @@
 
                 <ImageView
                     style="@style/ImageViewManageActivity"
-                    android:onClick="@{()->handler.clickSaveLinkManager()}"
+                    android:onClick="@{()->handler.clickUpdateLinkPoll()}"
                     android:src="@drawable/ic_done"/>
 
             </LinearLayout>
@@ -84,7 +84,7 @@
 
                 <ImageView
                     style="@style/ImageViewManageActivity"
-                    android:onClick="@{()->handler.clickSaveLinkVoting()}"
+                    android:onClick="@{()->handler.clickUpdateLinkPoll()}"
                     android:src="@drawable/ic_done"/>
 
             </LinearLayout>

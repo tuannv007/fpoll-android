@@ -13,12 +13,8 @@ public class EditPollHandler {
         mListener = listener;
     }
 
-    public void clickSaveLinkManager() {
-        if (mListener != null) mListener.submitSaveLinkManager();
-    }
-
-    public void clickSaveLinkVoting() {
-        if (mListener != null) mListener.submitSaveLinkVoting();
+    public void clickUpdateLinkPoll() {
+        if (mListener != null) mListener.updateLinkPoll();
     }
 
     public void clickEditPoll(EditPollType type) {

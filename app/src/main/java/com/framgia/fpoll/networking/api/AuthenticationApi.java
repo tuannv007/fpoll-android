@@ -67,9 +67,6 @@ public class AuthenticationApi {
             @Part("gender") RequestBody gender,
             @Part("chatwork_id") RequestBody chatWorkId,
             @Part MultipartBody.Part file);
-    }
-
-    public interface ResetPasswordService {
         @POST("api/v1/password/reset")
         @Multipart
         Call<ResponseItem> resetPassword(@Part("email") RequestBody email);

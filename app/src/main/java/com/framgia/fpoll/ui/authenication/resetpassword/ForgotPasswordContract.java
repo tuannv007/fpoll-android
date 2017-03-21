@@ -1,7 +1,5 @@
 package com.framgia.fpoll.ui.authenication.resetpassword;
 
-import com.framgia.fpoll.data.model.authorization.User;
-import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -10,8 +8,7 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface ForgotPasswordContract {
     interface View extends BaseView {
         void showMessageError();
-        void onSuccess(ResponseItem data);
-        void onError(String message);
+        void showMessage(String message);
         void showDialog();
         void dismissDialog();
     }

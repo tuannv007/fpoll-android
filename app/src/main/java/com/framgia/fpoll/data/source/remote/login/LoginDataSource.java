@@ -16,4 +16,5 @@ public interface LoginDataSource {
                      @NonNull DataCallback<LoginNormalData> callback);
     void logout(String header, @NonNull DataCallback<String> callback);
     void updateProfile(@NonNull User user, @NonNull DataCallback<User> callback);
+    void resetPassword(@NonNull String email, @NonNull DataCallback<String> callback);
 }

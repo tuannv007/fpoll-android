@@ -13,6 +13,8 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     private EditPollContract.View mView;
     private ObservableField<String> mLinkManager = new ObservableField<>();
     private ObservableField<String> mLinkVoting = new ObservableField<>();
+    private String mOldLinkUser;
+    private String mOldLinkAdmin;
     private ManagerRepository mRepository;
     private String mIdPoll;
 
@@ -23,13 +25,8 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     }
 
     @Override
-    public void submitSaveLinkManager() {
-        // TODO: 3/2/2017 call api save link manager
-    }
-
-    @Override
-    public void submitSaveLinkVoting() {
-        // TODO: 3/2/2017 call api save link voting
+    public void updateLinkPoll() {
+        if (mRepository == null) return;
     }
 
     @Override
