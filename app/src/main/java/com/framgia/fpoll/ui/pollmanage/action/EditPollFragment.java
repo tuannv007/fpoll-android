@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentActionBinding;
 import com.framgia.fpoll.ui.polledition.ModifyPollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.Constant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,9 +22,14 @@ import com.framgia.fpoll.util.ActivityUtil;
 public class EditPollFragment extends Fragment implements EditPollContract.View {
     private FragmentActionBinding mBinding;
     private EditPollContract.Presenter mPresenter;
+    private DataInfoItem mDataInfoItem;
 
-    public static EditPollFragment newInstance() {
-        return new EditPollFragment();
+    public static EditPollFragment newInstance(DataInfoItem dataInfoItem) {
+        EditPollFragment editPollFragment = new EditPollFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, dataInfoItem);
+        editPollFragment.setArguments(bundle);
+        return editPollFragment;
     }
 
     @Override
@@ -32,6 +39,7 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
         mPresenter = new EditPollPresenter(this, ManagerRepository.getInstance(getActivity()));
         mBinding.setPresenter((EditPollPresenter) mPresenter);
         mBinding.setHandler(new EditPollHandler(mPresenter));
+        mDataInfoItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         return mBinding.getRoot();
     }
 
@@ -47,6 +55,7 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
     @Override
     public void startModifyPoll() {
         Intent intent = new Intent(getActivity(), ModifyPollActivity.class);
+        intent.putExtra(Constant.BundleConstant.BUNDLE_POLL_ITEM, mDataInfoItem);
         startActivity(intent);
     }
 }

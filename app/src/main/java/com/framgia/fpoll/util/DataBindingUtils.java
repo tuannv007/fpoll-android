@@ -15,6 +15,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
@@ -48,6 +49,7 @@ import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
+import com.framgia.fpoll.ui.polledition.editsetting.EditSettingPresenter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -397,5 +399,43 @@ public class DataBindingUtils {
                 view.setText(view.getContext().getString(R.string.title_no_setting));
                 break;
         }
+    }
+
+    @BindingAdapter({"bind:eventRadioButtonEdit", "bind:requireVoteTypeEdit"})
+    public static void eventRadioButtonEdit(AppCompatRadioButton view, final EditSettingPresenter
+        presenter, final RequireVoteType requireVoteType) {
+        view.setOnCheckedChangeListener(new AppCompatRadioButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                presenter.setRequireVote(requireVoteType);
+            }
+        });
+    }
+
+    @BindingAdapter({"bind:presenterEdit", "bind:eventTypeEdit"})
+    public static void setVisibilityLinkPollEdit(final SwitchCompat switchCompat,
+                                                 final EditSettingPresenter presenter,
+                                                 final EventSwitchType event) {
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switch (event) {
+                    case REQUIRE_VOTE:
+                        presenter.onCheckedRequireVote(isChecked);
+                        break;
+                    case LINK_POLL:
+                        presenter.onCheckedLinkPoll(isChecked);
+                        break;
+                    case VOTING_LIMIT:
+                        presenter.onCheckedVotingLimit(isChecked);
+                        break;
+                    case PASSWORD:
+                        presenter.onCheckedSetPassword(isChecked);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }

@@ -7,17 +7,18 @@
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.pollcreation.setting.SettingHandler"/>
+            type="com.framgia.fpoll.ui.polledition.editsetting.EditSettingHandler"/>
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter"/>
+            type="com.framgia.fpoll.ui.polledition.editsetting.EditSettingPresenter"/>
 
         <import type="com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType"/>
-
+        <import type="com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType"/>
         <import type="java.lang.String"/>
 
         <import type="com.framgia.fpoll.util.Constant.DataConstant"/>
+        <import type="android.view.View"/>
     </data>
 
     <ScrollView
@@ -46,17 +47,16 @@
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_require_voted"
                     android:textColor="@color/color_grey_700"
-                    android:textSize="@dimen/sp_18"/>
+                    android:textSize="@dimen/sp_18"
+                    bind:eventTypeEdit="@{EventSwitchType.REQUIRE_VOTE}"
+                    bind:presenterEdit="@{presenter}"/>
 
                 <RadioGroup
                     android:id="@+id/group_require_voted"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/dp_16"
-                    bind:eventRadioGroup="@{presenter}"
-                    bind:eventType="@{EventSwitchType.REQUIRE_VOTE}"
-                    bind:presenter="@{presenter}"
-                    bind:setVisibility="@{switchRequireVoted}">
+                    android:visibility="@{presenter.requireVote ? View.VISIBLE : View.GONE}">
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/radio_enter_name"
@@ -65,7 +65,9 @@
                         android:buttonTint="@color/color_grey_700"
                         android:checked="true"
                         android:text="@string/msg_enter_name"
-                        android:textColor="@color/color_grey_700"/>
+                        android:textColor="@color/color_grey_700"
+                        bind:eventRadioButtonEdit="@{presenter}"
+                        bind:requireVoteTypeEdit="@{RequireVoteType.NAME}"/>
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/radio_enter_email"
@@ -73,7 +75,9 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/color_grey_700"
                         android:text="@string/msg_enter_email"
-                        android:textColor="@color/color_grey_700"/>
+                        android:textColor="@color/color_grey_700"
+                        bind:eventRadioButtonEdit="@{presenter}"
+                        bind:requireVoteTypeEdit="@{RequireVoteType.EMAIL}"/>
 
                     <include
                         layout="@layout/partial_require_vote"
@@ -88,7 +92,9 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/color_grey_700"
                         android:text="@string/msg_enter_name_email"
-                        android:textColor="@color/color_grey_700"/>
+                        android:textColor="@color/color_grey_700"
+                        bind:eventRadioButtonEdit="@{presenter}"
+                        bind:requireVoteTypeEdit="@{RequireVoteType.NAME_EMAIL}"/>
 
                     <include
                         layout="@layout/partial_require_vote"
@@ -115,7 +121,9 @@
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_optimize_poll"
                     android:textColor="@color/color_grey_700"
-                    android:textSize="@dimen/sp_18"/>
+                    android:textSize="@dimen/sp_18"
+                    bind:eventTypeEdit="@{EventSwitchType.LINK_POLL}"
+                    bind:presenterEdit="@{presenter}"/>
 
                 <LinearLayout
                     android:id="@+id/linear_link_poll"
@@ -125,9 +133,7 @@
                     android:background="@drawable/bg_edit_text"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_1"
-                    bind:eventType="@{EventSwitchType.LINK_POLL}"
-                    bind:presenter="@{presenter}"
-                    bind:setVisibility="@{switchOptimizePoll}">
+                    android:visibility="@{presenter.optimizePoll ? View.VISIBLE : View.GONE}">
 
                     <TextView
                         style="@style/ImageViewStyle"
@@ -154,7 +160,9 @@
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_voting_limit"
                     android:textColor="@color/color_grey_700"
-                    android:textSize="@dimen/sp_18"/>
+                    android:textSize="@dimen/sp_18"
+                    bind:eventTypeEdit="@{EventSwitchType.VOTING_LIMIT}"
+                    bind:presenterEdit="@{presenter}"/>
 
                 <LinearLayout
                     android:id="@+id/linear_limit_voting"
@@ -165,9 +173,7 @@
                     android:background="@drawable/bg_edit_text"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_1"
-                    bind:eventType="@{EventSwitchType.VOTING_LIMIT}"
-                    bind:presenter="@{presenter}"
-                    bind:setVisibility="@{switchVotingLimit}">
+                    android:visibility="@{presenter.voteLimit ? View.VISIBLE : View.GONE}">
 
                     <ImageView
                         style="@style/ImageViewStyle"
@@ -204,7 +210,9 @@
                     android:padding="@dimen/dp_8"
                     android:text="@string/action_change_password"
                     android:textColor="@color/color_grey_700"
-                    android:textSize="@dimen/sp_18"/>
+                    android:textSize="@dimen/sp_18"
+                    bind:eventTypeEdit="@{EventSwitchType.PASSWORD}"
+                    bind:presenterEdit="@{presenter}"/>
 
                 <LinearLayout
                     android:id="@+id/linear_set_password"
@@ -215,9 +223,7 @@
                     android:background="@drawable/bg_edit_text"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_1"
-                    bind:eventType="@{EventSwitchType.PASSWORD}"
-                    bind:presenter="@{presenter}"
-                    bind:setVisibility="@{switchSetPassword}">
+                    android:visibility="@{presenter.setPassword ? View.VISIBLE : View.GONE}">
 
                     <ImageView
                         style="@style/ImageViewStyle"

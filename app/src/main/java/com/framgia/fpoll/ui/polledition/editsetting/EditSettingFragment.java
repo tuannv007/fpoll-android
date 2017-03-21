@@ -16,8 +16,10 @@ import com.framgia.fpoll.util.Constant;
 /**
  * Created by framgia on 17/03/2017.
  */
-public class EditSettingFragment extends Fragment {
+public class EditSettingFragment extends Fragment implements EditSettingContract.View {
     private FragmentEditSettingBinding mBinding;
+    private EditSettingContract.Presenter mPresenter;
+    private PollItem mPollItem;
 
     public static EditSettingFragment newInstance(PollItem pollItem) {
         EditSettingFragment editSettingFragment = new EditSettingFragment();
@@ -33,6 +35,22 @@ public class EditSettingFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_edit_setting, container, false);
+        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        mPresenter = new EditSettingPresenter(this, mPollItem);
+        mBinding.setHandler(new EditSettingHandler(mPresenter));
+        mBinding.setPresenter((EditSettingPresenter) mPresenter);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void start() {
+    }
+
+    @Override
+    public void nextStep() {
+    }
+
+    @Override
+    public void previousStep() {
     }
 }

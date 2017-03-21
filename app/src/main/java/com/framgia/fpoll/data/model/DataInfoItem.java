@@ -13,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by tuanbg on 3/6/17.
  */
 public class DataInfoItem extends BaseObservable implements Parcelable {
-    public final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
+    public static final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
         @Override
         public DataInfoItem createFromParcel(Parcel in) {
             return new DataInfoItem(in);

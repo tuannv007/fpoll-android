@@ -7,12 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.ActivityModifyPollBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
 import com.framgia.fpoll.ui.polledition.editinformation.EditInforFragment;
 import com.framgia.fpoll.ui.polledition.editoption.EditOptionFragment;
 import com.framgia.fpoll.ui.polledition.editsetting.EditSettingFragment;
+import com.framgia.fpoll.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
     private ActivityModifyPollBinding mBinding;
     private ModifyPollContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
+    private DataInfoItem mDataInfoItem;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
         mPresenter = new ModifyPollPresenter(this);
         mBinding.setPresenter((ModifyPollPresenter) mPresenter);
         mBinding.setActivity(this);
+        mDataInfoItem = getIntent().getParcelableExtra(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         initViewPager();
     }
 
@@ -42,7 +46,7 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
     @Override
     public void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(EditInforFragment.newInstance());
+        fragments.add(EditInforFragment.newInstance(new PollItem()));
         fragments.add(EditOptionFragment.newInstance(new PollItem()));
         fragments.add(EditSettingFragment.newInstance(new PollItem()));
         String[] titles = getResources().getStringArray(R.array.array_vote);
