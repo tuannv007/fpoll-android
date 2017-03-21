@@ -89,4 +89,20 @@ public class LoginRepository implements LoginDataSource {
             }
         });
     }
+
+    @Override
+    public void resetPassword(@NonNull String email, @NonNull final DataCallback<String> callback) {
+        if (mDataSource == null) return;
+        mDataSource.resetPassword(email, new DataCallback<String>() {
+            @Override
+            public void onSuccess(String data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
 }

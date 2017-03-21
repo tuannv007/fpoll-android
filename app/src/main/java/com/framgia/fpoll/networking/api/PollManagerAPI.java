@@ -1,5 +1,6 @@
 package com.framgia.fpoll.networking.api;
 
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.google.gson.annotations.SerializedName;
@@ -33,6 +34,8 @@ public interface PollManagerAPI {
     @PATCH("api/v1/updateLink")
     Call<ResponseItem<List<String>>> updateLinkPoll(@Header("Authorization") String token,
                                                     @Body UpdateLinkBody body);
+    @GET("/api/v1/link/{token}")
+    Call<ResponseItem<DataInfoItem>> getPoll(@Path("token") String token);
     class UpdateLinkBody {
         @SerializedName("oldLinkUser")
         private String mOldLinkUser;

@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
-import com.framgia.fpoll.data.source.remote.resetpassword.ResetDataRepository;
+import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.FragmentForgotPasswordBinding;
-import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
@@ -35,9 +34,9 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_forgot_password, container, false);
-        mPresenter = new ForgotPasswordPresenter(this, mUser, ResetDataRepository
-            .getInstance(getActivity()));
-        mBinding.setHandler((new ForgotPasswordActionHandler(mPresenter)));
+        mPresenter =
+            new ForgotPasswordPresenter(this, mUser, LoginRepository.getInstance(getActivity()));
+        mBinding.setHandler((new ForgotPasswordHandler(mPresenter)));
         mBinding.setPresenter(mPresenter);
         return mBinding.getRoot();
     }
@@ -54,12 +53,7 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
     }
 
     @Override
-    public void onSuccess(ResponseItem data) {
-        ActivityUtil.showToast(getActivity(), data.getMessage().toString());
-    }
-
-    @Override
-    public void onError(String message) {
+    public void showMessage(String message) {
         ActivityUtil.showToast(getActivity(), message);
     }
 

@@ -3,8 +3,7 @@ package com.framgia.fpoll.ui.pollmanage;
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
-import com.framgia.fpoll.data.source.remote.pollmanagerinfo.PollInfoRepository;
-import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 
 /**
@@ -14,10 +13,10 @@ import com.framgia.fpoll.ui.history.ViewpagerType;
 public class ManagePollPresenter implements ManagePollContract.Presenter {
     private final ManagePollContract.View mView;
     private ViewpagerType mViewpagerType;
-    private PollInfoRepository mRepository;
+    private ManagerRepository mRepository;
 
     public ManagePollPresenter(ManagePollContract.View view, ViewpagerType viewpagerType,
-                               PollInfoRepository repository) {
+                               ManagerRepository repository) {
         mView = view;
         mViewpagerType = viewpagerType;
         mRepository = repository;
@@ -38,18 +37,19 @@ public class ManagePollPresenter implements ManagePollContract.Presenter {
 
     public void getAllData(@NonNull String token) {
         mView.showDialog();
-        mRepository.loadData(token, new DataCallback<ResponseItem<DataInfoItem>>() {
-            @Override
-            public void onSuccess(ResponseItem<DataInfoItem> pollInfoList) {
-                mView.onSuccess(pollInfoList);
-                mView.dismissDialog();
-            }
+        mRepository.getPoll(token, new DataCallback<DataInfoItem>() {
+                @Override
+                public void onSuccess(DataInfoItem data) {
+                    mView.onSuccess(data);
+                    mView.dismissDialog();
+                }
 
-            @Override
-            public void onError(String message) {
-                mView.onError(message);
-                mView.dismissDialog();
+                @Override
+                public void onError(String msg) {
+                    mView.onError(msg);
+                    mView.dismissDialog();
+                }
             }
-        });
+        );
     }
 }

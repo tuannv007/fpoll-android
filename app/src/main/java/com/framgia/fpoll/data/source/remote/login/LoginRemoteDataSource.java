@@ -17,6 +17,8 @@ import com.framgia.fpoll.util.ActivityUtil;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import static com.framgia.fpoll.util.Constant.DataConstant.STATUS_SUCCESS;
+
 /**
  * Created by Nhahv0902 on 3/3/2017.
  * <></>
@@ -111,6 +113,28 @@ public class LoginRemoteDataSource implements LoginDataSource {
                 @Override
                 public void onResponse(ResponseItem<User> data) {
                     callback.onSuccess(data.getData());
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    callback.onError(message);
+                }
+            }));
+    }
+
+    @Override
+    public void resetPassword(@NonNull String email,
+                              @NonNull final DataCallback<String> callback) {
+        if (mService == null) return;
+        RequestBody bodyEmail =
+            RequestBody.create(MultipartBody.FORM, email);
+        mService.resetPassword(bodyEmail)
+            .enqueue(new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem>() {
+                @Override
+                public void onResponse(ResponseItem data) {
+                    if (data.getStatus() == STATUS_SUCCESS) {
+                        callback.onSuccess(data.getMessage().toString());
+                    } else callback.onError(data.getMessage().toString());
                 }
 
                 @Override
