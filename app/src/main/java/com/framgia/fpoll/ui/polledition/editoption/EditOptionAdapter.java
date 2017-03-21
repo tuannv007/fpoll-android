@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.framgia.fpoll.data.model.OptionItem;
+import com.framgia.fpoll.data.model.poll.Option;
 
 import java.util.List;
 
@@ -13,14 +13,14 @@ import java.util.List;
  */
 public class EditOptionAdapter extends RecyclerView.Adapter<EditOptionAdapter.EditOptionHolder> {
     private EditOptionContract.Presenter mPresenter;
-    private List mListOption;
+    private List<Option> mListOption;
 
-    public EditOptionAdapter(EditOptionContract.Presenter presenter, List listOption) {
+    public EditOptionAdapter(EditOptionContract.Presenter presenter, List<Option> listOption) {
         mPresenter = presenter;
         mListOption = listOption;
     }
 
-    public void update(List<OptionItem> optionItems) {
+    public void update(List<Option> optionItems) {
         mListOption.clear();
         mListOption.addAll(optionItems);
         notifyDataSetChanged();

@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.OptionItem;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.FragmentEditOptionBinding;
 import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -41,7 +41,7 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     private FragmentEditOptionBinding mBinding;
     private EditOptionContract.Presenter mPresenter;
     private ObservableField<EditOptionAdapter> mAdapter = new ObservableField<>();
-    private List<OptionItem> mListOption = new ArrayList<>();
+    private List<Option> mListOption = new ArrayList<>();
     private int mPosition = UNSELECTED_POSITION;
     private PollItem mPollItem;
 
@@ -80,12 +80,12 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     @Override
     public void start() {
         for (int i = 0; i < NUMBER_DEFAULT_OPTION; i++) {
-            mListOption.add(new OptionItem());
+            mListOption.add(new Option());
         }
     }
 
     @Override
-    public void openGallery(OptionItem optionItem, int position) {
+    public void openGallery(Option optionItem, int position) {
         mPosition = position;
         if (PermissionsUtil.isAllowPermissions(getActivity())) {
             pickImage();
@@ -113,7 +113,7 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
 
     @Override
     public void augmentPoll() {
-        mListOption.add(new OptionItem());
+        mListOption.add(new Option());
         mAdapter.get().update(mListOption);
     }
 
@@ -139,7 +139,7 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
             cursor.moveToFirst();
             String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
             if (mPosition != UNSELECTED_POSITION) {
-                mListOption.get(mPosition).setPathImage(url);
+                mListOption.get(mPosition).setImage(url);
                 mAdapter.get().update(mListOption);
             }
             cursor.close();

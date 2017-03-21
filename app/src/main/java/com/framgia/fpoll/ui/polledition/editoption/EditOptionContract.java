@@ -1,6 +1,6 @@
 package com.framgia.fpoll.ui.polledition.editoption;
 
-import com.framgia.fpoll.data.model.OptionItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -10,7 +10,7 @@ public class EditOptionContract {
     interface View extends BaseView {
         void nextStep();
         void previousStep();
-        void openGallery(OptionItem optionItem, int position);
+        void openGallery(Option optionItem, int position);
         void deletePoll(int position);
         void augmentPoll();
         void pickImage();
@@ -20,9 +20,9 @@ public class EditOptionContract {
     interface Presenter {
         void nextStep();
         void previousStep();
-        void pickImage(OptionItem optionItem, int position);
-        void deletePoll(OptionItem optionItem, int position);
+        void pickImage(Option optionItem, int position);
+        void deletePoll(Option optionItem, int position);
         void augmentPoll();
-        void pickDate(OptionItem optionItem, int position);
+        void pickDate(Option optionItem, int position);
     }
 }

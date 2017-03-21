@@ -12,7 +12,8 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentPageSettingBinding;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantFragment;
-import com.framgia.fpoll.util.Constant;
+
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 
 /**
  * Created by framgia on 23/02/2017.
@@ -20,14 +21,21 @@ import com.framgia.fpoll.util.Constant;
 public class SettingPollFragment extends Fragment implements SettingPollContract.View {
     private FragmentPageSettingBinding mBinding;
     private SettingPollContract.Presenter mPresenter;
-    private PollItem mPollItem;
+    private PollItem mPoll = new PollItem();
 
     public static SettingPollFragment newInstance(PollItem pollItem) {
         SettingPollFragment settingPollFragment = new SettingPollFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
         settingPollFragment.setArguments(bundle);
         return settingPollFragment;
+    }
+
+    private void getDataFromActivity() {
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
+        mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        if (mPoll == null) mPoll = new PollItem();
     }
 
     @Nullable
@@ -36,8 +44,8 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
                              @Nullable Bundle savedInstanceState) {
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_page_setting, container, false);
-        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
-        mPresenter = new SettingPresenter(this, mPollItem);
+        getDataFromActivity();
+        mPresenter = new SettingPresenter(this, mPoll);
         mBinding.setHandler(new SettingHandler(mPresenter));
         mBinding.setPresenter((SettingPresenter) mPresenter);
         return mBinding.getRoot();
@@ -50,7 +58,7 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     @Override
     public void nextStep() {
         getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, ParticipantFragment.newInstance(mPollItem), null)
+            .add(R.id.frame_layout, ParticipantFragment.newInstance(mPoll), null)
             .addToBackStack(null)
             .commit();
     }

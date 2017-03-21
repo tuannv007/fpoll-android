@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.pollcreation.participant;
 
 import android.app.ProgressDialog;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,8 +14,9 @@ import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
 import com.framgia.fpoll.ui.poll.PollCreatedFragment;
-import com.framgia.fpoll.util.Constant;
 import com.tokenautocomplete.TokenCompleteTextView;
+
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 
 /**
  * Created by framgia on 23/02/2017.
@@ -25,25 +25,31 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     private ParticipantPollContract.Presenter mPresenter;
     private FragmentPageParticipantBinding mBinding;
     private ProgressDialog mProgressDialog;
-    private PollItem mPollItem;
+    private PollItem mPoll = new PollItem();
 
     public static ParticipantFragment newInstance(PollItem pollItem) {
         ParticipantFragment participantFragment = new ParticipantFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
         participantFragment.setArguments(bundle);
         return participantFragment;
+    }
+
+    private void getDataFromActivity() {
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
+        mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        if (mPoll == null) mPoll = new PollItem();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_page_participant, container, false);
-        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        mBinding = FragmentPageParticipantBinding.inflate(inflater, container, false);
+        getDataFromActivity();
         mPresenter =
-            new ParticipantPresenter(this, PollRepository.getInstance(getContext()), mPollItem);
+            new ParticipantPresenter(this, PollRepository.getInstance(getContext()), mPoll);
         mBinding.setHandler(new ParticipantHandler(mPresenter));
         mBinding.setPresenter((ParticipantPresenter) mPresenter);
         mProgressDialog = new ProgressDialog(getActivity());
@@ -54,7 +60,7 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
 
     @Override
     public void nextStep() {
-        PollCreatedFragment pollCreatedFragment = PollCreatedFragment.getInstance(mPollItem);
+        PollCreatedFragment pollCreatedFragment = PollCreatedFragment.getInstance(mPoll);
         getFragmentManager().beginTransaction()
             .replace(R.id.frame_layout, pollCreatedFragment, null)
             .addToBackStack(null)
