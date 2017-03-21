@@ -1,13 +1,20 @@
 package com.framgia.fpoll.networking.api;
 
+import android.text.TextUtils;
+
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.poll.Option;
+import com.framgia.fpoll.data.model.poll.ParticipantVotes;
+import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.util.Constant;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -52,7 +59,7 @@ public interface VoteInfoAPI {
         }
     }
     @POST("/api/v1/user/vote")
-    Call<ResponseItem<Object>> votePoll(@Body RequestBody options);
+    Call<ResponseItem<ParticipantVotes>> votePoll(@Body RequestBody options);
     public class OptionsBody {
         private static final String NAME = "name";
         private static final String EMAIL = "email";
@@ -73,6 +80,10 @@ public interface VoteInfoAPI {
             mListOptions = listOptions;
         }
 
+        public List<Option> getListOptions() {
+            return mListOptions;
+        }
+
         public RequestBody getRequestBody() {
             MultipartBody.Builder builder = new MultipartBody.Builder();
             builder.setType(MultipartBody.FORM);
@@ -85,6 +96,37 @@ public interface VoteInfoAPI {
                     CLOSE_SQUARE_BR;
                 builder.addFormDataPart(optionKey,
                     String.valueOf(this.mListOptions.get(i).getId()));
+            }
+            return builder.build();
+        }
+    }
+    @POST("/api/v1/poll/update/{id}")
+    Call<ResponseItem<Poll>> updateOption(@Path("id") int pollId,
+                                          @Body RequestBody newOption);
+    public class NewOptionBody {
+        private static final String TYPE_EDIT = "type_edit";
+        private static final String OPTION_TEXT = "optionText[newOption1]";
+        private static final String OPTION_IMAGE = "optionImage[newOption1]";
+        private String mTypeEdit;
+        private String mOptionText;
+        private String mOptionImage;
+
+        public NewOptionBody(String typeEdit, String optionText, String optionImage) {
+            mTypeEdit = typeEdit;
+            mOptionText = optionText;
+            mOptionImage = optionImage;
+        }
+
+        public RequestBody getRequestBody() {
+            MultipartBody.Builder builder = new MultipartBody.Builder();
+            builder.setType(MultipartBody.FORM);
+            builder.addFormDataPart(TYPE_EDIT, this.mTypeEdit);
+            builder.addFormDataPart(OPTION_TEXT, this.mOptionText);
+            if (!TextUtils.isEmpty(mOptionImage)) {
+                File file = new File(mOptionImage);
+                RequestBody requestBody =
+                    RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file);
+                builder.addFormDataPart(OPTION_IMAGE, file.getName(), requestBody);
             }
             return builder.build();
         }

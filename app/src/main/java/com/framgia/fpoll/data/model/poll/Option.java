@@ -18,7 +18,7 @@ public class Option extends BaseObservable implements Parcelable {
     private int mId;
     @SerializedName("name")
     private String mName;
-    @SerializedName("image")
+    @SerializedName("url_image")
     private String mImage;
     @SerializedName("poll_id")
     private int mPollId;

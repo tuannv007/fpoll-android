@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.framgia.fpoll.data.model.FpollComment;
+import com.framgia.fpoll.data.model.poll.ParticipantVotes;
+import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
@@ -62,10 +64,26 @@ public class VoteInfoRepository implements VoteInfoDataSource {
 
     @Override
     public void votePoll(VoteInfoAPI.OptionsBody optionsBody,
-                         final DataCallback<List<String>> callback) {
-        mVoteInfoRemoteSource.votePoll(optionsBody, new DataCallback<List<String>>() {
+                         final DataCallback<ParticipantVotes> callback) {
+        mVoteInfoRemoteSource.votePoll(optionsBody, new DataCallback<ParticipantVotes>() {
             @Override
-            public void onSuccess(List<String> data) {
+            public void onSuccess(ParticipantVotes data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void updateNewOption(int pollId, VoteInfoAPI.NewOptionBody newOptionBody,
+                                final DataCallback<Poll> callback) {
+        mVoteInfoRemoteSource.updateNewOption(pollId, newOptionBody, new DataCallback<Poll>() {
+            @Override
+            public void onSuccess(Poll data) {
                 callback.onSuccess(data);
             }
 
