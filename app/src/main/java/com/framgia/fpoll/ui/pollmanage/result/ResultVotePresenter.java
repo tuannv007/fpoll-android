@@ -72,18 +72,15 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
 
     @Override
     public void getAllData(@NonNull String token) {
-        mView.showDialog();
         mRepository.loadData(token, new DataCallback<ResponseItem<ResultVoteItem>>() {
             @Override
             public void onSuccess(ResponseItem<ResultVoteItem> pollInfoList) {
                 mView.onSuccess(pollInfoList);
-                mView.dismissDialog();
             }
 
             @Override
             public void onError(String message) {
                 mView.onError(message);
-                mView.dismissDialog();
             }
         });
     }

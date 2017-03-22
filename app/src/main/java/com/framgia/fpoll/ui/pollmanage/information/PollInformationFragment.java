@@ -68,6 +68,8 @@ public class PollInformationFragment extends Fragment implements PollInformation
 
     @Override
     public void showDialogOption() {
+        if (mPollInfo == null) return;
+        if (mPollInfo.getPoll().getOptions() == null) return;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         DialogFragment optionDialog =
             PollOptionDialogFragment.newInstance(mPollInfo.getPoll().getOptions());
@@ -77,6 +79,7 @@ public class PollInformationFragment extends Fragment implements PollInformation
     @Override
     public void showDialogSetting() {
         if (mPollInfo == null) return;
+        if (mPollInfo.getPoll().getSettings() == null) return;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         DialogFragment optionDialog =
             PollSettingDialogFragment.newInstance(mPollInfo.getPoll().getSettings());
