@@ -18,7 +18,6 @@ import com.framgia.fpoll.ui.pollmanage.information.viewoption.PollOptionDialogFr
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +26,6 @@ public class PollInformationFragment extends Fragment implements PollInformation
     private FragmentInformationBinding mBinding;
     private PollInformationContract.Presenter mPresenter;
     private DataInfoItem mPollInfo;
-    private FPollProgressDialog mDialog;
 
     public static PollInformationFragment newInstance(DataInfoItem pollInfo) {
         PollInformationFragment fragment = new PollInformationFragment();
@@ -68,6 +66,7 @@ public class PollInformationFragment extends Fragment implements PollInformation
 
     @Override
     public void showDialogOption() {
+        if (mPollInfo == null || mPollInfo.getPoll().getOptions() == null) return;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         DialogFragment optionDialog =
             PollOptionDialogFragment.newInstance(mPollInfo.getPoll().getOptions());
@@ -76,7 +75,7 @@ public class PollInformationFragment extends Fragment implements PollInformation
 
     @Override
     public void showDialogSetting() {
-        if (mPollInfo == null) return;
+        if (mPollInfo == null || mPollInfo.getPoll().getSettings() == null) return;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         DialogFragment optionDialog =
             PollSettingDialogFragment.newInstance(mPollInfo.getPoll().getSettings());
@@ -91,16 +90,5 @@ public class PollInformationFragment extends Fragment implements PollInformation
     @Override
     public void onError(String msg) {
         ActivityUtil.showToast(getActivity(), msg);
-    }
-
-    @Override
-    public void showDialog() {
-        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
-        mDialog.show();
-    }
-
-    @Override
-    public void dismissDialog() {
-        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
     }
 }

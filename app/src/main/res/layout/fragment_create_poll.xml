@@ -123,11 +123,18 @@
 
                     </LinearLayout>
 
-                    <Spinner
-                        style="@style/LinearLayoutStyle"
-                        android:entries="@array/array_answer"
-                        android:spinnerMode="dropdown"
-                        bind:choiceAnswer="@={information.multiple}"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/bg_edit_text">
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_48"
+                            android:entries="@array/array_answer"
+                            bind:numAnswer="@{information.multiple}"/>
+                    </RelativeLayout>
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/edit_send_email"

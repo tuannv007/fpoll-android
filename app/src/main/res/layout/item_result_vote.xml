@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:padding="@dimen/dp_20"
             android:text="@{item.name}"
             android:textSize="@dimen/sp_20"/>
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:padding="@dimen/dp_20"
             android:text="@{String.valueOf(item.voters)}"
             android:textSize="@dimen/sp_20"/>

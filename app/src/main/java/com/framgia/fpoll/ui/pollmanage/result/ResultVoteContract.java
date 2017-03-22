@@ -22,7 +22,6 @@ public class ResultVoteContract {
     }
 
     interface Presenter {
-        void viewOption();
         void exportPDF();
         void exportExcel();
         void getAllData(@NonNull String token);

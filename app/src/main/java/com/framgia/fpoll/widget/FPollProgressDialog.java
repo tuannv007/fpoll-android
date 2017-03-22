@@ -13,14 +13,15 @@ public class FPollProgressDialog extends ProgressDialog {
     public FPollProgressDialog(Context context) {
         super(context);
         setCancelable(false);
-        if (getWindow() != null)
-            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(new ProgressBar(getContext()));
     }
 
     @Override
     public void show() {
         super.show();
+        if (getWindow() != null) {
+            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        setContentView(new ProgressBar(getContext()));
     }
 
     @Override

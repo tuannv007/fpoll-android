@@ -47,7 +47,6 @@ public class PollInformationPresenter implements PollInformationContract.Present
 
     @Override
     public void saveInformation(int id) {
-        mView.showDialog();
         String username = mPoll.get().getPoll().getName();
         String email = mPoll.get().getPoll().getEmail();
         String title = mPoll.get().getPoll().getTitle();
@@ -62,13 +61,11 @@ public class PollInformationPresenter implements PollInformationContract.Present
             public void onSuccess(ResponseItem<DataInfoItem> data) {
                 mView.saveSuccess(ActivityUtil.byString(data.getMessage()));
                 mPoll.set(data.getData());
-                mView.dismissDialog();
             }
 
             @Override
             public void onError(String msg) {
                 mView.onError(msg);
-                mView.dismissDialog();
             }
         });
     }
