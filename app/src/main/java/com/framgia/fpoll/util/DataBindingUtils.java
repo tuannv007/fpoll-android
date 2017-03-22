@@ -466,4 +466,16 @@ public class DataBindingUtils {
     public static boolean changeChoiceAnswer(Spinner spinner) {
         return (spinner.getSelectedItemPosition() == KEY_MULTI_CHOOSE);
     }
+
+    @BindingAdapter(value =
+        {"bind:imageUrl", "bind:placeholder", "bind:error"}, requireAll = false)
+    public static void setImageUrl(
+        ImageView view, String path, Drawable placeholder, Drawable error) {
+        if (TextUtils.isEmpty(path)) return;
+        Glide.with(view.getContext())
+            .load(path)
+            .placeholder(placeholder)
+            .error(error)
+            .into(view);
+    }
 }

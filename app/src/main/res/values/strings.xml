@@ -224,4 +224,9 @@
     <string name="msg_poll_closed">Poll closed</string>
     <string name="msg_hidden_poll_result">This poll result is hidden</string>
     <string name="msg_vote_reach_limit_number">Vote reach limit number</string>
+    <string name="msg_name_required">Name is required</string>
+    <string name="msg_email_required">Email is required</string>
+    <string name="msg_name_and_email_required">Name and Email is required</string>
+    <string name="msg_reload_vote_option">Network error, try reload votes!</string>
+
 </resources>

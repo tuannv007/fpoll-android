@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.votemanager.itemmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.net.Uri;
 
 import com.framgia.fpoll.BR;
 
@@ -11,7 +10,12 @@ import com.framgia.fpoll.BR;
  */
 public class AdditionOption extends BaseObservable {
     private String mOptionText;
-    private Uri mImageUri;
+    private String mImagePath;
+
+    public AdditionOption(String optionText, String imagePath) {
+        mOptionText = optionText;
+        mImagePath = imagePath;
+    }
 
     @Bindable
     public String getOptionText() {
@@ -24,12 +28,12 @@ public class AdditionOption extends BaseObservable {
     }
 
     @Bindable
-    public Uri getImageUri() {
-        return mImageUri;
+    public String getImagePath() {
+        return mImagePath;
     }
 
-    public void setImageUri(Uri imageUri) {
-        mImageUri = imageUri;
-        notifyPropertyChanged(BR.imageUri);
+    public void setImagePath(String imagePath) {
+        mImagePath = imagePath;
+        notifyPropertyChanged(BR.imagePath);
     }
 }

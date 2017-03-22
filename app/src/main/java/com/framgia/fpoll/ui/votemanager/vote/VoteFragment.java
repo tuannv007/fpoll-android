@@ -2,19 +2,24 @@ package com.framgia.fpoll.ui.votemanager.vote;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.poll.Option;
+import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
@@ -23,8 +28,10 @@ import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static android.graphics.Color.TRANSPARENT;
 
 /**
@@ -83,9 +90,24 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         }
     }
 
+    /**
+     * @param options : list option user voted
+     */
     @Override
-    public void onSubmitSuccess(List<String> messages) {
+    public void onSubmitSuccess(List<Option> options) {
         //TODO submit vote success switch to result tab
+        //Update list vote
+        mVoteInfoModel.getVoteInfo().getPoll().setOptions(options);
+        //Reset check list option model
+        List<OptionModel> listOptionModel = new ArrayList<>();
+        for (int i = 0; i < mVoteInfoModel.getVoteInfo().getPoll().getOptions().size(); i++) {
+            listOptionModel
+                .add(new OptionModel(mVoteInfoModel.getVoteInfo().getPoll().getOptions().get(i),
+                    false));
+        }
+        mVoteInfoModel.setOptionModels(listOptionModel);
+        //Notify change list
+        mAdapter.get().notifyDataSetChanged();
     }
 
     @Override
@@ -120,6 +142,26 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         }
     }
 
+    @Override
+    public void updateAdditionOptionSuccess() {
+        mAdapter.get().notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateAdditionOptionFailed() {
+        ActivityUtil.showToast(getContext(), getString(R.string.msg_reload_vote_option));
+    }
+
+    @Override
+    public void showVoteRequirement(int msg) {
+        ActivityUtil.showToast(getContext(), getString(msg));
+    }
+
+    @Override
+    public void resetChoiceBox() {
+        //TODO reset choice box
+    }
+
     public ObservableField<VoteAdapter> getAdapter() {
         return mAdapter;
     }
@@ -127,8 +169,21 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constant.RequestCode.IMAGE_PICKER_SELECT) {
-            //TODO set image from gallery to UI
+        if (requestCode == Constant.RequestCode.IMAGE_PICKER_SELECT
+            && resultCode == RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            if (selectedImage == null) return;
+            //Update selected image to UI
+            Glide.with(this).load(selectedImage).into(mBinding.imageAdditionOption);
+            //Convert to image path
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getActivity().getContentResolver()
+                .query(selectedImage, filePathColumn, null, null, null);
+            if (cursor == null) return;
+            cursor.moveToFirst();
+            String imagePath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
+            mPresenter.setImageOption(imagePath);
+            cursor.close();
         }
     }
 }
