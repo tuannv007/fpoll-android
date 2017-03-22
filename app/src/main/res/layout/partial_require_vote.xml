@@ -2,14 +2,35 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.pollcreation.setting.SettingHandler"/>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter"/>
+
+        <variable
+            name="isVisible"
+            type="java.lang.Boolean"/>
+
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="@{isVisible.booleanValue() ? View.VISIBLE : View.GONE}">
 
         <android.support.v7.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="@{presenter.sameEmailCheck}"
+            android:onCheckedChanged="@{(switch, checked)->handler.checkedSameEmail(checked)}"
             android:paddingBottom="@dimen/dp_8"
             android:paddingTop="@dimen/dp_8"
             android:text="@string/title_not_same_email_when_vote"
@@ -23,10 +44,12 @@
             android:paddingTop="@dimen/dp_8"
             android:text="@string/title_type_email_when_vote"
             android:textColor="@color/color_grey_700"
-            android:textSize="@dimen/sp_14"/>
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone"/>
 
         <LinearLayout
-            style="@style/LinearLayoutStyle">
+            style="@style/LinearLayoutStyle"
+            android:visibility="gone">
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/ImageViewStyle"

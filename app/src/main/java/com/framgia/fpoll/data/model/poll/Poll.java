@@ -10,6 +10,7 @@ import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,11 +46,11 @@ public class Poll extends BaseObservable implements Parcelable {
     @SerializedName("settings")
     private List<Setting> mSettings;
     @SerializedName("options")
-    private List<Option> mOptions;
+    private List<Option> mOptions = new ArrayList<>();
     @SerializedName("comments")
-    private List<FpollComment> mComments;
+    private List<FpollComment> mComments = new ArrayList<>();
     @SerializedName("links")
-    private List<PollLink> mLink;
+    private List<PollLink> mLink = new ArrayList<>();
 
     public Poll() {
     }

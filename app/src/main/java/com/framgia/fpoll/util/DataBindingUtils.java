@@ -278,6 +278,7 @@ public class DataBindingUtils {
                         presenter.setRequireVote(RequireVoteType.NAME);
                         break;
                 }
+                presenter.resetAdditionRequire();
             }
         });
     }

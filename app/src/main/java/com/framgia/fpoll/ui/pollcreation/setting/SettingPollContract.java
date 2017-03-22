@@ -10,6 +10,7 @@ public class SettingPollContract {
     interface View extends BaseView {
         void nextStep();
         void previousStep();
+        void notifyError(int msg);
     }
 
     interface Presenter {
@@ -26,5 +27,7 @@ public class SettingPollContract {
         void setRequireVote(RequireVoteType requireVote);
         void changeAllowEditPoll(boolean checked);
         void changeAllowAddAnswer(boolean checked);
+        void setNotAllowSameEmail(boolean checked);
+        void resetAdditionRequire();
     }
 }

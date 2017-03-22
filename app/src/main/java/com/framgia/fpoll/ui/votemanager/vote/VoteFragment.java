@@ -23,10 +23,15 @@ import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
+import com.framgia.fpoll.ui.votemanager.itemmodel.PollBarData;
+import com.framgia.fpoll.ui.votemanager.itemmodel.PollPieData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.ChartUtils;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +111,18 @@ public class VoteFragment extends Fragment implements VoteContract.View {
                     false));
         }
         mVoteInfoModel.setOptionModels(listOptionModel);
+        //Notify chart data
+        setChartData();
         //Notify change list
         mAdapter.get().notifyDataSetChanged();
+    }
+
+    private void setChartData() {
+        List<String> labels = ChartUtils.createLabels(mVoteInfoModel);
+        PieDataSet pieDataSet = ChartUtils.createPieData(getContext(), mVoteInfoModel);
+        BarDataSet barDataSet = ChartUtils.createBarData(getContext(), mVoteInfoModel);
+        mVoteInfoModel.setPieData(new PollPieData(labels, pieDataSet));
+        mVoteInfoModel.setBarData(new PollBarData(labels, barDataSet));
     }
 
     @Override
@@ -145,11 +160,6 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public void updateAdditionOptionSuccess() {
         mAdapter.get().notifyDataSetChanged();
-    }
-
-    @Override
-    public void updateAdditionOptionFailed() {
-        ActivityUtil.showToast(getContext(), getString(R.string.msg_reload_vote_option));
     }
 
     @Override

@@ -231,4 +231,6 @@
     <string name="msg_link_user_empty">Link voting not empty</string>
     <string name="msg_link_admin_empty">Link manager not empty</string>
     <string name="msg_not_activity"> Not activity</string>
+    <string name="msg_set_vote_number">Please set your max vote numbers (min is 2)</string>
+    <string name="msg_set_poll_password">Please set your poll password !</string>
 </resources>

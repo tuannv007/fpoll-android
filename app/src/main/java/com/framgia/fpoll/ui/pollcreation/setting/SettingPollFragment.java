@@ -11,6 +11,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentPageSettingBinding;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantFragment;
+import com.framgia.fpoll.util.ActivityUtil;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 
@@ -20,6 +21,7 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 public class SettingPollFragment extends Fragment implements SettingPollContract.View {
     private FragmentPageSettingBinding mBinding;
     private SettingPollContract.Presenter mPresenter;
+    private SettingHandler mHandler;
     private PollItem mPoll = new PollItem();
 
     public static SettingPollFragment newInstance(PollItem pollItem) {
@@ -44,8 +46,10 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
         mBinding = FragmentPageSettingBinding.inflate(inflater, container, false);
         getDataFromActivity();
         mPresenter = new SettingPresenter(this, mPoll);
-        mBinding.setHandler(new SettingHandler(mPresenter));
+        mHandler = new SettingHandler(mPresenter);
+        mBinding.setHandler(mHandler);
         mBinding.setPresenter((SettingPresenter) mPresenter);
+        mBinding.setIsVisible(Boolean.FALSE);
         return mBinding.getRoot();
     }
 
@@ -64,5 +68,10 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     @Override
     public void previousStep() {
         getFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void notifyError(int msg) {
+        ActivityUtil.showToast(getContext(), getString(msg));
     }
 }

@@ -20,7 +20,6 @@ public interface VoteContract {
         void setLoading(boolean isShow);
         void showGallery();
         void updateAdditionOptionSuccess();
-        void updateAdditionOptionFailed();
         void showVoteRequirement(int msg);
         void resetChoiceBox();
     }

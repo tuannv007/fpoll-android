@@ -36,10 +36,14 @@ public class SettingHandler {
     }
 
     public void changeAllowEdit(boolean checked) {
-       if (mListener != null) mListener.changeAllowEditPoll(checked);
+        if (mListener != null) mListener.changeAllowEditPoll(checked);
     }
 
     public void changeAllowAddAnswer(boolean checked) {
-       if (mListener != null) mListener.changeAllowAddAnswer(checked);
+        if (mListener != null) mListener.changeAllowAddAnswer(checked);
+    }
+
+    public void checkedSameEmail(boolean checked) {
+        if (mListener != null) mListener.setNotAllowSameEmail(checked);
     }
 }
