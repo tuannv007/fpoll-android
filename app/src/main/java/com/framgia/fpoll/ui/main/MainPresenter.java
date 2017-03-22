@@ -6,6 +6,8 @@ import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
+import com.framgia.fpoll.data.source.remote.settings.SettingRepository;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 
 /**
@@ -16,13 +18,16 @@ public class MainPresenter implements MainContract.Presenter {
     private final MainContract.View mView;
     private User mUser;
     private LoginRepository mRepository;
+    private SettingRepository mSettingRepository;
     private SharePreferenceUtil mPreference;
     private final ObservableBoolean mIsLogin = new ObservableBoolean();
 
     public MainPresenter(MainContract.View view, @NonNull LoginRepository repository,
+                         SettingRepository settingRepository,
                          @NonNull SharePreferenceUtil preference) {
         mView = view;
         mRepository = repository;
+        mSettingRepository = settingRepository;
         mPreference = preference;
         setInformation();
         mView.start();
@@ -60,6 +65,21 @@ public class MainPresenter implements MainContract.Presenter {
     public void setInformation() {
         mUser = mPreference.getUser();
         mIsLogin.set(mPreference.isLogin());
+    }
+
+    @Override
+    public void changeLanguage(String lang) {
+        mSettingRepository.changeLanguage(lang, new DataCallback<ResponseItem>() {
+            @Override
+            public void onSuccess(ResponseItem data) {
+                mView.changeLangStatus(data.getData().toString());
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.changeLangStatus(msg);
+            }
+        });
     }
 
     public User getUser() {

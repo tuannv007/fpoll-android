@@ -24,7 +24,9 @@
     <string name="text_register">Register</string>
     <string name="hint_email">Enter your email</string>
     <string name="hint_password">Enter your password</string>
-    <string name="server_client_id">222836748167-q2gudo6np1o44sqo9v6b8nr336kvcnk8.apps.googleusercontent.com</string>
+    <string name="server_client_id">
+        222836748167-q2gudo6np1o44sqo9v6b8nr336kvcnk8.apps.googleusercontent.com
+    </string>
     <string name="title_setting">Setting</string>
     <string name="title_option">Option</string>
     <string name="title_information">Information</string>
@@ -41,7 +43,8 @@
     <string name="action_continue">Continue</string>
     <string name="action_finish">Finish</string>
     <string name="msg_send_email_information_poll">The following two links have been send to
-    %s in one e-mail each.</string>
+        %s in one e-mail each.
+    </string>
     <string name="hint_enter_email_participant">Enter email of participant</string>
     <string name="title_reset_password">Reset password</string>
     <string name="msg_thank_user">Thanks , %s</string>
@@ -74,7 +77,8 @@
     <string name="action_duplicate_poll">Create duplicate</string>
     <string name="msg_one">1</string>
     <string name="msg_send_email">If you want send mail to participants, let enter email into
-        below textbox!</string>
+        below textbox!
+    </string>
     <string name="title_poll_initiate">Polls initiated</string>
     <string name="title_poll_participate">Polls participated</string>
     <string name="title_poll_close">Polls closed</string>
@@ -89,7 +93,8 @@
     <string name="hint_poll_title">Poll\'s title</string>
     <string name="hint_position">Position</string>
     <string name="hint_choose_time">Choose time</string>
-    <string name="msg_confirm_pass_not_success">Password confirm incorrect, please check again!</string>
+    <string name="msg_confirm_pass_not_success">Password confirm incorrect, please check again!
+    </string>
     <string name="title_male">Male</string>
     <string name="title_female">Female</string>
     <string name="title_other">Other</string>
@@ -133,10 +138,13 @@
     <string name="title_introduce_support_poll">Support multiple deceive: laptop or mobile</string>
     <string name="title_introduce_share_poll">Share poll by facebook</string>
     <string name="title_copy_right">Copyright 2016 Framgia, Inc. All rights reserved.</string>
-    <string name="title_address_company">13F Keangnam Landmark 72 Tower, Plot E6, Pham Hung Road, Nam Tu Liem, Ha Noi, Viet Nam</string>
+    <string name="title_address_company">13F Keangnam Landmark 72 Tower, Plot E6, Pham Hung Road,
+        Nam Tu Liem, Ha Noi, Viet Nam
+    </string>
     <string name="title_phone_company">84–4–3795–5417</string>
     <string name="title_email_company">hr_team@framgia.com</string>
-    <string name="title_introduce_poll">Fpoll - a simple, convinient and powerfull Poll System</string>
+    <string name="title_introduce_poll">Fpoll - a simple, convinient and powerfull Poll System
+    </string>
     <string name="title_facebook_company">https://www.facebook.com/FramgiaVietnam</string>
     <string name="title_github_company">\"https://github.com/framgia\"</string>
     <string name="title_linkedin_company">https://www.linkedin.com/company/framgia-vietnam</string>
@@ -168,7 +176,9 @@
     <string name="title_pie_chart">Pie chart</string>
     <string name="title_bar_chart">Bar chart</string>
     <string name="msg_register_success">Register success!</string>
-    <string name="msg_register_status_error">Register Error ! Email is exists in database. Please enter a new email</string>
+    <string name="msg_register_status_error">Register Error ! Email is exists in database. Please
+        enter a new email
+    </string>
     <string name="msg_loading">Loading</string>
     <string name="msg_no_internet">No access internet</string>
     <string name="post_comment">%d Comment</string>
@@ -199,7 +209,7 @@
     <string name="title_input_count_vote">Count number vote</string>
     <string name="title_input_edit_link">EditLink</string>
     <string name="title_input_email_name">Input email and name</string>
-    <string name="title_input_not_equal_email">Not  Middle email</string>
+    <string name="title_input_not_equal_email">Not Middle email</string>
     <string name="title_input_hident_result_vote">Hident result vote</string>
     <string name="title_input_create_password">Create Password</string>
     <string name="title_input_edit_option">Edit Option</string>
@@ -209,7 +219,7 @@
     <string name="title_not_same_email_when_vote">Not the same email when vote</string>
     <string name="title_type_email_when_vote">Add type of email when voted</string>
     <string name="title_no_setting">No Setting</string>
-    <string name="msg_export_success">Export successful! File saved </string>
+    <string name="msg_export_success">Export successful! File saved</string>
     <string name="msg_export_error">Export error</string>
     <string name="text_votes">Votes</string>
     <string name="text_options">Options</string>
@@ -233,4 +243,7 @@
     <string name="msg_not_activity"> Not activity</string>
     <string name="msg_set_vote_number">Please set your max vote numbers (min is 2)</string>
     <string name="msg_set_poll_password">Please set your poll password !</string>
+    <string name="msg_not_activity">Not activity</string>
+    <string name="title_change_language">Change Language</string>
+    <string name="msg_change_language">Data show in screen will delete! you are ready</string>
 </resources>

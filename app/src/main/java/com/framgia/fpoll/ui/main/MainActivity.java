@@ -1,10 +1,13 @@
 package com.framgia.fpoll.ui.main;
 
 import android.app.ProgressDialog;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
@@ -14,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -21,6 +25,7 @@ import android.view.MenuItem;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
+import com.framgia.fpoll.data.source.remote.settings.SettingRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.editprofile.EditProfileActivity;
@@ -31,13 +36,18 @@ import com.framgia.fpoll.ui.introduction.IntroduceAppFragment;
 import com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.util.LanguageUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
+import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_JP;
+import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_VN;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_LOGIN;
 
 public class MainActivity extends AppCompatActivity
     implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
+    private static final int NO_ANIMATION = 0;
     private MainContract.Presenter mPresenter;
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
@@ -63,9 +73,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         getDataFromIntent();
-        mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext()),
+        mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext())
+            , SettingRepository.getInstance(getApplicationContext()),
             SharePreferenceUtil.getIntances(this));
         mBinding.setPresenter((MainPresenter) mPresenter);
+        LanguageUtil.loadLocale(this);
     }
 
     @Override
@@ -121,12 +133,34 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_log_out:
                 mPresenter.logout();
                 break;
+            case R.id.action_english:
+                String lang = LANGUAGE_EN;
+                showConfirmDialog(lang);
+                break;
+            case R.id.action_vietnamese:
+                lang = LANGUAGE_VN;
+                showConfirmDialog(lang);
+                break;
+            case R.id.action_japanese:
+                lang = LANGUAGE_JP;
+                showConfirmDialog(lang);
+                break;
             default:
                 addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
                 break;
         }
         mBinding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void changeLang(String lang) {
+        mPresenter.changeLanguage(lang);
+        LanguageUtil.changeLang(lang, MainActivity.this);
+        finish();
+        overridePendingTransition(NO_ANIMATION, NO_ANIMATION);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
     @Override
@@ -179,5 +213,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void startUiProfileEdition() {
         startActivity(EditProfileActivity.getProfileEditionIntent(this));
+    }
+
+    @Override
+    public void changeLangStatus(String message) {
+        ActivityUtil.showToast(this, message);
+    }
+
+    private void showConfirmDialog(final String lang) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this)
+            .setCancelable(true)
+            .setTitle(R.string.title_change_language)
+            .setMessage(R.string.msg_change_language)
+            .setPositiveButton(android.R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                    public void onClick(DialogInterface dialog, int which) {
+                        changeLang(lang);
+                    }
+                })
+            .setNegativeButton(android.R.string.no, null);
+        alertBuilder.show();
     }
 }
