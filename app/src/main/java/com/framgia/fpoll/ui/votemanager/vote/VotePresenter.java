@@ -146,7 +146,6 @@ public class VotePresenter implements VoteContract.Presenter {
 
                 @Override
                 public void onError(String msg) {
-                    mView.updateAdditionOptionFailed();
                     mView.setLoading(false);
                 }
             });
@@ -158,21 +157,21 @@ public class VotePresenter implements VoteContract.Presenter {
         mVoteInfoRepository.votePoll(optionBody, new DataCallback<ParticipantVotes>() {
             @Override
             public void onSuccess(ParticipantVotes data) {
+                List<Option> updatedList = getListVoteUpdated(data, optionBody.getListOptions());
                 //Get current list options then update new vote in [user] and [participant]
                 List<Option> currentOptions = voteInfoModel.getVoteInfo().getPoll().getOptions();
                 for (int i = 0; i < currentOptions.size(); i++) {
-                    for (int j = 0; j < optionBody.getListOptions().size(); j++) {
+                    for (int j = 0; j < updatedList.size(); j++) {
                         if (currentOptions.get(i).getId() ==
-                            optionBody.getListOptions().get(j).getId()) {
-                            currentOptions.set(i, optionBody.getListOptions().get(j));
+                            updatedList.get(j).getId()) {
+                            currentOptions.set(i, updatedList.get(j));
                         }
                     }
                 }
-                mView.onSubmitSuccess(getListVoteUpdated(data, currentOptions));
+                mView.onSubmitSuccess(currentOptions);
                 mView.setLoading(false);
                 //If new option is added , update UI
                 if (mIsNewOptionAdded) mView.updateAdditionOptionSuccess();
-                else mView.updateAdditionOptionFailed();
                 mIsNewOptionAdded = false;
             }
 

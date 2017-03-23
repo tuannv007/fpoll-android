@@ -15,6 +15,8 @@ public class PollItem extends Poll {
     private String mPass;
     private boolean mIsHideResult;
     private String mMembers;
+    private boolean mIsAllowAddOption;
+    private boolean mIsAllowEditOption;
 
     public boolean isRequireVote() {
         return mIsRequireVote;
@@ -86,6 +88,22 @@ public class PollItem extends Poll {
 
     public void setMembers(String members) {
         mMembers = members;
+    }
+
+    public boolean isAllowAddOption() {
+        return mIsAllowAddOption;
+    }
+
+    public void setAllowAddOption(boolean allowAddOption) {
+        mIsAllowAddOption = allowAddOption;
+    }
+
+    public boolean isAllowEditOption() {
+        return mIsAllowEditOption;
+    }
+
+    public void setAllowEditOption(boolean allowEditOption) {
+        mIsAllowEditOption = allowEditOption;
     }
 
     public PollItem() {

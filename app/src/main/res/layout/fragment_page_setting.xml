@@ -5,6 +5,16 @@
 
     <data>
 
+        <import type="com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType"/>
+
+        <import type="java.lang.String"/>
+
+        <import type="com.framgia.fpoll.util.Constant.DataConstant"/>
+
+        <import type="com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType"/>
+
+        <import type="android.view.View"/>
+
         <variable
             name="handler"
             type="com.framgia.fpoll.ui.pollcreation.setting.SettingHandler"/>
@@ -13,11 +23,9 @@
             name="presenter"
             type="com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter"/>
 
-        <import type="com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType"/>
-
-        <import type="java.lang.String"/>
-
-        <import type="com.framgia.fpoll.util.Constant.DataConstant"/>
+        <variable
+            name="isVisible"
+            type="java.lang.Boolean"/>
     </data>
 
     <ScrollView
@@ -87,12 +95,16 @@
                         android:textColor="@color/color_grey_700"/>
 
                     <include
+                        android:id="@+id/layout_require_vote_email"
                         layout="@layout/partial_require_vote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_16"
-                        android:layout_marginRight="@dimen/dp_8"/>
-
+                        android:layout_marginRight="@dimen/dp_8"
+                        bind:handler="@{handler}"
+                        bind:isVisible="@{Boolean.valueOf(radioEnterEmail.checked)}"
+                        bind:presenter="@{presenter}"/>
+                    
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/radio_enter_name_email"
                         android:layout_width="match_parent"
@@ -102,11 +114,15 @@
                         android:textColor="@color/color_grey_700"/>
 
                     <include
+                        android:id="@+id/layout_require_vote_name_and_email"
                         layout="@layout/partial_require_vote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_16"
-                        android:layout_marginRight="@dimen/dp_8"/>
+                        android:layout_marginRight="@dimen/dp_8"
+                        bind:handler="@{handler}"
+                        bind:isVisible="@{Boolean.valueOf(radioEnterNameEmail.checked)}"
+                        bind:presenter="@{presenter}"/>
 
                 </RadioGroup>
 

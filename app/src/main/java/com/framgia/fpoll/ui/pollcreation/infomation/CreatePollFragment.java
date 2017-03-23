@@ -27,7 +27,7 @@ public class CreatePollFragment extends Fragment
     CreationContract.View {
     private FragmentCreatePollBinding mBinding;
     private CreationContract.Presenter mPresenter;
-    public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
+    public final ObservableField<Calendar> mTime = new ObservableField<>();
     private PollItem mPoll;
     private Calendar mSavePickCalendar = Calendar.getInstance();
 
@@ -57,7 +57,6 @@ public class CreatePollFragment extends Fragment
         mBinding.setHandler(new CreatePollActionHandle(mPresenter));
         mBinding.setPresenter((CreationPresenter) mPresenter);
         mBinding.setFragment(this);
-        mTime.set(mSavePickCalendar);
         return mBinding.getRoot();
     }
 
@@ -76,11 +75,15 @@ public class CreatePollFragment extends Fragment
         mSavePickCalendar.set(Calendar.SECOND, second);
         if (mSavePickCalendar.before(Calendar.getInstance())) {
             ActivityUtil.showToast(getContext(), R.string.msg_date_error);
-        } else mTime.notifyChange();
+        } else {
+            mTime.set(mSavePickCalendar);
+            mTime.notifyChange();
+        }
     }
 
     @Override
     public void showDatePicker() {
+        if (mTime.get() == null) mTime.set(Calendar.getInstance());
         DatePickerDialog dpd = DatePickerDialog.newInstance(
             this,
             mTime.get().get(Calendar.YEAR),

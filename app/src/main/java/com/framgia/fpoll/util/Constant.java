@@ -13,6 +13,7 @@ public class Constant {
     public static final String TYPE_DIALOG_FRAGMENT = "type_dialog_fragment";
     public static final int POSITION_LINK_ADMIN = 1;
     public static final int POSITION_LINK_INVITE = 0;
+    public static final int LIMIT_VOTE_NUMBER_MINIUM = 2;
 
     public class TypeChoose {
         public static final int TYPE_MULTI = 1;

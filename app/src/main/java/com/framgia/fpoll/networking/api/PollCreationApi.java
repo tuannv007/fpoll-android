@@ -1,5 +1,7 @@
 package com.framgia.fpoll.networking.api;
 
+import android.text.TextUtils;
+
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
@@ -15,6 +17,13 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+
+import static com.framgia.fpoll.util.Constant.Setting.CAN_ADD_OPTION;
+import static com.framgia.fpoll.util.Constant.Setting.EMAIL_NOT_DUPLICATE;
+import static com.framgia.fpoll.util.Constant.Setting.HIDDEN_RESULT;
+import static com.framgia.fpoll.util.Constant.Setting.LIMIT_VOTE_NUMBER;
+import static com.framgia.fpoll.util.Constant.Setting.OPTION_EDITABLE;
+import static com.framgia.fpoll.util.Constant.Setting.PASSWORD_REQUIRED;
 
 /**
  * Created by framgia on 06/03/2017.
@@ -36,10 +45,14 @@ public class PollCreationApi {
     private static final String NUM_MAX_VOTE = "value[4]";
     private static final String IS_HAS_PASS = "setting[5]";
     private static final String PASS = "value[5]";
+    private static final String ALLOW_ADD_OPTION = "setting[9]";
+    private static final String ALLOW_EDIT_OPTION = "setting[11]";
     private static final String IS_HIDE_RESULT = "setting[2]";
     private static final String MEMBER = "member";
     private static final String OPEN_SQUARE_BR = "[";
     private static final String CLOSE_SQUARE_BR = "]";
+    private static final String TYPE_MUTILPLE = "1";
+    private static final String TYPE_SINGLE = "0";
 
     public interface PollService {
         @POST("api/v1/poll")
@@ -53,18 +66,41 @@ public class PollCreationApi {
         builder.addFormDataPart(NAME, pollItem.getName());
         builder.addFormDataPart(EMAIL, pollItem.getEmail());
         builder.addFormDataPart(TITLE, pollItem.getTitle());
-        builder.addFormDataPart(DESCRIPTION, pollItem.getDescription());
-        builder.addFormDataPart(MULTIPLE, String.valueOf(pollItem.isMultiple()));
-        builder.addFormDataPart(DATE_CLOSE, pollItem.getDateClose());
-        builder.addFormDataPart(LOCATION, pollItem.getLocation());
-        builder.addFormDataPart(IS_REQUIRE_VOTE, String.valueOf(pollItem.isRequireVote()));
-        builder.addFormDataPart(REQUIRE_TYPE, String.valueOf(pollItem.getRequiteType()));
-        builder.addFormDataPart(IS_SAME_EMAIL, String.valueOf(pollItem.isSameEmail()));
-        builder.addFormDataPart(IS_MAX_VOTE, String.valueOf(pollItem.isMaxVote()));
-        builder.addFormDataPart(NUM_MAX_VOTE, String.valueOf(pollItem.getNumMaxVote()));
-        builder.addFormDataPart(IS_HAS_PASS, String.valueOf(pollItem.isHasPass()));
-        builder.addFormDataPart(PASS, pollItem.getPass());
-        builder.addFormDataPart(IS_HIDE_RESULT, String.valueOf(pollItem.isHideResult()));
+        if (!TextUtils.isEmpty(pollItem.getDescription())) {
+            builder.addFormDataPart(DESCRIPTION, pollItem.getDescription());
+        }
+        builder.addFormDataPart(MULTIPLE,
+            String.valueOf(pollItem.isMultiple() ? TYPE_MUTILPLE : TYPE_SINGLE));
+        if (!TextUtils.isEmpty(pollItem.getDateClose())) {
+            builder.addFormDataPart(DATE_CLOSE, pollItem.getDateClose());
+        }
+        if (!TextUtils.isEmpty(pollItem.getLocation())) {
+            builder.addFormDataPart(LOCATION, pollItem.getLocation());
+        }
+        if (pollItem.isRequireVote()) {
+            builder.addFormDataPart(IS_REQUIRE_VOTE, String.valueOf(0));
+            builder.addFormDataPart(REQUIRE_TYPE, String.valueOf(pollItem.getRequiteType()));
+        }
+        if (pollItem.isSameEmail()) {
+            builder.addFormDataPart(IS_SAME_EMAIL, String.valueOf(EMAIL_NOT_DUPLICATE));
+        }
+        if (pollItem.isMaxVote()) {
+            builder.addFormDataPart(IS_MAX_VOTE, String.valueOf(LIMIT_VOTE_NUMBER));
+            builder.addFormDataPart(NUM_MAX_VOTE, String.valueOf(pollItem.getNumMaxVote()));
+        }
+        if (pollItem.isHasPass()) {
+            builder.addFormDataPart(IS_HAS_PASS, String.valueOf(PASSWORD_REQUIRED));
+            builder.addFormDataPart(PASS, pollItem.getPass());
+        }
+        if (pollItem.isHideResult()) {
+            builder.addFormDataPart(IS_HIDE_RESULT, String.valueOf(HIDDEN_RESULT));
+        }
+        if (pollItem.isAllowAddOption()) {
+            builder.addFormDataPart(ALLOW_ADD_OPTION, String.valueOf(CAN_ADD_OPTION));
+        }
+        if (pollItem.isAllowEditOption()) {
+            builder.addFormDataPart(ALLOW_EDIT_OPTION, String.valueOf(OPTION_EDITABLE));
+        }
         builder.addFormDataPart(MEMBER, pollItem.getMembers());
         if (optionItemList == null) return builder.build();
         for (int i = 0; i < optionItemList.size(); i++) {
