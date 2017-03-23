@@ -95,14 +95,18 @@
 
             </LinearLayout>
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_48"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:layout_weight="0.18"
-                android:background="@drawable/bg_edit_text"
-                android:entries="@array/num_answer"
-                bind:numAnswer="@{information.poll.multiple}"/>
+                android:background="@drawable/bg_edit_text">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_48"
+                    android:entries="@array/array_answer"
+                    bind:numAnswer="@{information.poll.multiple}"/>
+            </RelativeLayout>
 
             <EditText
                 android:layout_width="match_parent"

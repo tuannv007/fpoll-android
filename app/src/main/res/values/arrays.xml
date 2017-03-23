@@ -16,10 +16,6 @@
         <item>@string/title_female</item>
         <item>@string/title_other</item>
     </string-array>
-    <array name="num_answer">
-        <item>one answer</item>
-        <item>multi answer</item>
-    </array>
     <string-array name="array_answer">
         <item>@string/title_one_answer</item>
         <item>@string/title_more_answer</item>

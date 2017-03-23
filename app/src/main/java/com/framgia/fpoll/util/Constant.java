@@ -130,5 +130,12 @@ public class Constant {
         public static final String PREF_USER = "PREF_USER";
         public static final String PREF_TOKEN = "PREF_TOKEN";
         public static final String PREF_IS_LOGIN = "PREF_IS_LOGIN";
+        public static final String PREF_LANGUAGE = "PREF_LANGUAGE";
+    }
+
+    public class Language {
+        public static final String LANGUAGE_VN = "vi";
+        public static final String LANGUAGE_JP = "jp";
+        public static final String LANGUAGE_EN = "en";
     }
 }

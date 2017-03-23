@@ -7,7 +7,9 @@ import com.framgia.fpoll.data.model.authorization.User;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_IS_LOGIN;
+import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_LANGUAGE;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_TOKEN;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_USER;
 
@@ -52,5 +54,13 @@ public class SharePreferenceUtil {
 
     public boolean isLogin() {
         return mPreferences.getBoolean(PREF_IS_LOGIN, false);
+    }
+
+    public void saveLanguage(String lang) {
+        mPreferences.edit().putString(PREF_LANGUAGE, lang).apply();
+    }
+
+    public String loadLanguage() {
+        return mPreferences.getString(PREF_LANGUAGE, LANGUAGE_EN);
     }
 }
