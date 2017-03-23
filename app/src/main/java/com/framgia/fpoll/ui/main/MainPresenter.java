@@ -36,6 +36,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void logout() {
         if (mRepository == null) return;
+        mView.showProgressDialog();
         mRepository.logout(mUser.getToken(), new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
@@ -44,11 +45,13 @@ public class MainPresenter implements MainContract.Presenter {
                 mPreference.writeLogin(false);
                 setInformation();
                 mView.showMessage(data);
+                mView.hideProgressDialog();
             }
 
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgressDialog();
             }
         });
     }

@@ -62,6 +62,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                                 data.getUser().setToken(data.getToken());
                                 mPreference.writeUser(data.getUser());
                                 writeLogin();
+                                mView.loginSuccess();
                             }
 
                             @Override
@@ -90,6 +91,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void loginGoogle() {
+        mView.showProgressDialog();
         mView.loginGoogle(mFPollGoogleApiClient.getGoogleApiClient());
     }
 
@@ -102,6 +104,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void loginFacebook() {
+        mView.showProgressDialog();
         mView.loginFacebook();
     }
 
@@ -140,6 +143,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void onValidateSuccess() {
+                mView.showProgressDialog();
                 mRepository.loginNormal(mUser.getEmail(), mUser.getPassword(),
                     new DataCallback<LoginNormalData>() {
                         @Override
@@ -147,6 +151,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                             data.getUser().setToken(data.getAccessToken());
                             mPreference.writeUser(data.getUser());
                             writeLogin();
+                            mView.loginSuccess();
                         }
 
                         @Override
@@ -190,6 +195,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                                 data.getUser().setToken(data.getToken());
                                 mPreference.writeUser(data.getUser());
                                 writeLogin();
+                                mView.loginSuccess();
                             }
 
                             @Override

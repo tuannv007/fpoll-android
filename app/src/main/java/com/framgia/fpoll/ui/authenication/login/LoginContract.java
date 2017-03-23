@@ -19,6 +19,8 @@ public interface LoginContract {
         void changeUiForgotPassword();
         void changeUiRegister();
         void showMessageError(int msg);
+        void showProgressDialog();
+        void hideProgressDialog();
     }
 
     interface Presenter {
