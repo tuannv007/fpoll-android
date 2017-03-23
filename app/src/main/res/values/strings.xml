@@ -243,7 +243,7 @@
     <string name="msg_not_activity"> Not activity</string>
     <string name="msg_set_vote_number">Please set your max vote numbers (min is 2)</string>
     <string name="msg_set_poll_password">Please set your poll password !</string>
-    <string name="msg_not_activity">Not activity</string>
     <string name="title_change_language">Change Language</string>
     <string name="msg_change_language">Data show in screen will delete! you are ready</string>
+    <string name="msg_vote_time_expired">Vote time Expired</string>
 </resources>

@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.framgia.fpoll.util.TimeUtil"/>
+
         <import type="android.view.View"/>
 
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
@@ -43,6 +45,17 @@
                 android:textColor="@color/color_red_500"
                 android:textSize="@dimen/sp_20"
                 android:visibility="@{voteInfoModel.voteInfo.countParticipant == voteInfoModel.numberVoteLimit ? View.VISIBLE : View.GONE}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_8"
+                android:text="@string/msg_vote_time_expired"
+                android:textColor="@color/color_red_500"
+                android:textSize="@dimen/sp_20"
+                android:visibility="@{TimeUtil.checkDatePassed(voteInfoModel.voteInfo.poll.dateClose) ? View.VISIBLE : View.GONE}"
+                />
 
             <TextView
                 style="@style/TitlePollTextView"

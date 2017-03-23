@@ -1,5 +1,6 @@
 package com.framgia.fpoll.util;
 
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 
 import java.text.DateFormat;
@@ -14,6 +15,7 @@ import java.util.Locale;
  */
 public class TimeUtil {
     private static final java.lang.String TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
+    private static final java.lang.String DATE_FORMAT = "yyyy-MM-dd hh:mm";
 
     public static String convertTimeToString(Calendar calendar) {
         if (calendar == null) return Constant.DataConstant.DATA_SPACE;
@@ -34,6 +36,17 @@ public class TimeUtil {
         } catch (ParseException e) {
             e.printStackTrace();
             return "";
+        }
+    }
+
+    public static boolean checkDatePassed(String date) {
+        if (TextUtils.isEmpty(date)) return false;
+        try {
+            return new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).parse(date)
+                .before(new Date());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
