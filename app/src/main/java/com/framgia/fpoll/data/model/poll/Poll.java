@@ -44,7 +44,7 @@ public class Poll extends BaseObservable implements Parcelable {
     @SerializedName("user")
     private User mUser;
     @SerializedName("settings")
-    private List<Setting> mSettings;
+    private List<Setting> mSettings = new ArrayList<>();
     @SerializedName("options")
     private List<Option> mOptions = new ArrayList<>();
     @SerializedName("comments")

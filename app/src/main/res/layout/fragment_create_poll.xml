@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_56"
-                    android:background="@color/color_teal_800"
+                    android:background="@color/color_teal_600"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_16"
                     android:paddingRight="@dimen/dp_16"
@@ -124,9 +124,9 @@
                     </LinearLayout>
 
                     <Spinner
-                        android:spinnerMode="dropdown"
                         style="@style/LinearLayoutStyle"
                         android:entries="@array/array_answer"
+                        android:spinnerMode="dropdown"
                         bind:choiceAnswer="@={information.multiple}"/>
 
                     <android.support.v7.widget.AppCompatEditText
@@ -184,7 +184,7 @@
                 android:layout_marginTop="@dimen/dp_8"
                 android:onClick="@{() -> handler. nextStep()}"
                 android:padding="@dimen/dp_8"
-                app:cardBackgroundColor="@color/color_teal_800">
+                app:cardBackgroundColor="@color/color_teal_600">
 
                 <TextView
                     android:layout_width="wrap_content"

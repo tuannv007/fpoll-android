@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.authenication.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.Collections;
 
+import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT_SWITCH_UI;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PUBLIC_PROFILE;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_GOOGLE;
@@ -32,6 +34,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private FragmentLoginBinding mBinding;
     private LoginContract.Presenter mPresenter;
     private AuthenticationActivity.EventSwitchUI mEventSwitchUI;
+    private ProgressDialog mProgressDialog;
 
     public static LoginFragment newInstance(AuthenticationActivity.EventSwitchUI event) {
         LoginFragment fragment = new LoginFragment();
@@ -66,6 +69,18 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void start() {
         getDataFromActivity();
+    }
+
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getActivity());
+            mProgressDialog.setMessage(getString(R.string.msg_loading));
+        }
+        if (!mProgressDialog.isShowing()) mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.hide();
     }
 
     @Override
@@ -107,11 +122,15 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void loginSuccess() {
         ActivityUtil.showToast(getActivity(), R.string.msg_login_success);
+        hideProgressDialog();
+        getActivity().setResult(RESULT_OK);
+        getActivity().finish();
     }
 
     @Override
     public void showMessageError(int msg) {
         ActivityUtil.showToast(getActivity(), msg);
+        hideProgressDialog();
     }
 
     @Override

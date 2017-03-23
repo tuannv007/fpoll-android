@@ -14,6 +14,8 @@ public interface MainContract {
         void addFragment(Fragment fragment, int title);
         void showMessage(String data);
         void startUiProfileEdition();
+        void showProgressDialog();
+        void hideProgressDialog();
     }
 
     interface Presenter {

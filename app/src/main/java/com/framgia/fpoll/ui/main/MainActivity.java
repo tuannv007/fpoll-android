@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.main;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
     private PollItem mPoll = new PollItem();
+    private ProgressDialog mProgressDialog;
 
     public static Intent getMainIntent(Context context, PollItem data) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -79,6 +81,18 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         mBinding.navView.setNavigationItemSelectedListener(this);
         addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
+    }
+
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.msg_loading));
+        }
+        if (!mProgressDialog.isShowing()) mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.hide();
     }
 
     @Override
@@ -141,6 +155,13 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
             mPresenter.setInformation();
+            openNavigation();
+        }
+    }
+
+    private void openNavigation() {
+        if (!mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.openDrawer(GravityCompat.START);
         }
     }
 
@@ -148,7 +169,11 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else super.onBackPressed();
+        } else {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+            if (fragment instanceof CreatePollFragment) super.onBackPressed();
+            else addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
+        }
     }
 
     @Override
