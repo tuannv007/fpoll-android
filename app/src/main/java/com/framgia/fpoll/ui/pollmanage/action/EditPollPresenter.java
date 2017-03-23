@@ -2,32 +2,97 @@ package com.framgia.fpoll.ui.pollmanage.action;
 
 import android.databinding.ObservableField;
 
+import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
+import com.framgia.fpoll.util.SharePreferenceUtil;
+
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
 
 /**
  * Created by tran.trung.phong on 01/03/2017.
  */
 public class EditPollPresenter implements EditPollContract.Presenter {
-    private static final String TOKEN_POLL = "NWl2uyV25WmAPmOO";
     private EditPollContract.View mView;
     private ObservableField<String> mLinkManager = new ObservableField<>();
     private ObservableField<String> mLinkVoting = new ObservableField<>();
     private String mOldLinkUser;
     private String mOldLinkAdmin;
     private ManagerRepository mRepository;
-    private String mIdPoll;
+    private String mToken;
+    private User mUser;
 
-    public EditPollPresenter(EditPollContract.View view, ManagerRepository repository) {
+    public EditPollPresenter(EditPollContract.View view, ManagerRepository repository,
+                             SharePreferenceUtil preference, String token) {
         mView = view;
         mRepository = repository;
+        mToken = token;
+        mUser = preference.getUser();
         mView.start();
+        loadData();
+    }
+
+    @Override
+    public void loadData() {
+        if (mRepository == null) return;
+        mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                mOldLinkAdmin = data.getPoll().getLink().get(0).getToken();
+                mOldLinkUser = data.getPoll().getLink().get(1).getToken();
+                mLinkVoting.set(mOldLinkUser);
+                mLinkManager.set(mOldLinkAdmin);
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.showMessage(msg);
+            }
+        });
     }
 
     @Override
     public void updateLinkPoll() {
         if (mRepository == null) return;
+        new UpdateTokenValidation(mLinkVoting.get(), mLinkManager.get()).validate(
+            new UpdateTokenValidation.UpdateTokenCallback() {
+                @Override
+                public void onSuccess() {
+                    submitUpdateLink();
+                }
+
+                @Override
+                public void onError(UpdateTokenValidation.UpdateTokenError error) {
+                    switch (error) {
+                        case LINK_USER:
+                            mView.showMessage(R.string.msg_link_user_empty);
+                            break;
+                        case LINK_ADMIN:
+                            mView.showMessage(R.string.msg_link_admin_empty);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+    }
+
+    private void submitUpdateLink() {
+        mRepository.updateLinkPoll(DATA_PREFIX_TOKEN + mUser.getToken(), mOldLinkUser,
+            mOldLinkAdmin, mLinkVoting.get(), mLinkManager.get(), new DataCallback<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    mView.showMessage(data);
+                    loadData();
+                }
+
+                @Override
+                public void onError(String msg) {
+                    mView.showMessage(msg);
+                }
+            });
     }
 
     @Override
@@ -37,13 +102,24 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void editPoll() {
-        if (mView != null) mView.startModifyPoll();
+        if (mView == null || mRepository == null) return;
+        mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                mView.startModifyPoll(data.getPoll());
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.showMessage(msg);
+            }
+        });
     }
 
     @Override
     public void closePoll() {
         if (mRepository == null) return;
-        mRepository.switchPollStatus(mIdPoll, new DataCallback<String>() {
+        mRepository.switchPollStatus(mToken, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 mView.showMessage(data);
@@ -59,7 +135,7 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     @Override
     public void deleteVoting() {
         if (mRepository == null) return;
-        mRepository.deleteVoting(TOKEN_POLL, new DataCallback<String>() {
+        mRepository.deleteVoting(mToken, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 mView.showMessage(data);
@@ -75,7 +151,7 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     @Override
     public void createDuplicate() {
         if (mRepository == null) return;
-        mRepository.getPoll(TOKEN_POLL, new DataCallback<DataInfoItem>() {
+        mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
                 mView.startUiPollCreation(data);

@@ -23,17 +23,6 @@ public class ManagePollPresenter implements ManagePollContract.Presenter {
         mView.start();
     }
 
-    @Override
-    public void initViewPage() {
-        switch (mViewpagerType) {
-            case VOTE:
-                mView.startUiViewPageVote();
-                break;
-            default:
-                mView.startUiViewPageManage();
-                break;
-        }
-    }
 
     public void getAllData(@NonNull String token) {
         mView.showDialog();

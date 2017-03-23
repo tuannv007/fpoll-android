@@ -78,17 +78,18 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     }
 
     @Override
-    public void clickOpenManagePoll(HistoryPoll pollHistoryItem) {
-        startActivity(ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.MANAGE, "NWl2uyV25WmAPmOO"));
-    }
-
-    @Override
-    public void clickReopenPoll(HistoryPoll pollHistoryItem) {
-        // TODO: 2/23/2017 handler click reopen  poll
+    public void clickOpenManagePoll(String token) {
+        startActivity(
+            ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.MANAGE, token));
     }
 
     @Override
     public void showMessage(int res) {
+        ActivityUtil.showToast(getActivity(), res);
+    }
+
+    @Override
+    public void showMessage(String res) {
         ActivityUtil.showToast(getActivity(), res);
     }
 

@@ -13,7 +13,6 @@ public interface ManagePollContract {
     interface View extends BaseView {
         void getDataFromIntent();
         void addFragment(Fragment fragment, int resTitle);
-        void startUiViewPageVote();
         void startUiViewPageManage();
         void onSuccess(DataInfoItem data);
         void onError(String message);
@@ -22,7 +21,6 @@ public interface ManagePollContract {
     }
 
     interface Presenter {
-        void initViewPage();
         void getAllData(String token);
     }
 }

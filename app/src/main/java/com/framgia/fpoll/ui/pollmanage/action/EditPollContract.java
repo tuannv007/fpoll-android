@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.pollmanage.action;
 
 import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -9,7 +10,8 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface EditPollContract {
     interface View extends BaseView {
         void showMessage(String msg);
-        void startModifyPoll();
+        void showMessage(int msg);
+        void startModifyPoll(PollItem poll);
         void startUiPollCreation(DataInfoItem data);
     }
 
@@ -20,5 +22,6 @@ public interface EditPollContract {
         void closePoll();
         void createDuplicate();
         void deleteVoting();
+        void loadData();
     }
 }

@@ -46,7 +46,7 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
         getDataFromIntent();
         mPresenter =
             new ManagePollPresenter(this, mViewpagerType, ManagerRepository.getInstance(this));
-        mPresenter.initViewPage();
+        startUiViewPageManage();
         if (mToken != null) mPresenter.getAllData(mToken);
     }
 
@@ -75,12 +75,6 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
         setTitle(resTitle);
         ActivityUtil
             .addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.frame_layout);
-    }
-
-    @Override
-    public void startUiViewPageVote() {
-        addFragment(HistoryFragment.newInstance(ViewpagerType.VOTE, mDataList.get(), ""),
-            R.string.title_vote);
     }
 
     @Override

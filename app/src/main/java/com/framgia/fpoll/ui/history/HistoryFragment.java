@@ -15,17 +15,13 @@ import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
 import com.framgia.fpoll.ui.pollmanage.action.EditPollFragment;
 import com.framgia.fpoll.ui.pollmanage.information.PollInformationFragment;
 import com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment;
-import com.framgia.fpoll.ui.votemanager.VoteResultFragment;
-import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
-import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
-import com.framgia.fpoll.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_HISTORY;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_VIEW_PAGE_TYPE;
-import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,8 +39,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         HistoryFragment fragment = new HistoryFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
-        bundle.putString(KEY_TOKEN, token);
-        bundle.putParcelable(Constant.ConstantApi.KEY_HISTORY, dataInfoItemList);
+        bundle.putString(BUNDLE_TOKEN, token);
+        bundle.putParcelable(BUNDLE_HISTORY, dataInfoItemList);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -63,11 +59,10 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void getDataFromActivity() {
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            mViewpagerType = (ViewpagerType) bundle.getSerializable(BUNDLE_VIEW_PAGE_TYPE);
-            mPollInfo.set((DataInfoItem) bundle.getParcelable(Constant.ConstantApi.KEY_HISTORY));
-            mToken = bundle.getString(KEY_TOKEN);
-        }
+        if (bundle == null) return;
+        mViewpagerType = (ViewpagerType) bundle.getSerializable(BUNDLE_VIEW_PAGE_TYPE);
+        mPollInfo.set((DataInfoItem) bundle.getParcelable(BUNDLE_HISTORY));
+        mToken = bundle.getString(BUNDLE_TOKEN);
     }
 
     @Override
@@ -88,20 +83,9 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public void initAdapterManage() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(PollInformationFragment.newInstance(mPollInfo.get()));
-        fragments
-            .add(ResultVoteFragment.newInstance(mToken));
-        fragments.add(EditPollFragment.newInstance(mPollInfo.get()));
+        fragments.add(ResultVoteFragment.newInstance(mToken));
+        fragments.add(EditPollFragment.newInstance(mToken));
         String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);
-        mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
-    }
-
-    @Override
-    public void initAdapterVote() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(VoteFragment.newInstance(new VoteInfoModel()));
-        fragments.add(VoteInformationFragment.newInstance(new VoteInfoModel()));
-        fragments.add(VoteResultFragment.newInstance());
-        String[] titles = getActivity().getResources().getStringArray(R.array.array_vote);
         mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
     }
 
