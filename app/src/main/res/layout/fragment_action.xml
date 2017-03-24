@@ -12,7 +12,10 @@
             name="presenter"
             type="com.framgia.fpoll.ui.pollmanage.action.EditPollPresenter"/>
 
+
         <import type="com.framgia.fpoll.ui.pollmanage.action.EditPollType"/>
+
+        <import type="java.lang.Boolean"/>
     </data>
 
     <ScrollView
@@ -104,6 +107,7 @@
                     bind:editType="@{EditPollType.VIEW_HISTORY}"
                     bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_history_white_24px}"
+                    bind:isOpen='@{Boolean.parseBoolean("true")}'
                     bind:title="@{@string/title_views_history}"/>
 
                 <include
@@ -115,6 +119,7 @@
                     bind:editType="@{EditPollType.EDIT}"
                     bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_mode_edit_black_24px}"
+                    bind:isOpen='@{Boolean.parseBoolean("true")}'
                     bind:title="@{@string/title_edit_this_poll}"/>
 
             </LinearLayout>
@@ -134,6 +139,7 @@
                     bind:editType="@{EditPollType.CLOSE}"
                     bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_cancel_circle}"
+                    bind:isOpen="@{presenter.pollOpen}"
                     bind:title="@{@string/title_close_this_poll}"/>
 
                 <include
@@ -145,20 +151,21 @@
                     bind:editType="@{EditPollType.CREATE}"
                     bind:handler="@{handler}"
                     bind:image="@{@drawable/ic_copy}"
+                    bind:isOpen='@{Boolean.parseBoolean("true")}'
                     bind:title="@{@string/title_create_duplicate}"/>
 
+                <include
+                    layout="@layout/partial_button_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_56"
+                    android:layout_margin="@dimen/dp_2"
+                    android:layout_weight="1"
+                    bind:editType="@{EditPollType.DELETE}"
+                    bind:handler="@{handler}"
+                    bind:image="@{@drawable/ic_delete_white_24px}"
+                    bind:isOpen="@{!presenter.pollOpen}"
+                    bind:title="@{@string/title_delete_voting}"/>
             </LinearLayout>
-
-            <include
-                layout="@layout/partial_button_activity"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_56"
-                android:layout_margin="@dimen/dp_2"
-                android:layout_weight="1"
-                bind:editType="@{EditPollType.DELETE}"
-                bind:handler="@{handler}"
-                bind:image="@{@drawable/ic_delete_white_24px}"
-                bind:title="@{@string/title_delete_voting}"/>
         </LinearLayout>
     </ScrollView>
 </layout>

@@ -64,16 +64,14 @@ public class AuthenticationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
         mPresenter = new AuthenticationPresenter(this);
+        showLoginFragment();
     }
 
     @Override
     public void start() {
         setSupportActionBar(mBinding.layoutToolbar.toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mLoginFragment = LoginFragment.newInstance(mEventSwitchUI);
-        mRegisterFragment = RegisterFragment.newInstance(mEventSwitchUI);
-        mPasswordFragment = ForgotPasswordFragment.newInstance();
-        showLoginFragment();
+        setTitle(R.string.title_login);
     }
 
     @Override
@@ -92,18 +90,26 @@ public class AuthenticationActivity extends AppCompatActivity
     }
 
     private void showLoginFragment() {
+        if (mLoginFragment == null) {
+            mLoginFragment = LoginFragment.newInstance(mEventSwitchUI);
+        }
         ActivityUtil
             .addFragmentToActivity(getSupportFragmentManager(), mLoginFragment, R.id.frame_layout);
-        setTitle(R.string.title_login);
     }
 
     private void showForgotPasswordFragment() {
+        if (mPasswordFragment == null) {
+            mPasswordFragment = ForgotPasswordFragment.newInstance();
+        }
         ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mPasswordFragment,
             R.id.frame_layout);
         setTitle(R.string.title_forgot_password);
     }
 
     private void showRegisterFragment() {
+        if (mRegisterFragment == null) {
+            mRegisterFragment = RegisterFragment.newInstance(mEventSwitchUI);
+        }
         ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mRegisterFragment,
             R.id.frame_layout);
         setTitle(R.string.title_register);

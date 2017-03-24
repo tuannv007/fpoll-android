@@ -38,6 +38,7 @@
 
         <activity android:name=".ui.votemanager.LinkVoteActivity"/>
         <activity android:name=".ui.editprofile.EditProfileActivity"/>
+        <activity android:name=".ui.pollmanage.history.HistoryManageActivity"/>
     </application>
 
 </manifest>

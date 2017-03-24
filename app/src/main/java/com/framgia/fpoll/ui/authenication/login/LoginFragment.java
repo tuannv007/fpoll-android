@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.authenication.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -47,21 +46,18 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        mPresenter = new LoginPresenter(this, new FPollGoogleApiClient(getActivity()),
-            new FPollTwitterAuthClient(getActivity()), LoginRepository.getInstance(getActivity()),
+        mBinding = FragmentLoginBinding.inflate(inflater, container, false);
+        mPresenter = new LoginPresenter(this, LoginRepository.getInstance(getActivity()),
             SharePreferenceUtil.getIntances(getActivity()));
         mBinding.setPresenter((LoginPresenter) mPresenter);
         mBinding.setHandler(new LoginActionHandler(mPresenter));
-        mPresenter.initGoogle();
         mPresenter.initFacebook();
-        mPresenter.initTwitter();
         return mBinding.getRoot();
     }
 
     public void getDataFromActivity() {
         Bundle bundle = getArguments();
-        if (bundle != null) {
+        if (bundle != null && bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI) != null) {
             mEventSwitchUI = bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI);
         }
     }
@@ -93,6 +89,16 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         }
         if (mPresenter.checkLoginFacebook(requestCode, resultCode, data)) return;
         mPresenter.checkLoginTwitter(requestCode, resultCode, data);
+    }
+
+    @Override
+    public FPollGoogleApiClient newGoogleClient() {
+        return FPollGoogleApiClient.getInstance(getActivity());
+    }
+
+    @Override
+    public FPollTwitterAuthClient newTwitterClient() {
+        return FPollTwitterAuthClient.getInstance(getActivity());
     }
 
     @Override
@@ -130,11 +136,11 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void showMessageError(int msg) {
         ActivityUtil.showToast(getActivity(), msg);
-        hideProgressDialog();
     }
 
     @Override
     public void loginError() {
+        hideProgressDialog();
         ActivityUtil.showToast(getActivity(), R.string.msg_login_error);
     }
 }

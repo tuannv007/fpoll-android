@@ -52,8 +52,9 @@ public class AuthenticationApi {
     public interface LoginService {
         @GET("api/v1/loginSocial")
         Call<ResponseItem<SocialData>> loginSocial(
-            @Query("provider") String provider,
-            @Query("token") String token);
+            @Query("token") String token,
+            @Query("secret") String secret,
+            @Query("provider") String provider);
         @POST("api/v1/login")
         Call<ResponseItem<LoginNormalData>> loginNormal(@Body LoginNormalBody user);
         @POST("api/v1/logout")

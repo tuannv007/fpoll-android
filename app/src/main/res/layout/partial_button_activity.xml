@@ -18,6 +18,12 @@
 
         <import type="com.framgia.fpoll.ui.pollmanage.action.EditPollType"/>
 
+        <import type="android.view.View"/>
+
+        <variable
+            name="isOpen"
+            type="boolean"/>
+
         <variable
             name="editType"
             type="com.framgia.fpoll.ui.pollmanage.action.EditPollType"/>
@@ -30,7 +36,8 @@
         android:background="@color/color_teal_500"
         android:gravity="center"
         android:onClick="@{()->handler.clickEditPoll(editType)}"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="@{isOpen? View.VISIBLE : View.GONE}">
 
         <ImageView
             android:layout_width="wrap_content"

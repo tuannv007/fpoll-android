@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.pollmanage.action;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.framgia.fpoll.R;
@@ -15,9 +16,12 @@ import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
  * Created by tran.trung.phong on 01/03/2017.
  */
 public class EditPollPresenter implements EditPollContract.Presenter {
+    private static final int NUMBER_ADMIN = 0;
+    private static final int NUMBER_USER = 1;
     private EditPollContract.View mView;
     private ObservableField<String> mLinkManager = new ObservableField<>();
     private ObservableField<String> mLinkVoting = new ObservableField<>();
+    private ObservableBoolean mPollOpen = new ObservableBoolean();
     private String mOldLinkUser;
     private String mOldLinkAdmin;
     private ManagerRepository mRepository;
@@ -40,8 +44,9 @@ public class EditPollPresenter implements EditPollContract.Presenter {
         mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
-                mOldLinkAdmin = data.getPoll().getLink().get(0).getToken();
-                mOldLinkUser = data.getPoll().getLink().get(1).getToken();
+                mPollOpen.set(data.getPoll().isOpen());
+                mOldLinkAdmin = data.getPoll().getLink().get(NUMBER_ADMIN).getToken();
+                mOldLinkUser = data.getPoll().getLink().get(NUMBER_USER).getToken();
                 mLinkVoting.set(mOldLinkUser);
                 mLinkManager.set(mOldLinkAdmin);
             }
@@ -162,6 +167,10 @@ public class EditPollPresenter implements EditPollContract.Presenter {
                 mView.showMessage(msg);
             }
         });
+    }
+
+    public ObservableBoolean getPollOpen() {
+        return mPollOpen;
     }
 
     public ObservableField<String> getLinkManager() {

@@ -28,9 +28,9 @@ public class LoginRepository implements LoginDataSource {
     }
 
     @Override
-    public void loginSocial(String provider, String token,
+    public void loginSocial(@NonNull String token, String secret, @NonNull String provider,
                             @NonNull final DataCallback<SocialData> callback) {
-        mDataSource.loginSocial(provider, token, new DataCallback<SocialData>() {
+        mDataSource.loginSocial(token, secret, provider, new DataCallback<SocialData>() {
             @Override
             public void onSuccess(SocialData data) {
                 callback.onSuccess(data);
