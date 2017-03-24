@@ -11,7 +11,8 @@ import com.framgia.fpoll.data.source.DataCallback;
  * <></>
  */
 public interface LoginDataSource {
-    void loginSocial(String provider, String token, @NonNull DataCallback<SocialData> callback);
+    void loginSocial(@NonNull String token, String secret, @NonNull String provider,
+                     @NonNull DataCallback<SocialData> callback);
     void loginNormal(String email, String password,
                      @NonNull DataCallback<LoginNormalData> callback);
     void logout(String header, @NonNull DataCallback<String> callback);

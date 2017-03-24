@@ -39,14 +39,15 @@ public class LoginRemoteDataSource implements LoginDataSource {
     }
 
     @Override
-    public void loginSocial(String provider, String token,
+    public void loginSocial(@NonNull String token,
+                            String secret, @NonNull String provider,
                             @NonNull final DataCallback<SocialData> callback) {
         if (mService == null) return;
-        mService.loginSocial(provider, token).enqueue(new CallbackManager<>(mContext,
+        mService.loginSocial(token, secret, provider).enqueue(new CallbackManager<>(mContext,
             new CallbackManager.CallBack<ResponseItem<SocialData>>() {
                 @Override
                 public void onResponse(ResponseItem<SocialData> data) {
-                    if (data != null) callback.onSuccess(data.getData());
+                    if (data != null && data.getData() != null) callback.onSuccess(data.getData());
                 }
 
                 @Override

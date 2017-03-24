@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import static com.framgia.fpoll.util.Constant.WebUrl.DATA_SCOPE;
 
@@ -19,20 +20,29 @@ import static com.framgia.fpoll.util.Constant.WebUrl.DATA_SCOPE;
  * <></>
  */
 public class FPollGoogleApiClient {
-    private Context mContext;
+    private static FPollGoogleApiClient mInstance;
+    private WeakReference<Context> mReference;
     private GoogleApiClient mGoogleApiClient;
 
-    public FPollGoogleApiClient(Context context) {
-        mContext = context;
+    public static FPollGoogleApiClient getInstance(Context context) {
+        if (mInstance == null) mInstance = new FPollGoogleApiClient(context);
+        return mInstance;
+    }
+
+    private FPollGoogleApiClient(Context context) {
+        mReference = new WeakReference<>(context);
+        initGoogle();
     }
 
     public void initGoogle() {
+        Context context = mReference.get();
+        if (context == null) return;
         GoogleSignInOptions gso =
             new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(mContext.getString(R.string.server_client_id))
+                .requestIdToken(context.getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(mContext)
+        mGoogleApiClient = new GoogleApiClient.Builder(context)
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build();
         mGoogleApiClient.connect();
@@ -60,9 +70,10 @@ public class FPollGoogleApiClient {
 
         @Override
         protected String doInBackground(String... strs) {
+            Context context = mReference.get();
             try {
                 String email = strs[0];
-                return GoogleAuthUtil.getToken(mContext, email, DATA_SCOPE);
+                return GoogleAuthUtil.getToken(context, email, DATA_SCOPE);
             } catch (IOException | GoogleAuthException e) {
                 e.printStackTrace();
                 return null;

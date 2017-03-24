@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -16,6 +17,7 @@ import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.util.UserValidation;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterException;
 
 /**
@@ -31,21 +33,13 @@ public class LoginPresenter implements LoginContract.Presenter {
     private SharePreferenceUtil mPreference;
     private LoginRepository mRepository;
 
-    public LoginPresenter(LoginContract.View view, FPollGoogleApiClient FpollGoogleApiClient,
-                          FPollTwitterAuthClient twitterAuthClient, LoginRepository repository,
+    public LoginPresenter(LoginContract.View view, LoginRepository repository,
                           SharePreferenceUtil preference) {
         mView = view;
-        mFPollGoogleApiClient = FpollGoogleApiClient;
-        mFPollTwitterAuthClient = twitterAuthClient;
         mRepository = repository;
         mPreference = preference;
         mUser = new User();
         mView.start();
-    }
-
-    @Override
-    public void initGoogle() {
-        mFPollGoogleApiClient.initGoogle();
     }
 
     @Override
@@ -55,8 +49,8 @@ public class LoginPresenter implements LoginContract.Presenter {
             new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
-                    mRepository.loginSocial(LoginType.FACEBOOK.getProvider(),
-                        loginResult.getAccessToken().getToken(), new DataCallback<SocialData>() {
+                    mRepository.loginSocial(loginResult.getAccessToken().getToken(), null,
+                        LoginType.FACEBOOK.getProvider(), new DataCallback<SocialData>() {
                             @Override
                             public void onSuccess(SocialData data) {
                                 data.getUser().setToken(data.getToken());
@@ -85,13 +79,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void initTwitter() {
-        mFPollTwitterAuthClient.initTwitter();
-    }
-
-    @Override
     public void loginGoogle() {
-        mView.showProgressDialog();
+        if (mFPollGoogleApiClient == null) mFPollGoogleApiClient = mView.newGoogleClient();
         mView.loginGoogle(mFPollGoogleApiClient.getGoogleApiClient());
     }
 
@@ -110,10 +99,26 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void loginTwitter() {
+        mView.showProgressDialog();
+        if (mFPollTwitterAuthClient == null) mFPollTwitterAuthClient = mView.newTwitterClient();
         mFPollTwitterAuthClient.loginTwitter(new FPollTwitterAuthClient.Callback() {
             @Override
-            public void loginTwitterSuccess(String token) {
-                mView.loginSuccess();
+            public void loginTwitterSuccess(TwitterAuthToken token) {
+                mRepository.loginSocial(token.token, token.secret, LoginType.TWITTER.getProvider(),
+                    new DataCallback<SocialData>() {
+                        @Override
+                        public void onSuccess(SocialData data) {
+                            data.getUser().setToken(data.getToken());
+                            mPreference.writeUser(data.getUser());
+                            writeLogin();
+                            mView.loginSuccess();
+                        }
+
+                        @Override
+                        public void onError(String msg) {
+                            mView.loginError();
+                        }
+                    });
             }
 
             @Override
@@ -180,15 +185,17 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void checkLoginTwitter(int requestCode, int resultCode, Intent data) {
+        if (mFPollTwitterAuthClient == null) mFPollTwitterAuthClient = mView.newTwitterClient();
         mFPollTwitterAuthClient.getAuthClient().onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void requestGoogleToken(String email) {
+        if (mFPollGoogleApiClient == null) mFPollGoogleApiClient = mView.newGoogleClient();
         mFPollGoogleApiClient.requestToken(email, new FPollGoogleApiClient.CallBack() {
                 @Override
                 public void onGetTokenSuccess(String token) {
-                    mRepository.loginSocial(LoginType.GOOGLE.getProvider(), token,
+                    mRepository.loginSocial(token, null, LoginType.GOOGLE.getProvider(),
                         new DataCallback<SocialData>() {
                             @Override
                             public void onSuccess(SocialData data) {

@@ -6,9 +6,12 @@ import com.framgia.fpoll.R;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+
+import java.lang.ref.WeakReference;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -17,28 +20,37 @@ import io.fabric.sdk.android.Fabric;
  * <></>
  */
 public class FPollTwitterAuthClient {
-    private Activity mActivity;
+    private static FPollTwitterAuthClient mInstance;
+    private WeakReference<Activity> mReference;
     private TwitterAuthClient mAuthClient;
 
-    public FPollTwitterAuthClient(Activity activity) {
-        mActivity = activity;
+    public static FPollTwitterAuthClient getInstance(Activity activity) {
+        if (mInstance == null) mInstance = new FPollTwitterAuthClient(activity);
+        return mInstance;
+    }
+
+    private FPollTwitterAuthClient(Activity activity) {
+        mReference = new WeakReference<>(activity);
         TwitterAuthConfig authConfig =
             new TwitterAuthConfig(activity.getString(R.string.TWITTER_KEY),
                 activity.getString(R.string.TWITTER_SECRET));
         Fabric.with(activity, new Twitter(authConfig));
-    }
-
-    public void initTwitter() {
         mAuthClient = new TwitterAuthClient();
     }
 
     public void loginTwitter(final Callback callback) {
         if (callback == null) return;
+        Activity activity = mReference.get();
+        if (activity == null) return;
         mAuthClient
-            .authorize(mActivity, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+            .authorize(activity, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
                 @Override
                 public void success(Result<TwitterSession> result) {
-                    callback.loginTwitterSuccess(result.data.getAuthToken().token);
+                    if (result == null || result.data == null ||
+                        result.data.getAuthToken() == null) {
+                        return;
+                    }
+                    callback.loginTwitterSuccess(result.data.getAuthToken());
                 }
 
                 @Override
@@ -53,7 +65,7 @@ public class FPollTwitterAuthClient {
     }
 
     public interface Callback {
-        void loginTwitterSuccess(String token);
+        void loginTwitterSuccess(TwitterAuthToken token);
         void loginTwitterError(TwitterException exception);
     }
 }

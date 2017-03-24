@@ -21,12 +21,12 @@ public interface LoginContract {
         void showMessageError(int msg);
         void showProgressDialog();
         void hideProgressDialog();
+        FPollGoogleApiClient newGoogleClient();
+        FPollTwitterAuthClient newTwitterClient();
     }
 
     interface Presenter {
-        void initGoogle();
         void initFacebook();
-        void initTwitter();
         void loginGoogle();
         void loginFacebook();
         void requestGoogleToken(String email);
