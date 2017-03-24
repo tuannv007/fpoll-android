@@ -10,11 +10,6 @@ public class ResultActionHandler {
         mListener = listener;
     }
 
-    public void viewOption() {
-        if (mListener == null) return;
-        mListener.viewOption();
-    }
-
     public void exportPdf() {
         if (mListener == null) return;
         mListener.exportPDF();
@@ -30,7 +25,7 @@ public class ResultActionHandler {
         mListener.showPieChart();
     }
 
-    public void showBartChart(){
+    public void showBartChart() {
         if (mListener == null) return;
         mListener.showBartChart();
     }

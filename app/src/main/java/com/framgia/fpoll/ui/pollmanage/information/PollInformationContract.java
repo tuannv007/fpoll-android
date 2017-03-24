@@ -13,8 +13,6 @@ public interface PollInformationContract {
         void showDialogSetting();
         void saveSuccess(String message);
         void onError(String message);
-        void showDialog();
-        void dismissDialog();
     }
 
     interface Presenter {
