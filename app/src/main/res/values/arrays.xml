@@ -25,4 +25,9 @@
         <item>@string/title_information</item>
         <item>@string/title_result_poll</item>
     </string-array>
+    <string-array name="array_edit">
+        <item>@string/title_information</item>
+        <item>@string/title_option</item>
+        <item>@string/title_setting</item>
+    </string-array>
 </resources>

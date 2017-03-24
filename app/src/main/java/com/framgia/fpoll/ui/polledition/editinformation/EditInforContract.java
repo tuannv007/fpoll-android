@@ -8,14 +8,19 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface EditInforContract {
     interface View extends BaseView {
         void showDatePicker();
-        void nextStep();
         void bindError();
         void showTimePicker();
+        void showMessage(String message);
+        void back();
+        void showDialog();
+        void hideDialog();
     }
 
     interface Presenter {
-        void nextStep();
+        void nextStep(int id);
         void showDatePicker();
         void showTimePicker();
+        void saveInformation(int id);
+        void back();
     }
 }

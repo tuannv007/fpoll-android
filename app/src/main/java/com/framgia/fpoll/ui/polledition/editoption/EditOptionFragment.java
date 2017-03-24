@@ -20,13 +20,9 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.FragmentEditOptionBinding;
-import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
@@ -41,16 +37,15 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     private FragmentEditOptionBinding mBinding;
     private EditOptionContract.Presenter mPresenter;
     private ObservableField<EditOptionAdapter> mAdapter = new ObservableField<>();
-    private List<Option> mListOption = new ArrayList<>();
     private int mPosition = UNSELECTED_POSITION;
     private PollItem mPollItem;
 
-    public static OptionPollFragment newInstance(PollItem pollItem) {
-        OptionPollFragment optionPollFragment = new OptionPollFragment();
+    public static EditOptionFragment newInstance(PollItem pollItem) {
+        EditOptionFragment editOptionFragment = new EditOptionFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
-        optionPollFragment.setArguments(bundle);
-        return optionPollFragment;
+        editOptionFragment.setArguments(bundle);
+        return editOptionFragment;
     }
 
     @Nullable
@@ -60,11 +55,11 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_edit_option, container, false);
         mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
-        mPresenter = new EditOptionPresenter(this, mPollItem, mListOption);
+        mPresenter = new EditOptionPresenter(this, mPollItem, mPollItem.getOptions());
         mBinding.setHandler(new EditOptionHandle(mPresenter));
         mBinding.setPresenter((EditOptionPresenter) mPresenter);
         mBinding.setFragment(this);
-        mAdapter.set(new EditOptionAdapter(mPresenter, mListOption));
+        mAdapter.set(new EditOptionAdapter(mPresenter, mPollItem.getOptions()));
         return mBinding.getRoot();
     }
 
@@ -79,8 +74,10 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
 
     @Override
     public void start() {
-        for (int i = 0; i < NUMBER_DEFAULT_OPTION; i++) {
-            mListOption.add(new Option());
+        if (mPollItem.getOptions() != null && mPollItem.getOptions().size() == 0) {
+            for (int i = 0; i < NUMBER_DEFAULT_OPTION; i++) {
+                mPollItem.getOptions().add(new Option());
+            }
         }
     }
 
@@ -107,14 +104,14 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
 
     @Override
     public void deletePoll(int position) {
-        mListOption.remove(position);
-        mAdapter.get().update(mListOption);
+        mPollItem.getOptions().remove(position);
+        mAdapter.get().update(mPollItem.getOptions());
     }
 
     @Override
     public void augmentPoll() {
-        mListOption.add(new Option());
-        mAdapter.get().update(mListOption);
+        mPollItem.getOptions().add(new Option());
+        mAdapter.get().update(mPollItem.getOptions());
     }
 
     @Override
@@ -139,8 +136,8 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
             cursor.moveToFirst();
             String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
             if (mPosition != UNSELECTED_POSITION) {
-                mListOption.get(mPosition).setImage(url);
-                mAdapter.get().update(mListOption);
+                mPollItem.getOptions().get(mPosition).setImage(url);
+                mAdapter.get().update(mPollItem.getOptions());
             }
             cursor.close();
         }

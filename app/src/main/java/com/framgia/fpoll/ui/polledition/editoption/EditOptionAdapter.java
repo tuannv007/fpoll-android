@@ -1,23 +1,30 @@
 package com.framgia.fpoll.ui.polledition.editoption;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
+import com.framgia.fpoll.databinding.ItemEditOptionBinding;
+import com.framgia.fpoll.databinding.ItemPageOptionBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by framgia on 16/03/2017.
  */
 public class EditOptionAdapter extends RecyclerView.Adapter<EditOptionAdapter.EditOptionHolder> {
+    private LayoutInflater mInflater;
+    private List<Option> mListOption = new ArrayList<>();
     private EditOptionContract.Presenter mPresenter;
-    private List<Option> mListOption;
 
-    public EditOptionAdapter(EditOptionContract.Presenter presenter, List<Option> listOption) {
+    public EditOptionAdapter(EditOptionContract.Presenter presenter, List<Option> optionItems) {
         mPresenter = presenter;
-        mListOption = listOption;
+        mListOption.addAll(optionItems);
+        notifyDataSetChanged();
     }
 
     public void update(List<Option> optionItems) {
@@ -27,13 +34,18 @@ public class EditOptionAdapter extends RecyclerView.Adapter<EditOptionAdapter.Ed
     }
 
     @Override
-    public EditOptionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+    public EditOptionAdapter.EditOptionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
+        ItemEditOptionBinding binding =
+            DataBindingUtil.inflate(mInflater, R.layout.item_edit_option, parent, false);
+        binding.setHandler(new EditOptionHandle(mPresenter));
+        return new EditOptionAdapter.EditOptionHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(EditOptionHolder holder, int position) {
-        // TODO: 17/03/2017  
+    public void onBindViewHolder(EditOptionAdapter.EditOptionHolder holder, int position) {
+        Option option = mListOption.get(position);
+        if (option != null) holder.bind(option, position);
     }
 
     @Override
@@ -42,8 +54,17 @@ public class EditOptionAdapter extends RecyclerView.Adapter<EditOptionAdapter.Ed
     }
 
     public class EditOptionHolder extends RecyclerView.ViewHolder {
-        public EditOptionHolder(View itemView) {
-            super(itemView);
+        private ItemEditOptionBinding mBinding;
+
+        public EditOptionHolder(ItemEditOptionBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
+        private void bind(Option option, int position) {
+            mBinding.setOption(option);
+            mBinding.setPosition(position);
+            mBinding.executePendingBindings();
         }
     }
 }
