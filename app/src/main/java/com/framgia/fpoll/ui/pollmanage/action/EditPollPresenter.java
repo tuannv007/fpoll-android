@@ -105,7 +105,7 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void viewHistory() {
-        // TODO: 3/2/2017 call api view history
+        mView.viewHistory();
     }
 
     @Override

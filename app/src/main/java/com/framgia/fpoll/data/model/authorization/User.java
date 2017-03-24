@@ -30,6 +30,18 @@ public class User extends BaseObservable implements Parcelable {
     private String mToken;
     @SerializedName("is_active")
     private boolean mIsActive;
+    @SerializedName("created_at")
+    private String mCreateAt;
+
+    @Bindable
+    public String getCreateAt() {
+        return mCreateAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        mCreateAt = createAt;
+        notifyPropertyChanged(BR.createAt);
+    }
 
     @Bindable
     public String getUsername() {
@@ -122,20 +134,6 @@ public class User extends BaseObservable implements Parcelable {
     }
 
     public User() {
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-            "mUsername='" + mUsername + '\'' +
-            ", mEmail='" + mEmail + '\'' +
-            ", mGender=" + mGender +
-            ", mPassword='" + mPassword + '\'' +
-            ", mConfirmPassword='" + mConfirmPassword + '\'' +
-            ", mAvatar='" + mAvatar + '\'' +
-            ", mChatWorkId='" + mChatWorkId + '\'' +
-            ", mToken='" + mToken + '\'' +
-            '}';
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

@@ -15,6 +15,7 @@ public interface EditPollContract {
         void startUiPollCreation(DataInfoItem data);
         void showProgressDialog();
         void hideProgressDialog();
+        void viewHistory();
     }
 
     interface Presenter {

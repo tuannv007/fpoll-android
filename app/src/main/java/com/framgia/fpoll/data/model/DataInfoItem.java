@@ -9,6 +9,8 @@ import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.Poll;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by tuanbg on 3/6/17.
  */
@@ -19,6 +21,18 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     private int mCountParticipant;
     @SerializedName("countComments")
     private int mCountComments;
+    @SerializedName("activities")
+    private List<FpollComment> mFpollComment;
+
+    @Bindable
+    public List<FpollComment> getFpollComment() {
+        return mFpollComment;
+    }
+
+    public void setFpollComment(List<FpollComment> fpollComment) {
+        this.mFpollComment = fpollComment;
+        notifyPropertyChanged(BR.fpollComment);
+    }
 
     @Bindable
     public PollItem getPoll() {
@@ -30,7 +44,7 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.poll);
     }
 
-    public final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
+    public static final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
         @Override
         public DataInfoItem createFromParcel(Parcel in) {
             return new DataInfoItem(in);

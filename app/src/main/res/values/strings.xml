@@ -244,10 +244,22 @@
     <string name="title_change_language">Change Language</string>
     <string name="msg_change_language">Data show in screen will delete! you are ready</string>
     <string name="msg_vote_time_expired">Vote time Expired</string>
+    <string name="title_all_participants_deleted">all_participants_deleted</string>
+    <string name="title_type_Add_a_comment">add a comment</string>
+    <string name="title_reset_link">This poll reset Link</string>
+    <string name="title_delete_comment">Delete Comment</string>
+    <string name="title_edit_vote">Edit Vote</string>
+    <string name="title_edit_poll">Edit Poll</string>
+    <string name="title_close_poll">Close Poll</string>
+    <string name="title_reopen_poll">Reopen Poll</string>
+    <string name="title_participated">Participated</string>
     <string name="msg_update">Updating</string>
     <string name="msg_update_fail">Update Fail</string>
-    <string name="update_sucess">Update sucessfull</string>
+    <string name="update_success">Update successfully</string>
     <string name="title_copy">Copy</string>
     <string name="action_click_me">Click me</string>
     <string name="msg_number_vote">Number vote: %d</string>
+    <string name="title_anonymous">Anonymous </string>
+    <string name="title_user_created">Created by :</string>
+    <string name="title_user_at">Create at :</string>
 </resources>

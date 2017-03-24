@@ -14,6 +14,7 @@ import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentActionBinding;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.framgia.fpoll.ui.polledition.ModifyPollActivity;
+import com.framgia.fpoll.ui.pollmanage.history.HistoryManageActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
@@ -84,6 +85,11 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
     @Override
     public void startUiPollCreation(DataInfoItem data) {
         startActivity(PollCreationActivity.getIntent(getActivity(), data.getPoll()));
+    }
+
+    @Override
+    public void viewHistory() {
+        startActivity(HistoryManageActivity.getInstance(getActivity(), getToken()));
     }
 
     @Override

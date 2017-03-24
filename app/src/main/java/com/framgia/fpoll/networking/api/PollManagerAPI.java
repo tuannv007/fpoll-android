@@ -38,4 +38,6 @@ public interface PollManagerAPI {
                                                     @Query("newLinkAdmin") String newAdmin);
     @GET("/api/v1/link/{token}")
     Call<ResponseItem<DataInfoItem>> getPoll(@Path("token") String token);
+    @GET("/api/v1/showActivity")
+    Call<ResponseItem<DataInfoItem>> getActivity(@Query("token") String token);
 }

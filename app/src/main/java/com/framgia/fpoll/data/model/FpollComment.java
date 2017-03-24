@@ -4,6 +4,8 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.framgia.fpoll.BR;
+import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.ui.pollmanage.history.TypeLayoutHistory;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -24,6 +26,30 @@ public class FpollComment extends BaseObservable {
     private String mCreatedTime;
     @SerializedName("updated_at")
     private String mUpdatedTime;
+    @SerializedName("user")
+    private User mUser;
+    @SerializedName("type")
+    private int mType;
+
+    @Bindable
+    public int getType() {
+        return mType;
+    }
+
+    public void setType(int type) {
+        this.mType = type;
+        notifyPropertyChanged(BR.type);
+    }
+
+    @Bindable
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
+        notifyPropertyChanged(BR.user);
+    }
 
     @Bindable
     public String getId() {
@@ -93,5 +119,9 @@ public class FpollComment extends BaseObservable {
     public void setUpdatedTime(String updatedTime) {
         mUpdatedTime = updatedTime;
         notifyPropertyChanged(BR.updatedTime);
+    }
+
+    public TypeLayoutHistory getTypeLayoutHistory() {
+        return TypeLayoutHistory.values()[mType - 1];
     }
 }
