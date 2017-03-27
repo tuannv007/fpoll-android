@@ -101,7 +101,9 @@ public class PollCreationApi {
         if (pollItem.isAllowEditOption()) {
             builder.addFormDataPart(ALLOW_EDIT_OPTION, String.valueOf(OPTION_EDITABLE));
         }
-        builder.addFormDataPart(MEMBER, pollItem.getMembers());
+        if (!TextUtils.isEmpty(pollItem.getMembers())) {
+            builder.addFormDataPart(MEMBER, pollItem.getMembers());
+        }
         if (optionItemList == null) return builder.build();
         for (int i = 0; i < optionItemList.size(); i++) {
             StringBuilder fieldOptionText = new StringBuilder(OPTION_TEXT);

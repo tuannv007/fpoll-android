@@ -63,7 +63,6 @@ public class CreatePollFragment extends Fragment implements DatePickerDialog.OnD
         mBinding.setHandler(new CreatePollActionHandle(mPresenter));
         mBinding.setPresenter((CreationPresenter) mPresenter);
         mBinding.setFragment(this);
-        mTime.set(mSavePickCalendar);
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
             .addApi(Places.GEO_DATA_API)
             .enableAutoManage(getActivity(), this)
@@ -138,5 +137,12 @@ public class CreatePollFragment extends Fragment implements DatePickerDialog.OnD
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
     }
 }

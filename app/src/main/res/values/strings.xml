@@ -246,4 +246,5 @@
     <string name="title_change_language">Change Language</string>
     <string name="msg_change_language">Data show in screen will delete! you are ready</string>
     <string name="msg_vote_time_expired">Vote time Expired</string>
+    <string name="msg_update">Updating</string>
 </resources>

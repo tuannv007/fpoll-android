@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle"/>
+
+        <variable
+            name="position"
+            type="java.lang.Integer"/>
+
+        <variable
+            name="option"
+            type="com.framgia.fpoll.data.model.poll.Option"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_16">
+
+        <LinearLayout
+            style="@style/LinearLayoutStyle">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edit_option_poll"
+                style="@style/EditTextManageActivity"
+                android:text="@={option.name}"/>
+
+            <ImageView
+                style="@style/ImageViewAuthorizationCenter"
+                android:onClick="@{()->handler.clickPickDate(option, position)}"
+                android:src="@drawable/ic_date_range_black_24dp"/>
+
+            <ImageView
+                android:id="@+id/image_insert_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_image_option_pick"
+                android:onClick="@{()->handler.clickPickImage(option, position)}"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
+                android:src="@drawable/ic_photo_white"/>
+
+            <ImageView
+                android:id="@+id/image_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_image_option_delete_right"
+                android:onClick="@{()->handler.clickDeletePoll(option, position)}"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
+                android:src="@drawable/ic_delete_white_24px"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image_photo"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_150"
+            android:layout_marginTop="@dimen/dp_4"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_fpoll_logo"
+            android:visibility="@{option.image == null ? View.GONE: View.VISIBLE}"
+            bind:imagePath="@{option.image}"/>
+    </LinearLayout>
+</layout>

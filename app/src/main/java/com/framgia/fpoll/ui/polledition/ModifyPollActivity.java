@@ -28,7 +28,7 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
     private ActivityModifyPollBinding mBinding;
     private ModifyPollContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
-    private PollItem mPoll = new PollItem();
+    private PollItem mPoll;
 
     public static Intent getModifyIntent(Context context, PollItem data) {
         Intent intent = new Intent(context, ModifyPollActivity.class);
@@ -53,7 +53,6 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
         mPresenter = new ModifyPollPresenter(this);
         mBinding.setPresenter((ModifyPollPresenter) mPresenter);
         mBinding.setActivity(this);
-        mPoll = getIntent().getParcelableExtra(BUNDLE_POLL_ITEM);
         initViewPager();
     }
 
@@ -67,7 +66,7 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
         fragments.add(EditInforFragment.newInstance(mPoll));
         fragments.add(EditOptionFragment.newInstance(mPoll));
         fragments.add(EditSettingFragment.newInstance(mPoll));
-        String[] titles = getResources().getStringArray(R.array.array_vote);
+        String[] titles = getResources().getStringArray(R.array.array_edit);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
     }
 

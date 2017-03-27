@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.polledition.editinformation;
 
+import android.app.ProgressDialog;
+import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentEditInforBinding;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
@@ -27,9 +30,10 @@ public class EditInforFragment extends Fragment
     EditInforContract.View {
     private FragmentEditInforBinding mBinding;
     private EditInforContract.Presenter mPresenter;
-    public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
-    private PollItem mPoll = new PollItem();
+    public final ObservableField<Calendar> mTime = new ObservableField<>();
+    private PollItem mPoll;
     private Calendar mSavePickCalendar = Calendar.getInstance();
+    private ProgressDialog mProgressDialog;
 
     public static EditInforFragment newInstance(PollItem pollItem) {
         EditInforFragment editInforFragment = new EditInforFragment();
@@ -49,14 +53,17 @@ public class EditInforFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = FragmentEditInforBinding.inflate(inflater, container, false);
-        getDataFromActivity();
-        mPresenter = new EditInforPresenter(this, mPoll);
+        mBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_edit_infor, container, false);
+        mPoll = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        mPresenter = new EditInforPresenter(this, mPoll, PollRepository.getInstance(getActivity()));
         mBinding.setInformation(mPoll);
         mBinding.setHandler(new EditInforHandle(mPresenter));
         mBinding.setPresenter((EditInforPresenter) mPresenter);
         mBinding.setFragment(this);
-        mTime.set(mSavePickCalendar);
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setMessage(getString(R.string.msg_update));
+        mProgressDialog.setCancelable(false);
         return mBinding.getRoot();
     }
 
@@ -75,11 +82,15 @@ public class EditInforFragment extends Fragment
         mSavePickCalendar.set(Calendar.SECOND, second);
         if (mSavePickCalendar.before(Calendar.getInstance())) {
             ActivityUtil.showToast(getContext(), R.string.msg_date_error);
-        } else mTime.notifyChange();
+        } else {
+            mTime.set(mSavePickCalendar);
+            mTime.notifyChange();
+        }
     }
 
     @Override
     public void showDatePicker() {
+        if (mTime.get() == null) mTime.set(Calendar.getInstance());
         DatePickerDialog dpd = DatePickerDialog.newInstance(
             this,
             mTime.get().get(Calendar.YEAR),
@@ -108,7 +119,23 @@ public class EditInforFragment extends Fragment
     }
 
     @Override
-    public void nextStep() {
+    public void showMessage(String message) {
+        ActivityUtil.showToast(getActivity(), message);
+    }
+
+    @Override
+    public void back() {
+        // TODO: next sprint
+    }
+
+    @Override
+    public void showDialog() {
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void hideDialog() {
+        mProgressDialog.dismiss();
     }
 
     @Override

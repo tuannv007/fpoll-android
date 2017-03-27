@@ -1,7 +1,5 @@
 package com.framgia.fpoll.ui.polledition.editinformation;
 
-import com.framgia.fpoll.ui.pollcreation.infomation.CreationContract;
-
 /**
  * Created by framgia on 16/03/2017.
  */
@@ -16,7 +14,11 @@ public class EditInforHandle {
         if (mListener != null) mListener.showDatePicker();
     }
 
-    public void nextStep() {
-        if (mListener != null) mListener.nextStep();
+    public void nextStep(int id) {
+        if (mListener != null) mListener.nextStep(id);
+    }
+
+    public void back() {
+        if (mListener != null) mListener.back();
     }
 }
