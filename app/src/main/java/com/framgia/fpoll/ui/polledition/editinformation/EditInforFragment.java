@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.polledition.editinformation;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.PollInformation;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentEditInforBinding;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -19,34 +17,42 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+
 /**
  * Created by framgia on 16/03/2017.
  */
 public class EditInforFragment extends Fragment
-    implements DatePickerDialog.OnDateSetListener
-    , TimePickerDialog.OnTimeSetListener
-    , EditInforContract.View {
+    implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
+    EditInforContract.View {
     private FragmentEditInforBinding mBinding;
     private EditInforContract.Presenter mPresenter;
     public final ObservableField<Calendar> mTime = new ObservableField<>(Calendar.getInstance());
-    private PollInformation mPollInformation = new PollInformation();
+    private PollItem mPoll = new PollItem();
     private Calendar mSavePickCalendar = Calendar.getInstance();
 
     public static EditInforFragment newInstance(PollItem pollItem) {
         EditInforFragment editInforFragment = new EditInforFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
         editInforFragment.setArguments(bundle);
         return editInforFragment;
+    }
+
+    private void getDataFromActivity() {
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
+        mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        if (mPoll == null) mPoll = new PollItem();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_edit_infor, container, false);
-        mPresenter = new EditInforPresenter(this, mPollInformation);
-        mBinding.setInformation(mPollInformation);
+        mBinding = FragmentEditInforBinding.inflate(inflater, container, false);
+        getDataFromActivity();
+        mPresenter = new EditInforPresenter(this, mPoll);
+        mBinding.setInformation(mPoll);
         mBinding.setHandler(new EditInforHandle(mPresenter));
         mBinding.setPresenter((EditInforPresenter) mPresenter);
         mBinding.setFragment(this);

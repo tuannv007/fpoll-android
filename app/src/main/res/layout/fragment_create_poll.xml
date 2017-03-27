@@ -132,8 +132,11 @@
                         <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_48"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
                             android:entries="@array/array_answer"
-                            bind:numAnswer="@{information.multiple}"/>
+                            bind:choiceAnswer="@={information.multiple}"/>
                     </RelativeLayout>
 
                     <android.support.v7.widget.AppCompatEditText
