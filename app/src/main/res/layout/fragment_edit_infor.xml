@@ -15,7 +15,7 @@
 
         <variable
             name="information"
-            type="com.framgia.fpoll.data.model.PollInformation"/>
+            type="com.framgia.fpoll.data.model.PollItem"/>
 
         <variable
             name="fragment"
@@ -66,7 +66,7 @@
                         android:id="@+id/edt_user_name"
                         style="@style/EditTextStyle"
                         android:hint="@string/title_username"
-                        android:text="@={information.userName}"
+                        android:text="@={information.user.username}"
                         bind:setErrorEditText="@{msgError}"/>
                 </LinearLayout>
 
@@ -84,7 +84,7 @@
                         style="@style/EditTextStyle"
                         android:hint="@string/title_email"
                         android:inputType="textEmailAddress"
-                        android:text="@={information.email}"
+                        android:text="@={information.user.email}"
                         bind:setErrorEditText="@{msgError}"
                         bind:setErrorEmail="@{msgErrorEmail}"/>
 
@@ -104,17 +104,28 @@
                         style="@style/EditTextStyle"
                         android:hint="@string/hint_poll_title"
                         android:inputType="textEmailAddress"
-                        android:text="@={information.pollTitle}"
+                        android:text="@={information.title}"
                         bind:setErrorEditText="@{msgError}"/>
 
                 </LinearLayout>
 
-                <Spinner
-                    style="@style/LinearLayoutStyle"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
-                    android:entries="@array/array_answer"
-                    bind:selectedValue="@={information.multiple}"/>
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/bg_edit_text">
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_48"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:entries="@array/array_answer"
+                        bind:choiceAnswer="@={information.multiple}"/>
+                </RelativeLayout>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/edit_send_email"

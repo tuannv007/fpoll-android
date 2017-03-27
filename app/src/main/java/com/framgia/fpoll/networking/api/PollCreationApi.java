@@ -63,8 +63,8 @@ public class PollCreationApi {
         List<Option> optionItemList = pollItem.getOptions();
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
-        builder.addFormDataPart(NAME, pollItem.getName());
-        builder.addFormDataPart(EMAIL, pollItem.getEmail());
+        builder.addFormDataPart(NAME, pollItem.getUser().getUsername());
+        builder.addFormDataPart(EMAIL, pollItem.getUser().getEmail());
         builder.addFormDataPart(TITLE, pollItem.getTitle());
         if (!TextUtils.isEmpty(pollItem.getDescription())) {
             builder.addFormDataPart(DESCRIPTION, pollItem.getDescription());

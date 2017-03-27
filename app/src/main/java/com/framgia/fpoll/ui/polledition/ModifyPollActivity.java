@@ -12,7 +12,6 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.ActivityModifyPollBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
-import com.framgia.fpoll.ui.main.MainActivity;
 import com.framgia.fpoll.ui.polledition.editinformation.EditInforFragment;
 import com.framgia.fpoll.ui.polledition.editoption.EditOptionFragment;
 import com.framgia.fpoll.ui.polledition.editsetting.EditSettingFragment;
@@ -32,7 +31,7 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
     private PollItem mPoll = new PollItem();
 
     public static Intent getModifyIntent(Context context, PollItem data) {
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, ModifyPollActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_POLL_ITEM, data);
         intent.putExtras(bundle);
@@ -65,9 +64,9 @@ public class ModifyPollActivity extends AppCompatActivity implements ModifyPollC
     @Override
     public void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(EditInforFragment.newInstance(new PollItem()));
-        fragments.add(EditOptionFragment.newInstance(new PollItem()));
-        fragments.add(EditSettingFragment.newInstance(new PollItem()));
+        fragments.add(EditInforFragment.newInstance(mPoll));
+        fragments.add(EditOptionFragment.newInstance(mPoll));
+        fragments.add(EditSettingFragment.newInstance(mPoll));
         String[] titles = getResources().getStringArray(R.array.array_vote);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
     }

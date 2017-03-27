@@ -2,28 +2,28 @@ package com.framgia.fpoll.ui.polledition.editinformation;
 
 import android.text.TextUtils;
 
-import com.framgia.fpoll.data.model.PollInformation;
+import com.framgia.fpoll.data.model.PollItem;
 
 /**
  * Created by framgia on 16/03/2017.
  */
 public class EditInforPresenter implements EditInforContract.Presenter {
     private EditInforContract.View mView;
-    private PollInformation mPollInformation;
+    private PollItem mPoll;
 
-    public EditInforPresenter(EditInforContract.View view, PollInformation pollInformation) {
+    public EditInforPresenter(EditInforContract.View view, PollItem poll) {
         mView = view;
-        mPollInformation = pollInformation;
+        mPoll = poll;
     }
 
     @Override
     public void nextStep() {
         mView.bindError();
         if (mView == null ||
-            TextUtils.isEmpty(mPollInformation.getUserName()) ||
-            TextUtils.isEmpty(mPollInformation.getEmail()) ||
-            TextUtils.isEmpty(mPollInformation.getPollTitle()) ||
-            (!android.util.Patterns.EMAIL_ADDRESS.matcher(mPollInformation.getEmail()).matches()))
+            TextUtils.isEmpty(mPoll.getUser().getUsername()) ||
+            TextUtils.isEmpty(mPoll.getUser().getEmail()) ||
+            TextUtils.isEmpty(mPoll.getTitle()) ||
+            (!android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail()).matches()))
             return;
         mView.nextStep();
     }

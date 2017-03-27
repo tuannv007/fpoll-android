@@ -20,10 +20,10 @@ public class CreationPresenter implements CreationContract.Presenter {
     public void nextStep() {
         mView.bindError();
         if (mView == null ||
-            TextUtils.isEmpty(mPoll.getName()) ||
-            TextUtils.isEmpty(mPoll.getEmail()) ||
+            TextUtils.isEmpty(mPoll.getUser().getUsername()) ||
+            TextUtils.isEmpty(mPoll.getUser().getEmail()) ||
             TextUtils.isEmpty(mPoll.getTitle()) ||
-            (!android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getEmail()).matches()))
+            (!android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail()).matches()))
             return;
         mView.nextStep();
     }
