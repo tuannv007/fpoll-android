@@ -62,6 +62,7 @@
                     android:id="@+id/switch_require_voted"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_require_voted"
                     android:textColor="@color/color_grey_700"
@@ -104,7 +105,7 @@
                         bind:handler="@{handler}"
                         bind:isVisible="@{Boolean.valueOf(radioEnterEmail.checked)}"
                         bind:presenter="@{presenter}"/>
-                    
+
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/radio_enter_name_email"
                         android:layout_width="match_parent"
@@ -129,6 +130,7 @@
                 <android.support.v7.widget.SwitchCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="@{presenter.poll.hideResult}"
                     android:onCheckedChanged="@{(switch, checked)->handler.checkedVotingResult(checked)}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_hide_voted"
@@ -139,6 +141,7 @@
                     android:id="@+id/switch_optimize_poll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="@{presenter.poll.optimizeLink}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_optimize_poll"
                     android:textColor="@color/color_grey_700"
@@ -167,7 +170,7 @@
                         android:background="@android:color/transparent"
                         android:paddingLeft="@dimen/dp_4"
                         android:paddingRight="@dimen/dp_4"
-                        android:text="@={presenter.linkPoll}"
+                        android:text="@={presenter.poll.textOptimizeLink}"
                         android:textSize="@dimen/sp_12"/>
                 </LinearLayout>
 
@@ -175,6 +178,7 @@
                     android:id="@+id/switch_voting_limit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="@{presenter.poll.maxVote}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/msg_voting_limit"
                     android:textColor="@color/color_grey_700"
@@ -222,6 +226,7 @@
                     android:id="@+id/switch_set_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="@{presenter.poll.hasPass}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/action_change_password"
                     android:textColor="@color/color_grey_700"
@@ -248,7 +253,7 @@
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:inputType="textPassword"
-                        android:text="@={presenter.pass}"
+                        android:text="@={presenter.poll.pass}"
                         bind:showPassword="@{presenter.showPassword}"/>
 
                     <ImageView
@@ -262,6 +267,7 @@
                 <android.support.v7.widget.SwitchCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="@{presenter.poll.allowAddOption}"
                     android:onCheckedChanged="@{(switch, checked) -> handler.changeAllowAddAnswer(checked)}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/action_allow_add_answer"
@@ -271,6 +277,7 @@
                 <android.support.v7.widget.SwitchCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="@{presenter.poll.allowEditOption}"
                     android:onCheckedChanged="@{(switch, checked) -> handler.changeAllowEdit(checked)}"
                     android:padding="@dimen/dp_8"
                     android:text="@string/action_allow_edit_poll"

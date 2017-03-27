@@ -63,4 +63,24 @@ public class SharePreferenceUtil {
     public String loadLanguage() {
         return mPreferences.getString(PREF_LANGUAGE, LANGUAGE_EN);
     }
+
+    public void writePreference(String key, String value) {
+        mPreferences.edit().putString(key, value).apply();
+    }
+
+    public void writePreference(String key, boolean value) {
+        mPreferences.edit().putBoolean(key, value).apply();
+    }
+
+    public String getString(String key) {
+        return mPreferences.getString(key, null);
+    }
+
+    public boolean getBoolean(String key) {
+        return mPreferences.getBoolean(key, false);
+    }
+
+    public void clearKey(String key) {
+        mPreferences.edit().remove(key).apply();
+    }
 }
