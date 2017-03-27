@@ -16,8 +16,8 @@ public class EditOptionHandle {
         if (mListener != null) mListener.nextStep();
     }
 
-    public void previousStep() {
-        if (mListener != null) mListener.previousStep();
+    public void back() {
+        if (mListener != null) mListener.back();
     }
 
     public void clickPickImage(Option optionItem, int position) {
