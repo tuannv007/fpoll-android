@@ -238,7 +238,10 @@ public class Poll extends BaseObservable implements Parcelable {
         mDateClose = in.readString();
         mName = in.readString();
         mEmail = in.readString();
+        mUser = in.readParcelable(User.class.getClassLoader());
+        mSettings = in.createTypedArrayList(Setting.CREATOR);
         mOptions = in.createTypedArrayList(Option.CREATOR);
+        mLink = in.createTypedArrayList(PollLink.CREATOR);
     }
 
     public static final Creator<Poll> CREATOR = new Creator<Poll>() {
@@ -272,6 +275,9 @@ public class Poll extends BaseObservable implements Parcelable {
         dest.writeString(mDateClose);
         dest.writeString(mName);
         dest.writeString(mEmail);
+        dest.writeParcelable(mUser, flags);
+        dest.writeTypedList(mSettings);
         dest.writeTypedList(mOptions);
+        dest.writeTypedList(mLink);
     }
 }

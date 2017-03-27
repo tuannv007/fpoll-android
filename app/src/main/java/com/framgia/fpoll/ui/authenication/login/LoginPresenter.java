@@ -1,7 +1,7 @@
 package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
-import android.util.Log;
+import android.databinding.ObservableBoolean;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -20,6 +20,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterException;
 
+import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_EMAIL;
+import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_PASSWORD;
+import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_REMEM_BER;
+
 /**
  * Created by Nhahv0902 on 2/9/2017.
  * <></>
@@ -32,6 +36,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     private User mUser;
     private SharePreferenceUtil mPreference;
     private LoginRepository mRepository;
+    private ObservableBoolean mIsRemember = new ObservableBoolean();
 
     public LoginPresenter(LoginContract.View view, LoginRepository repository,
                           SharePreferenceUtil preference) {
@@ -40,6 +45,9 @@ public class LoginPresenter implements LoginContract.Presenter {
         mPreference = preference;
         mUser = new User();
         mView.start();
+        mUser.setEmail(mPreference.getString(PREF_EMAIL));
+        mUser.setPassword(mPreference.getString(PREF_PASSWORD));
+        mIsRemember.set(mPreference.getBoolean(PREF_REMEM_BER));
     }
 
     @Override
@@ -153,6 +161,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     new DataCallback<LoginNormalData>() {
                         @Override
                         public void onSuccess(LoginNormalData data) {
+                            saveEmailPassword();
                             data.getUser().setToken(data.getAccessToken());
                             mPreference.writeUser(data.getUser());
                             writeLogin();
@@ -220,8 +229,23 @@ public class LoginPresenter implements LoginContract.Presenter {
         );
     }
 
+    private void saveEmailPassword() {
+        mPreference.writePreference(PREF_REMEM_BER, mIsRemember.get());
+        if (mIsRemember.get()) {
+            mPreference.writePreference(PREF_EMAIL, mUser.getEmail());
+            mPreference.writePreference(PREF_PASSWORD, mUser.getPassword());
+        } else {
+            mPreference.clearKey(PREF_EMAIL);
+            mPreference.clearKey(PREF_PASSWORD);
+        }
+    }
+
     public void writeLogin() {
         mPreference.writeLogin(true);
+    }
+
+    public ObservableBoolean getIsRemember() {
+        return mIsRemember;
     }
 
     public User getUser() {

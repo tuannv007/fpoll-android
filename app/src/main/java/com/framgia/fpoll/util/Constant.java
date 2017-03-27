@@ -131,6 +131,9 @@ public class Constant {
         public static final String PREF_TOKEN = "PREF_TOKEN";
         public static final String PREF_IS_LOGIN = "PREF_IS_LOGIN";
         public static final String PREF_LANGUAGE = "PREF_LANGUAGE";
+        public static final String PREF_EMAIL = "PREF_EMAIL";
+        public static final String PREF_PASSWORD = "PREF_PASSWORD";
+        public static final String PREF_REMEM_BER = "PREF_REMEM_BER";
     }
 
     public class Language {

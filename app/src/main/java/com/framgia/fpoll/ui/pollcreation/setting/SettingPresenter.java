@@ -1,17 +1,15 @@
 package com.framgia.fpoll.ui.pollcreation.setting;
 
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
-import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.data.model.poll.Setting;
 import com.framgia.fpoll.util.Constant;
 
 import static com.framgia.fpoll.util.Constant.DataConstant.NUMBER_MIN_LIMIT;
 import static com.framgia.fpoll.util.Constant.DataConstant.NUMBER_SPACE;
-import static com.framgia.fpoll.util.Constant.WebUrl.POLL_URL;
 
 /**
  * Created by framgia on 23/02/2017.
@@ -21,32 +19,97 @@ public class SettingPresenter implements SettingPollContract.Presenter {
     private SettingPollContract.View mView;
     private ObservableBoolean mShowPassword = new ObservableBoolean();
     private ObservableInt mNumberLimit = new ObservableInt();
-    private ObservableField<String> mPass = new ObservableField<>();
-    private ObservableField<String> mLinkPoll = new ObservableField<>();
     private ObservableBoolean mNotAllowSameEmail = new ObservableBoolean();
     private RequireVoteType mRequireVoteType = RequireVoteType.NAME;
-    private PollItem mPollItem;
+    private PollItem mPoll;
 
     public SettingPresenter(SettingPollContract.View view, PollItem pollItem) {
         mView = view;
         mShowPassword.set(false);
         mNumberLimit.set(NUMBER_MIN_LIMIT);
-        mPass.set("");
-        mLinkPoll.set(ActivityUtil.subLinkPoll(POLL_URL));
-        mPollItem = pollItem;
+        mPoll = pollItem;
         mNotAllowSameEmail.set(false);
         mView.start();
+        initData();
+    }
+
+    private void initData() {
+        if (mPoll == null || mPoll.getSettings() == null) return;
+        for (Setting item : mPoll.getSettings()) {
+            KeySetting type = KeySetting.values()[item.getKey()];
+            switch (type) {
+                case REQUIRE_VOTE:
+                    mPoll.setRequireVote(true);
+                    mPoll.setRequiteType(RequireVoteType.NAME.getValue());
+                    if (item.getValue() != null) {
+                        try {
+                            mPoll.setRequiteType(Integer.parseInt(item.getValue()));
+                        } catch (NumberFormatException e) {
+                            mPoll.setRequiteType(RequireVoteType.NAME.getValue());
+                        }
+                    }
+                    break;
+                case NAME:
+                    // TODO: 3/24/2017 set type for name
+                    break;
+                case EMAIL:
+                    // TODO: 3/24/2017 set type for email
+                    break;
+                case NAME_EMAIL:
+                    // TODO: 3/24/2017 set type for email- name
+                    break;
+                case NOT_COINCIDENT:
+                    if (item.getValue() != null) mPoll.setCoincidentEmail(true);
+                    break;
+                case ADD_TYPE_EMAIL:
+                    break;
+                case ALL_NEW_OPTION:
+                    if (item.getValue() != null) mPoll.setAllowAddOption(true);
+                    break;
+                case EDIT_LINK:
+                    mPoll.setOptimizeLink(true);
+                    if (item.getValue() != null) {
+                        mPoll.setOptimizeLink(true);
+                        mPoll.setTextOptimizeLink(item.getValue());
+                    }
+                    break;
+                case EDIT_OPTION:
+                    if (item.getValue() != null) mPoll.setAllowEditOption(true);
+                    break;
+                case HIDE_RESULT:
+                    if (item.getValue() != null) mPoll.setHideResult(true);
+                    break;
+                case NUMBER_VOTE:
+                    if (item.getValue() != null) {
+                        mPoll.setMaxVote(true);
+                        try {
+                            mNumberLimit.set(Integer.parseInt(item.getValue()));
+                        } catch (NumberFormatException e) {
+                            mNumberLimit.set(0);
+                        }
+                    }
+                    break;
+                case PASSWORD:
+                    if (item.getValue() != null) {
+                        mPoll.setPass(item.getValue());
+                        mPoll.setHasPass(true);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
     public void onCheckedRequireVote(boolean checked) {
-        mPollItem.setRequireVote(checked);
-        if (checked) mPollItem.setRequiteType(mRequireVoteType.getValue());
+        mPoll.setRequireVote(checked);
+        if (checked) mPoll.setRequiteType(mRequireVoteType.getValue());
     }
 
     @Override
     public void onCheckedVotingResult(boolean checked) {
-        mPollItem.setHideResult(checked);
+        mPoll.setHideResult(checked);
     }
 
     @Override
@@ -56,13 +119,13 @@ public class SettingPresenter implements SettingPollContract.Presenter {
 
     @Override
     public void onCheckedVotingLimit(boolean checked) {
-        mPollItem.setMaxVote(checked);
-        if (checked) mPollItem.setNumMaxVote(mNumberLimit.get());
+        mPoll.setMaxVote(checked);
+        if (checked) mPoll.setNumMaxVote(mNumberLimit.get());
     }
 
     @Override
     public void onCheckedSetPassword(boolean checked) {
-        mPollItem.setHasPass(checked);
+        mPoll.setHasPass(checked);
     }
 
     @Override
@@ -72,26 +135,26 @@ public class SettingPresenter implements SettingPollContract.Presenter {
 
     private boolean validateSetting() {
         //If user set limit vote number option but don't set limit number
-        if (mPollItem.isMaxVote() &&
-            mPollItem.getNumMaxVote() < Constant.LIMIT_VOTE_NUMBER_MINIUM) {
+        if (mPoll.isMaxVote() &&
+            mPoll.getNumMaxVote() < Constant.LIMIT_VOTE_NUMBER_MINIUM) {
             mView.notifyError(R.string.msg_set_vote_number);
             return false;
         }
         //If user set poll password and input password box is empty
-        if (mPollItem.isHasPass() && mPass.get().isEmpty()) {
+        if (mPoll.isHasPass() && mPoll.getPass().isEmpty()) {
             mView.notifyError(R.string.msg_set_poll_password);
             return false;
         } else {
             //Set password for poll item
-            mPollItem.setPass(mPass.get());
+            mPoll.setPass(mPoll.getPass());
         }
         //Set require type vote
-        if (mPollItem.isRequireVote()) {
-            mPollItem.setRequiteType(mRequireVoteType.getValue());
+        if (mPoll.isRequireVote()) {
+            mPoll.setRequiteType(mRequireVoteType.getValue());
         }
         //Set requite not allow same email
         if (mNotAllowSameEmail.get()) {
-            mPollItem.setSameEmail(mNotAllowSameEmail.get());
+            mPoll.setSameEmail(mNotAllowSameEmail.get());
         }
         return true;
     }
@@ -110,25 +173,25 @@ public class SettingPresenter implements SettingPollContract.Presenter {
     public void clickAugment() {
         if (mNumberLimit.get() == NUMBER_MIN_LIMIT) mNumberLimit.set(0);
         mNumberLimit.set(mNumberLimit.get() + NUMBER_SPACE);
-        mPollItem.setNumMaxVote(mNumberLimit.get());
+        mPoll.setNumMaxVote(mNumberLimit.get());
     }
 
     @Override
     public void clickMinus() {
         if (mNumberLimit.get() > 0) mNumberLimit.set(mNumberLimit.get() - NUMBER_SPACE);
-        mPollItem.setNumMaxVote(mNumberLimit.get());
+        mPoll.setNumMaxVote(mNumberLimit.get());
     }
 
     @Override
     public void changeAllowEditPoll(boolean checked) {
         // TODO: 3/13/2017 checked change allow edit
-        mPollItem.setAllowEditOption(checked);
+        mPoll.setAllowEditOption(checked);
     }
 
     @Override
     public void changeAllowAddAnswer(boolean checked) {
         // TODO: 3/13/2017 checked change allow edit
-        mPollItem.setAllowAddOption(checked);
+        mPoll.setAllowAddOption(checked);
     }
 
     @Override
@@ -155,15 +218,11 @@ public class SettingPresenter implements SettingPollContract.Presenter {
         return mNumberLimit;
     }
 
-    public ObservableField<String> getPass() {
-        return mPass;
-    }
-
-    public ObservableField<String> getLinkPoll() {
-        return mLinkPoll;
-    }
-
     public ObservableBoolean getSameEmailCheck() {
         return mNotAllowSameEmail;
+    }
+
+    public PollItem getPoll() {
+        return mPoll;
     }
 }

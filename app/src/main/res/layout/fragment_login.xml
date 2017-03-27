@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
                 android:buttonTint="@color/color_grey_700"
+                android:checked="@={presenter.isRemember}"
                 android:text="@string/remember_account"
                 android:textColor="@color/color_grey_700"
                 android:textSize="@dimen/sp_16"/>

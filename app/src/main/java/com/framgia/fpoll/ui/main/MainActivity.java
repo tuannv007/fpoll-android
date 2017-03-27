@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
+            addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
             mPresenter.setInformation();
             openNavigation();
         }

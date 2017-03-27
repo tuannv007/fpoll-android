@@ -2,6 +2,8 @@ package com.framgia.fpoll.data.model.authorization;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by tuanbg on 2/9/17.
  */
-public class User extends BaseObservable {
+public class User extends BaseObservable implements Parcelable {
     @SerializedName("name")
     private String mUsername;
     @SerializedName("email")
@@ -134,5 +136,47 @@ public class User extends BaseObservable {
             ", mChatWorkId='" + mChatWorkId + '\'' +
             ", mToken='" + mToken + '\'' +
             '}';
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    protected User(Parcel in) {
+        mUsername = in.readString();
+        mEmail = in.readString();
+        mGender = in.readInt();
+        mPassword = in.readString();
+        mConfirmPassword = in.readString();
+        mAvatar = in.readString();
+        mChatWorkId = in.readString();
+        mToken = in.readString();
+        mIsActive = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mUsername);
+        dest.writeString(mEmail);
+        dest.writeInt(mGender);
+        dest.writeString(mPassword);
+        dest.writeString(mConfirmPassword);
+        dest.writeString(mAvatar);
+        dest.writeString(mChatWorkId);
+        dest.writeString(mToken);
+        dest.writeByte((byte) (mIsActive ? 1 : 0));
     }
 }
