@@ -11,16 +11,11 @@
     <style name="LinearLayoutStyle">
         <item name="android:layout_marginTop">@dimen/dp_10</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_48</item>
-        <item name="android:background">@drawable/bg_edit_text</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="ImageViewStyle">
-        <item name="android:background">@drawable/bg_image_authorization</item>
-        <item name="android:paddingTop">@dimen/dp_8</item>
-        <item name="android:paddingBottom">@dimen/dp_8</item>
-        <item name="android:paddingRight">@dimen/dp_16</item>
-        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:padding">@dimen/dp_16</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
     </style>
@@ -49,7 +44,6 @@
         <item name="android:padding">@dimen/dp_4</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="EditTextManageActivity">
@@ -158,5 +152,24 @@
         <item name="android:background">@color/color_teal_500</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="FPollCardView" parent="CardView">
+        <item name="cardBackgroundColor">@color/color_teal_600</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardCornerRadius">@dimen/dp_2</item>
+        <item name="cardElevation">@dimen/dp_2</item>
+    </style>
+
+    <style name="FPollTextCardView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:paddingRight">@dimen/dp_16</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/sp_16</item>
     </style>
 </resources>

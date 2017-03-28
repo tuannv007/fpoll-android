@@ -59,7 +59,7 @@
     <string name="msg_administration_link">Administration poll</string>
     <string name="title_admin_screen">Manager Poll</string>
     <string name="msg_url_poll">url</string>
-    <string name="title_description_poll">Description poll</string>
+    <string name="title_description_poll">Description</string>
     <string name="title_save_data">Save information</string>
     <string name="title_time_close_poll">Time close poll</string>
     <string name="title_location">Location</string>

@@ -11,6 +11,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.feedback.FeedbackRepository;
 import com.framgia.fpoll.databinding.FragmentFeedbackBinding;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +19,7 @@ import com.framgia.fpoll.util.ActivityUtil;
 public class FeedbackFragment extends Fragment implements FeedbackContract.View {
     private FragmentFeedbackBinding mBinding;
     private FeedbackContract.Presenter mPresenter;
+    private FPollProgressDialog mProgressDialog;
 
     public static FeedbackFragment newInstance() {
         return new FeedbackFragment();
@@ -35,6 +37,19 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
 
     @Override
     public void start() {
+    }
+
+    @Override
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new FPollProgressDialog(getActivity());
+        }
+        if (!mProgressDialog.isShowing()) mProgressDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.dismiss();
     }
 
     @Override

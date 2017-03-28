@@ -26,20 +26,24 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
 
     @Override
     public void sendFeedback() {
+        if (mView == null) return;
         new FeedbackValidation(mContent.get(), mName.get(), mEmail.get())
             .validation(new FeedbackValidation.Callback() {
                 @Override
                 public void onSuccess() {
+                    mView.showProgressDialog();
                     mRepository.sendFeedback(mName.get(), mEmail.get(), mContent.get(),
                         new DataCallback<String>() {
                             @Override
                             public void onSuccess(String data) {
                                 mView.sendFeedbackSuccess();
+                                mView.hideProgressDialog();
                             }
 
                             @Override
                             public void onError(String message) {
                                 mView.showMessage(R.string.msg_send_feedback_error);
+                                mView.hideProgressDialog();
                             }
                         });
                 }
