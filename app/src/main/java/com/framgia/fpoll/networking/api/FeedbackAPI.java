@@ -19,7 +19,7 @@ public interface FeedbackAPI {
         private String mName;
         @SerializedName("email")
         private String mEmail;
-        @SerializedName("sendFeedback")
+        @SerializedName("feedback")
         private String mContent;
 
         public FeedbackBody(String name, String email, String content) {

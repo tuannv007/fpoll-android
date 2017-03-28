@@ -44,7 +44,7 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
         getDataFromIntent();
         mPresenter = new PollCreationPresenter(this);
-        addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
+        addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_information);
     }
 
     @Override

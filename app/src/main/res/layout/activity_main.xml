@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
+        <variable
+            name="view"
+            type="com.framgia.fpoll.ui.main.MainActivity"/>
+
         <variable
             name="handler"
             type="com.framgia.fpoll.ui.main.MainHandler"/>
@@ -48,6 +54,7 @@
                 android:layout_margin="@dimen/dp_16"
                 android:onClick="@{()->handler.clickStartUiPollCreation()}"
                 android:src="@drawable/ic_add_white"
+                android:visibility="@{view.isShowAddPoll ? View.VISIBLE : View.GONE}"
                 app:backgroundTint="@color/color_teal_600"/>
         </android.support.design.widget.CoordinatorLayout>
 

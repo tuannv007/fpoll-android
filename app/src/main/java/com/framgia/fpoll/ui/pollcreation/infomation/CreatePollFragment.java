@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.pollcreation.infomation;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,10 +25,9 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
 import static com.framgia.fpoll.util.Constant.Tag.TIME_PICKER_TAG;
 
-public class CreatePollFragment extends Fragment implements DatePickerDialog.OnDateSetListener
-    , TimePickerDialog.OnTimeSetListener
-    , CreationContract.View
-    , GoogleApiClient.OnConnectionFailedListener {
+public class CreatePollFragment extends Fragment
+    implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
+    CreationContract.View, GoogleApiClient.OnConnectionFailedListener {
     private FragmentCreatePollBinding mBinding;
     private CreationContract.Presenter mPresenter;
     public final ObservableField<Calendar> mTime = new ObservableField<>();
@@ -55,8 +53,7 @@ public class CreatePollFragment extends Fragment implements DatePickerDialog.OnD
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_create_poll, container, false);
+        mBinding = FragmentCreatePollBinding.inflate(inflater, container, false);
         getDataFromActivity();
         mPresenter = new CreationPresenter(this, mPoll);
         mBinding.setInformation(mPoll);

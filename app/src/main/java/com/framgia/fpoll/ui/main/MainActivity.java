@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableBoolean;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
     private ProgressDialog mProgressDialog;
+    private final ObservableBoolean mIsShowAddPoll = new ObservableBoolean(true);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity
             SharePreferenceUtil.getIntances(this));
         mBinding.setPresenter((MainPresenter) mPresenter);
         mBinding.setHandler(new MainHandler(mPresenter));
+        mBinding.setView(this);
         LanguageUtil.loadLocale(this);
     }
 
@@ -95,23 +98,29 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_login:
+                setIsShowAddPoll(false);
                 startActivityForResult(AuthenticationActivity.getAuthenticationIntent(this),
                     REQUEST_LOGIN);
                 break;
-            case R.id.action_guide:
-                showHelp();
-                break;
-            case R.id.action_feedback:
-                addFragment(FeedbackFragment.newInstance(), R.string.title_feedback);
-                break;
             case R.id.action_home:
+                setIsShowAddPoll(true);
                 addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
                     R.string.title_home);
                 break;
+            case R.id.action_guide:
+                setIsShowAddPoll(false);
+                showHelp();
+                break;
+            case R.id.action_feedback:
+                setIsShowAddPoll(false);
+                addFragment(FeedbackFragment.newInstance(), R.string.title_feedback);
+                break;
             case R.id.action_introduce:
+                setIsShowAddPoll(false);
                 addFragment(IntroduceAppFragment.newInstance(), R.string.title_introduce_app);
                 break;
             case R.id.action_log_out:
+                setIsShowAddPoll(false);
                 mPresenter.logout();
                 break;
             case R.id.action_english:
@@ -217,5 +226,13 @@ public class MainActivity extends AppCompatActivity
                 })
             .setNegativeButton(android.R.string.no, null);
         alertBuilder.show();
+    }
+
+    public void setIsShowAddPoll(boolean isShow) {
+        mIsShowAddPoll.set(isShow);
+    }
+
+    public ObservableBoolean getIsShowAddPoll() {
+        return mIsShowAddPoll;
     }
 }

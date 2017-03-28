@@ -10,6 +10,8 @@ public interface FeedbackContract {
     interface View extends BaseView {
         void sendFeedbackSuccess();
         void showMessage(int resString);
+        void showProgressDialog();
+        void hideProgressDialog();
     }
 
     interface Presenter {
