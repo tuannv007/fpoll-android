@@ -1,8 +1,7 @@
 package com.framgia.fpoll.ui.main;
 
-import android.app.ProgressDialog;
 import android.annotation.TargetApi;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -33,13 +32,12 @@ import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.introduction.IntroduceAppFragment;
-import com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment;
+import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.LanguageUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 
-import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_JP;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_VN;
@@ -51,32 +49,17 @@ public class MainActivity extends AppCompatActivity
     private MainContract.Presenter mPresenter;
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
-    private PollItem mPoll = new PollItem();
     private ProgressDialog mProgressDialog;
-
-    public static Intent getMainIntent(Context context, PollItem data) {
-        Intent intent = new Intent(context, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(BUNDLE_POLL_ITEM, data);
-        intent.putExtras(bundle);
-        return intent;
-    }
-
-    private void getDataFromIntent() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
-        mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        getDataFromIntent();
         mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext())
             , SettingRepository.getInstance(getApplicationContext()),
             SharePreferenceUtil.getIntances(this));
         mBinding.setPresenter((MainPresenter) mPresenter);
+        mBinding.setHandler(new MainHandler(mPresenter));
         LanguageUtil.loadLocale(this);
     }
 
@@ -92,7 +75,8 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         mBinding.navView.setNavigationItemSelectedListener(this);
-        addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
+        addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
+            R.string.title_home);
     }
 
     public void showProgressDialog() {
@@ -110,22 +94,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_guide:
-                showHelp();
-                break;
-            case R.id.action_history:
-                addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-                    R.string.title_history);
-                break;
-            case R.id.action_feedback:
-                addFragment(FeedbackFragment.newInstance(), R.string.title_feedback);
-                break;
             case R.id.action_login:
                 startActivityForResult(AuthenticationActivity.getAuthenticationIntent(this),
                     REQUEST_LOGIN);
                 break;
+            case R.id.action_guide:
+                showHelp();
+                break;
+            case R.id.action_feedback:
+                addFragment(FeedbackFragment.newInstance(), R.string.title_feedback);
+                break;
             case R.id.action_home:
-                addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
+                addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
+                    R.string.title_home);
                 break;
             case R.id.action_introduce:
                 addFragment(IntroduceAppFragment.newInstance(), R.string.title_introduce_app);
@@ -146,7 +127,6 @@ public class MainActivity extends AppCompatActivity
                 showConfirmDialog(lang);
                 break;
             default:
-                addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
                 break;
         }
         mBinding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -166,7 +146,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void addFragment(Fragment fragment, int title) {
         ActivityUtil
-            .addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.frame_layout);
+            .addFragment(getSupportFragmentManager(), fragment, R.id.frame_layout);
         setTitle(title);
     }
 
@@ -188,7 +168,8 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
-            addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
+            addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
+                R.string.title_home);
             mPresenter.setInformation();
             openNavigation();
         }
@@ -201,14 +182,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void startUIPollCreation() {
+        startActivity(PollCreationActivity.getIntent(this, new PollItem()));
+    }
+
+    @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
-            if (fragment instanceof CreatePollFragment) super.onBackPressed();
-            else addFragment(CreatePollFragment.newInstance(mPoll), R.string.title_home);
-        }
+        } else super.onBackPressed();
     }
 
     @Override

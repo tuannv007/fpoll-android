@@ -15,8 +15,8 @@ import static com.framgia.fpoll.util.Constant.DataConstant.NUMBER_SPACE;
  * Created by tuanbg on 2/9/17.
  */
 public class ActivityUtil {
-    public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
-                                             @NonNull Fragment fragment, int frameId) {
+    public static void addFragment(@NonNull FragmentManager fragmentManager,
+                                   @NonNull Fragment fragment, int frameId) {
         fragmentManager.beginTransaction().replace(frameId, fragment).commit();
     }
 

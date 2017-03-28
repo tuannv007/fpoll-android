@@ -7,32 +7,49 @@
     <data>
 
         <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.main.MainHandler"/>
+
+        <variable
             name="presenter"
             type="com.framgia.fpoll.ui.main.MainPresenter"/>
     </data>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         bind:openDrawer="start">
 
-        <LinearLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/toolbar_layout"
-                layout="@layout/partial_toolbar"/>
-
-            <FrameLayout
-                android:id="@+id/frame_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/toolbar_layout"
+                    layout="@layout/partial_toolbar"/>
+
+                <FrameLayout
+                    android:id="@+id/frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/dp_16"
+                android:onClick="@{()->handler.clickStartUiPollCreation()}"
+                android:src="@drawable/ic_add_white"
+                app:backgroundTint="@color/color_teal_600"/>
+        </android.support.design.widget.CoordinatorLayout>
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
