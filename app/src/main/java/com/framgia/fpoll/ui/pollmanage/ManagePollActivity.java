@@ -74,7 +74,7 @@ public class ManagePollActivity extends AppCompatActivity implements ManagePollC
     public void addFragment(Fragment fragment, int resTitle) {
         setTitle(resTitle);
         ActivityUtil
-            .addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.frame_layout);
+            .addFragment(getSupportFragmentManager(), fragment, R.id.frame_layout);
     }
 
     @Override

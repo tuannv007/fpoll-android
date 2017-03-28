@@ -39,6 +39,11 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
+    public void startUIPollCreation() {
+        if (mView != null) mView.startUIPollCreation();
+    }
+
+    @Override
     public void logout() {
         if (mRepository == null) return;
         mView.showProgressDialog();

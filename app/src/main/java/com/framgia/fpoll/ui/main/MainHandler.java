@@ -13,7 +13,11 @@ public class MainHandler {
         mListener = listener;
     }
 
-    public void clickUpdateProfile(){
+    public void clickUpdateProfile() {
         if (mListener != null) mListener.updateProfile();
+    }
+
+    public void clickStartUiPollCreation() {
+        if (mListener != null) mListener.startUIPollCreation();
     }
 }

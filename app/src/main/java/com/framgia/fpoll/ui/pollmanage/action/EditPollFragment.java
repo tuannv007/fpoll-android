@@ -12,7 +12,7 @@ import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentActionBinding;
-import com.framgia.fpoll.ui.main.MainActivity;
+import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.framgia.fpoll.ui.polledition.ModifyPollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
@@ -67,7 +67,7 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
 
     @Override
     public void startUiPollCreation(DataInfoItem data) {
-        startActivity(MainActivity.getMainIntent(getActivity(), data.getPoll()));
+        startActivity(PollCreationActivity.getIntent(getActivity(), data.getPoll()));
     }
 
     @Override

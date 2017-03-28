@@ -94,14 +94,14 @@ public class AuthenticationActivity extends AppCompatActivity
             mLoginFragment = LoginFragment.newInstance(mEventSwitchUI);
         }
         ActivityUtil
-            .addFragmentToActivity(getSupportFragmentManager(), mLoginFragment, R.id.frame_layout);
+            .addFragment(getSupportFragmentManager(), mLoginFragment, R.id.frame_layout);
     }
 
     private void showForgotPasswordFragment() {
         if (mPasswordFragment == null) {
             mPasswordFragment = ForgotPasswordFragment.newInstance();
         }
-        ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mPasswordFragment,
+        ActivityUtil.addFragment(getSupportFragmentManager(), mPasswordFragment,
             R.id.frame_layout);
         setTitle(R.string.title_forgot_password);
     }
@@ -110,7 +110,7 @@ public class AuthenticationActivity extends AppCompatActivity
         if (mRegisterFragment == null) {
             mRegisterFragment = RegisterFragment.newInstance(mEventSwitchUI);
         }
-        ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), mRegisterFragment,
+        ActivityUtil.addFragment(getSupportFragmentManager(), mRegisterFragment,
             R.id.frame_layout);
         setTitle(R.string.title_register);
     }
