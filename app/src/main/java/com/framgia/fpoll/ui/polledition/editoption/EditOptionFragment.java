@@ -19,10 +19,12 @@ import android.widget.Toast;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentEditOptionBinding;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
@@ -39,6 +41,7 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     private ObservableField<EditOptionAdapter> mAdapter = new ObservableField<>();
     private int mPosition = UNSELECTED_POSITION;
     private PollItem mPollItem;
+    private FPollProgressDialog mProgressDialog;
 
     public static EditOptionFragment newInstance(PollItem pollItem) {
         EditOptionFragment editOptionFragment = new EditOptionFragment();
@@ -55,21 +58,14 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_edit_option, container, false);
         mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
-        mPresenter = new EditOptionPresenter(this, mPollItem, mPollItem.getOptions());
+        mPresenter =
+            new EditOptionPresenter(this, mPollItem, PollRepository.getInstance(getActivity()));
         mBinding.setHandler(new EditOptionHandle(mPresenter));
         mBinding.setPresenter((EditOptionPresenter) mPresenter);
         mBinding.setFragment(this);
         mAdapter.set(new EditOptionAdapter(mPresenter, mPollItem.getOptions()));
+        mProgressDialog = new FPollProgressDialog(getActivity());
         return mBinding.getRoot();
-    }
-
-    @Override
-    public void nextStep() {
-    }
-
-    @Override
-    public void previousStep() {
-        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -100,6 +96,30 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     public void showError() {
         Toast.makeText(getContext(), getString(R.string.msg_option_blank), Toast.LENGTH_SHORT)
             .show();
+    }
+
+    @Override
+    public void back() {
+    }
+
+    @Override
+    public void showDialog() {
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void hideDialog() {
+        mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMessage(int resId) {
+        Toast.makeText(getContext(), resId, Toast.LENGTH_SHORT).show();
     }
 
     @Override

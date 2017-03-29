@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemEditOptionBinding;
-import com.framgia.fpoll.databinding.ItemPageOptionBinding;
 
 import java.util.ArrayList;
 import java.util.List;

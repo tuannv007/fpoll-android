@@ -3,8 +3,13 @@ package com.framgia.fpoll.ui.polledition.editsetting;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableInt;
 
+import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Setting;
+import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
+import com.framgia.fpoll.networking.api.PollEditionApi;
 import com.framgia.fpoll.ui.pollcreation.setting.KeySetting;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 
@@ -20,9 +25,12 @@ public class EditSettingPresenter implements EditSettingContract.Presenter {
     private ObservableInt mNumberLimit = new ObservableInt();
     private RequireVoteType mRequireVoteType = RequireVoteType.NAME;
     private PollItem mPoll;
+    private PollRepository mRepository;
 
-    public EditSettingPresenter(EditSettingContract.View view, PollItem poll) {
+    public EditSettingPresenter(EditSettingContract.View view, PollItem poll,
+                                PollRepository repository) {
         mView = view;
+        mRepository = repository;
         mShowPassword.set(false);
         mNumberLimit.set(NUMBER_MIN_LIMIT);
         mPoll = poll;
@@ -128,12 +136,26 @@ public class EditSettingPresenter implements EditSettingContract.Presenter {
 
     @Override
     public void nextStep() {
-        if (mView != null) mView.nextStep();
+        if (mView == null) return;
+        mView.showDialog();
+        mRepository.editPoll(PollEditionApi.TYPE_EDIT_SETTING, mPoll,
+            new DataCallback<DataInfoItem>() {
+                @Override
+                public void onSuccess(DataInfoItem data) {
+                    mView.hideDialog();
+                    mView.showMessage(R.string.update_sucess);
+                }
+
+                @Override
+                public void onError(String msg) {
+                    mView.showMessage(msg);
+                }
+            });
     }
 
     @Override
-    public void previousStep() {
-        if (mView != null) mView.previousStep();
+    public void back() {
+        if (mView != null) mView.back();
     }
 
     @Override

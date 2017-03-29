@@ -60,4 +60,20 @@ public class PollRepository implements PollDataSource {
             }
         });
     }
+
+    @Override
+    public void editPoll(int typeEdit, PollItem pollItem,
+                         @NonNull final DataCallback<DataInfoItem> callback) {
+        mRemoteDataSource.editPoll(typeEdit, pollItem, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
 }

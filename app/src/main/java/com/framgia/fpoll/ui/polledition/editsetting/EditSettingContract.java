@@ -8,13 +8,16 @@ import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
  */
 public interface EditSettingContract {
     interface View extends BaseView {
-        void nextStep();
-        void previousStep();
+        void back();
+        void showDialog();
+        void hideDialog();
+        void showMessage(String message);
+        void showMessage(int resId);
     }
 
     interface Presenter {
         void nextStep();
-        void previousStep();
+        void back();
         void onCheckedRequireVote(boolean checked);
         void onCheckedVotingResult(boolean checked);
         void onCheckedLinkPoll(boolean checked);

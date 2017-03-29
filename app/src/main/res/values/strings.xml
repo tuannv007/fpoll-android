@@ -240,11 +240,13 @@
     <string name="msg_reload_vote_option">Network error, try reload votes!</string>
     <string name="msg_link_user_empty">Link voting not empty</string>
     <string name="msg_link_admin_empty">Link manager not empty</string>
-    <string name="msg_not_activity"> Not activity</string>
+    <string name="msg_not_activity">Not activity</string>
     <string name="msg_set_vote_number">Please set your max vote numbers (min is 2)</string>
     <string name="msg_set_poll_password">Please set your poll password !</string>
     <string name="title_change_language">Change Language</string>
     <string name="msg_change_language">Data show in screen will delete! you are ready</string>
     <string name="msg_vote_time_expired">Vote time Expired</string>
     <string name="msg_update">Updating</string>
+    <string name="msg_update_fail">Update Fail</string>
+    <string name="update_sucess">Update sucessfull</string>
 </resources>

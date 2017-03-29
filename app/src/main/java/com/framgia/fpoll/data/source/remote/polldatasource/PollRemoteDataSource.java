@@ -11,6 +11,7 @@ import com.framgia.fpoll.networking.CallbackManager;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.ServiceGenerator;
 import com.framgia.fpoll.networking.api.PollCreationApi;
+import com.framgia.fpoll.networking.api.PollEditionApi;
 import com.framgia.fpoll.networking.api.UpdateInfoPollService;
 
 /**
@@ -61,6 +62,27 @@ public class PollRemoteDataSource implements PollDataSource {
                     public void onResponse(ResponseItem<PollItem> data) {
                         if (data == null) {
                             callback.onError(mContext.getString(R.string.msg_create_poll_error));
+                        } else callback.onSuccess(data.getData());
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        callback.onError(message);
+                    }
+                }));
+    }
+
+    @Override
+    public void editPoll(int typeEdit, PollItem pollItem,
+                         @NonNull final DataCallback<DataInfoItem> callback) {
+        ServiceGenerator.createService(PollEditionApi.PollEditionService.class)
+            .updatePoll(pollItem.getId(), PollEditionApi.getRequestBodyEdit(typeEdit, pollItem))
+            .enqueue(new CallbackManager<>(mContext,
+                new CallbackManager.CallBack<ResponseItem<DataInfoItem>>() {
+                    @Override
+                    public void onResponse(ResponseItem<DataInfoItem> data) {
+                        if (data == null) {
+                            callback.onError(mContext.getString(R.string.msg_update_fail));
                         } else callback.onSuccess(data.getData());
                     }
 
