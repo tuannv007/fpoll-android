@@ -49,6 +49,7 @@ import com.framgia.fpoll.databinding.PartialHeadBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginType;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
+import com.framgia.fpoll.ui.introduction.ViewPageAdapterAuto;
 import com.framgia.fpoll.ui.main.MainHandler;
 import com.framgia.fpoll.ui.main.MainPresenter;
 import com.framgia.fpoll.ui.pollcreated.CopyLinkType;
@@ -59,6 +60,7 @@ import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
 import com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle;
 import com.framgia.fpoll.ui.polledition.editsetting.EditSettingPresenter;
+import com.framgia.fpoll.widget.ViewPageAutoScroll;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -118,6 +120,12 @@ public class DataBindingUtils {
                         view.setImageDrawable(circularBitmapDrawable);
                     }
                 });
+    }
+
+    @BindingAdapter({ "bind:bindAdapterViewPager" })
+    public static void bindAdapterViewPager(ViewPageAutoScroll viewPageAutoScroll,
+            ViewPageAdapterAuto adapter) {
+        viewPageAutoScroll.setAdapter(adapter);
     }
 
     @BindingAdapter("bind:cardBackground")

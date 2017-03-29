@@ -46,5 +46,7 @@
         <activity android:name=".ui.pollcreated.PollCreatedActivity"/>
         <activity android:name=".ui.votemanager.detail.VotingDetailActivity"/>
         <activity android:name=".ui.joinpoll.JoinPollActivity"/>
+        <activity android:name=".ui.introduction.IntroduceActivity"/>
     </application>
+
 </manifest>
