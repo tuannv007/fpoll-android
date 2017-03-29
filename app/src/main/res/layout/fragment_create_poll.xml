@@ -36,6 +36,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:scrollbars="none">
 
         <LinearLayout
@@ -132,8 +133,7 @@
                         android:hint="@string/title_description_poll"
                         android:inputType="textEmailAddress"
                         android:padding="@dimen/dp_8"
-                        android:text="@={information.description}"
-                        bind:setErrorEditText="@{msgError}"/>
+                        android:text="@={information.description}"/>
 
                 </LinearLayout>
 
@@ -147,11 +147,8 @@
                         android:src="@drawable/ic_alarm_black_24px"/>
 
                     <TextView
-                        android:id="@+id/edt_choose_time"
                         style="@style/EditTextStyle"
-                        android:background="?attr/editTextBackground"
-                        android:gravity="center_vertical"
-                        android:text="@{TimeUtil.convertTimeToString(fragment.mTime)}"/>
+                        android:text="@{information.dateClose}"/>
 
                 </LinearLayout>
 
@@ -170,20 +167,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_continue"
-                style="@style/FPollCardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/dp_4"
-                android:onClick="@{() -> handler. nextStep()}">
-
-                <android.support.v7.widget.AppCompatTextView
-                    style="@style/FPollTextCardView"
-                    android:text="@string/action_continue"/>
-            </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </layout>

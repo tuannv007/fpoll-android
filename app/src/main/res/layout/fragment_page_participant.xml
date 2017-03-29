@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="handler"
-            type="com.framgia.fpoll.ui.pollcreation.participant.ParticipantHandler"/>
 
         <variable
             name="presenter"
@@ -17,100 +12,50 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_16">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_8"
-                    android:paddingLeft="@dimen/dp_16"
-                    android:paddingRight="@dimen/dp_16"
-                    android:paddingTop="@dimen/dp_8"
-                    android:text="@string/msg_send_email"
-                    android:textSize="@dimen/sp_18"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_8"
-                    android:paddingLeft="@dimen/dp_16"
-                    android:paddingRight="@dimen/dp_16"
-                    android:paddingTop="@dimen/dp_8"
-                    android:text="@string/msg_multi_email"
-                    android:textSize="@dimen/sp_17"/>
-
-                <com.framgia.fpoll.widget.ChipsContactView
-                    android:id="@+id/edit_send_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_16"
-                    android:layout_marginLeft="@dimen/dp_16"
-                    android:layout_marginRight="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:background="@drawable/bg_edit_text"
-                    android:gravity="start"
-                    android:hint="@string/hint_enter_email_participant"
-                    android:minHeight="@dimen/dp_180"
-                    android:padding="@dimen/dp_8"
-                    android:text="@={presenter.poll.members}"
-                    android:textColorHint="@color/color_grey_400"
-                    bind:textChange="@{presenter}"/>
-            </LinearLayout>
-
-            <RelativeLayout
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8">
+                android:paddingBottom="@dimen/dp_8"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_8"
+                android:text="@string/msg_send_email"
+                android:textSize="@dimen/sp_18"/>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_previous"
-                    style="@style/FPollCardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> handler. previousStep()}"
-                    android:padding="@dimen/dp_8">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_8"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_8"
+                android:text="@string/msg_multi_email"
+                android:textSize="@dimen/sp_17"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/action_previous"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_20"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_finish"
-                    style="@style/FPollCardView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:onClick="@{() -> handler.nextStep()}"
-                    android:padding="@dimen/dp_8">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:padding="@dimen/dp_8"
-                        android:text="@string/action_finish"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_20"/>
-                </android.support.v7.widget.CardView>
-            </RelativeLayout>
+            <com.framgia.fpoll.widget.ChipsContactView
+                android:id="@+id/edit_send_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@drawable/bg_edit_text"
+                android:gravity="start"
+                android:hint="@string/hint_enter_email_participant"
+                android:minHeight="@dimen/dp_180"
+                android:padding="@dimen/dp_8"
+                android:text="@={presenter.poll.members}"
+                android:textColorHint="@color/color_grey_400"
+                bind:textChange="@{presenter}"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </layout>
