@@ -13,8 +13,4 @@ public class CreatePollActionHandle {
     public void showDatePicker() {
         if (mListener != null) mListener.showDatePicker();
     }
-
-    public void nextStep() {
-        if (mListener != null) mListener.nextStep();
-    }
 }

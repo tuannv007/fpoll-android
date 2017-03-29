@@ -7,15 +7,13 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public class ParticipantPollContract {
     interface View extends BaseView {
-        void nextStep();
-        void previousStep();
         void showCreatePollError(String message);
         void showDialog();
         void hideDialog();
+        void startUiPollCreated();
     }
 
     interface Presenter {
-        void nextStep();
-        void previousStep();
+        void createPoll();
     }
 }

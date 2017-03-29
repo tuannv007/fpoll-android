@@ -3,7 +3,6 @@ package com.framgia.fpoll.ui.pollcreation.option;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,26 +18,6 @@ public class OptionPresenter implements OptionPollContract.Presenter {
         mListOption = listOption;
         mPollItem = pollItem;
         mView.start();
-    }
-
-    @Override
-    public void nextStep() {
-        if (mView == null) return;
-        List listOptionReal = new ArrayList();
-        for (Option optionItem : mListOption) {
-            if (optionItem.getName() != null) listOptionReal.add(optionItem);
-        }
-        if (listOptionReal.size() == 0) {
-            mView.showError();
-            return;
-        }
-        mPollItem.setOptions(listOptionReal);
-        mView.nextStep();
-    }
-
-    @Override
-    public void previousStep() {
-        if (mView != null) mView.previousStep();
     }
 
     @Override

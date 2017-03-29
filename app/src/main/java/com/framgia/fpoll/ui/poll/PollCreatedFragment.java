@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.poll;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,11 +19,13 @@ import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.util.Constant;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+import static com.framgia.fpoll.util.Constant.ConstantApi.BASE_URL;
 import static com.framgia.fpoll.util.Constant.POSITION_LINK_ADMIN;
 import static com.framgia.fpoll.util.Constant.POSITION_LINK_INVITE;
+import static com.framgia.fpoll.util.Constant.TITLE_TYPE_TEXT;
 
 /**
  * Created by tuanbg on 2/21/17.
@@ -37,10 +38,10 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
     private String mlLinkAdmin;
     private String mLink;
 
-    public static PollCreatedFragment getInstance(PollItem pollItem) {
+    public static PollCreatedFragment newInstance(PollItem pollItem) {
         PollCreatedFragment pollCreatedFragment = new PollCreatedFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
         pollCreatedFragment.setArguments(bundle);
         return pollCreatedFragment;
     }
@@ -49,8 +50,7 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_created_poll, container, false);
+        mBinding = FragmentCreatedPollBinding.inflate(inflater, container, false);
         mBinding.setFragment(this);
         start();
         mBinding.setHandler(new PollCreatedHandler(mPresenter));
@@ -68,15 +68,14 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
     public void getData() {
         Bundle bundle = getArguments();
         if (bundle == null) return;
-        PollItem item = bundle.getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        PollItem item = bundle.getParcelable(BUNDLE_POLL_ITEM);
         if (item == null) return;
         mlLinkAdmin = item.getLink().get(POSITION_LINK_ADMIN).getToken();
         mLink = item.getLink().get(POSITION_LINK_INVITE).getToken();
         mItem.setUsername(item.getName());
         mItem.setEmail(item.getEmail());
-        mItem.setLink(Constant.ConstantApi.BASE_URL + mLink);
-        mItem.setLinkAdmin(
-            Constant.ConstantApi.BASE_URL + mlLinkAdmin);
+        mItem.setLink(BASE_URL + mLink);
+        mItem.setLinkAdmin(BASE_URL + mlLinkAdmin);
         mItem.setIdPoll(item.getId());
     }
 
@@ -88,7 +87,7 @@ public class PollCreatedFragment extends Fragment implements PollCreatedContract
 
     public void copy(String link) {
         ClipData clipData;
-        clipData = ClipData.newPlainText(Constant.TITLE_TYPE_TEXT, link);
+        clipData = ClipData.newPlainText(TITLE_TYPE_TEXT, link);
         mClipboardManager.setPrimaryClip(clipData);
         ActivityUtil.showToast(getActivity(), R.string.msg_copy_success);
     }

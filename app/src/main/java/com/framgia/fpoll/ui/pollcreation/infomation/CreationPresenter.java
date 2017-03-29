@@ -1,7 +1,5 @@
 package com.framgia.fpoll.ui.pollcreation.infomation;
 
-import android.text.TextUtils;
-
 import com.framgia.fpoll.data.model.PollItem;
 
 /**
@@ -14,27 +12,11 @@ public class CreationPresenter implements CreationContract.Presenter {
     public CreationPresenter(CreationContract.View view, PollItem poll) {
         mView = view;
         mPoll = poll;
-    }
-
-    @Override
-    public void nextStep() {
-        mView.bindError();
-        if (mView == null ||
-            TextUtils.isEmpty(mPoll.getUser().getUsername()) ||
-            TextUtils.isEmpty(mPoll.getUser().getEmail()) ||
-            TextUtils.isEmpty(mPoll.getTitle()) ||
-            (!android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail()).matches()))
-            return;
-        mView.nextStep();
+        mView.start();
     }
 
     @Override
     public void showDatePicker() {
         if (mView != null) mView.showDatePicker();
-    }
-
-    @Override
-    public void showTimePicker() {
-        if (mView != null) mView.showTimePicker();
     }
 }

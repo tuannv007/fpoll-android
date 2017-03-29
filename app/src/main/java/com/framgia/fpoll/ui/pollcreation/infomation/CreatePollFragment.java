@@ -1,9 +1,9 @@
 package com.framgia.fpoll.ui.pollcreation.infomation;
 
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +11,7 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentCreatePollBinding;
-import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
-import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.TimeUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
@@ -30,9 +29,8 @@ public class CreatePollFragment extends Fragment
     CreationContract.View, GoogleApiClient.OnConnectionFailedListener {
     private FragmentCreatePollBinding mBinding;
     private CreationContract.Presenter mPresenter;
-    public final ObservableField<Calendar> mTime = new ObservableField<>();
     private PollItem mPoll;
-    private Calendar mSavePickCalendar = Calendar.getInstance();
+    private Calendar mCalendar = Calendar.getInstance();
     private GoogleApiClient mGoogleApiClient;
 
     public static CreatePollFragment newInstance(PollItem data) {
@@ -65,38 +63,34 @@ public class CreatePollFragment extends Fragment
             .enableAutoManage(getActivity(), this)
             .build();
         mBinding.editLocation.setGoogleApiClient(mGoogleApiClient);
+        bindError();
         return mBinding.getRoot();
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        mSavePickCalendar.set(Calendar.YEAR, year);
-        mSavePickCalendar.set(Calendar.MONTH, monthOfYear);
-        mSavePickCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        mCalendar.set(Calendar.YEAR, year);
+        mCalendar.set(Calendar.MONTH, monthOfYear);
+        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         showTimePicker();
     }
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        mSavePickCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        mSavePickCalendar.set(Calendar.MINUTE, minute);
-        mSavePickCalendar.set(Calendar.SECOND, second);
-        if (mSavePickCalendar.before(Calendar.getInstance())) {
-            ActivityUtil.showToast(getContext(), R.string.msg_date_error);
-        } else {
-            mTime.set(mSavePickCalendar);
-            mTime.notifyChange();
-        }
+        mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        mCalendar.set(Calendar.MINUTE, minute);
+        mCalendar.set(Calendar.SECOND, second);
+        mPoll.setDateClose(TimeUtil.convertTimeToString(mCalendar));
     }
 
     @Override
     public void showDatePicker() {
-        if (mTime.get() == null) mTime.set(Calendar.getInstance());
+        if (mCalendar == null) mCalendar = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
             this,
-            mTime.get().get(Calendar.YEAR),
-            mTime.get().get(Calendar.MONTH),
-            mTime.get().get(Calendar.DAY_OF_MONTH)
+            mCalendar.get(Calendar.YEAR),
+            mCalendar.get(Calendar.MONTH),
+            mCalendar.get(Calendar.DAY_OF_MONTH)
         );
         dpd.show(getActivity().getFragmentManager(), DATE_PICKER_TAG);
     }
@@ -109,23 +103,15 @@ public class CreatePollFragment extends Fragment
 
     @Override
     public void showTimePicker() {
+        if (mCalendar == null) mCalendar = Calendar.getInstance();
         TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
             this,
-            mTime.get().get(Calendar.HOUR_OF_DAY),
-            mTime.get().get(Calendar.MINUTE),
-            mTime.get().get(Calendar.SECOND),
+            mCalendar.get(Calendar.HOUR_OF_DAY),
+            mCalendar.get(Calendar.MINUTE),
+            mCalendar.get(Calendar.SECOND),
             true
         );
         timePickerDialog.show(getActivity().getFragmentManager(), TIME_PICKER_TAG);
-    }
-
-    @Override
-    public void nextStep() {
-        mPoll.setDateClose(mBinding.edtChooseTime.getText().toString());
-        getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, OptionPollFragment.newInstance(mPoll), null)
-            .addToBackStack(null)
-            .commit();
     }
 
     @Override
@@ -141,5 +127,12 @@ public class CreatePollFragment extends Fragment
         super.onDestroy();
         mGoogleApiClient.stopAutoManage(getActivity());
         mGoogleApiClient.disconnect();
+    }
+
+    public boolean checkNextUI() {
+        return !(TextUtils.isEmpty(mPoll.getUser().getUsername()) ||
+            TextUtils.isEmpty(mPoll.getUser().getEmail()) ||
+            TextUtils.isEmpty(mPoll.getTitle()) ||
+            !android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail()).matches());
     }
 }

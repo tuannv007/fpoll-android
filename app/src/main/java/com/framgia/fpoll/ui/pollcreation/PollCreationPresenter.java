@@ -13,4 +13,19 @@ public class PollCreationPresenter implements PollCreationContract.Presenter {
         mView = view;
         mView.start();
     }
+
+    @Override
+    public void previous() {
+        if (mView != null) mView.previousUI();
+    }
+
+    @Override
+    public void next() {
+        if (mView != null) mView.nextUI();
+    }
+
+    @Override
+    public void finish() {
+        if (mView != null) mView.finishCreate();
+    }
 }

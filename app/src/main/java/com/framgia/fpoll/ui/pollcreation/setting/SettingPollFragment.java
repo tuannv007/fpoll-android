@@ -7,10 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentPageSettingBinding;
-import com.framgia.fpoll.ui.pollcreation.participant.ParticipantFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
@@ -58,20 +56,11 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     }
 
     @Override
-    public void nextStep() {
-        getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, ParticipantFragment.newInstance(mPoll), null)
-            .addToBackStack(null)
-            .commit();
-    }
-
-    @Override
-    public void previousStep() {
-        getFragmentManager().popBackStack();
-    }
-
-    @Override
     public void notifyError(int msg) {
         ActivityUtil.showToast(getContext(), getString(msg));
+    }
+
+    public boolean checkNextUI() {
+        return mPresenter != null && mPresenter.validateSetting();
     }
 }

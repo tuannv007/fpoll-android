@@ -3,7 +3,6 @@ package com.framgia.fpoll.ui.pollcreation.option;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,11 +18,14 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.FragmentPageOptionBinding;
-import com.framgia.fpoll.ui.pollcreation.setting.SettingPollFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
@@ -34,7 +36,6 @@ import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WR
  */
 public class OptionPollFragment extends Fragment implements OptionPollContract.View {
     private static final int UNSELECTED_POSITION = -1;
-    private static final int NUMBER_DEFAULT_OPTION = 4;
     private FragmentPageOptionBinding mBinding;
     private OptionPollContract.Presenter mPresenter;
     private ObservableField<OptionAdapter> mAdapter = new ObservableField<>();
@@ -60,8 +61,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_page_option, container, false);
+        mBinding = FragmentPageOptionBinding.inflate(inflater, container, false);
         getDataFromActivity();
         mPresenter = new OptionPresenter(this, mPoll, mPoll.getOptions());
         mBinding.setHandler(new OptionHandler(mPresenter));
@@ -72,24 +72,9 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     }
 
     @Override
-    public void nextStep() {
-        getFragmentManager().beginTransaction()
-            .add(R.id.frame_layout, SettingPollFragment.newInstance(mPoll), null)
-            .addToBackStack(null)
-            .commit();
-    }
-
-    @Override
-    public void previousStep() {
-        getFragmentManager().popBackStack();
-    }
-
-    @Override
     public void start() {
         if (mPoll.getOptions() != null && mPoll.getOptions().size() == 0) {
-            for (int i = 0; i < NUMBER_DEFAULT_OPTION; i++) {
-                mPoll.getOptions().add(new Option());
-            }
+            mPoll.getOptions().add(new Option());
         }
     }
 
@@ -156,5 +141,20 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     public ObservableField<OptionAdapter> getAdapter() {
         return mAdapter;
+    }
+
+    public boolean checkNextUI() {
+        List<Option> listOptionReal = new ArrayList<>();
+        for (Option item : mPoll.getOptions()) {
+            if (item.getName() != null || item.getImage() != null) {
+                listOptionReal.add(item);
+            }
+        }
+        if (listOptionReal.size() == 0) {
+            ActivityUtil.showToast(getApplicationContext(), R.string.msg_option_blank);
+            return false;
+        }
+        mPoll.setOptions(listOptionReal);
+        return true;
     }
 }

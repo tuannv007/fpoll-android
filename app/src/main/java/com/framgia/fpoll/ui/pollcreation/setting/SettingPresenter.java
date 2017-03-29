@@ -129,11 +129,7 @@ public class SettingPresenter implements SettingPollContract.Presenter {
     }
 
     @Override
-    public void nextStep() {
-        if (validateSetting() && mView != null) mView.nextStep();
-    }
-
-    private boolean validateSetting() {
+    public boolean validateSetting() {
         //If user set limit vote number option but don't set limit number
         if (mPoll.isMaxVote() &&
             mPoll.getNumMaxVote() < Constant.LIMIT_VOTE_NUMBER_MINIUM) {
@@ -157,11 +153,6 @@ public class SettingPresenter implements SettingPollContract.Presenter {
             mPoll.setSameEmail(mNotAllowSameEmail.get());
         }
         return true;
-    }
-
-    @Override
-    public void previousStep() {
-        if (mView != null) mView.previousStep();
     }
 
     @Override
