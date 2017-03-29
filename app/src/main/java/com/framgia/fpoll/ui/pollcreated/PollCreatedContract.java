@@ -1,6 +1,5 @@
-package com.framgia.fpoll.ui.poll;
+package com.framgia.fpoll.ui.pollcreated;
 
-import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -11,14 +10,13 @@ public interface PollCreatedContract {
         void copyLinkInvite();
         void startUiPollManager();
         void copyLinkManager();
-        void resentSuccess(ResponseItem data);
-        void resentError(String msg);
+        void showMessage(String msg);
         void startUiLinkInviteVote();
     }
 
     interface Presenter {
         void copyLinkInvite();
-        void viewLinkInvite(String idPoll);
+        void viewLinkInvite();
         void resendEmail(int idPoll);
         void copyLinkManager();
         void viewLinkManager();

@@ -148,6 +148,7 @@
 
                     <TextView
                         style="@style/EditTextStyle"
+                        android:background="?attr/editTextBackground"
                         android:text="@{information.dateClose}"/>
 
                 </LinearLayout>

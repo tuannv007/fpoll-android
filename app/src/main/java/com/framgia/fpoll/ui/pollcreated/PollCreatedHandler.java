@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.poll;
+package com.framgia.fpoll.ui.pollcreated;
 
 import android.support.annotation.NonNull;
 
@@ -13,8 +13,7 @@ public class PollCreatedHandler {
     }
 
     public void reSendEmail(int pollId) {
-        if (mListener == null) return;
-        mListener.resendEmail(pollId);
+        if (mListener != null) mListener.resendEmail(pollId);
     }
 
     public void copyLinkInvite() {
@@ -29,7 +28,7 @@ public class PollCreatedHandler {
         if (mListener != null) mListener.viewLinkManager();
     }
 
-    public void clickViewInvite(String idPoll) {
-        if (mListener != null) mListener.viewLinkInvite(idPoll);
+    public void clickViewInvite() {
+        if (mListener != null) mListener.viewLinkInvite();
     }
 }

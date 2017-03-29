@@ -49,9 +49,7 @@
     <string name="title_reset_password">Reset password</string>
     <string name="msg_thank_user">Thanks , %s</string>
     <string name="msg_poll_created">Your poll has been created</string>
-    <string name="msg_click_send_email">
-        <u>If you haven\'t receive email. Click me…</u>
-    </string>
+    <string name="msg_click_send_email">If you haven\'t receive email</string>
     <string name="msg_participation">Participation link</string>
     <string name="msg_send_link">Send this link to anyone you wish to invite</string>
     <string name="title_link_invited">http://poll.framgia.vn/link/Jwrjub4RRndiMEwy</string>
@@ -249,4 +247,6 @@
     <string name="msg_update">Updating</string>
     <string name="msg_update_fail">Update Fail</string>
     <string name="update_sucess">Update sucessfull</string>
+    <string name="title_copy">Copy</string>
+    <string name="action_click_me">Click me</string>
 </resources>

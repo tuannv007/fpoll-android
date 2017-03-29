@@ -17,6 +17,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
@@ -24,6 +25,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -46,6 +48,8 @@ import com.framgia.fpoll.ui.authenication.login.LoginType;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
 import com.framgia.fpoll.ui.main.MainHandler;
 import com.framgia.fpoll.ui.main.MainPresenter;
+import com.framgia.fpoll.ui.pollcreated.CopyLinkType;
+import com.framgia.fpoll.ui.pollcreated.PollCreatedHandler;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
@@ -497,5 +501,34 @@ public class DataBindingUtils {
                     layout.setVisibility(View.GONE);
                 }
             });
+    }
+
+    /*
+    * bind event copy link poll create
+    * */
+    @BindingAdapter({"bind:clickCopy", "bind:copyType"})
+    public static void copyLink(ImageView view, final PollCreatedHandler handler,
+                                final CopyLinkType type) {
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_poll_created, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_copy) {
+                    switch (type) {
+                        case LINK_ADMIN:
+                            handler.copyLinkManager();
+                            break;
+                        case LINK_USER:
+                            handler.copyLinkInvite();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
     }
 }
