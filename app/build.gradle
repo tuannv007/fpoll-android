@@ -69,6 +69,7 @@ dependencies {
     compile 'com.itextpdf:itextg:5.5.10'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services-places:10.0.1'
+    compile 'com.github.clans:fab:1.6.2'
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.databinding'

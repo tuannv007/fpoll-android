@@ -172,4 +172,17 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/sp_16</item>
     </style>
+
+    <style name="FloatActionMenu">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="FloatActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
