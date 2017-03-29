@@ -8,14 +8,10 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public class SettingPollContract {
     interface View extends BaseView {
-        void nextStep();
-        void previousStep();
         void notifyError(int msg);
     }
 
     interface Presenter {
-        void nextStep();
-        void previousStep();
         void onCheckedRequireVote(boolean checked);
         void onCheckedVotingResult(boolean checked);
         void onCheckedLinkPoll(boolean checked);
@@ -29,5 +25,6 @@ public class SettingPollContract {
         void changeAllowAddAnswer(boolean checked);
         void setNotAllowSameEmail(boolean checked);
         void resetAdditionRequire();
+        boolean validateSetting();
     }
 }

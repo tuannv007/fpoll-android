@@ -8,8 +8,6 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public class OptionPollContract {
     interface View extends BaseView {
-        void nextStep();
-        void previousStep();
         void openGallery(Option optionItem, int position);
         void deletePoll(int position);
         void augmentPoll();
@@ -18,8 +16,6 @@ public class OptionPollContract {
     }
 
     interface Presenter {
-        void nextStep();
-        void previousStep();
         void pickImage(Option optionItem, int position);
         void deletePoll(Option optionItem, int position);
         void augmentPoll();

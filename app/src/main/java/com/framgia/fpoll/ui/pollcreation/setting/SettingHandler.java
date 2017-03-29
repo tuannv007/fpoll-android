@@ -11,14 +11,6 @@ public class SettingHandler {
         mListener = listener;
     }
 
-    public void nextStep() {
-        if (mListener != null) mListener.nextStep();
-    }
-
-    public void previousStep() {
-        if (mListener != null) mListener.previousStep();
-    }
-
     public void checkedVotingResult(boolean checked) {
         if (mListener != null) mListener.onCheckedVotingResult(checked);
     }

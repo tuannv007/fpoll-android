@@ -21,7 +21,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
     }
 
     @Override
-    public void nextStep() {
+    public void createPoll() {
         if (mView != null) mView.showDialog();
         mCreationRepository.createPoll(mPoll, new DataCallback<PollItem>() {
             @Override
@@ -30,7 +30,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
                     mPoll.setId(data.getId());
                     mPoll.setLink(data.getLink());
                     mView.hideDialog();
-                    mView.nextStep();
+                  mView.startUiPollCreated();
                 }
             }
 
@@ -42,11 +42,6 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
                 }
             }
         });
-    }
-
-    @Override
-    public void previousStep() {
-        if (mView != null) mView.previousStep();
     }
 
     public void getEmail(String textEmail) {

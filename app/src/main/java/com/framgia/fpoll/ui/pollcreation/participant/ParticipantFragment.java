@@ -13,9 +13,10 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
-import com.framgia.fpoll.ui.poll.PollCreatedFragment;
+import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.tokenautocomplete.TokenCompleteTextView;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT_SWITCH_UI;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 
 /**
@@ -26,11 +27,14 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     private FragmentPageParticipantBinding mBinding;
     private ProgressDialog mProgressDialog;
     private PollItem mPoll = new PollItem();
+    private PollCreationActivity.EventSwitchUI mListener;
 
-    public static ParticipantFragment newInstance(PollItem pollItem) {
+    public static ParticipantFragment newInstance(PollItem pollItem,
+                                                  PollCreationActivity.EventSwitchUI event) {
         ParticipantFragment participantFragment = new ParticipantFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
+        bundle.putParcelable(BUNDLE_EVENT_SWITCH_UI, event);
         participantFragment.setArguments(bundle);
         return participantFragment;
     }
@@ -40,6 +44,9 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
         if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
         mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
         if (mPoll == null) mPoll = new PollItem();
+        if (bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI) != null) {
+            mListener = bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI);
+        }
     }
 
     @Nullable
@@ -50,7 +57,6 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
         getDataFromActivity();
         mPresenter =
             new ParticipantPresenter(this, PollRepository.getInstance(getContext()), mPoll);
-        mBinding.setHandler(new ParticipantHandler(mPresenter));
         mBinding.setPresenter((ParticipantPresenter) mPresenter);
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setMessage(getString(R.string.msg_creating_poll));
@@ -59,17 +65,8 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     }
 
     @Override
-    public void nextStep() {
-        PollCreatedFragment pollCreatedFragment = PollCreatedFragment.getInstance(mPoll);
-        getFragmentManager().beginTransaction()
-            .replace(R.id.frame_layout, pollCreatedFragment, null)
-            .addToBackStack(null)
-            .commit();
-    }
-
-    @Override
-    public void previousStep() {
-        getFragmentManager().popBackStack();
+    public void startUiPollCreated() {
+        if (mListener != null) mListener.startUiPollCreated();
     }
 
     @Override
@@ -90,5 +87,10 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     @Override
     public void start() {
         mBinding.editSendEmail.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Delete);
+    }
+
+    public void createPoll() {
+        if (mPresenter == null) return;
+        mPresenter.createPoll();
     }
 }

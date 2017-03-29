@@ -8,14 +8,11 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface CreationContract {
     interface View extends BaseView {
         void showDatePicker();
-        void nextStep();
         void bindError();
         void showTimePicker();
     }
 
     interface Presenter {
-        void nextStep();
         void showDatePicker();
-        void showTimePicker();
     }
 }

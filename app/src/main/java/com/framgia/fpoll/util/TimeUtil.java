@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_SPACE;
+import static com.framgia.fpoll.util.Constant.TimeFormat.DATE_OUTPUT;
+
 /**
  * Created by framgia on 20/02/2017.
  */
@@ -18,8 +21,8 @@ public class TimeUtil {
     private static final java.lang.String DATE_FORMAT = "yyyy-MM-dd hh:mm";
 
     public static String convertTimeToString(Calendar calendar) {
-        if (calendar == null) return Constant.DataConstant.DATA_SPACE;
-        return new SimpleDateFormat(Constant.TimeFormat.DATE_OUTPUT).format(calendar.getTime());
+        if (calendar == null) return DATA_SPACE;
+        return new SimpleDateFormat(DATE_OUTPUT, Locale.getDefault()).format(calendar.getTime());
     }
 
     public static String getCurentTime() {

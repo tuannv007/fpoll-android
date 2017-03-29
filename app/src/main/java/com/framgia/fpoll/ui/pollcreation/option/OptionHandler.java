@@ -13,14 +13,6 @@ public class OptionHandler {
         mListener = listener;
     }
 
-    public void nextStep() {
-        if (mListener != null) mListener.nextStep();
-    }
-
-    public void previousStep() {
-        if (mListener != null) mListener.previousStep();
-    }
-
     public void clickPickImage(Option optionItem, int position) {
         if (mListener != null) mListener.pickImage(optionItem, position);
     }
