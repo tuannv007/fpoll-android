@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.pollcreation.participant;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
-import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
+import com.framgia.fpoll.ui.pollcreated.PollCreatedActivity;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 import com.tokenautocomplete.TokenCompleteTextView;
 
-import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT_SWITCH_UI;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 
 /**
@@ -25,16 +23,13 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 public class ParticipantFragment extends Fragment implements ParticipantPollContract.View {
     private ParticipantPollContract.Presenter mPresenter;
     private FragmentPageParticipantBinding mBinding;
-    private ProgressDialog mProgressDialog;
+    private FPollProgressDialog mProgressDialog;
     private PollItem mPoll = new PollItem();
-    private PollCreationActivity.EventSwitchUI mListener;
 
-    public static ParticipantFragment newInstance(PollItem pollItem,
-                                                  PollCreationActivity.EventSwitchUI event) {
+    public static ParticipantFragment newInstance(PollItem pollItem) {
         ParticipantFragment participantFragment = new ParticipantFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
-        bundle.putParcelable(BUNDLE_EVENT_SWITCH_UI, event);
         participantFragment.setArguments(bundle);
         return participantFragment;
     }
@@ -44,9 +39,6 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
         if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
         mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
         if (mPoll == null) mPoll = new PollItem();
-        if (bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI) != null) {
-            mListener = bundle.getParcelable(BUNDLE_EVENT_SWITCH_UI);
-        }
     }
 
     @Nullable
@@ -58,15 +50,13 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
         mPresenter =
             new ParticipantPresenter(this, PollRepository.getInstance(getContext()), mPoll);
         mBinding.setPresenter((ParticipantPresenter) mPresenter);
-        mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setMessage(getString(R.string.msg_creating_poll));
-        mProgressDialog.setCancelable(false);
         return mBinding.getRoot();
     }
 
     @Override
-    public void startUiPollCreated() {
-        if (mListener != null) mListener.startUiPollCreated();
+    public void startUiPollCreated(PollItem data) {
+        startActivity(PollCreatedActivity.getIntent(getActivity(), data));
+        getActivity().finish();
     }
 
     @Override
@@ -76,12 +66,16 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
 
     @Override
     public void showDialog() {
-        mProgressDialog.show();
+        if (mProgressDialog == null) {
+            mProgressDialog = new FPollProgressDialog(getActivity());
+            mProgressDialog.setCancelable(false);
+        }
+        if (!mProgressDialog.isShowing()) mProgressDialog.show();
     }
 
     @Override
     public void hideDialog() {
-        mProgressDialog.hide();
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.hide();
     }
 
     @Override

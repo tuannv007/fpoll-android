@@ -63,7 +63,6 @@ public class CreatePollFragment extends Fragment
             .enableAutoManage(getActivity(), this)
             .build();
         mBinding.editLocation.setGoogleApiClient(mGoogleApiClient);
-        bindError();
         return mBinding.getRoot();
     }
 
@@ -130,6 +129,7 @@ public class CreatePollFragment extends Fragment
     }
 
     public boolean checkNextUI() {
+        bindError();
         return !(TextUtils.isEmpty(mPoll.getUser().getUsername()) ||
             TextUtils.isEmpty(mPoll.getUser().getEmail()) ||
             TextUtils.isEmpty(mPoll.getTitle()) ||

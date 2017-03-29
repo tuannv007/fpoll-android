@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.pollcreation.participant;
 
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -10,7 +11,7 @@ public class ParticipantPollContract {
         void showCreatePollError(String message);
         void showDialog();
         void hideDialog();
-        void startUiPollCreated();
+        void startUiPollCreated(PollItem data);
     }
 
     interface Presenter {

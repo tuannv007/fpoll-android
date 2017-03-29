@@ -30,7 +30,7 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
                     mPoll.setId(data.getId());
                     mPoll.setLink(data.getLink());
                     mView.hideDialog();
-                  mView.startUiPollCreated();
+                    mView.startUiPollCreated(data);
                 }
             }
 

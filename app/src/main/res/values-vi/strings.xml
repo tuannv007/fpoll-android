@@ -47,9 +47,7 @@
     <string name="title_reset_password">Reset mật khẩu</string>
     <string name="msg_thank_user">Cảm ơn , %s</string>
     <string name="msg_poll_created">Poll của bạn đã được tạo thành công</string>
-    <string name="msg_click_send_email">
-        <u>Nếu bạn chưa nhận được email, hãy kích vào đây...</u>
-    </string>
+    <string name="msg_click_send_email">Nếu bạn chưa nhận được email</string>
     <string name="msg_participation">Link để mời</string>
     <string name="msg_send_link">Gởi link này đến bất kỳ ai bạn muốn mời họ tham gia bình chọn
     </string>

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableBoolean;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -14,7 +12,6 @@ import android.view.MenuItem;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.ActivityPollCreationBinding;
-import com.framgia.fpoll.ui.poll.PollCreatedFragment;
 import com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment;
 import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantFragment;
@@ -38,23 +35,6 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
     private OptionPollFragment mOptionFragment;
     private SettingPollFragment mSettingFragment;
     private ParticipantFragment mParticipantFragment;
-    private EventSwitchUI mListener = new EventSwitchUI() {
-        @Override
-        public void startUiPollCreated() {
-            getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, PollCreatedFragment.newInstance(mPoll))
-                .commit();
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-        }
-    };
 
     public static Intent getIntent(Context context, PollItem data) {
         Intent intent = new Intent(context, PollCreationActivity.class);
@@ -132,7 +112,7 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
 
     private void addParticipant() {
         if (mParticipantFragment == null) {
-            mParticipantFragment = ParticipantFragment.newInstance(mPoll, mListener);
+            mParticipantFragment = ParticipantFragment.newInstance(mPoll);
         }
         addFragment(mParticipantFragment);
         mType = PARTICIPANT;
@@ -198,7 +178,7 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
     @Override
     public void finishCreate() {
         if (mParticipantFragment == null) {
-            mParticipantFragment = ParticipantFragment.newInstance(mPoll, mListener);
+            mParticipantFragment = ParticipantFragment.newInstance(mPoll);
         }
         mParticipantFragment.createPoll();
     }
@@ -225,9 +205,5 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
 
     public ObservableBoolean getIsShowNext() {
         return mIsShowNext;
-    }
-
-    public interface EventSwitchUI extends Parcelable {
-        void startUiPollCreated();
     }
 }

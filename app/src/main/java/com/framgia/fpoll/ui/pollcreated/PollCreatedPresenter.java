@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.poll;
+package com.framgia.fpoll.ui.pollcreated;
 
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.resentemail.ResentEmailRepository;
@@ -13,8 +13,9 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     private ResentEmailRepository mRepository;
 
     public PollCreatedPresenter(PollCreatedContract.View view, ResentEmailRepository repository) {
-        this.mView = view;
+        mView = view;
         mRepository = repository;
+        mView.start();
     }
 
     @Override
@@ -23,7 +24,7 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     }
 
     @Override
-    public void viewLinkInvite(String token) {
+    public void viewLinkInvite() {
         mView.startUiLinkInviteVote();
     }
 
@@ -32,12 +33,12 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
         mRepository.resentEmail(pollId, new DataCallback<ResponseItem>() {
             @Override
             public void onSuccess(ResponseItem data) {
-                mView.resentSuccess(data);
+                mView.showMessage(data.getMessage().toString());
             }
 
             @Override
             public void onError(String msg) {
-                mView.resentError(msg);
+                mView.showMessage(msg);
             }
         });
     }
