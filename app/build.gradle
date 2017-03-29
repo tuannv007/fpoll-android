@@ -8,11 +8,12 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.framgia.fpoll"
+        resValue "string", "GOOGLE_API_KEY", GOOGLE_API_KEY
         resValue "string", "FACEBOOK_KEY", FACEBOOK_KEY
         resValue "string", "TWITTER_VALUE", TWITTER_VALUE
         resValue "string", "TWITTER_SECRET", TWITTER_SECRET
         resValue "string", "TWITTER_KEY", TWITTER_KEY
-        resValue "string", "GOOGLE_API_KEY", GOOGLE_API_KEY
+
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -69,6 +70,7 @@ dependencies {
     compile 'com.itextpdf:itextg:5.5.10'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services-places:10.0.1'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.databinding'

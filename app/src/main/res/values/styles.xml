@@ -172,4 +172,9 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/sp_16</item>
     </style>
+
+    <style name="FloatMenuTitleStyle">
+        <item name="android:background">@drawable/bg_float_menu_title</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

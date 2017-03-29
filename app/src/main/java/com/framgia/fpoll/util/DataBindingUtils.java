@@ -30,6 +30,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
 import com.framgia.fpoll.ui.polledition.editsetting.EditSettingPresenter;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -478,5 +480,22 @@ public class DataBindingUtils {
             .placeholder(placeholder)
             .error(error)
             .into(view);
+    }
+
+    @BindingAdapter("bind:containView")
+    public static void setContainerView(FloatingActionsMenu menu, final RelativeLayout layout) {
+        layout.setVisibility(menu.isExpanded() ? View.VISIBLE : View.GONE);
+        menu.setOnFloatingActionsMenuUpdateListener(
+            new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+                @Override
+                public void onMenuExpanded() {
+                    layout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onMenuCollapsed() {
+                    layout.setVisibility(View.GONE);
+                }
+            });
     }
 }
