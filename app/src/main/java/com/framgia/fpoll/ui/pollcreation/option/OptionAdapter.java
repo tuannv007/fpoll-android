@@ -9,7 +9,6 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemPageOptionBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,18 +17,12 @@ import java.util.List;
  */
 public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHolder> {
     private LayoutInflater mInflater;
-    private List<Option> mListOption = new ArrayList<>();
+    private List<Option> mListOption;
     private OptionPollContract.Presenter mPresenter;
 
     public OptionAdapter(OptionPollContract.Presenter presenter, List<Option> optionItems) {
         mPresenter = presenter;
-        mListOption.addAll(optionItems);
-        notifyDataSetChanged();
-    }
-
-    public void update(List<Option> optionItems) {
-        mListOption.clear();
-        mListOption.addAll(optionItems);
+        mListOption = optionItems;
         notifyDataSetChanged();
     }
 
@@ -45,7 +38,7 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHold
     @Override
     public void onBindViewHolder(OptionHolder holder, int position) {
         Option option = mListOption.get(position);
-        if (option != null) holder.bind(option, position);
+        if (option != null) holder.bind(option);
     }
 
     @Override
@@ -61,9 +54,9 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHold
             mBinding = binding;
         }
 
-        private void bind(Option option, int position) {
+        private void bind(Option option) {
             mBinding.setOption(option);
-            mBinding.setPosition(position);
+            mBinding.setPosition(getAdapterPosition());
             mBinding.executePendingBindings();
         }
     }

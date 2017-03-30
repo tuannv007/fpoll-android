@@ -160,8 +160,12 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
                 if (mOptionFragment == null) {
                     mOptionFragment = OptionPollFragment.newInstance(mPoll);
                 }
-                if (!mOptionFragment.checkNextUI()) return;
-                addSetting();
+                mOptionFragment.checkNextUI(new OptionPollFragment.OnCheckOptionListenner() {
+                    @Override
+                    public void onSuccessful() {
+                        addSetting();
+                    }
+                });
                 break;
             case SETTING:
                 if (mSettingFragment == null) {

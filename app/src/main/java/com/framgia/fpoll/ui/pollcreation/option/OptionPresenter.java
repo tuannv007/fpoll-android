@@ -31,12 +31,17 @@ public class OptionPresenter implements OptionPollContract.Presenter {
     }
 
     @Override
+    public void deleteImage(Option option) {
+        option.setImage(null);
+    }
+
+    @Override
     public void deletePoll(Option optionItem, int position) {
         mView.deletePoll(position);
     }
 
     @Override
-    public void augmentPoll() {
-        mView.augmentPoll();
+    public void augmentPoll(int position) {
+        mView.augmentPoll(position);
     }
 }
