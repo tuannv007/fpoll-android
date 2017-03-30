@@ -4,8 +4,11 @@ import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -74,6 +78,7 @@ import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_EMAIL;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_EMAIL_NAME;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_NAME;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_NOT_EQUAL_EMAIL;
+import static com.getbase.floatingactionbutton.R.styleable.FloatingActionsMenu;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -530,5 +535,10 @@ public class DataBindingUtils {
             }
         });
         popupMenu.show();
+    }
+
+    @BindingAdapter("bind:textColor")
+    public static void setTextColor(AppCompatTextView view, int color) {
+        view.setTextColor(ContextCompat.getColor(view.getContext(), color));
     }
 }

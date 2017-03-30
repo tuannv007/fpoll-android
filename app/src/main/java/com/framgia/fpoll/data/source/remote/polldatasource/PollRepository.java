@@ -76,4 +76,20 @@ public class PollRepository implements PollDataSource {
             }
         });
     }
+
+    public void getActivity(String token, final @NonNull
+        DataCallback<ResponseItem<DataInfoItem>> callback) {
+        mRemoteDataSource
+            .getActivity(token, new DataCallback<ResponseItem<DataInfoItem>>() {
+                @Override
+                public void onSuccess(ResponseItem<DataInfoItem> data) {
+                    callback.onSuccess(data);
+                }
+
+                @Override
+                public void onError(String msg) {
+                    callback.onError(msg);
+                }
+            });
+    }
 }

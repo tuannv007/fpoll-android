@@ -50,7 +50,7 @@ public class EditOptionPresenter implements EditOptionContract.Presenter {
                 @Override
                 public void onSuccess(DataInfoItem data) {
                     mView.hideDialog();
-                    mView.showMessage(R.string.update_sucess);
+                    mView.showMessage(R.string.update_success);
                 }
 
                 @Override
