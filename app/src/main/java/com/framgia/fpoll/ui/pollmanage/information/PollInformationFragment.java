@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
+import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment;
 import com.framgia.fpoll.ui.pollmanage.information.viewoption.PollOptionDialogFragment;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
@@ -130,6 +131,16 @@ public class PollInformationFragment extends Fragment
         mCalendar.set(Calendar.MINUTE, minute);
         mCalendar.set(Calendar.SECOND, second);
         mPollInfo.getPoll().setDateClose(TimeUtil.convertTimeToString(mCalendar));
+    }
+
+    @Override
+    public void showProgress() {
+        ((ManagePollActivity) getActivity()).showProgressDialog();
+    }
+
+    @Override
+    public void hideProgress() {
+        ((ManagePollActivity) getActivity()).hideProgressDialog();
     }
 
     @Override

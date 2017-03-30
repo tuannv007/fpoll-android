@@ -16,7 +16,7 @@
         <import type="com.framgia.fpoll.ui.authenication.login.LoginType"/>
     </data>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -34,7 +34,6 @@
 
                 <ImageView
                     style="@style/ImageViewStyle"
-                    android:background="@drawable/bg_image_authorization"
                     android:src="@drawable/ic_person_black_24dp"/>
 
                 <EditText
@@ -140,5 +139,5 @@
                     android:textSize="@dimen/sp_18"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

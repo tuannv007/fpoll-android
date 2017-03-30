@@ -22,6 +22,7 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     private PollHistoryType mHistoryType;
     private ManagerRepository mRepository;
     private User mUser;
+    private SharePreferenceUtil mPreference;
 
     public PollHistoryPresenter(PollHistoryContract.View view, PollHistoryType typeHistory,
                                 ManagerRepository repository, SharePreferenceUtil preference) {
@@ -29,11 +30,18 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
         mRepository = repository;
         mHistoryType = typeHistory;
         mUser = preference.getUser();
+        mPreference = preference;
         mView.start();
     }
 
     @Override
     public void getData() {
+        if (mView == null || mRepository == null) return;
+        if (!mPreference.isLogin()) {
+            mView.setLoadingTrue();
+            mView.setLoadingFalse();
+            return;
+        }
         mView.setLoadingTrue();
         switch (mHistoryType) {
             case INITIATE:

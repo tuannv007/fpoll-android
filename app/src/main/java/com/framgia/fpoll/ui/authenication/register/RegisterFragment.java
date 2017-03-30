@@ -23,7 +23,6 @@ import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT_SWITCH_UI;
@@ -37,7 +36,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     private RegisterContract.Presenter mPresenter;
     private AuthenticationActivity.EventSwitchUI mEventSwitchUI;
     private User mUser = new User();
-    private FPollProgressDialog mDialog;
 
     public static RegisterFragment newInstance(AuthenticationActivity.EventSwitchUI event) {
         RegisterFragment fragment = new RegisterFragment();
@@ -146,13 +144,12 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
     @Override
     public void showDialog() {
-        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
-        mDialog.show();
+        ((AuthenticationActivity) getActivity()).showProgressDialog();
     }
 
     @Override
     public void dismissDialog() {
-        if (mDialog.isShowing() && mDialog != null) mDialog.dismiss();
+        ((AuthenticationActivity) getActivity()).hideProgressDialog();
     }
 
     @Override

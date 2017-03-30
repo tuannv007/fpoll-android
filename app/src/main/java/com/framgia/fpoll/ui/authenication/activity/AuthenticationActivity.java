@@ -8,7 +8,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
@@ -16,14 +15,14 @@ import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginFragment;
 import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
 import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
+import com.framgia.fpoll.ui.base.BaseActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 
 /**
  * Created by tuanbg on 2/9/17.
  * <.
  */
-public class AuthenticationActivity extends AppCompatActivity
-    implements AuthenticationContract.View {
+public class AuthenticationActivity extends BaseActivity implements AuthenticationContract.View {
     private ActivityAuthenticationBinding mBinding;
     private AuthenticationContract.Presenter mPresenter;
     private LoginFragment mLoginFragment;

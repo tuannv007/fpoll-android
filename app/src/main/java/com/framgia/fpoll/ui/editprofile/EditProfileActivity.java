@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.editprofile;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,12 +10,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.ActivityEditProfileBinding;
+import com.framgia.fpoll.ui.base.BaseActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
@@ -28,10 +27,9 @@ import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WR
  * Created by tran.trung.phong on 20/02/2017.
  * <></>
  */
-public class EditProfileActivity extends AppCompatActivity implements EditProfileContract.View {
+public class EditProfileActivity extends BaseActivity implements EditProfileContract.View {
     private ActivityEditProfileBinding mBinding;
     private EditProfileContract.Presenter mPresenter;
-    private ProgressDialog mProgressDialog;
 
     public static Intent getProfileEditionIntent(Context context) {
         return new Intent(context, EditProfileActivity.class);
@@ -111,15 +109,11 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
     @Override
     public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.msg_loading));
-        }
-        if (!mProgressDialog.isShowing()) mProgressDialog.show();
+        showProgressDialog();
     }
 
     @Override
     public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.dismiss();
+        hideProgressDialog();
     }
 }

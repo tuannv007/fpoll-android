@@ -1,11 +1,13 @@
 package com.framgia.fpoll.ui.pollcreation;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableBoolean;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -177,6 +179,22 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+            .setMessage(getString(R.string.msg_cancel_create_poll))
+            .setPositiveButton(getString(android.R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PollCreationActivity.super.onBackPressed();
+                    }
+                })
+            .setNegativeButton(getString(android.R.string.cancel), null)
+            .create()
+            .show();
     }
 
     @Override

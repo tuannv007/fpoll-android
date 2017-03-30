@@ -262,4 +262,5 @@
     <string name="title_anonymous">Anonymous </string>
     <string name="title_user_created">Created by :</string>
     <string name="title_user_at">Create at :</string>
+    <string name="msg_cancel_create_poll">You want to cancel create this poll</string>
 </resources>

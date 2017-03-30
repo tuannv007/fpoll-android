@@ -14,6 +14,8 @@ public interface PollInformationContract {
         void saveSuccess(String message);
         void onError(String message);
         void showDateTimePicker();
+        void showProgress();
+        void hideProgress();
     }
 
     interface Presenter {
