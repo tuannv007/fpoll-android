@@ -2,6 +2,7 @@ package com.framgia.fpoll.networking;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResponseItem<T> {
@@ -12,7 +13,7 @@ public class ResponseItem<T> {
     @SerializedName("data")
     private T mData;
     @SerializedName("messages")
-    private List<String> mMessage;
+    private List<String> mMessage = new ArrayList<>();
 
     public int getStatus() {
         return mStatus;

@@ -3,7 +3,9 @@
         xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View"/>
+
         <variable
             name="handler"
             type="com.framgia.fpoll.ui.pollmanage.result.ResultActionHandler"/>
@@ -15,94 +17,48 @@
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/linear_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="@dimen/dp_20"
-                android:text="@string/title_image"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_15"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:padding="@dimen/dp_20"
-                android:text="@string/title_option"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_15"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="@dimen/sp_15"
-                android:text="@string/title_vote"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_20"
-                android:textStyle="bold"/>
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_8">
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linear_title"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             app:layoutManager="@{LayoutManageUtil.linear()}"
             bind:bindAdapter="@{fragment.adapter}"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginStart="@dimen/dp_30"
-                android:visibility="@{fragment.vote > 0 ? View.VISIBLE : View.INVISIBLE}">
+            <android.support.v7.widget.CardView
+                style="@style/FPollCardView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{() -> handler.exportPdf()}">
 
-                <ImageView
-                    android:layout_width="@dimen/dp_30"
-                    android:layout_height="@dimen/dp_30"
-                    android:onClick="@{() -> handler.showBartChart()}"
-                    android:src="@drawable/ic_pie_chart_black_24px"/>
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/FPollTextCardView"
+                    android:text="@string/action_export_pdf"/>
+            </android.support.v7.widget.CardView>
 
-                <ImageView
-                    android:layout_width="@dimen/dp_30"
-                    android:layout_height="@dimen/dp_30"
-                    android:onClick="@{() -> handler.showPieChart()}"
-                    android:src="@drawable/ic_insert_chart_black_24px"/>
-            </LinearLayout>
+            <android.support.v7.widget.CardView
+                style="@style/FPollCardView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{() -> handler.exportExcel()}">
 
-            <Button
-                style="@style/ButtonActionPollResult"
-                android:onClick="@{() -> handler.exportPdf()}"
-                android:text="@string/action_export_pdf"/>
-
-            <Button
-                style="@style/ButtonActionPollResult"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:onClick="@{() -> handler.exportExcel()}"
-                android:text="@string/action_export_excel"/>
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/FPollTextCardView"
+                    android:text="@string/action_export_excel"/>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
-
-    </RelativeLayout>
-
+    </LinearLayout>
 </layout>
