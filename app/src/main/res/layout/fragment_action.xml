@@ -14,6 +14,8 @@
             type="com.framgia.fpoll.ui.pollmanage.action.EditPollPresenter"/>
 
         <import type="java.lang.Boolean"/>
+
+        <import type="android.view.View"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -149,11 +151,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{()->handler.closePoll()}"
+                android:visibility="@{presenter.pollOpen ? View.VISIBLE : View.GONE}"
                 fab:fab_colorNormal="@android:color/white"
                 fab:fab_colorPressed="@color/color_seashell"
                 fab:fab_icon="@drawable/ic_cancel_circle"
                 fab:fab_size="mini"
                 fab:fab_title="@string/title_close_this_poll"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->handler.deleteVoting()}"
+                android:visibility="@{presenter.pollOpen ? View.GONE : View.VISIBLE}"
+                fab:fab_colorNormal="@android:color/white"
+                fab:fab_colorPressed="@android:color/white"
+                fab:fab_icon="@drawable/ic_delete_white_24px"
+                fab:fab_size="mini"
+                fab:fab_title="@string/title_delete_voting"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -165,15 +179,6 @@
                 fab:fab_size="mini"
                 fab:fab_title="@string/title_create_duplicate"/>
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->handler.deleteVoting()}"
-                fab:fab_colorNormal="@android:color/white"
-                fab:fab_colorPressed="@android:color/white"
-                fab:fab_icon="@drawable/ic_delete_white_24px"
-                fab:fab_size="mini"
-                fab:fab_title="@string/title_delete_voting"/>
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

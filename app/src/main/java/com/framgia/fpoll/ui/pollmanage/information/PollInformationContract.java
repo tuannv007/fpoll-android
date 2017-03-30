@@ -13,6 +13,7 @@ public interface PollInformationContract {
         void showDialogSetting();
         void saveSuccess(String message);
         void onError(String message);
+        void showDateTimePicker();
     }
 
     interface Presenter {
@@ -20,5 +21,6 @@ public interface PollInformationContract {
         void clickViewOption();
         void clickViewSetting();
         void saveInformation(int id);
+        void showDateTimePicker();
     }
 }

@@ -26,7 +26,5 @@ public class ResultVoteContract {
         void exportExcel();
         void getAllData(@NonNull String token);
         int getKey();
-        void showPieChart();
-        void showBartChart();
     }
 }

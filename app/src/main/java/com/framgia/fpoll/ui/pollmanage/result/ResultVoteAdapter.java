@@ -1,11 +1,9 @@
 package com.framgia.fpoll.ui.pollmanage.result;
 
-import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.databinding.ItemResultVoteBinding;
 
@@ -26,8 +24,7 @@ public class ResultVoteAdapter extends RecyclerView.Adapter<ResultVoteAdapter.Re
     @Override
     public ResultVoteHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
-        ItemResultVoteBinding binding =
-            DataBindingUtil.inflate(mInflater, R.layout.item_result_vote, parent, false);
+        ItemResultVoteBinding binding = ItemResultVoteBinding.inflate(mInflater, parent, false);
         return new ResultVoteHolder(binding);
     }
 
@@ -51,7 +48,7 @@ public class ResultVoteAdapter extends RecyclerView.Adapter<ResultVoteAdapter.Re
         }
 
         private void bind(ResultVoteItem.Result item) {
-            mBinding.setItem(item);
+            mBinding.setResult(item);
             mBinding.executePendingBindings();
         }
     }

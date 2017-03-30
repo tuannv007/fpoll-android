@@ -11,22 +11,10 @@ public class ResultActionHandler {
     }
 
     public void exportPdf() {
-        if (mListener == null) return;
-        mListener.exportPDF();
+        if (mListener != null) mListener.exportPDF();
     }
 
     public void exportExcel() {
-        if (mListener == null) return;
-        mListener.exportExcel();
-    }
-
-    public void showPieChart() {
-        if (mListener == null) return;
-        mListener.showPieChart();
-    }
-
-    public void showBartChart() {
-        if (mListener == null) return;
-        mListener.showBartChart();
+        if (mListener != null) mListener.exportExcel();
     }
 }

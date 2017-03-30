@@ -104,8 +104,11 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.action_home:
                 setIsShowAddPoll(true);
-                addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-                    R.string.title_home);
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+                if (!(fragment instanceof HistoryFragment)) {
+                    addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
+                        R.string.title_home);
+                }
                 break;
             case R.id.action_guide:
                 setIsShowAddPoll(false);

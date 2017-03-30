@@ -13,6 +13,8 @@ public interface EditPollContract {
         void showMessage(int msg);
         void startModifyPoll(PollItem poll);
         void startUiPollCreation(DataInfoItem data);
+        void showProgressDialog();
+        void hideProgressDialog();
     }
 
     interface Presenter {

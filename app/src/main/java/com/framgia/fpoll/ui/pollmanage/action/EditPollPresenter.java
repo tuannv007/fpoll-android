@@ -60,11 +60,12 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void updateLinkPoll() {
-        if (mRepository == null) return;
+        if (mRepository == null || mView == null) return;
         new UpdateTokenValidation(mLinkVoting.get(), mLinkManager.get()).validate(
             new UpdateTokenValidation.UpdateTokenCallback() {
                 @Override
                 public void onSuccess() {
+                    mView.showProgressDialog();
                     submitUpdateLink();
                 }
 
@@ -90,11 +91,13 @@ public class EditPollPresenter implements EditPollContract.Presenter {
                 @Override
                 public void onSuccess(String data) {
                     mView.showMessage(data);
+                    mView.hideProgressDialog();
                     loadData();
                 }
 
                 @Override
                 public void onError(String msg) {
+                    mView.hideProgressDialog();
                     mView.showMessage(msg);
                 }
             });
