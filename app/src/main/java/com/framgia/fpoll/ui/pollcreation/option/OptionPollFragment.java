@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.databinding.ObservableField;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +22,6 @@ import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.FragmentPageOptionBinding;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -35,12 +34,13 @@ import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WR
  * <
  */
 public class OptionPollFragment extends Fragment implements OptionPollContract.View {
-    private static final int UNSELECTED_POSITION = -1;
+    private static final int DEFAULT_OPTION = 4;
+    private static final long DELAY_VIEW_TIME = 700;
     private FragmentPageOptionBinding mBinding;
     private OptionPollContract.Presenter mPresenter;
     private ObservableField<OptionAdapter> mAdapter = new ObservableField<>();
-    private int mPosition = UNSELECTED_POSITION;
     private PollItem mPoll = new PollItem();
+    private Option mOption;
 
     public static OptionPollFragment newInstance(PollItem pollItem) {
         OptionPollFragment optionPollFragment = new OptionPollFragment();
@@ -74,13 +74,15 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     @Override
     public void start() {
         if (mPoll.getOptions() != null && mPoll.getOptions().size() == 0) {
-            mPoll.getOptions().add(new Option());
+            for (int i = 0; i < DEFAULT_OPTION; i++) {
+                mPoll.getOptions().add(new Option());
+            }
         }
     }
 
     @Override
     public void openGallery(Option optionItem, int position) {
-        mPosition = position;
+        mOption = optionItem;
         if (PermissionsUtil.isAllowPermissions(getActivity())) {
             pickImage();
         }
@@ -100,14 +102,17 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
 
     @Override
     public void deletePoll(int position) {
+        if (position == 0 && mAdapter.get().getItemCount() == 1 ||
+            position > mAdapter.get().getItemCount() - 1) return;
         mPoll.getOptions().remove(position);
-        mAdapter.get().update(mPoll.getOptions());
+        mAdapter.get().notifyDataSetChanged();
     }
 
     @Override
-    public void augmentPoll() {
+    public void augmentPoll(int position) {
+        if (position != mAdapter.get().getItemCount() - 1) return;
         mPoll.getOptions().add(new Option());
-        mAdapter.get().update(mPoll.getOptions());
+        mAdapter.get().notifyItemInserted(mAdapter.get().getItemCount() - 1);
     }
 
     @Override
@@ -123,7 +128,8 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_PICKER_SELECT && resultCode == RESULT_OK && data != null) {
+        if (requestCode == IMAGE_PICKER_SELECT &&
+            resultCode == RESULT_OK && data != null && mOption != null) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = getActivity().getContentResolver()
@@ -131,10 +137,7 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
             if (cursor == null) return;
             cursor.moveToFirst();
             String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
-            if (mPosition != UNSELECTED_POSITION) {
-                mPoll.getOptions().get(mPosition).setImage(url);
-                mAdapter.get().update(mPoll.getOptions());
-            }
+            mOption.setImage(url);
             cursor.close();
         }
     }
@@ -143,18 +146,38 @@ public class OptionPollFragment extends Fragment implements OptionPollContract.V
         return mAdapter;
     }
 
-    public boolean checkNextUI() {
-        List<Option> listOptionReal = new ArrayList<>();
-        for (Option item : mPoll.getOptions()) {
-            if (item.getName() != null || item.getImage() != null) {
-                listOptionReal.add(item);
+    public void checkNextUI(@NonNull final OnCheckOptionListenner listtenner) {
+        boolean isDeleteEmptyOption = false;
+        for (int i = mPoll.getOptions().size() - 1; i >= 0; i--) {
+            Option item = mPoll.getOptions().get(i);
+            if (item.getName() == null || TextUtils.isEmpty(item.getName()) &&
+                item.getImage() == null) {
+                mPoll.getOptions().remove(i);
+                isDeleteEmptyOption = true;
             }
         }
-        if (listOptionReal.size() == 0) {
+        if (mPoll.getOptions().size() == 0) {
+            for (int i = 0; i < DEFAULT_OPTION; i++) {
+                mPoll.getOptions().add(new Option());
+            }
             ActivityUtil.showToast(getApplicationContext(), R.string.msg_option_blank);
-            return false;
+            return;
         }
-        mPoll.setOptions(listOptionReal);
-        return true;
+        if (isDeleteEmptyOption) {
+            mAdapter.get().notifyDataSetChanged();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    listtenner.onSuccessful();
+                }
+            }, DELAY_VIEW_TIME);
+        } else {
+            listtenner.onSuccessful();
+        }
+    }
+
+    public interface OnCheckOptionListenner {
+        void onSuccessful();
     }
 }

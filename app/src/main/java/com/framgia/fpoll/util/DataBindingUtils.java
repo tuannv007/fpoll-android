@@ -4,11 +4,8 @@ import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -30,6 +27,7 @@ import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -54,6 +52,7 @@ import com.framgia.fpoll.ui.main.MainHandler;
 import com.framgia.fpoll.ui.main.MainPresenter;
 import com.framgia.fpoll.ui.pollcreated.CopyLinkType;
 import com.framgia.fpoll.ui.pollcreated.PollCreatedHandler;
+import com.framgia.fpoll.ui.pollcreation.option.OptionHandler;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
@@ -78,7 +77,6 @@ import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_EMAIL;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_EMAIL_NAME;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_INPUT_NAME;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_NOT_EQUAL_EMAIL;
-import static com.getbase.floatingactionbutton.R.styleable.FloatingActionsMenu;
 
 /**
  * Created by Nhahv0902 on 2/9/2017.
@@ -540,5 +538,17 @@ public class DataBindingUtils {
     @BindingAdapter("bind:textColor")
     public static void setTextColor(AppCompatTextView view, int color) {
         view.setTextColor(ContextCompat.getColor(view.getContext(), color));
+    }
+
+    @BindingAdapter({"bind:onTouch", "bind:position"})
+    public static void setOnTouchListenner(EditText view, final OptionHandler hanlder,
+                                           final int position) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hanlder.clickAugmentPoll(position);
+                return false;
+            }
+        });
     }
 }

@@ -143,4 +143,18 @@ public class Option extends BaseObservable implements Parcelable {
         dest.writeString(mCreatedTime);
         dest.writeString(mUpdatedTime);
     }
+
+    @Override
+    public String toString() {
+        return "Option{" +
+            "mId=" + mId +
+            ", mName='" + mName + '\'' +
+            ", mImage='" + mImage + '\'' +
+            ", mPollId=" + mPollId +
+            ", mCreatedTime='" + mCreatedTime + '\'' +
+            ", mUpdatedTime='" + mUpdatedTime + '\'' +
+            ", mVotes=" + mVotes +
+            ", mParticipantVotes=" + mParticipantVotes +
+            '}';
+    }
 }

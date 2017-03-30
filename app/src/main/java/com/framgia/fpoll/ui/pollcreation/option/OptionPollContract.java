@@ -10,7 +10,7 @@ public class OptionPollContract {
     interface View extends BaseView {
         void openGallery(Option optionItem, int position);
         void deletePoll(int position);
-        void augmentPoll();
+        void augmentPoll(int position);
         void pickImage();
         void showError();
     }
@@ -18,7 +18,8 @@ public class OptionPollContract {
     interface Presenter {
         void pickImage(Option optionItem, int position);
         void deletePoll(Option optionItem, int position);
-        void augmentPoll();
+        void augmentPoll(int position);
         void pickDate(Option optionItem, int position);
+        void deleteImage(Option option);
     }
 }
