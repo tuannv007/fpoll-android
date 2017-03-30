@@ -28,6 +28,7 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
         mView = view;
         mList = list;
         mFile = file;
+        mView.start();
     }
 
     @Override
@@ -83,15 +84,5 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
     @Override
     public int getKey() {
         return mKey;
-    }
-
-    @Override
-    public void showPieChart() {
-        mView.showPieChart();
-    }
-
-    @Override
-    public void showBartChart() {
-        mView.showBartChart();
     }
 }

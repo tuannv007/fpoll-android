@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.pollmanage.result;
 
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Bundle;
@@ -11,6 +10,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ import java.util.List;
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_TOKEN;
 import static com.framgia.fpoll.util.Constant.Export.FILE_NAME_SAVED_EXCEL;
 import static com.framgia.fpoll.util.Constant.Export.FPOLL_FOLDER_NAME;
+import static com.framgia.fpoll.util.Constant.TYPE_DIALOG_FRAGMENT;
 import static com.framgia.fpoll.util.TimeUtil.getCurentTime;
 
 /**
@@ -61,21 +64,58 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
         return resultVoteFragment;
     }
 
+    public void getDataFromIntent() {
+        Bundle bundle = getArguments();
+        if (bundle == null || bundle.getString(KEY_TOKEN) == null) return;
+        mToken = bundle.getString(KEY_TOKEN);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_vote_result, container, false);
+        mBinding = FragmentVoteResultBinding.inflate(inflater, container, false);
         getDataFromIntent();
-        start();
         mPresenter =
-            new ResultVotePresenter(ResultVoteDataRepository.getInstance(getActivity()),
-                this, mListResultVote, mFile);
+            new ResultVotePresenter(ResultVoteDataRepository.getInstance(getActivity()), this,
+                mListResultVote, mFile);
         mBinding.setFragment(this);
         mBinding.setHandler(new ResultActionHandler(mPresenter));
         mPresenter.getAllData(mToken);
         mVote.set(HIDE_IMAGE_CHART);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void start() {
+        setHasOptionsMenu(true);
+        File exportDir =
+            new File(Environment.getExternalStorageDirectory(), FPOLL_FOLDER_NAME);
+        if (!exportDir.exists()) exportDir.mkdirs();
+        mFile = new File(exportDir, getCurentTime() + FILE_NAME_SAVED_EXCEL);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if (mListResultVote != null && mListResultVote.size() > 0) {
+            inflater.inflate(R.menu.vote_result_menu, menu);
+            menu.findItem(R.id.action_table).setVisible(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_pie_chart:
+                showPieChart();
+                break;
+            case R.id.action_bar_chart:
+                showBartChart();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -135,7 +175,7 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         DialogFragment pieChartFragment =
             PieChartFragment.newInstance(mItemList);
-        pieChartFragment.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
+        pieChartFragment.show(transaction, TYPE_DIALOG_FRAGMENT);
     }
 
     @Override
@@ -144,21 +184,7 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         DialogFragment bartChartItem =
             BarchartFragment.newInstance(mItemList);
-        bartChartItem.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
-    }
-
-    @Override
-    public void start() {
-        File exportDir =
-            new File(Environment.getExternalStorageDirectory(), FPOLL_FOLDER_NAME);
-        if (!exportDir.exists()) exportDir.mkdirs();
-        mFile = new File(exportDir, getCurentTime() + FILE_NAME_SAVED_EXCEL);
-    }
-
-    public void getDataFromIntent() {
-        Bundle bundle = getArguments();
-        if (bundle == null) return;
-        mToken = bundle.getString(KEY_TOKEN);
+        bartChartItem.show(transaction, TYPE_DIALOG_FRAGMENT);
     }
 
     public ObservableField<ResultVoteAdapter> getAdapter() {

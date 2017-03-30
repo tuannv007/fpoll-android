@@ -1,9 +1,5 @@
 package com.framgia.fpoll.ui.pollmanage.information;
 
-import android.view.View;
-
-import com.framgia.fpoll.data.model.DataInfoItem;
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 /**
@@ -36,7 +32,10 @@ public class PollInformationHandler {
     }
 
     public void saveInformation(int id) {
-        if (mListener == null) return;
-        mListener.saveInformation(id);
+        if (mListener != null) mListener.saveInformation(id);
+    }
+
+    public void showDateTimePicker() {
+        if (mListener != null) mListener.showDateTimePicker();
     }
 }

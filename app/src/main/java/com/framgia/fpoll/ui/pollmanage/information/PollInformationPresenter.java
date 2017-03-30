@@ -69,4 +69,9 @@ public class PollInformationPresenter implements PollInformationContract.Present
             }
         });
     }
+
+    @Override
+    public void showDateTimePicker() {
+        if (mView != null) mView.showDateTimePicker();
+    }
 }

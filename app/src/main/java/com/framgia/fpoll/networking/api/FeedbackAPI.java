@@ -12,8 +12,8 @@ import retrofit2.http.POST;
  * <></>
  */
 public interface FeedbackAPI {
-    @POST("api/v1/sendFeedback")
-    Call<ResponseItem<String>> feedback(@Body FeedbackBody feedbackBody);
+    @POST("api/v1/feedback")
+    Call<ResponseItem> feedback(@Body FeedbackBody feedbackBody);
     public class FeedbackBody {
         @SerializedName("name")
         private String mName;

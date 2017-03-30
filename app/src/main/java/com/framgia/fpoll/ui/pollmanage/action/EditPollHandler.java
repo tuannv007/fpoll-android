@@ -17,26 +17,23 @@ public class EditPollHandler {
         if (mListener != null) mListener.updateLinkPoll();
     }
 
-    public void clickEditPoll(EditPollType type) {
-        if (mListener == null) return;
-        switch (type) {
-            case VIEW_HISTORY:
-                mListener.viewHistory();
-                break;
-            case EDIT:
-                mListener.editPoll();
-                break;
-            case CLOSE:
-                mListener.closePoll();
-                break;
-            case CREATE:
-                mListener.createDuplicate();
-                break;
-            case DELETE:
-                mListener.deleteVoting();
-                break;
-            default:
-                break;
-        }
+    public void viewHistory() {
+        if (mListener != null) mListener.viewHistory();
+    }
+
+    public void editPoll() {
+        if (mListener != null) mListener.editPoll();
+    }
+
+    public void closePoll() {
+        if (mListener != null) mListener.closePoll();
+    }
+
+    public void createDuplicate() {
+        if (mListener != null) mListener.createDuplicate();
+    }
+
+    public void deleteVoting() {
+        if (mListener != null) mListener.deleteVoting();
     }
 }

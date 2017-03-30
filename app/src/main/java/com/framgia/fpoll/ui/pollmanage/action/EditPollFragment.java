@@ -16,6 +16,7 @@ import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.framgia.fpoll.ui.polledition.ModifyPollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 
@@ -25,6 +26,7 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 public class EditPollFragment extends Fragment implements EditPollContract.View {
     private FragmentActionBinding mBinding;
     private EditPollContract.Presenter mPresenter;
+    private FPollProgressDialog mProgressDialog;
 
     public static EditPollFragment newInstance(String token) {
         EditPollFragment fragment = new EditPollFragment();
@@ -53,6 +55,20 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
 
     @Override
     public void start() {
+    }
+
+    @Override
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new FPollProgressDialog(getActivity());
+            mProgressDialog.setCancelable(false);
+        }
+        if (!mProgressDialog.isShowing()) mProgressDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.dismiss();
     }
 
     @Override
