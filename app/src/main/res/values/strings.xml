@@ -58,7 +58,7 @@
     <string name="title_admin_screen">Manager Poll</string>
     <string name="msg_url_poll">url</string>
     <string name="title_description_poll">Description</string>
-    <string name="title_save_data">Save information</string>
+    <string name="title_save_data">Save</string>
     <string name="title_time_close_poll">Time close poll</string>
     <string name="title_location">Location</string>
     <string name="title_link_vote">Link vote</string>
@@ -249,4 +249,5 @@
     <string name="update_sucess">Update sucessfull</string>
     <string name="title_copy">Copy</string>
     <string name="action_click_me">Click me</string>
+    <string name="msg_number_vote">Number vote: %d</string>
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools"
     xmlns:fab="http://schemas.android.com/apk/res-auto">
 
@@ -22,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -30,9 +29,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_16"
-                android:weightSum="1">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -40,7 +37,7 @@
                     android:gravity="end"
                     android:padding="@dimen/dp_4"
                     android:text="@{information.poll.isOpen ? @string/title_poll_open : @string/title_poll_close}"
-                    android:textColor="@color/color_blued"/>
+                    android:textColor="@color/color_grey_700"/>
 
                 <LinearLayout
                     style="@style/LinearLayoutStyle">
@@ -81,41 +78,54 @@
 
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/bg_edit_text">
+                <LinearLayout
+                    style="@style/LinearLayoutStyle">
 
-                    <Spinner
+                    <ImageView
+                        style="@style/ImageViewStyle"
+                        android:src="@drawable/ic_question_answer_grey_24px"/>
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_48"
+                        android:layout_height="match_parent"
                         android:entries="@array/array_answer"
-                        bind:numAnswer="@{information.poll.multiple}"/>
-                </RelativeLayout>
+                        android:padding="@dimen/dp_4"
+                        android:spinnerMode="dropdown"
+                        android:splitMotionEvents="true"
+                        bind:choiceAnswer="@={information.poll.multiple}"/>
+                </LinearLayout>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_48"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/bg_edit_text"
-                    android:hint="@string/title_description_poll"
-                    android:padding="@dimen/dp_10"
-                    android:text="@={information.poll.description}"
-                    android:textSize="@dimen/sp_17"/>
+                <LinearLayout
+                    style="@style/LinearLayoutStyle">
 
-                <LinearLayout style="@style/LinearLayoutStyle">
+                    <ImageView
+                        style="@style/ImageViewStyle"
+                        android:src="@drawable/ic_description_grey"/>
+
+                    <android.support.v7.widget.AppCompatEditText
+                        style="@style/EditTextStyle"
+                        android:gravity="start"
+                        android:hint="@string/title_description_poll"
+                        android:inputType="textEmailAddress"
+                        android:padding="@dimen/dp_8"
+                        android:text="@={information.poll.description}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_choose_time"
+                    style="@style/LinearLayoutStyle"
+                    android:onClick="@{() -> handler.showDateTimePicker()}">
 
                     <ImageView
                         style="@style/ImageViewStyle"
                         android:src="@drawable/ic_alarm_black_24px"/>
 
-                    <EditText
+                    <TextView
                         style="@style/EditTextStyle"
-                        android:hint="@string/title_time_close_poll"
-                        android:inputType="datetime"
-                        android:text="@={information.poll.createdTime}"/>
-
+                        android:background="?attr/editTextBackground"
+                        android:text="@{information.poll.dateClose}"/>
                 </LinearLayout>
 
                 <LinearLayout style="@style/LinearLayoutStyle">
@@ -133,26 +143,20 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_60"
-                    android:layout_marginTop="@dimen/dp_10"
-                    app:cardBackgroundColor="@color/color_teal_600"
-                    app:cardCornerRadius="@dimen/dp_4"
-                    app:cardElevation="@dimen/dp_1"
-                    app:cardUseCompatPadding="true">
+                    style="@style/FPollCardView"
+                    android:layout_width="@dimen/dp_150"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:onClick="@{() -> handler.saveInformation(information.poll.id)}">
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:onClick="@{() -> handler.saveInformation(information.poll.id)}"
-                        android:text="@string/title_save_data"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_20"/>
+                        style="@style/FPollTextCardView"
+                        android:text="@string/title_save_data"/>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
         <RelativeLayout
             android:id="@+id/relative_menu"
@@ -206,7 +210,5 @@
                 fab:fab_title="@string/title_link_vote"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
     </RelativeLayout>
-
 </layout>
