@@ -9,11 +9,29 @@
             type="com.framgia.fpoll.data.model.poll.Setting"/>
     </data>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
-        android:textColor="@color/color_black_700"
-        android:textSize="@dimen/sp_20"
-        bind:valueSetting="@{item.key}"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_5"
+            android:textColor="@color/color_grey_700"
+            android:textSize="@dimen/sp_15"
+            bind:valueSetting="@{item.key}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_30"
+            android:gravity="center|end"
+            android:text="@string/msg_on"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_17"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
 </layout>
