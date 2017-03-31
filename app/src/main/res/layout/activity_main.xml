@@ -28,23 +28,34 @@
         bind:openDrawer="start">
 
         <android.support.design.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
-            <LinearLayout
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <FrameLayout
+                android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <include
-                    android:id="@+id/toolbar_layout"
-                    layout="@layout/partial_toolbar"/>
-
-                <FrameLayout
-                    android:id="@+id/frame_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -67,6 +78,5 @@
             bind:bindHeader="@{presenter}"
             bind:isLogin="@{presenter.isLogin}"
             bind:user="@{presenter.user}"/>
-
     </android.support.v4.widget.DrawerLayout>
 </layout>

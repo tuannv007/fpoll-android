@@ -83,7 +83,7 @@
     <string name="action_open">Open</string>
     <string name="action_close">Close</string>
     <string name="title_history">Poll history</string>
-    <string name="title_subject">Subject: %s</string>
+    <string name="title_subject">%s</string>
     <string name="title_participants">Participants: %d</string>
     <string name="title_latest_activity">Latest activity: %s</string>
     <string name="title_view_administer_page">View Administer</string>

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void start() {
-        Toolbar toolbar = mBinding.toolbarLayout.toolbar;
+        Toolbar toolbar = mBinding.toolbar;
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDrawerLayout = mBinding.drawerLayout;

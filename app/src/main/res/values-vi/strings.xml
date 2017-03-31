@@ -81,9 +81,9 @@
     <string name="action_open">Mở</string>
     <string name="action_close">Đóng</string>
     <string name="title_history">Lịch sử poll</string>
-    <string name="title_subject">Chủ đề: %s</string>
+    <string name="title_subject">%s</string>
     <string name="title_participants">Người bầu chọn: %d</string>
-    <string name="title_latest_activity">n Hoạt động mới nhất: %s</string>
+    <string name="title_latest_activity">Hoạt động mới nhất: %s</string>
     <string name="title_view_administer_page">Xem trang quản trị</string>
     <string name="msg_link">Link</string>
     <string name="hint_poll_title">Tiêu đề poll</string>
