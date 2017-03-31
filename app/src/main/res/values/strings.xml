@@ -66,7 +66,7 @@
     <string name="title_view_setting">View setting</string>
     <string name="title_result_poll">Result</string>
     <string name="title_no_option">No</string>
-    <string name="title_vote_number">Vote number</string>
+    <string name="title_vote_number">Vote</string>
     <string name="msg_status_pool">Poll open</string>
     <string name="action_view_history">Views History Poll</string>
     <string name="action_edit_poll">Edit this poll</string>

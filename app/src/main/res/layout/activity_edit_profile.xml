@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
@@ -18,8 +17,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
-        android:scrollbars="none">
+        android:background="@color/color_white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="@dimen/dp_20">
+                android:paddingRight="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_20">
 
                 <ImageView
                     android:layout_width="@dimen/dp_150"
@@ -81,11 +80,14 @@
                         style="@style/ImageViewStyle"
                         android:src="@drawable/ic_male"/>
 
-                    <Spinner
-                        android:layout_width="0dp"
+                    <android.support.v7.widget.AppCompatSpinner
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
                         android:entries="@array/gender"
+                        android:padding="@dimen/dp_4"
+                        android:spinnerMode="dropdown"
+                        android:splitMotionEvents="true"
                         bind:selectedValue="@={presenter.user.gender}"/>
                 </LinearLayout>
 
@@ -117,25 +119,17 @@
                         android:text="@={presenter.user.confirmPassword}"/>
                 </LinearLayout>
 
-
                 <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_56"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:onClick="@{()->handler.submitEditProfile()}"
-                    app:cardBackgroundColor="@color/color_teal_600"
-                    app:cardCornerRadius="@dimen/dp_2"
-                    app:cardElevation="@dimen/dp_2"
-                    app:cardUseCompatPadding="true">
+                    style="@style/FPollCardView"
+                    android:layout_width="@dimen/dp_150"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:onClick="@{() -> handler.submitEditProfile()}">
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/title_action_edit_profile"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_20"/>
-
+                        style="@style/FPollTextCardView"
+                        android:text="@string/title_save_data"/>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </LinearLayout>

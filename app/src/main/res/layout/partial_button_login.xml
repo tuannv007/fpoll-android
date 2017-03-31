@@ -45,7 +45,10 @@
                 android:paddingTop="@dimen/dp_8"
                 bind:imageResource="@{imageButton}"/>
 
-            <include layout="@layout/partial_line"/>
+            <TextView
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
 
             <TextView
                 android:id="@+id/text_facebook"
