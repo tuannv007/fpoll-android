@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity
         mBinding.setPresenter((MainPresenter) mPresenter);
         mBinding.setHandler(new MainHandler(mPresenter));
         mBinding.setView(this);
-        LanguageUtil.loadLocale(this);
     }
 
     @Override

@@ -10,14 +10,8 @@ public class LanguageUtil {
         sharePreferenceUtil.saveLanguage(lang);
     }
 
-    public static void loadLocale(Activity activity) {
-        SharePreferenceUtil sharePreferenceUtil = SharePreferenceUtil.getIntances(activity);
-        changeLang(sharePreferenceUtil.loadLanguage(), activity);
-    }
-
     public static void changeLang(String lang, Activity activity) {
-        if (lang.equalsIgnoreCase(""))
-            return;
+        if (lang.equalsIgnoreCase("")) return;
         Locale locale = new Locale(lang);
         saveLocale(lang, activity);
         Locale.setDefault(locale);
