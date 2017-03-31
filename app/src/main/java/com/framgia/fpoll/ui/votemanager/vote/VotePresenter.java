@@ -38,6 +38,7 @@ public class VotePresenter implements VoteContract.Presenter {
     @Override
     public void voteOption(Option optionModel) {
         mView.updateVoteChoice(optionModel);
+        mIsNewOptionAdded = false;
     }
 
     @Override
@@ -75,6 +76,10 @@ public class VotePresenter implements VoteContract.Presenter {
     @Override
     public void setImageOption(String imagePath) {
         mOption.get().setImage(imagePath);
+    }
+
+    public void onCheckedChanged(boolean check) {
+        mView.onCheckedChanged(check);
     }
 
     @Override
@@ -187,6 +192,11 @@ public class VotePresenter implements VoteContract.Presenter {
             }
         }
         return options;
+    }
+
+    @Override
+    public void cleanOption() {
+        mOption.set(new Option());
     }
 
     public void onDeleteImageClicked() {

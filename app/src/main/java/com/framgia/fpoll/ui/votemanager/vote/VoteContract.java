@@ -20,6 +20,7 @@ public interface VoteContract {
         void updateAdditionOptionSuccess();
         void showVoteRequirement(int msg);
         void resetChoiceBox();
+        void onCheckedChanged(boolean check);
     }
 
     interface Presenter {
@@ -28,5 +29,6 @@ public interface VoteContract {
         void openGallery();
         void setImageOption(String imagePath);
         void updateAdditionOption(VoteInfoModel voteInfoModel);
+        void cleanOption();
     }
 }

@@ -6,6 +6,7 @@ import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.model.poll.Poll;
+import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.Constant;
@@ -30,6 +31,8 @@ import retrofit2.http.Path;
 public interface VoteInfoAPI {
     @GET("/api/v1/link/{token}")
     Call<ResponseItem<VoteInfo>> showVoteInfo(@Path("token") String token);
+    @GET("/api/v1/poll/result/{token}")
+    Call<ResponseItem<ResultVoteItem>> getVoteResult(@Path("token") String token);
     @POST("/api/v1/poll/comment")
     Call<ResponseItem<FpollComment>> postComment(@Body CommentBody commentBody);
     public class CommentBody {

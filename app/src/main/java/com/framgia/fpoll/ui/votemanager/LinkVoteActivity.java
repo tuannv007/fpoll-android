@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
@@ -15,19 +14,14 @@ import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
+import com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
-import com.framgia.fpoll.ui.votemanager.itemmodel.PollBarData;
-import com.framgia.fpoll.ui.votemanager.itemmodel.PollPieData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-import com.framgia.fpoll.ui.votemanager.result.LinkVoteResultFragment;
 import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.util.ChartUtils;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.widget.PasswordAlertDialog;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +41,18 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         return intent;
     }
 
+    private void getDataFromIntent() {
+        if (getIntent().getStringExtra(EXTRA_TOKEN) == null) return;
+        mToken = getIntent().getStringExtra(EXTRA_TOKEN);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_link_vote);
+        getDataFromIntent();
         mBinding.setActivity(this);
         mPresenter = new LinkVotePresenter(this, VoteInfoRepository.getInstance(this));
-        if (getIntent() == null) return;
-        mToken = getIntent().getStringExtra(EXTRA_TOKEN);
-        if (TextUtils.isEmpty(mToken)) return;
         mPresenter.getVoteInfo(mToken);
     }
 
@@ -76,12 +73,9 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         mVoteInfoModel.setToken(mToken);
         setListOptionModel(voteInfo);
         setListVoteSetting(voteInfo);
-        setChartData();
         if (mVoteInfoModel.getPasswordRequired() != null) {
             PasswordAlertDialog.newInstance().show(getSupportFragmentManager(), "");
-        } else {
-            mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
-        }
+        } else mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
     }
 
     @Override
@@ -98,17 +92,9 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(VoteFragment.newInstance(mVoteInfoModel));
         fragments.add(VoteInformationFragment.newInstance(mVoteInfoModel));
-        fragments.add(LinkVoteResultFragment.newInstance(mVoteInfoModel));
+        fragments.add(ResultVoteFragment.newInstance(mToken));
         String[] titles = getResources().getStringArray(R.array.array_vote);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
-    }
-
-    private void setChartData() {
-        List<String> labels = ChartUtils.createLabels(mVoteInfoModel);
-        PieDataSet pieDataSet = ChartUtils.createPieData(this, mVoteInfoModel);
-        BarDataSet barDataSet = ChartUtils.createBarData(this, mVoteInfoModel);
-        mVoteInfoModel.setPieData(new PollPieData(labels, pieDataSet));
-        mVoteInfoModel.setBarData(new PollBarData(labels, barDataSet));
     }
 
     private void setListVoteSetting(VoteInfo voteInfo) {

@@ -67,6 +67,7 @@ import com.github.mikephil.charting.data.PieData;
 
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_MULTI_CHOOSE;
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_SINGER_CHOOSE;
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_NO_TITLE;
 import static com.framgia.fpoll.util.Constant.TypeSetting.HIDENT_RESULT;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_ADD_OPTION;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_COUNT_VOTE;
@@ -97,7 +98,7 @@ public class DataBindingUtils {
     public static void loadImagePath(ImageView view, String path) {
         Glide.with(view.getContext())
             .load(path)
-            .placeholder(R.drawable.ic_insert_photo_black_24px)
+            .placeholder(R.drawable.ic_no_image)
             .into(view);
     }
 
@@ -298,6 +299,8 @@ public class DataBindingUtils {
         pieChart.setTouchEnabled(false);
         pieChart.setDescription("");
         pieChart.setDrawSliceText(false);
+        pieChart.setDescription(DATA_NO_TITLE);
+        pieChart.setUsePercentValues(true);
     }
 
     @BindingAdapter({"bind:bindImage", "bind:bindError"})

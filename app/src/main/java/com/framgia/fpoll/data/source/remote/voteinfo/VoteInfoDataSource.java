@@ -1,8 +1,11 @@
 package com.framgia.fpoll.data.source.remote.voteinfo;
 
+import android.support.annotation.NonNull;
+
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.model.poll.Poll;
+import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
@@ -16,4 +19,5 @@ public interface VoteInfoDataSource {
     void votePoll(VoteInfoAPI.OptionsBody optionsBody, DataCallback<ParticipantVotes> callback);
     void updateNewOption(int pollId, VoteInfoAPI.NewOptionBody newOptionBody,
                          DataCallback<Poll> callback);
+    void getVoteResult(@NonNull String token, @NonNull DataCallback<ResultVoteItem> callback);
 }

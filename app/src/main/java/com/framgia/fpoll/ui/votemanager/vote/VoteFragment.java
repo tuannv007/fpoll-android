@@ -20,14 +20,9 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteBinding;
-import com.framgia.fpoll.ui.votemanager.itemmodel.PollBarData;
-import com.framgia.fpoll.ui.votemanager.itemmodel.PollPieData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.util.ChartUtils;
 import com.framgia.fpoll.util.PermissionsUtil;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +38,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     private static final String ARGUMENT_VOTE_INFO = "ARGUMENT_VOTE_INFO";
     private FragmentVoteBinding mBinding;
     private ObservableField<VoteAdapter> mAdapter = new ObservableField<>();
+    private boolean mIsMultiple;
     private VoteInfoModel mVoteInfoModel;
     private VoteContract.Presenter mPresenter;
     private ProgressDialog mProgressDialog;
@@ -72,7 +68,8 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         mBinding.setFragment(this);
         mBinding.setPresenter((VotePresenter) mPresenter);
         mBinding.setVoteInfoModel(mVoteInfoModel);
-        mBinding.setIsMultiple(mVoteInfoModel.getVoteInfo().getPoll().isMultiple());
+        mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
+        mBinding.setIsMultiple(mIsMultiple);
         return mBinding.getRoot();
     }
 
@@ -82,14 +79,19 @@ public class VoteFragment extends Fragment implements VoteContract.View {
 
     @Override
     public void updateVoteChoice(Option optionModel) {
-        optionModel.setChecked(!optionModel.isChecked());
-        if (mVoteInfoModel.getVoteInfo().getPoll().isMultiple()) return;
-        //single vote, reset other
-        for (int i = 0; i < mVoteInfoModel.getOptionModels().size(); i++) {
-            if (optionModel.getId() !=
-                mVoteInfoModel.getOptionModels().get(i).getId()) {
-                mVoteInfoModel.getOptionModels().get(i).setChecked(false);
-            }
+        optionModel.setChecked(true);
+        if (mIsMultiple) return;
+        for (Option option : mVoteInfoModel.getOptionModels()) {
+            option.setChecked(false);
+        }
+        if (mPresenter != null) mPresenter.cleanOption();
+    }
+
+    @Override
+    public void onCheckedChanged(boolean check) {
+        if (!check || mIsMultiple) return;
+        for (Option option : mVoteInfoModel.getOptionModels()) {
+            option.setChecked(false);
         }
     }
 
@@ -106,17 +108,8 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         listOptionModel.addAll(mVoteInfoModel.getOptionModels());
         mVoteInfoModel.setOptionModels(listOptionModel);
         //Notify chart data
-        setChartData();
         //Notify change list
         mAdapter.get().notifyDataSetChanged();
-    }
-
-    private void setChartData() {
-        List<String> labels = ChartUtils.createLabels(mVoteInfoModel);
-        PieDataSet pieDataSet = ChartUtils.createPieData(getContext(), mVoteInfoModel);
-        BarDataSet barDataSet = ChartUtils.createBarData(getContext(), mVoteInfoModel);
-        mVoteInfoModel.setPieData(new PollPieData(labels, pieDataSet));
-        mVoteInfoModel.setBarData(new PollBarData(labels, barDataSet));
     }
 
     @Override
