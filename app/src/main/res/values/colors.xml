@@ -20,6 +20,7 @@
     <color name="color_black_700">#616161</color>
     <color name="color_green_500">#8BC34A</color>
     <color name="color_background_item_vote">#82a0aeac</color>
-    <color name="black_transprarent">#B2000000</color>
+    <color name="color_black_transprarent">#B2000000</color>
     <color name="color_seashell">#F1F1F1</color>
+    <color name="color_grey_transparent">#f7f3f7</color>
 </resources>

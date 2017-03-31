@@ -51,10 +51,9 @@
 
             <TextView
                 style="@style/TextViewPollInformation"
-                android:layout_weight="1"
-                android:drawableRight=
-                    "@{fragment.commentExpand ? @drawable/ic_arrow_drop_up : @drawable/ic_arrow_drop_down}"
-                android:gravity="center|right"
+                android:layout_width="match_parent"
+                android:drawableRight="@{fragment.commentExpand ? @drawable/ic_arrow_drop_up : @drawable/ic_arrow_drop_down}"
+                android:gravity="center|end"
                 android:onClick="@{()-> fragment.setCommentsView()}"
                 android:text="@{fragment.commentExpand ? @string/action_hide_comments : @string/action_show_comments}"/>
         </LinearLayout>
@@ -89,7 +88,5 @@
                 app:layoutManager="@{LayoutManageUtil.linear()}"
                 bind:bindAdapter="@{fragment.adapter}"/>
         </RelativeLayout>
-
     </LinearLayout>
-
 </layout>
