@@ -30,15 +30,19 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
 
     @Override
     public void resendEmail(int pollId) {
+        if (mView == null || mRepository == null) return;
+        mView.showProgress();
         mRepository.resentEmail(pollId, new DataCallback<ResponseItem>() {
             @Override
             public void onSuccess(ResponseItem data) {
                 mView.showMessage(data.getMessage().toString());
+                mView.hideProgress();
             }
 
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgress();
             }
         });
     }

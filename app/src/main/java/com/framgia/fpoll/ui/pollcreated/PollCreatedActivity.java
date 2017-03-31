@@ -8,13 +8,13 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.resentemail.ResentEmailRepository;
 import com.framgia.fpoll.databinding.ActivityPollCreatedBinding;
+import com.framgia.fpoll.ui.base.BaseActivity;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
@@ -29,7 +29,7 @@ import static com.framgia.fpoll.util.Constant.TITLE_TYPE_TEXT;
 /**
  * Created by tuanbg on 2/21/17.
  */
-public class PollCreatedActivity extends AppCompatActivity implements PollCreatedContract.View {
+public class PollCreatedActivity extends BaseActivity implements PollCreatedContract.View {
     private ActivityPollCreatedBinding mBinding;
     private PollCreatedPresenter mPresenter;
     private ClipboardManager mClipboardManager;
@@ -97,6 +97,16 @@ public class PollCreatedActivity extends AppCompatActivity implements PollCreate
         if (mPoll == null || mPoll.getLink().size() == 0 ||
             (token = mPoll.getLink().get(POSITION_LINK_ADMIN).getToken()) == null) return;
         startActivity(ManagePollActivity.getManageIntent(this, ViewpagerType.MANAGE, token));
+    }
+
+    @Override
+    public void showProgress() {
+        showProgressDialog();
+    }
+
+    @Override
+    public void hideProgress() {
+        hideProgressDialog();
     }
 
     @Override

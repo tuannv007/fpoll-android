@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,6 +13,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
+import com.framgia.fpoll.ui.base.BaseActivity;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -22,7 +22,7 @@ import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_VIEW_PAGE_TYPE;
 
-public class ManagePollActivity extends AppCompatActivity implements ManagePollContract.View {
+public class ManagePollActivity extends BaseActivity implements ManagePollContract.View {
     private ActivityAuthenticationBinding mBinding;
     private ManagePollContract.Presenter mPresenter;
     private ViewpagerType mViewpagerType;

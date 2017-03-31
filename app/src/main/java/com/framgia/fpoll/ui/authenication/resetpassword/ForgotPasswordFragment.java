@@ -12,8 +12,8 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.FragmentForgotPasswordBinding;
+import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
 /**
  * Created by tuanbg on 2/21/17.
@@ -22,7 +22,6 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
     private ForgotPasswordPresenter mPresenter;
     private User mUser = new User();
     private FragmentForgotPasswordBinding mBinding;
-    private FPollProgressDialog mDialog;
 
     public static ForgotPasswordFragment newInstance() {
         return new ForgotPasswordFragment();
@@ -59,13 +58,12 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
 
     @Override
     public void showDialog() {
-        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
-        mDialog.show();
+        ((AuthenticationActivity) getActivity()).showProgressDialog();
     }
 
     @Override
     public void dismissDialog() {
-        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+        ((AuthenticationActivity) getActivity()).hideProgressDialog();
     }
 
     @Override

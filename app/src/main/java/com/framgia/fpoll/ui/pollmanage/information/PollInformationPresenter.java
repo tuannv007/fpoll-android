@@ -47,25 +47,28 @@ public class PollInformationPresenter implements PollInformationContract.Present
 
     @Override
     public void saveInformation(int id) {
+        if (mView == null || mRepository == null) return;
         String username = mPoll.get().getPoll().getName();
         String email = mPoll.get().getPoll().getEmail();
         String title = mPoll.get().getPoll().getTitle();
         int type = mPoll.get().getPoll().isMultiple() ? TYPE_MULTI : TYPE_SINGER;
-        int typeEdit = TYPE_EDIT_POLL;
         String dateClose = mPoll.get().getPoll().getDateClose();
         String description = mPoll.get().getPoll().getDescription();
         UpdateInfoPollService.PollInfoBody body = new UpdateInfoPollService.PollInfoBody
-            (username, email, title, type, typeEdit, dateClose, description);
+            (username, email, title, type, TYPE_EDIT_POLL, dateClose, description);
+        mView.showProgress();
         mRepository.editPollInformation(id, body, new DataCallback<ResponseItem<DataInfoItem>>() {
             @Override
             public void onSuccess(ResponseItem<DataInfoItem> data) {
                 mView.saveSuccess(ActivityUtil.byString(data.getMessage()));
                 mPoll.set(data.getData());
+                mView.hideProgress();
             }
 
             @Override
             public void onError(String msg) {
                 mView.onError(msg);
+                mView.hideProgress();
             }
         });
     }

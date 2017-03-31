@@ -19,6 +19,7 @@ import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.SharePreferenceUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     private ObservableBoolean mLoadFinish = new ObservableBoolean();
     private PollHistoryContract.Presenter mPresenter;
     private PollHistoryType mPollHistoryType;
+    private FPollProgressDialog mProgressDialog;
 
     public static PollHistoryFragment getInstance(PollHistoryType typeHistory) {
         PollHistoryFragment fragment = new PollHistoryFragment();

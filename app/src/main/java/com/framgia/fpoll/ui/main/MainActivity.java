@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.main;
 
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -38,6 +37,7 @@ import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.LanguageUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_JP;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     private MainContract.Presenter mPresenter;
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
-    private ProgressDialog mProgressDialog;
+    private FPollProgressDialog mProgressDialog;
     private final ObservableBoolean mIsShowAddPoll = new ObservableBoolean(true);
 
     @Override
@@ -84,8 +84,7 @@ public class MainActivity extends AppCompatActivity
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.msg_loading));
+            mProgressDialog = new FPollProgressDialog(this);
         }
         if (!mProgressDialog.isShowing()) mProgressDialog.show();
     }

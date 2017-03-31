@@ -22,7 +22,8 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
 
     @Override
     public void createPoll() {
-        if (mView != null) mView.showDialog();
+        if (mView == null || mCreationRepository == null) return;
+        mView.showDialog();
         mCreationRepository.createPoll(mPoll, new DataCallback<PollItem>() {
             @Override
             public void onSuccess(PollItem data) {

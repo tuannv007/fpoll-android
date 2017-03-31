@@ -40,7 +40,8 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void loadData() {
-        if (mRepository == null) return;
+        if (mRepository == null || mView == null) return;
+        mView.showProgressDialog();
         mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
@@ -49,11 +50,13 @@ public class EditPollPresenter implements EditPollContract.Presenter {
                 mOldLinkUser = data.getPoll().getLink().get(NUMBER_USER).getToken();
                 mLinkVoting.set(mOldLinkUser);
                 mLinkManager.set(mOldLinkAdmin);
+                mView.hideProgressDialog();
             }
 
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgressDialog();
             }
         });
     }

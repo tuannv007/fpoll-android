@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.authenication.login;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,7 +32,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private FragmentLoginBinding mBinding;
     private LoginContract.Presenter mPresenter;
     private AuthenticationActivity.EventSwitchUI mEventSwitchUI;
-    private ProgressDialog mProgressDialog;
 
     public static LoginFragment newInstance(AuthenticationActivity.EventSwitchUI event) {
         LoginFragment fragment = new LoginFragment();
@@ -67,16 +65,14 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         getDataFromActivity();
     }
 
+    @Override
     public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setMessage(getString(R.string.msg_loading));
-        }
-        if (!mProgressDialog.isShowing()) mProgressDialog.show();
+        ((AuthenticationActivity) getActivity()).showProgressDialog();
     }
 
+    @Override
     public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.hide();
+        ((AuthenticationActivity) getActivity()).hideProgressDialog();
     }
 
     @Override

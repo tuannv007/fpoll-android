@@ -12,6 +12,8 @@ public interface PollCreatedContract {
         void copyLinkManager();
         void showMessage(String msg);
         void startUiLinkInviteVote();
+        void showProgress();
+        void hideProgress();
     }
 
     interface Presenter {
