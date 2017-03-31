@@ -30,6 +30,7 @@ public class Option extends BaseObservable implements Parcelable {
     private List<ParticipantVotes> mVotes;
     @SerializedName("participants")
     private List<ParticipantVotes> mParticipantVotes;
+    private boolean mIsChecked;
 
     public Option() {
     }
@@ -41,6 +42,7 @@ public class Option extends BaseObservable implements Parcelable {
         mPollId = in.readInt();
         mCreatedTime = in.readString();
         mUpdatedTime = in.readString();
+        mIsChecked = in.readByte() != 0;
     }
 
     public static final Creator<Option> CREATOR = new Creator<Option>() {
@@ -62,6 +64,16 @@ public class Option extends BaseObservable implements Parcelable {
     public void setId(int id) {
         mId = id;
         notifyPropertyChanged(BR.id);
+    }
+
+    @Bindable
+    public boolean isChecked() {
+        return mIsChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        mIsChecked = checked;
+        notifyPropertyChanged(BR.checked);
     }
 
     @Bindable
@@ -142,6 +154,7 @@ public class Option extends BaseObservable implements Parcelable {
         dest.writeInt(mPollId);
         dest.writeString(mCreatedTime);
         dest.writeString(mUpdatedTime);
+        dest.writeByte((byte) (mIsChecked ? 1 : 0));
     }
 
     @Override

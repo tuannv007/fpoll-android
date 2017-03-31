@@ -17,7 +17,6 @@ import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
-import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.PollBarData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.PollPieData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
@@ -157,11 +156,7 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
     }
 
     private void setListOptionModel(VoteInfo voteInfo) {
-        List<OptionModel> list = new ArrayList<>();
-        for (int i = 0; i < voteInfo.getPoll().getOptions().size(); i++) {
-            list.add(new OptionModel(voteInfo.getPoll().getOptions().get(i), false));
-        }
-        mVoteInfoModel.setOptionModels(list);
+        mVoteInfoModel.setOptionModels(voteInfo.getPoll().getOptions());
     }
 
     @Override

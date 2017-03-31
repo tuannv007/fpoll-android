@@ -6,8 +6,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.framgia.fpoll.BR;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ import java.util.List;
  */
 public class VoteInfoModel extends BaseObservable implements Parcelable {
     private VoteInfo mVoteInfo;
-    private List<OptionModel> mOptionModels;
+    private List<Option> mOptionModels = new ArrayList<>();
     private boolean mIsEmailRequired;
     private boolean mIsNameRequired;
     private boolean mIsEmailAndNameRequired;
@@ -84,13 +86,13 @@ public class VoteInfoModel extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public List<OptionModel> getOptionModels() {
+    public List<Option> getOptionModels() {
         return mOptionModels;
     }
 
-    public void setOptionModels(List<OptionModel> optionModels) {
+    public void setOptionModels(List<Option> optionModels) {
         mOptionModels = optionModels;
-        notifyPropertyChanged(BR.optionModel);
+        notifyPropertyChanged(BR.optionModels);
     }
 
     @Bindable

@@ -1,9 +1,7 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
 import com.framgia.fpoll.data.model.poll.Option;
-import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.ui.base.BaseView;
-import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.List;
  */
 public interface VoteContract {
     interface View extends BaseView {
-        void updateVoteChoice(OptionModel option);
+        void updateVoteChoice(Option option);
         void onSubmitSuccess(List<Option> options);
         void onSubmitFailed(String messages);
         void onNotifyVote();
@@ -25,7 +23,7 @@ public interface VoteContract {
     }
 
     interface Presenter {
-        void voteOption(OptionModel option);
+        void voteOption(Option option);
         void submitVote(VoteInfoModel voteInfoModel);
         void openGallery();
         void setImageOption(String imagePath);

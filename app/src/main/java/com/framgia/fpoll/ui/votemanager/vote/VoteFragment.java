@@ -16,19 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
-import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteBinding;
-import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.PollBarData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.PollPieData;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.ChartUtils;
-import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -38,6 +34,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static android.graphics.Color.TRANSPARENT;
+import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 
 /**
  * Created by tran.trung.phong on 22/02/2017.
@@ -75,6 +72,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         mBinding.setFragment(this);
         mBinding.setPresenter((VotePresenter) mPresenter);
         mBinding.setVoteInfoModel(mVoteInfoModel);
+        mBinding.setIsMultiple(mVoteInfoModel.getVoteInfo().getPoll().isMultiple());
         return mBinding.getRoot();
     }
 
@@ -83,13 +81,13 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     }
 
     @Override
-    public void updateVoteChoice(OptionModel optionModel) {
+    public void updateVoteChoice(Option optionModel) {
         optionModel.setChecked(!optionModel.isChecked());
         if (mVoteInfoModel.getVoteInfo().getPoll().isMultiple()) return;
         //single vote, reset other
         for (int i = 0; i < mVoteInfoModel.getOptionModels().size(); i++) {
-            if (optionModel.getOption().getId() !=
-                mVoteInfoModel.getOptionModels().get(i).getOption().getId()) {
+            if (optionModel.getId() !=
+                mVoteInfoModel.getOptionModels().get(i).getId()) {
                 mVoteInfoModel.getOptionModels().get(i).setChecked(false);
             }
         }
@@ -104,12 +102,8 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         //Update list vote
         mVoteInfoModel.getVoteInfo().getPoll().setOptions(options);
         //Reset check list option model
-        List<OptionModel> listOptionModel = new ArrayList<>();
-        for (int i = 0; i < mVoteInfoModel.getVoteInfo().getPoll().getOptions().size(); i++) {
-            listOptionModel
-                .add(new OptionModel(mVoteInfoModel.getVoteInfo().getPoll().getOptions().get(i),
-                    false));
-        }
+        List<Option> listOptionModel = new ArrayList<>();
+        listOptionModel.addAll(mVoteInfoModel.getOptionModels());
         mVoteInfoModel.setOptionModels(listOptionModel);
         //Notify chart data
         setChartData();
@@ -153,7 +147,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
             Intent intent = new Intent(
                 Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, Constant.RequestCode.IMAGE_PICKER_SELECT);
+            startActivityForResult(intent, IMAGE_PICKER_SELECT);
         }
     }
 
@@ -179,21 +173,15 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constant.RequestCode.IMAGE_PICKER_SELECT
-            && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            if (selectedImage == null) return;
-            //Update selected image to UI
-            Glide.with(this).load(selectedImage).into(mBinding.imageAdditionOption);
-            //Convert to image path
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getActivity().getContentResolver()
-                .query(selectedImage, filePathColumn, null, null, null);
-            if (cursor == null) return;
-            cursor.moveToFirst();
-            String imagePath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
-            mPresenter.setImageOption(imagePath);
-            cursor.close();
-        }
+        if (requestCode != IMAGE_PICKER_SELECT || resultCode != RESULT_OK || data == null) return;
+        Uri selectedImage = data.getData();
+        if (selectedImage == null) return;
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver()
+            .query(selectedImage, filePathColumn, null, null, null);
+        if (cursor == null) return;
+        cursor.moveToFirst();
+        mPresenter.setImageOption(cursor.getString(cursor.getColumnIndex(filePathColumn[0])));
+        cursor.close();
     }
 }

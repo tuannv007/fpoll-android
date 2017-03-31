@@ -10,8 +10,6 @@ import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
-import com.framgia.fpoll.ui.votemanager.itemmodel.AdditionOption;
-import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
 import java.util.ArrayList;
@@ -28,22 +26,18 @@ public class VotePresenter implements VoteContract.Presenter {
     private VoteInfoRepository mVoteInfoRepository;
     private ObservableField<String> mName = new ObservableField<>();
     private ObservableField<String> mEmail = new ObservableField<>();
-    private ObservableField<AdditionOption> mAdditionOption = new ObservableField<>();
+    private ObservableField<Option> mOption = new ObservableField<>(new Option());
     private boolean mIsNewOptionAdded;
 
     public VotePresenter(VoteContract.View view, VoteInfoRepository voteInfoRepository) {
         mView = view;
         mVoteInfoRepository = voteInfoRepository;
         mView.start();
-        mName.set("");
-        mEmail.set("");
-        mAdditionOption.set(new AdditionOption("", ""));
     }
 
     @Override
-    public void voteOption(OptionModel optionModel) {
+    public void voteOption(Option optionModel) {
         mView.updateVoteChoice(optionModel);
-        mAdditionOption.set(new AdditionOption("", ""));
     }
 
     @Override
@@ -54,12 +48,13 @@ public class VotePresenter implements VoteContract.Presenter {
         List<Option> options = new ArrayList<>();
         for (int i = 0; i < voteInfoModel.getOptionModels().size(); i++) {
             if (voteInfoModel.getOptionModels().get(i).isChecked()) {
-                options.add(voteInfoModel.getOptionModels().get(i).getOption());
+                options.add(voteInfoModel.getOptionModels().get(i));
             }
         }
         //Check if addition option is available
         //Update new option list then vote poll
-        if (!TextUtils.isEmpty(mAdditionOption.get().getOptionText())) {
+        if (!TextUtils.isEmpty(mOption.get().getName()) ||
+            !TextUtils.isEmpty(mOption.get().getImage())) {
             mIsNewOptionAdded = true;
             updateNewOption(idPoll, voteInfoModel, options);
             return;
@@ -79,7 +74,7 @@ public class VotePresenter implements VoteContract.Presenter {
 
     @Override
     public void setImageOption(String imagePath) {
-        mAdditionOption.get().setImagePath(imagePath);
+        mOption.get().setImage(imagePath);
     }
 
     @Override
@@ -112,8 +107,8 @@ public class VotePresenter implements VoteContract.Presenter {
 
     private void updateNewOption(final int idPoll, final VoteInfoModel voteInfoModel,
                                  final List<Option> options) {
-        String newOptionText = mAdditionOption.get().getOptionText();
-        String newOptionImage = mAdditionOption.get().getImagePath();
+        String newOptionText = mOption.get().getName();
+        String newOptionImage = mOption.get().getImage();
         VoteInfoAPI.NewOptionBody newOptionBody =
             new VoteInfoAPI.NewOptionBody(
                 String.valueOf(TYPE_EDIT_OPTION), newOptionText, newOptionImage);
@@ -129,16 +124,14 @@ public class VotePresenter implements VoteContract.Presenter {
                      *  participant vote nen chua the cap nhat UI
                      */
                     voteInfoModel.getVoteInfo().setPoll(data);
-                    List<OptionModel> list = new ArrayList<>();
-                    for (int i = 0; i < data.getOptions().size(); i++) {
-                        list.add(new OptionModel(data.getOptions().get(i), false));
-                    }
+                    List<Option> list = new ArrayList<>();
+                    list.addAll(data.getOptions());
                     /**
                      * Option Model hien tai k co so luong user vote va participant vote
                      */
                     voteInfoModel.setOptionModels(list);
                     //Checked new option to list option then submit vote
-                    options.add(voteInfoModel.getOptionModels().get(0).getOption());
+                    options.add(voteInfoModel.getOptionModels().get(0));
                     VoteInfoAPI.OptionsBody optionsBody =
                         new VoteInfoAPI.OptionsBody(mName.get(), mEmail.get(), idPoll, options);
                     votePoll(optionsBody, voteInfoModel);
@@ -196,6 +189,10 @@ public class VotePresenter implements VoteContract.Presenter {
         return options;
     }
 
+    public void onDeleteImageClicked() {
+        mOption.get().setImage(null);
+    }
+
     public ObservableField<String> getName() {
         return mName;
     }
@@ -204,7 +201,7 @@ public class VotePresenter implements VoteContract.Presenter {
         return mEmail;
     }
 
-    public AdditionOption getAdditionOption() {
-        return mAdditionOption.get();
+    public ObservableField<Option> getOption() {
+        return mOption;
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
@@ -15,8 +14,6 @@ import com.github.mikephil.charting.utils.ValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  * Created by anhtv on 15/03/2017.
  */
@@ -24,7 +21,7 @@ public class ChartUtils {
     public static List<String> createLabels(VoteInfoModel voteInfoModel) {
         List<String> labels = new ArrayList<>();
         for (int i = 0; i < voteInfoModel.getOptionModels().size(); i++) {
-            labels.add(voteInfoModel.getOptionModels().get(i).getOption().getName());
+            labels.add(voteInfoModel.getOptionModels().get(i).getName());
         }
         return labels;
     }
@@ -33,8 +30,8 @@ public class ChartUtils {
         List<Entry> pieEntries = new ArrayList<>();
         for (int i = 0; i < voteInfoModel.getOptionModels().size(); i++) {
             int totalVote =
-                voteInfoModel.getOptionModels().get(i).getOption().getParticipantVotes().size()
-                    + voteInfoModel.getOptionModels().get(i).getOption().getVotes().size();
+                voteInfoModel.getOptionModels().get(i).getParticipantVotes().size()
+                    + voteInfoModel.getOptionModels().get(i).getVotes().size();
             pieEntries.add(new Entry(totalVote, i));
         }
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
@@ -48,8 +45,8 @@ public class ChartUtils {
         List<BarEntry> barEntries = new ArrayList<>();
         for (int i = 0; i < voteInfoModel.getOptionModels().size(); i++) {
             int totalVote =
-                voteInfoModel.getOptionModels().get(i).getOption().getParticipantVotes().size()
-                    + voteInfoModel.getOptionModels().get(i).getOption().getVotes().size();
+                voteInfoModel.getOptionModels().get(i).getParticipantVotes().size()
+                    + voteInfoModel.getOptionModels().get(i).getVotes().size();
             barEntries.add(new BarEntry(totalVote, i));
         }
         BarDataSet barDataSet = new BarDataSet(barEntries, "");
