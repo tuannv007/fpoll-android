@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.google.gson.Gson;
 
+import java.util.Locale;
+
 import static android.content.Context.MODE_PRIVATE;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_IS_LOGIN;
@@ -61,7 +63,7 @@ public class SharePreferenceUtil {
     }
 
     public String loadLanguage() {
-        return mPreferences.getString(PREF_LANGUAGE, LANGUAGE_EN);
+        return mPreferences.getString(PREF_LANGUAGE, Locale.getDefault().getDisplayLanguage());
     }
 
     public void writePreference(String key, String value) {
