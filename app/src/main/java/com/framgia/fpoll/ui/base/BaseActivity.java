@@ -20,6 +20,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.show();
+        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.hide();
     }
 }

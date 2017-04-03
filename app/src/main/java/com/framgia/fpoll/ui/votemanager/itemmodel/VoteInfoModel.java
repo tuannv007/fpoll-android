@@ -28,8 +28,6 @@ public class VoteInfoModel extends BaseObservable implements Parcelable {
     private boolean mSpecificEmail;
     private boolean mOptionEditable;
     private boolean mHiddenResult;
-    private PollPieData mPieData;
-    private PollBarData mBarData;
     private String mToken;
     private ItemStatus mItemStatus = ItemStatus.NOT_AVAILABLE;
 
@@ -193,26 +191,6 @@ public class VoteInfoModel extends BaseObservable implements Parcelable {
     public void setHiddenResult(boolean hiddenResult) {
         mHiddenResult = hiddenResult;
         notifyPropertyChanged(BR.hiddenResult);
-    }
-
-    @Bindable
-    public PollPieData getPieData() {
-        return mPieData;
-    }
-
-    public void setPieData(PollPieData pieData) {
-        mPieData = pieData;
-        notifyPropertyChanged(BR.pieData);
-    }
-
-    @Bindable
-    public PollBarData getBarData() {
-        return mBarData;
-    }
-
-    public void setBarData(PollBarData barData) {
-        mBarData = barData;
-        notifyPropertyChanged(BR.barData);
     }
 
     @Bindable

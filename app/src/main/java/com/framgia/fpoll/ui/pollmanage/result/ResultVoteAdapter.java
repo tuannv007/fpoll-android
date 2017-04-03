@@ -14,11 +14,13 @@ import java.util.List;
  * Created by tuanbg on 3/12/17.
  */
 public class ResultVoteAdapter extends RecyclerView.Adapter<ResultVoteAdapter.ResultVoteHolder> {
-    private List<ResultVoteItem.Result> mListItems = new ArrayList<>();
+    private List<ResultVoteItem.Result> mResultList = new ArrayList<>();
     private LayoutInflater mInflater;
 
-    public ResultVoteAdapter(List<ResultVoteItem.Result> listItems) {
-        mListItems = listItems;
+    public void update(List<ResultVoteItem.Result> results) {
+        mResultList.clear();
+        mResultList.addAll(results);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -30,13 +32,13 @@ public class ResultVoteAdapter extends RecyclerView.Adapter<ResultVoteAdapter.Re
 
     @Override
     public void onBindViewHolder(ResultVoteHolder holder, int position) {
-        ResultVoteItem.Result item = mListItems.get(position);
+        ResultVoteItem.Result item = mResultList.get(position);
         if (item != null) holder.bind(item);
     }
 
     @Override
     public int getItemCount() {
-        return mListItems != null ? mListItems.size() : 0;
+        return mResultList != null ? mResultList.size() : 0;
     }
 
     public class ResultVoteHolder extends RecyclerView.ViewHolder {

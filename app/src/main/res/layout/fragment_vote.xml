@@ -139,6 +139,8 @@
                             android:layout_gravity="center_vertical"
                             android:checked="@{presenter.option.name != null || presenter.option.image != null ? true : false}"
                             android:clickable="false"
+                            android:enabled="false"
+                            android:onCheckedChanged="@{(checkBox, checked) -> presenter.onCheckedChanged(checked)}"
                             android:visibility="@{isMultiple ? View.VISIBLE : View.GONE}"
                             app:buttonTint="@color/color_grey_700"/>
 
@@ -148,18 +150,20 @@
                             android:layout_gravity="center_vertical"
                             android:checked="@{presenter.option.name != null || presenter.option.image != null ? true : false}"
                             android:clickable="false"
+                            android:enabled="false"
+                            android:onCheckedChanged="@{(checkBox, checked) -> presenter.onCheckedChanged(checked)}"
                             android:visibility="@{isMultiple ? View.GONE : View.VISIBLE}"
                             app:buttonTint="@color/color_grey_700"/>
 
                         <android.support.v7.widget.AppCompatEditText
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_8"
-                            android:layout_marginRight="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_4"
+                            android:layout_marginRight="@dimen/dp_4"
                             android:layout_weight="1"
-                            android:ellipsize="end"
                             android:gravity="start|center_vertical"
                             android:maxLines="6"
+                            android:text="@={presenter.option.name}"
                             android:textColor="@color/color_grey_700"
                             android:textSize="@dimen/sp_15"/>
 

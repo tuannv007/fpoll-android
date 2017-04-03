@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="android.view.View"/>
-
         <variable
             name="handler"
             type="com.framgia.fpoll.ui.pollmanage.result.ResultActionHandler"/>
@@ -14,7 +12,20 @@
             name="fragment"
             type="com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment"/>
 
+        <variable
+            name="type"
+            type="com.framgia.fpoll.ui.pollmanage.result.ResultType"/>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.pollmanage.result.ResultVotePresenter"/>
+
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+
+        <import type="com.framgia.fpoll.ui.pollmanage.result.ResultType"/>
+
+        <import type="android.view.View"/>
+
     </data>
 
     <LinearLayout
@@ -23,12 +34,34 @@
         android:orientation="vertical"
         android:padding="@dimen/dp_8">
 
-        <android.support.v7.widget.RecyclerView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            app:layoutManager="@{LayoutManageUtil.linear()}"
-            bind:bindAdapter="@{fragment.adapter}"/>
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{fragment.resultType == ResultType.TABLE ? View.VISIBLE : View.GONE }"
+                app:layoutManager="@{LayoutManageUtil.linear()}"
+                bind:bindAdapter="@{fragment.adapter}"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/bar_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:padding="@dimen/dp_10"
+                android:visibility="@{fragment.resultType == ResultType.BAR_CHART ? View.VISIBLE : View.GONE }"
+                bind:bindBarChart="@{presenter.barChart}"/>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pie_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{fragment.resultType  == ResultType.PIE_CHART ? View.VISIBLE : View.GONE }"
+                bind:pieData="@{presenter.pieData}"/>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
