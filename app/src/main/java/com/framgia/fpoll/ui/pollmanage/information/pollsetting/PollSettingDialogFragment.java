@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Setting;
@@ -40,18 +40,13 @@ public class PollSettingDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mBinding = DataBindingUtil
             .inflate(inflater, R.layout.dialog_fragment_poll_setting, container, false);
         mBinding.setFragment(this);
         getDataFromIntent();
         mAdapter.set(new PollSettingAdapter(mSettingList));
         return mBinding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getDialog().setTitle(getString(R.string.title_setting));
     }
 
     public void getDataFromIntent() {
@@ -62,5 +57,9 @@ public class PollSettingDialogFragment extends DialogFragment {
 
     public ObservableField<PollSettingAdapter> getAdapter() {
         return mAdapter;
+    }
+
+    public void dismissDialog() {
+        if (getDialog() != null && getDialog().isShowing()) dismiss();
     }
 }

@@ -12,11 +12,54 @@
             type="com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment"/>
     </data>
 
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="@{LayoutManageUtil.linear()}"
-        bind:bindAdapter="@{fragment.adapter}"/>
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:minWidth="@dimen/dp_300"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@string/title_setting_poll"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_17"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@color/color_teal_500"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layoutManager="@{LayoutManageUtil.linear()}"
+            bind:bindAdapter="@{fragment.adapter}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:onClick="@{() -> fragment.dismissDialog()}"
+            android:padding="@dimen/dp_10"
+            android:text="@string/mdtp_ok"
+            android:textColor="@color/color_teal_500"
+            android:textSize="@dimen/sp_17"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
 </layout>
 
 

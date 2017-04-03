@@ -199,16 +199,16 @@
     <string name="action_export_pdf">Export PDF</string>
     <string name="action_export_excel">Export excel</string>
     <string name="title_image">Ảnh</string>
-    <string name="title_input_email">Nhập email</string>
-    <string name="title_input_name">Nhập tên</string>
-    <string name="title_input_add_option">Thêm tùy chọn</string>
-    <string name="title_input_count_vote">Số lượng bình chọn</string>
-    <string name="title_input_edit_link">Chỉnh sửa link</string>
-    <string name="title_input_email_name">Nhập email và tên</string>
+    <string name="title_input_email">Yêu cầu nhập email</string>
+    <string name="title_input_name">Yêu cầu nhập tên</string>
+    <string name="title_input_add_option">Có thể thêm tùy chọn</string>
+    <string name="title_input_count_vote">Giới hạn số lượt bình chọn </string>
+    <string name="title_input_edit_link">Có thể chỉnh sửa link</string>
+    <string name="title_input_email_name">Yêu cầu nhập email và tên</string>
     <string name="title_input_not_equal_email">Không được trùng email</string>
     <string name="title_input_hident_result_vote">Ẩn kết quả bầu chọn</string>
-    <string name="title_input_create_password">Tạo mật khẩu</string>
-    <string name="title_input_edit_option">Chỉnh sửa tùy chọn</string>
+    <string name="title_input_create_password">Có thể tạo mật khẩu</string>
+    <string name="title_input_edit_option">Cho phép chỉnh sửa tùy chọn</string>
     <string name="action_allow_edit_poll">Cho phép chỉnh sửa poll</string>
     <string name="action_allow_add_answer">Cho phép thêm câu trả lời mới</string>
     <string name="msg_type_email">\@</string>
@@ -246,4 +246,6 @@
         chắc chắn
     </string>
     <string name="msg_vote_time_expired">Thời gian bỏ phiếu hết hạn</string>
+    <string name="title_setting_poll"> Cài đặt của poll </string>
+    <string name="title_option_poll">Tùy chọn của poll </string>
 </resources>

@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
@@ -38,18 +39,13 @@ public class PollOptionDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_view_option, container, false);
         mBinding.setFragment(this);
         getDataFromIntent();
         mAdapter.set(new PollInfoAdapter(mPollOptionItemList));
         return mBinding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getDialog().setTitle(getString(R.string.title_option));
     }
 
     public void getDataFromIntent() {
@@ -60,5 +56,9 @@ public class PollOptionDialogFragment extends DialogFragment {
 
     public ObservableField<PollInfoAdapter> getAdapter() {
         return mAdapter;
+    }
+
+    public void dismissDialog() {
+        if (getDialog() != null && getDialog().isShowing()) dismiss();
     }
 }

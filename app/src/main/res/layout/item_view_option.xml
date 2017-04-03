@@ -11,8 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_margin="@dimen/dp_7"
         android:text="@{item.name}"
-        android:textColor="@color/color_black_700"
-        android:textSize="@dimen/sp_20"/>
+        android:textColor="@color/color_grey_700"
+        android:textSize="@dimen/sp_15"/>
 </layout>
