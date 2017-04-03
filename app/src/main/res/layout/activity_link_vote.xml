@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text='@{(activity.voteInfoModel.voteInfo != null &amp;&amp; !activity.voteInfoModel.voteInfo.poll.open) ? @string/msg_poll_closed : @string/msg_no_internet}'
+                android:text='@{(activity.voteInfoModel.voteInfo != null &amp;&amp; !activity.voteInfoModel.voteInfo.poll.open) ? @string/msg_poll_closed : @string/msg_no_find_token}'
                 android:visibility="@{activity.voteInfoModel.itemStatus == ItemStatus.NOT_AVAILABLE ? View.VISIBLE : View.GONE}"/>
 
         </FrameLayout>

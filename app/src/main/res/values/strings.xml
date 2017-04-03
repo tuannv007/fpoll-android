@@ -263,4 +263,9 @@
     <string name="title_user_created">Created by :</string>
     <string name="title_user_at">Create at :</string>
     <string name="msg_cancel_create_poll">You want to cancel create this poll</string>
+    <string name="title_enter_link_vote">Enter the token to vote</string>
+    <string name="title_next_to_vote">Join Poll</string>
+    <string name="title_user_vote">Vote</string>
+    <string name="msg_no_find_token">No Find token</string>
+    <string name="title_url">poll.framgia.vn/</string>
 </resources>

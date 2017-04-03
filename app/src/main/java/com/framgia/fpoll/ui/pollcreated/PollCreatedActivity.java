@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.framgia.fpoll.R;
@@ -15,7 +16,6 @@ import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.resentemail.ResentEmailRepository;
 import com.framgia.fpoll.databinding.ActivityPollCreatedBinding;
 import com.framgia.fpoll.ui.base.BaseActivity;
-import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -81,7 +81,8 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
 
     @Override
     public void copyLinkInvite() {
-        if (mLinkUser.get() != null) copy(mLinkUser.get());
+        if (mLinkUser.get() != null) copy(mPresenter.splitToken(mLinkUser.get()));
+        Log.e("tag", mPresenter.splitToken(mLinkUser.get()));
     }
 
     public void copy(String link) {
@@ -96,7 +97,7 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
         String token;
         if (mPoll == null || mPoll.getLink().size() == 0 ||
             (token = mPoll.getLink().get(POSITION_LINK_ADMIN).getToken()) == null) return;
-        startActivity(ManagePollActivity.getManageIntent(this, ViewpagerType.MANAGE, token));
+        startActivity(ManagePollActivity.getManageIntent(this, token));
     }
 
     @Override
@@ -111,7 +112,7 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
 
     @Override
     public void copyLinkManager() {
-        if (mLinkAdmin.get() != null) copy(mLinkAdmin.get());
+        if (mLinkAdmin.get() != null) copy(mPresenter.splitToken(mLinkAdmin.get()));
     }
 
     @Override

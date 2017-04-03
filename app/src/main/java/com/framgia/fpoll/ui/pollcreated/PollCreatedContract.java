@@ -22,5 +22,6 @@ public interface PollCreatedContract {
         void resendEmail(int idPoll);
         void copyLinkManager();
         void viewLinkManager();
+        String splitToken(String token);
     }
 }

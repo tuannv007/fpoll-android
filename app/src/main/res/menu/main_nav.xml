@@ -8,6 +8,12 @@
         android:id="@+id/action_home"
         android:icon="@drawable/ic_home_white_24px"
         android:title="@string/title_home"/>
+
+    <item
+        android:id="@+id/action_vote"
+        android:icon="@drawable/ic_elections"
+        android:title="@string/title_user_vote"/>
+
     <item
         android:id="@+id/action_introduce"
         android:icon="@drawable/ic_about"
@@ -24,7 +30,6 @@
         android:id="@+id/action_log_out"
         android:icon="@drawable/ic_log_out"
         android:title="@string/title_log_out"/>
-
 
     <item android:title="@string/title_language">
         <menu>

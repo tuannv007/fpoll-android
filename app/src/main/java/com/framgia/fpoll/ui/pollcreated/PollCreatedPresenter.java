@@ -11,6 +11,7 @@ import com.framgia.fpoll.networking.ResponseItem;
 public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     private PollCreatedContract.View mView;
     private ResentEmailRepository mRepository;
+    private static final int SPLIT_TOKEN = 4;
 
     public PollCreatedPresenter(PollCreatedContract.View view, ResentEmailRepository repository) {
         mView = view;
@@ -55,5 +56,12 @@ public class PollCreatedPresenter implements PollCreatedContract.Presenter {
     @Override
     public void viewLinkManager() {
         mView.startUiPollManager();
+    }
+
+    @Override
+    public String splitToken(String token) {
+        String[] words = token.split("/");
+        if (words.length < 4) return "";
+        return words[SPLIT_TOKEN].trim();
     }
 }

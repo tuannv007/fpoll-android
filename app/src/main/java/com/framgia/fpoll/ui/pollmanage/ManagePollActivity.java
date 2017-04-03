@@ -20,20 +20,16 @@ import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
-import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_VIEW_PAGE_TYPE;
-
 public class ManagePollActivity extends BaseActivity implements ManagePollContract.View {
     private ActivityAuthenticationBinding mBinding;
     private ManagePollContract.Presenter mPresenter;
-    private ViewpagerType mViewpagerType;
     private ObservableField<DataInfoItem> mDataList = new ObservableField<>();
     private FPollProgressDialog mDialog;
     private String mToken;
 
-    public static Intent getManageIntent(Context context, ViewpagerType type, String token) {
+    public static Intent getManageIntent(Context context, String token) {
         Intent intent = new Intent(context, ManagePollActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
         bundle.putString(Constant.ConstantApi.KEY_TOKEN, token);
         intent.putExtras(bundle);
         return intent;
@@ -45,7 +41,7 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
         getDataFromIntent();
         mPresenter =
-            new ManagePollPresenter(this, mViewpagerType, ManagerRepository.getInstance(this));
+            new ManagePollPresenter(this, ManagerRepository.getInstance(this));
         startUiViewPageManage();
         if (mToken != null) mPresenter.getAllData(mToken);
     }
@@ -54,7 +50,6 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
     public void getDataFromIntent() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) return;
-        mViewpagerType = (ViewpagerType) bundle.getSerializable(BUNDLE_VIEW_PAGE_TYPE);
         mToken = bundle.getString(Constant.ConstantApi.KEY_TOKEN);
     }
 

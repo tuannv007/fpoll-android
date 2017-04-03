@@ -44,5 +44,6 @@
         <activity android:name=".ui.pollmanage.history.HistoryManageActivity"/>
         <activity android:name=".ui.pollcreation.PollCreationActivity"/>
         <activity android:name=".ui.pollcreated.PollCreatedActivity"/>
+        <activity android:name=".ui.uservote.UserVoteActivity"/>
     </application>
 </manifest>

@@ -532,7 +532,7 @@ public class DataBindingUtils {
                 return true;
             }
         });
-        popupMenu.show();
+        /*popupMenu.show();*/
     }
 
     @BindingAdapter("bind:textColor")

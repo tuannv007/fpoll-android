@@ -64,7 +64,7 @@
     <string name="title_view_setting">Xem thông tin</string>
     <string name="title_result_poll">Kết quả</string>
     <string name="title_no_option">STT</string>
-    <string name="title_vote_number">Lượt bầu chọn</string>
+    <string name="title_vote_number"> Bầu chọn</string>
     <string name="msg_status_pool">Poll open</string>
     <string name="action_view_history">Xem lịch sử poll</string>
     <string name="action_edit_poll">Chỉnh sửa poll</string>
@@ -246,4 +246,5 @@
         chắc chắn
     </string>
     <string name="msg_vote_time_expired">Thời gian bỏ phiếu hết hạn</string>
+    <string name="title_url">poll.framgia.vn/</string>
 </resources>

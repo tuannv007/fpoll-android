@@ -33,6 +33,7 @@ import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.introduction.IntroduceAppFragment;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
+import com.framgia.fpoll.ui.uservote.UserVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.LanguageUtil;
@@ -107,6 +108,10 @@ public class MainActivity extends AppCompatActivity
                     addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
                         R.string.title_home);
                 }
+                break;
+            case R.id.action_vote:
+                setIsShowAddPoll(false);
+                startActivity(UserVoteActivity.getUserVoteActivityIntent(this));
                 break;
             case R.id.action_guide:
                 setIsShowAddPoll(false);

@@ -14,7 +14,6 @@ import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
 import com.framgia.fpoll.ui.history.PollHistoryType;
-import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
@@ -82,7 +81,7 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     @Override
     public void clickOpenManagePoll(String token) {
         startActivity(
-            ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.MANAGE, token));
+            ManagePollActivity.getManageIntent(getActivity(), token));
     }
 
     @Override
