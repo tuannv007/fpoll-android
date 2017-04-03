@@ -1,68 +1,47 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
-import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.framgia.fpoll.R;
-import com.framgia.fpoll.databinding.ItemVoteMultipleBinding;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemVoteSingleBinding;
-import com.framgia.fpoll.ui.votemanager.itemmodel.OptionModel;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 
 /**
  * Created by tran.trung.phong on 22/02/2017.
  */
-public class VoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteSingleHolder> {
     private VoteContract.Presenter mPresenter;
     private VoteInfoModel mVoteInfoModel;
     private LayoutInflater mInflater;
+    private boolean mIsMultiple;
 
     public VoteAdapter(VoteContract.Presenter presenter, VoteInfoModel voteInfoModel) {
         mVoteInfoModel = voteInfoModel;
         mPresenter = presenter;
+        mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VoteAdapter.VoteSingleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
-        if (viewType == VoteType.TYPE_MULTIPLE.getValue()) {
-            ItemVoteMultipleBinding binding =
-                DataBindingUtil.inflate(mInflater, R.layout.item_vote_multiple, parent, false);
-            binding.setPresenter((VotePresenter) mPresenter);
-            return new VoteMultipleBoxHolder(binding);
-        } else {
-            ItemVoteSingleBinding binding =
-                DataBindingUtil.inflate(mInflater, R.layout.item_vote_single, parent, false);
-            binding.setPresenter((VotePresenter) mPresenter);
-            return new VoteSingleHolder(binding);
-        }
+        ItemVoteSingleBinding binding = ItemVoteSingleBinding.inflate(mInflater, parent, false);
+        binding.setPresenter((VotePresenter) mPresenter);
+        binding.setIsMultiple(mIsMultiple);
+        return new VoteSingleHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == VoteType.TYPE_MULTIPLE.getValue()) {
-            ((VoteMultipleBoxHolder) holder).bind(mVoteInfoModel.getOptionModels().get(position));
-        } else {
-            ((VoteSingleHolder) holder).bind(mVoteInfoModel.getOptionModels().get(position));
-        }
+    public void onBindViewHolder(VoteSingleHolder holder, int position) {
+        Option option = mVoteInfoModel.getOptionModels().get(position);
+        if (option != null) holder.bind(option);
     }
 
     @Override
     public int getItemCount() {
         return mVoteInfoModel.getOptionModels() == null ? 0 :
             mVoteInfoModel.getOptionModels().size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (mVoteInfoModel.getVoteInfo() == null) return super.getItemViewType(position);
-        if (mVoteInfoModel.getVoteInfo().getPoll().isMultiple()) {
-            return VoteType.TYPE_MULTIPLE.getValue();
-        } else {
-            return VoteType.TYPE_SINGLE.getValue();
-        }
     }
 
     public class VoteSingleHolder extends RecyclerView.ViewHolder {
@@ -73,25 +52,9 @@ public class VoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mBindingSingle = binDing;
         }
 
-        private void bind(OptionModel optionModel) {
-            if (optionModel == null) return;
-            mBindingSingle.setOptionModel(optionModel);
+        private void bind(Option option) {
+            mBindingSingle.setOption(option);
             mBindingSingle.executePendingBindings();
-        }
-    }
-
-    public class VoteMultipleBoxHolder extends RecyclerView.ViewHolder {
-        private ItemVoteMultipleBinding mBindingMultiple;
-
-        public VoteMultipleBoxHolder(ItemVoteMultipleBinding binDing) {
-            super(binDing.getRoot());
-            mBindingMultiple = binDing;
-        }
-
-        private void bind(OptionModel optionModel) {
-            if (optionModel == null) return;
-            mBindingMultiple.setOptionModel(optionModel);
-            mBindingMultiple.executePendingBindings();
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.votemanager.result;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,8 +53,7 @@ public class LinkVoteResultFragment extends Fragment implements LinkVoteResultCo
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         FragmentLinkVoteResultBinding binding =
-            DataBindingUtil.inflate
-                (inflater, R.layout.fragment_link_vote_result, container, false);
+            FragmentLinkVoteResultBinding.inflate(inflater, container, false);
         binding.setFragment(this);
         binding.setVoteInfoModel(mVoteInfoModel);
         binding.layoutTableResult.setFragment(this);

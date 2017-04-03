@@ -52,9 +52,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentVoteInfoBinding.inflate(inflater, container, false);
         mBinding.setVoteInfoModel(mVoteInfoModel);
-        mBinding.layoutPollInfo.setVoteInfoModel(mVoteInfoModel);
-        mBinding.layoutPostComment.setVoteInfoModel(mVoteInfoModel);
-        mBinding.layoutPostComment.setPresenter((VoteInformationPresenter) mPresenter);
+        mBinding.setPresenter((VoteInformationPresenter) mPresenter);
         mBinding.layoutComments.setFragment(this);
         mBinding.layoutComments.setVoteInfoModel(mVoteInfoModel);
         return mBinding.getRoot();
@@ -86,7 +84,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
 
     @Override
     public void showEmptyError() {
-        mBinding.layoutPostComment.setMsgError(getString(R.string.msg_content_error));
+        mBinding.setMsgError(getString(R.string.msg_content_error));
     }
 
     @Override
