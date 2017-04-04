@@ -5,7 +5,9 @@ import android.databinding.ObservableField;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.util.SharePreferenceUtil;
@@ -16,8 +18,11 @@ import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
  * Created by tran.trung.phong on 01/03/2017.
  */
 public class EditPollPresenter implements EditPollContract.Presenter {
+    private static final String KEY_SPLIT = ";";
     private static final int NUMBER_ADMIN = 0;
     private static final int NUMBER_USER = 1;
+    private static final int OPTION_TITLE = 0;
+    private static final int OPTION_DATE = 1;
     private EditPollContract.View mView;
     private ObservableField<String> mLinkManager = new ObservableField<>();
     private ObservableField<String> mLinkVoting = new ObservableField<>();
@@ -165,7 +170,7 @@ public class EditPollPresenter implements EditPollContract.Presenter {
         mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
-                mView.startUiPollCreation(data);
+                handlerOption(data.getPoll());
             }
 
             @Override
@@ -173,6 +178,16 @@ public class EditPollPresenter implements EditPollContract.Presenter {
                 mView.showMessage(msg);
             }
         });
+    }
+
+    private void handlerOption(PollItem poll) {
+        if (poll == null || poll.getOptions() == null) return;
+        for (Option option : poll.getOptions()) {
+            String[] title = option.getName().split(KEY_SPLIT);
+            if (title[OPTION_TITLE] != null) option.setName(title[0]);
+            if (title[OPTION_DATE] != null) option.setDate(title[1]);
+        }
+        mView.startUiPollCreation(poll);
     }
 
     public ObservableBoolean getPollOpen() {

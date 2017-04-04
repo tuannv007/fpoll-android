@@ -12,7 +12,7 @@ public interface EditPollContract {
         void showMessage(String msg);
         void showMessage(int msg);
         void startModifyPoll(PollItem poll);
-        void startUiPollCreation(DataInfoItem data);
+        void startUiPollCreation(PollItem data);
         void showProgressDialog();
         void hideProgressDialog();
         void viewHistory();

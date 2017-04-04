@@ -56,7 +56,10 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         super.onCreate(savedInstanceState);
         if (getArguments() != null)
             mVoteInfoModel = getArguments().getParcelable(ARGUMENT_VOTE_INFO);
-        mPresenter = new VotePresenter(this, VoteInfoRepository.getInstance(getContext()));
+        if (mVoteInfoModel == null) return;
+        mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
+        mPresenter =
+            new VotePresenter(this, VoteInfoRepository.getInstance(getContext()), mIsMultiple);
         mAdapter.set(new VoteAdapter(mPresenter, mVoteInfoModel));
     }
 
@@ -68,7 +71,6 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         mBinding.setFragment(this);
         mBinding.setPresenter((VotePresenter) mPresenter);
         mBinding.setVoteInfoModel(mVoteInfoModel);
-        mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
         mBinding.setIsMultiple(mIsMultiple);
         return mBinding.getRoot();
     }
@@ -79,10 +81,10 @@ public class VoteFragment extends Fragment implements VoteContract.View {
 
     @Override
     public void updateVoteChoice(Option optionModel) {
-        optionModel.setChecked(true);
+        optionModel.setChecked(!optionModel.isChecked());
         if (mIsMultiple) return;
         for (Option option : mVoteInfoModel.getOptionModels()) {
-            option.setChecked(false);
+            if (option.getId() != optionModel.getId()) option.setChecked(false);
         }
         if (mPresenter != null) mPresenter.cleanOption();
     }

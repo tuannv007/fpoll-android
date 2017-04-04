@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
 import android.databinding.ObservableField;
-import android.text.TextUtils;
 
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
@@ -27,18 +26,21 @@ public class VotePresenter implements VoteContract.Presenter {
     private ObservableField<String> mName = new ObservableField<>();
     private ObservableField<String> mEmail = new ObservableField<>();
     private ObservableField<Option> mOption = new ObservableField<>(new Option());
-    private boolean mIsNewOptionAdded;
+    private boolean mIsMultiple;
 
-    public VotePresenter(VoteContract.View view, VoteInfoRepository voteInfoRepository) {
+    public VotePresenter(VoteContract.View view, VoteInfoRepository voteInfoRepository,
+                         boolean isMultiple) {
         mView = view;
         mVoteInfoRepository = voteInfoRepository;
+        mIsMultiple = isMultiple;
+        mName.set("");
+        mEmail.set("");
         mView.start();
     }
 
     @Override
     public void voteOption(Option optionModel) {
         mView.updateVoteChoice(optionModel);
-        mIsNewOptionAdded = false;
     }
 
     @Override
@@ -47,25 +49,20 @@ public class VotePresenter implements VoteContract.Presenter {
         final int idPoll = voteInfoModel.getVoteInfo().getPoll().getId();
         //Add list option user vote
         List<Option> options = new ArrayList<>();
-        for (int i = 0; i < voteInfoModel.getOptionModels().size(); i++) {
-            if (voteInfoModel.getOptionModels().get(i).isChecked()) {
-                options.add(voteInfoModel.getOptionModels().get(i));
-            }
-        }
-        //Check if addition option is available
-        //Update new option list then vote poll
-        if (!TextUtils.isEmpty(mOption.get().getName()) ||
-            !TextUtils.isEmpty(mOption.get().getImage())) {
-            mIsNewOptionAdded = true;
-            updateNewOption(idPoll, voteInfoModel, options);
-            return;
+        for (Option option : voteInfoModel.getOptionModels()) {
+            if (option.isChecked()) options.add(option);
         }
         if (options.size() == 0) mView.onNotifyVote();
         else {
             VoteInfoAPI.OptionsBody optionsBody =
-                new VoteInfoAPI.OptionsBody(mName.get(), mEmail.get(), idPoll, options);
+                new VoteInfoAPI.OptionsBody(mName.get(), mEmail.get(), idPoll, options,
+                    mOption.get().getName(), mOption.get().getImage());
             votePoll(optionsBody, voteInfoModel);
         }
+    }
+
+    public void clickEdit(Option option) {
+        // TODO: 4/7/2017  Edit option when vote
     }
 
     @Override
@@ -168,9 +165,6 @@ public class VotePresenter implements VoteContract.Presenter {
                 }
                 mView.onSubmitSuccess(currentOptions);
                 mView.setLoading(false);
-                //If new option is added , update UI
-                if (mIsNewOptionAdded) mView.updateAdditionOptionSuccess();
-                mIsNewOptionAdded = false;
             }
 
             @Override
