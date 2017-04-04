@@ -73,4 +73,7 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
         dest.writeInt(mCountParticipant);
         dest.writeInt(mCountComments);
     }
+
+    public DataInfoItem() {
+    }
 }

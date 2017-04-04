@@ -47,9 +47,9 @@ public class PollInformationPresenter implements PollInformationContract.Present
 
     @Override
     public void saveInformation(int id) {
-        if (mView == null || mRepository == null) return;
-        String username = mPoll.get().getPoll().getName();
-        String email = mPoll.get().getPoll().getEmail();
+        if (mPoll.get() == null || mRepository == null) return;
+        String username = mPoll.get().getPoll().getUser().getUsername();
+        String email = mPoll.get().getPoll().getUser().getEmail();
         String title = mPoll.get().getPoll().getTitle();
         int type = mPoll.get().getPoll().isMultiple() ? TYPE_MULTI : TYPE_SINGER;
         String dateClose = mPoll.get().getPoll().getDateClose();
