@@ -12,21 +12,17 @@ public class EditOptionContract {
         void deletePoll(int position);
         void augmentPoll();
         void pickImage();
-        void showError();
-        void back();
-        void showDialog();
-        void hideDialog();
         void showMessage(String message);
         void showMessage(int resId);
+        void updateUI(EditOptionFragment.OnCheckOptionListener listener);
     }
 
     interface Presenter {
-        void nextStep();
-        void saveOption();
-        void back();
         void pickImage(Option optionItem, int position);
         void deletePoll(Option optionItem, int position);
-        void augmentPoll();
+        void augmentPoll(int position);
         void pickDate(Option optionItem, int position);
+        void deleteImage(Option option);
+        void validateNextUI(EditOptionFragment.OnCheckOptionListener listener);
     }
 }
