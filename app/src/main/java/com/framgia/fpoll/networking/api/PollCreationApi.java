@@ -6,7 +6,6 @@ import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.networking.ResponseItem;
-import com.framgia.fpoll.util.Constant;
 
 import java.io.File;
 import java.util.List;
@@ -24,6 +23,7 @@ import static com.framgia.fpoll.util.Constant.Setting.HIDDEN_RESULT;
 import static com.framgia.fpoll.util.Constant.Setting.LIMIT_VOTE_NUMBER;
 import static com.framgia.fpoll.util.Constant.Setting.OPTION_EDITABLE;
 import static com.framgia.fpoll.util.Constant.Setting.PASSWORD_REQUIRED;
+import static com.framgia.fpoll.util.Constant.TYPE_IMAGE;
 
 /**
  * Created by framgia on 06/03/2017.
@@ -36,8 +36,8 @@ public class PollCreationApi {
     private static final String MULTIPLE = "multiple";
     private static final String DATE_CLOSE = "date_close";
     private static final String LOCATION = "location";
-    private static final String OPTION_TEXT = "optionText";
-    private static final String OPTION_IMAGE = "optionImage";
+    private static final String OPTION_TEXT = "optionText[%s]";
+    private static final String OPTION_IMAGE = "optionImage[%s]";
     private static final String IS_REQUIRE_VOTE = "setting[0]";
     private static final String REQUIRE_TYPE = "setting_child[0]";
     private static final String IS_SAME_EMAIL = "setting[10]";
@@ -49,9 +49,7 @@ public class PollCreationApi {
     private static final String ALLOW_EDIT_OPTION = "setting[11]";
     private static final String IS_HIDE_RESULT = "setting[2]";
     private static final String MEMBER = "member";
-    private static final String OPEN_SQUARE_BR = "[";
-    private static final String CLOSE_SQUARE_BR = "]";
-    private static final String TYPE_MUTILPLE = "1";
+    private static final String TYPE_MULTIPLE = "1";
     private static final String TYPE_SINGLE = "0";
 
     public interface PollService {
@@ -70,7 +68,7 @@ public class PollCreationApi {
             builder.addFormDataPart(DESCRIPTION, pollItem.getDescription());
         }
         builder.addFormDataPart(MULTIPLE,
-            String.valueOf(pollItem.isMultiple() ? TYPE_MUTILPLE : TYPE_SINGLE));
+            String.valueOf(pollItem.isMultiple() ? TYPE_MULTIPLE : TYPE_SINGLE));
         if (!TextUtils.isEmpty(pollItem.getDateClose())) {
             builder.addFormDataPart(DATE_CLOSE, pollItem.getDateClose());
         }
@@ -106,21 +104,21 @@ public class PollCreationApi {
         }
         if (optionItemList == null) return builder.build();
         for (int i = 0; i < optionItemList.size(); i++) {
-            StringBuilder fieldOptionText = new StringBuilder(OPTION_TEXT);
-            fieldOptionText.append(OPEN_SQUARE_BR)
-                .append(String.valueOf(i))
-                .append(CLOSE_SQUARE_BR);
-            builder.addFormDataPart(fieldOptionText.toString(), optionItemList.get(i).getName());
+            StringBuilder title = new StringBuilder();
+            if (optionItemList.get(i).getName() != null) {
+                title.append(optionItemList.get(i).getName());
+            }
+            if (optionItemList.get(i).getDate() != null) {
+                title.append(optionItemList.get(i).getDate());
+            }
+            builder.addFormDataPart(OPTION_TEXT, title.toString());
             if (optionItemList.get(i).getImage() == null) continue;
             File file = new File(optionItemList.get(i).getImage());
             if (!file.exists()) continue;
             RequestBody requestBody =
-                RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file);
-            StringBuilder fieldOptionImage = new StringBuilder(OPTION_IMAGE);
-            fieldOptionImage.append(OPEN_SQUARE_BR)
-                .append(String.valueOf(i))
-                .append(CLOSE_SQUARE_BR);
-            builder.addFormDataPart(fieldOptionImage.toString(), file.getName(), requestBody);
+                RequestBody.create(MediaType.parse(TYPE_IMAGE), file);
+            builder.addFormDataPart(String.format(OPTION_IMAGE, String.valueOf(i)), file.getName(),
+                requestBody);
         }
         return builder.build();
     }

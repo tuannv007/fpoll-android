@@ -13,6 +13,7 @@ public class OptionPollContract {
         void augmentPoll(int position);
         void pickImage();
         void showError();
+        void datePicker(Option option, int position);
     }
 
     interface Presenter {
@@ -21,5 +22,6 @@ public class OptionPollContract {
         void augmentPoll(int position);
         void pickDate(Option optionItem, int position);
         void deleteImage(Option option);
+        void deleteDateOfOption(Option option);
     }
 }

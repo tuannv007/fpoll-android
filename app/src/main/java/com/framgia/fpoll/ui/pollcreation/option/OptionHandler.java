@@ -32,5 +32,8 @@ public class OptionHandler {
     public void onDeleteImageClicked(Option option) {
         if (mListener != null) mListener.deleteImage(option);
     }
+    public void clickDeleteDate(Option option){
+        if (mListener != null) mListener.deleteDateOfOption(option);
+    }
 }
 
