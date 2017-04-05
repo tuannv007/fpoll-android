@@ -36,7 +36,7 @@ public class PollInformationFragment extends Fragment
     TimePickerDialog.OnTimeSetListener {
     private FragmentInformationBinding mBinding;
     private PollInformationContract.Presenter mPresenter;
-    private DataInfoItem mPollInfo;
+    private DataInfoItem mPollInfo = new DataInfoItem();
     private Calendar mCalendar = Calendar.getInstance();
 
     public static PollInformationFragment newInstance(DataInfoItem pollInfo) {
@@ -54,8 +54,8 @@ public class PollInformationFragment extends Fragment
         getData();
         mPresenter = new PollInformationPresenter(this, mPollInfo,
             PollRepository.getInstance(getActivity()));
-        mBinding.setHandler(new PollInformationHandler(mPresenter));
         mBinding.setInformation(mPollInfo);
+        mBinding.setHandler(new PollInformationHandler(mPresenter));
         return mBinding.getRoot();
     }
 

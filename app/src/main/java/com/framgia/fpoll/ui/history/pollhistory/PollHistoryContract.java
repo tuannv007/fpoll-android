@@ -14,7 +14,8 @@ public interface PollHistoryContract {
         void setPollHistory(List<HistoryPoll> pollHistories);
         void setLoadingTrue();
         void setLoadingFalse();
-        void clickOpenManagePoll(String token);
+        void onOpenManagerPollClick(String token);
+        void onOpenVoteClick(String token);
         void showMessage(int res);
         void showMessage(String res);
     }
