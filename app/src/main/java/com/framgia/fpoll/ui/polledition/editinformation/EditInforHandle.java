@@ -13,12 +13,4 @@ public class EditInforHandle {
     public void showDatePicker() {
         if (mListener != null) mListener.showDatePicker();
     }
-
-    public void nextStep(int id) {
-        if (mListener != null) mListener.nextStep(id);
-    }
-
-    public void back() {
-        if (mListener != null) mListener.back();
-    }
 }

@@ -10,14 +10,6 @@ public class EditSettingHandler {
         mListener = listener;
     }
 
-    public void nextStep() {
-        if (mListener != null) mListener.nextStep();
-    }
-
-    public void back() {
-        if (mListener != null) mListener.back();
-    }
-
     public void checkedVotingResult(boolean checked) {
         if (mListener != null) mListener.onCheckedVotingResult(checked);
     }
