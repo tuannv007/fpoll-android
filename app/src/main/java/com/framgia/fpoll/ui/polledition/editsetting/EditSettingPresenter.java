@@ -3,13 +3,9 @@ package com.framgia.fpoll.ui.polledition.editsetting;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableInt;
 
-import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Setting;
-import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
-import com.framgia.fpoll.networking.api.PollEditionApi;
 import com.framgia.fpoll.ui.pollcreation.setting.KeySetting;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 
@@ -132,30 +128,6 @@ public class EditSettingPresenter implements EditSettingContract.Presenter {
     @Override
     public void onCheckedSetPassword(boolean checked) {
         mPoll.setHasPass(checked);
-    }
-
-    @Override
-    public void nextStep() {
-        if (mView == null) return;
-        mView.showDialog();
-        mRepository.editPoll(PollEditionApi.TYPE_EDIT_SETTING, mPoll,
-            new DataCallback<DataInfoItem>() {
-                @Override
-                public void onSuccess(DataInfoItem data) {
-                    mView.hideDialog();
-                    mView.showMessage(R.string.update_success);
-                }
-
-                @Override
-                public void onError(String msg) {
-                    mView.showMessage(msg);
-                }
-            });
-    }
-
-    @Override
-    public void back() {
-        if (mView != null) mView.back();
     }
 
     @Override

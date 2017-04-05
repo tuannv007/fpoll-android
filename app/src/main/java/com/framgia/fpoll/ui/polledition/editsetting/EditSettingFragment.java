@@ -51,20 +51,6 @@ public class EditSettingFragment extends Fragment implements EditSettingContract
     }
 
     @Override
-    public void back() {
-    }
-
-    @Override
-    public void showDialog() {
-        mProgressDialog.show();
-    }
-
-    @Override
-    public void hideDialog() {
-        mProgressDialog.dismiss();
-    }
-
-    @Override
     public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }

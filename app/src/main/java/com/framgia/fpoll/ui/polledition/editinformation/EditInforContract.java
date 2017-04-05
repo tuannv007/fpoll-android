@@ -10,17 +10,10 @@ public interface EditInforContract {
         void showDatePicker();
         void bindError();
         void showTimePicker();
-        void showMessage(String message);
-        void back();
-        void showDialog();
-        void hideDialog();
     }
 
     interface Presenter {
-        void nextStep(int id);
         void showDatePicker();
         void showTimePicker();
-        void saveInformation(int id);
-        void back();
     }
 }

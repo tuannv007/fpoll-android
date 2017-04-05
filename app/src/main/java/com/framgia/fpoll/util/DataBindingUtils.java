@@ -57,6 +57,7 @@ import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
+import com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle;
 import com.framgia.fpoll.ui.polledition.editsetting.EditSettingPresenter;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.mikephil.charting.charts.BarChart;
@@ -545,6 +546,18 @@ public class DataBindingUtils {
 
     @BindingAdapter({"bind:onTouch", "bind:position"})
     public static void setOnTouchListenner(EditText view, final OptionHandler hanlder,
+                                           final int position) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                hanlder.clickAugmentPoll(position);
+                return false;
+            }
+        });
+    }
+
+    @BindingAdapter({"bind:onTouchEdit", "bind:position"})
+    public static void setOnTouchListenner(EditText view, final EditOptionHandle hanlder,
                                            final int position) {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
