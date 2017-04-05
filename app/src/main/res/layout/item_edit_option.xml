@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:bind="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="handler"
-            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle"/>
 
         <variable
             name="position"
@@ -15,60 +12,82 @@
             name="option"
             type="com.framgia.fpoll.data.model.poll.Option"/>
 
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle"/>
+
         <import type="android.view.View"/>
     </data>
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/dp_16">
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="vertical">
 
         <LinearLayout
-            style="@style/LinearLayoutStyle">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/edit_option_poll"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_2">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+                    android:onClick="@{()->handler.clickPickImage(option, position)}"
+                    android:visibility="@{option.image == null ? View.GONE: View.VISIBLE}">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_add_image"
+                        bind:imageUrl="@{option.image}"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:onClick="@{()->handler.onDeleteImageClicked(option)}"
+                        android:padding="@dimen/dp_5"
+                        android:src="@drawable/ic_delete"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:onClick="@{()->handler.clickPickImage(option, position)}"
+                    android:src="@drawable/ic_add_picture"/>
+
+            </RelativeLayout>
+
+            <EditText
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@={option.name}"/>
+                android:maxLines="4"
+                android:text="@={option.name}"
+                bind:onTouchEdit="@{handler}"
+                bind:position="@{position}"/>
 
             <ImageView
-                style="@style/ImageViewAuthorizationCenter"
-                android:onClick="@{()->handler.clickPickDate(option, position)}"
-                android:src="@drawable/ic_date_range_black_24dp"/>
-
-            <ImageView
-                android:id="@+id/image_insert_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_image_option_pick"
-                android:onClick="@{()->handler.clickPickImage(option, position)}"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:src="@drawable/ic_photo_white"/>
-
-            <ImageView
-                android:id="@+id/image_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_image_option_delete_right"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center"
                 android:onClick="@{()->handler.clickDeletePoll(option, position)}"
-                android:paddingLeft="@dimen/dp_16"
-                android:paddingRight="@dimen/dp_16"
-                android:src="@drawable/ic_delete_white_24px"/>
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ic_delete"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/image_photo"
-            android:layout_width="@dimen/dp_150"
-            android:layout_height="@dimen/dp_150"
-            android:layout_marginTop="@dimen/dp_4"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_fpoll_logo"
-            android:visibility="@{option.image == null ? View.GONE: View.VISIBLE}"
-            bind:imagePath="@{option.image}"/>
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 </layout>

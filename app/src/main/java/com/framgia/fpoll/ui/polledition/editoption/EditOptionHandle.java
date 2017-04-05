@@ -12,14 +12,6 @@ public class EditOptionHandle {
         mListener = listener;
     }
 
-    public void nextStep() {
-        if (mListener != null) mListener.nextStep();
-    }
-
-    public void back() {
-        if (mListener != null) mListener.back();
-    }
-
     public void clickPickImage(Option optionItem, int position) {
         if (mListener != null) mListener.pickImage(optionItem, position);
     }
@@ -32,7 +24,11 @@ public class EditOptionHandle {
         if (mListener != null) mListener.deletePoll(optionItem, position);
     }
 
-    public void clickAugmentPoll() {
-        if (mListener != null) mListener.augmentPoll();
+    public void clickAugmentPoll(int position) {
+        if (mListener != null) mListener.augmentPoll(position);
+    }
+
+    public void onDeleteImageClicked(Option option) {
+        if (mListener != null) mListener.deleteImage(option);
     }
 }

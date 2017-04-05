@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WR
 public class EditOptionFragment extends Fragment implements EditOptionContract.View {
     private static final int UNSELECTED_POSITION = -1;
     private static final int NUMBER_DEFAULT_OPTION = 4;
+    private static final long DELAY_VIEW_TIME = 700;
     private FragmentEditOptionBinding mBinding;
     private EditOptionContract.Presenter mPresenter;
     private ObservableField<EditOptionAdapter> mAdapter = new ObservableField<>();
@@ -93,26 +95,6 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     }
 
     @Override
-    public void showError() {
-        Toast.makeText(getContext(), getString(R.string.msg_option_blank), Toast.LENGTH_SHORT)
-            .show();
-    }
-
-    @Override
-    public void back() {
-    }
-
-    @Override
-    public void showDialog() {
-        mProgressDialog.show();
-    }
-
-    @Override
-    public void hideDialog() {
-        mProgressDialog.dismiss();
-    }
-
-    @Override
     public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
@@ -165,5 +147,25 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
 
     public ObservableField<EditOptionAdapter> getAdapter() {
         return mAdapter;
+    }
+
+    public void checkNextUI(final OnCheckOptionListener listener) {
+        if (mPresenter != null) mPresenter.validateNextUI(listener);
+    }
+
+    @Override
+    public void updateUI(final OnCheckOptionListener listener) {
+        mAdapter.get().notifyDataSetChanged();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listener.onSuccessful();
+            }
+        }, DELAY_VIEW_TIME);
+    }
+
+    public interface OnCheckOptionListener {
+        void onSuccessful();
     }
 }

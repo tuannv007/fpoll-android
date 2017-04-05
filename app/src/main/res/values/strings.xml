@@ -266,4 +266,11 @@
     <string name="title_setting_poll">Setting of poll enable </string>
     <string name="title_option_poll">Option of poll</string>
     <string name="msg_on">ON</string>
+    <string name="action_next_option">Option</string>
+    <string name="action_save_information">Save information</string>
+    <string name="action_back_information">Information</string>
+    <string name="action_save_option">Save option</string>
+    <string name="action_next_setting">Setting</string>
+    <string name="action_back_option">Option</string>
+    <string name="action_save_setting">Save setting</string>
 </resources>

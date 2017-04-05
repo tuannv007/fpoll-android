@@ -1,6 +1,5 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
@@ -32,200 +31,134 @@
         <import type="com.framgia.fpoll.util.TimeUtil"/>
     </data>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_grey_200"
+        android:background="@android:color/white"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_grey_200"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="@dimen/dp_16">
+            android:paddingBottom="@dimen/dp_16">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_page_setting"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_16">
+                style="@style/LinearLayoutStyle">
 
-                <LinearLayout
-                    style="@style/LinearLayoutStyle"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8">
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:src="@drawable/ic_person_black_24dp"/>
 
-                    <ImageView
-                        style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_person_black_24dp"/>
+                <EditText
+                    android:id="@+id/edt_user_name"
+                    style="@style/EditTextStyle"
+                    android:hint="@string/title_username"
+                    android:text="@={information.user.username}"
+                    bind:setErrorEditText="@{msgError}"/>
+            </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/edt_user_name"
-                        style="@style/EditTextStyle"
-                        android:hint="@string/title_username"
-                        android:text="@={information.user.username}"
-                        bind:setErrorEditText="@{msgError}"/>
-                </LinearLayout>
+            <LinearLayout
+                style="@style/LinearLayoutStyle">
 
-                <LinearLayout
-                    style="@style/LinearLayoutStyle"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8">
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:src="@drawable/ic_email_white_24px"/>
 
-                    <ImageView
-                        style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_email_white_24px"/>
+                <EditText
+                    android:id="@+id/edt_email"
+                    style="@style/EditTextStyle"
+                    android:hint="@string/title_email"
+                    android:inputType="textEmailAddress"
+                    android:text="@={information.user.email}"
+                    bind:setErrorEditText="@{msgError}"
+                    bind:setErrorEmail="@{msgErrorEmail}"/>
 
-                    <EditText
-                        android:id="@+id/edt_email"
-                        style="@style/EditTextStyle"
-                        android:hint="@string/title_email"
-                        android:inputType="textEmailAddress"
-                        android:text="@={information.user.email}"
-                        bind:setErrorEditText="@{msgError}"
-                        bind:setErrorEmail="@{msgErrorEmail}"/>
+            </LinearLayout>
 
-                </LinearLayout>
+            <LinearLayout
+                style="@style/LinearLayoutStyle">
 
-                <LinearLayout
-                    style="@style/LinearLayoutStyle"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8">
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:src="@drawable/ic_title"/>
 
-                    <ImageView
-                        style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_title"/>
+                <EditText
+                    android:id="@+id/edt_poll_title"
+                    style="@style/EditTextStyle"
+                    android:hint="@string/hint_poll_title"
+                    android:inputType="textEmailAddress"
+                    android:text="@={information.title}"
+                    bind:setErrorEditText="@{msgError}"/>
 
-                    <EditText
-                        android:id="@+id/edt_poll_title"
-                        style="@style/EditTextStyle"
-                        android:hint="@string/hint_poll_title"
-                        android:inputType="textEmailAddress"
-                        android:text="@={information.title}"
-                        bind:setErrorEditText="@{msgError}"/>
+            </LinearLayout>
 
-                </LinearLayout>
+            <LinearLayout
+                style="@style/LinearLayoutStyle">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/bg_edit_text">
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:src="@drawable/ic_question_answer_grey_24px"/>
 
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_48"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:entries="@array/array_answer"
-                        bind:choiceAnswer="@={information.multiple}"/>
-                </RelativeLayout>
+                <android.support.v7.widget.AppCompatSpinner
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/array_answer"
+                    android:padding="@dimen/dp_4"
+                    android:spinnerMode="dropdown"
+                    android:splitMotionEvents="true"
+                    bind:choiceAnswer="@={information.multiple}"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutStyle">
+
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:src="@drawable/ic_description_grey"/>
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/edit_send_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_8"
-                    android:background="@drawable/bg_edit_text"
+                    style="@style/EditTextStyle"
                     android:gravity="start"
                     android:hint="@string/title_description_poll"
-                    android:minHeight="@dimen/dp_180"
+                    android:inputType="textEmailAddress"
                     android:padding="@dimen/dp_8"
                     android:text="@={information.description}"/>
 
-                <LinearLayout
-                    android:id="@+id/btn_choose_time"
-                    style="@style/LinearLayoutStyle"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8"
-                    android:onClick="@{() -> handler. showDatePicker()}">
-
-                    <ImageView
-                        style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_alarm_black_24px"/>
-
-                    <TextView
-                        android:id="@+id/edt_choose_time"
-                        style="@style/EditTextStyle"
-                        android:gravity="center_vertical"
-                        android:text="@{TimeUtil.convertTimeToString(fragment.mTime)}"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/LinearLayoutStyle"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8">
-
-                    <ImageView
-                        style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_location_on_black_24px"/>
-
-                    <EditText
-                        style="@style/EditTextStyle"
-                        android:hint="@string/hint_position"
-                        android:text="@={information.location}"/>
-                </LinearLayout>
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/btn_choose_time"
+                style="@style/LinearLayoutStyle"
+                android:onClick="@{() -> handler. showDatePicker()}">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_continue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:onClick="@{() -> handler. nextStep(information.id)}"
-                    android:padding="@dimen/dp_8"
-                    app:cardBackgroundColor="@color/color_teal_800">
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:src="@drawable/ic_alarm_black_24px"/>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:paddingBottom="@dimen/dp_8"
-                        android:paddingLeft="@dimen/dp_16"
-                        android:paddingRight="@dimen/dp_16"
-                        android:paddingTop="@dimen/dp_8"
-                        android:text="@string/action_save"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_20"/>
-                </android.support.v7.widget.CardView>
+                <TextView
+                    style="@style/EditTextStyle"
+                    android:background="?attr/editTextBackground"
+                    android:text="@{information.dateClose}"/>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:onClick="@{() -> handler. back()}"
-                    android:padding="@dimen/dp_8"
-                    app:cardBackgroundColor="@color/color_teal_800">
+            </LinearLayout>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingBottom="@dimen/dp_8"
-                        android:paddingLeft="@dimen/dp_16"
-                        android:paddingRight="@dimen/dp_16"
-                        android:paddingTop="@dimen/dp_8"
-                        android:text="@string/action_back"
-                        android:textColor="@color/color_white"
-                        android:textSize="@dimen/sp_20"/>
-                </android.support.v7.widget.CardView>
-            </RelativeLayout>
+            <LinearLayout
+                style="@style/LinearLayoutStyle">
+
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:src="@drawable/ic_location_on_black_24px"/>
+
+                <com.framgia.fpoll.widget.PlaceAutoCompleteView
+                    android:id="@+id/edit_location"
+                    style="@style/EditTextStyle"
+                    android:hint="@string/hint_position"
+                    android:text="@={information.location}"/>
+
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </layout>
