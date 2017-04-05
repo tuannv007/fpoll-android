@@ -202,7 +202,7 @@
     <string name="action_export_excel">Export excel</string>
     <string name="title_image">Image</string>
     <string name="title_input_email">Require input email</string>
-    <string name="title_input_name"> Require input Name</string>
+    <string name="title_input_name">Require input Name</string>
     <string name="title_input_add_option">So that add option</string>
     <string name="title_input_count_vote">Count number vote limit</string>
     <string name="title_input_edit_link">So that editLink</string>
@@ -259,11 +259,11 @@
     <string name="title_copy">Copy</string>
     <string name="action_resend_email">Resend</string>
     <string name="msg_number_vote">Number vote: %d</string>
-    <string name="title_anonymous">Anonymous </string>
+    <string name="title_anonymous">Anonymous</string>
     <string name="title_user_created">Created by :</string>
     <string name="title_user_at">Create at :</string>
     <string name="msg_cancel_create_poll">You want to cancel create this poll</string>
-    <string name="title_setting_poll">Setting of poll enable </string>
+    <string name="title_setting_poll">Setting of poll enable</string>
     <string name="title_option_poll">Option of poll</string>
     <string name="msg_on">ON</string>
     <string name="action_next_option">Option</string>
@@ -273,4 +273,6 @@
     <string name="action_next_setting">Setting</string>
     <string name="action_back_option">Option</string>
     <string name="action_save_setting">Save setting</string>
+    <string name="no_item">No item, click (+) to create poll</string>
+    <string name="no_item_need_login">No item, please login</string>
 </resources>
