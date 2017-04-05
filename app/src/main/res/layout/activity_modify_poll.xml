@@ -46,7 +46,7 @@
                 style="@style/FPollCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->presenter.clickSave()}">
+                android:onClick="@{()->presenter.onClickSave()}">
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/FPollTextCardView"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:onClick="@{()->presenter.clickNext()}"
+                android:onClick="@{()->presenter.onClickNext()}"
                 android:visibility="@{activity.isShowNext ? View.VISIBLE : View.INVISIBLE}">
 
                 <android.support.v7.widget.AppCompatTextView
@@ -77,7 +77,7 @@
                 android:layout_marginRight="@dimen/dp_8"
                 android:layout_toLeftOf="@+id/card_next"
                 android:layout_toStartOf="@+id/card_next"
-                android:onClick="@{()->presenter.clickPrevious()}"
+                android:onClick="@{()->presenter.onClickPrevious()}"
                 android:visibility="@{activity.isShowPrevious ? View.VISIBLE : View.INVISIBLE}">
 
                 <android.support.v7.widget.AppCompatTextView

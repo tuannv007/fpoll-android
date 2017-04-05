@@ -19,10 +19,17 @@ import static com.framgia.fpoll.util.Constant.TimeFormat.DATE_OUTPUT;
 public class TimeUtil {
     private static final java.lang.String TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
     private static final java.lang.String DATE_FORMAT = "yyyy-MM-dd hh:mm";
+    private static final java.lang.String DATE_OPTION_FORMAT_ = "dd-MM-yyyy hh:mm";
 
     public static String convertTimeToString(Calendar calendar) {
         if (calendar == null) return DATA_SPACE;
         return new SimpleDateFormat(DATE_OUTPUT, Locale.getDefault()).format(calendar.getTime());
+    }
+
+    public static String timeOptionToString(Calendar calendar) {
+        if (calendar == null) return DATA_SPACE;
+        return new SimpleDateFormat(DATE_OPTION_FORMAT_, Locale.getDefault())
+            .format(calendar.getTime());
     }
 
     public static String getCurentTime() {

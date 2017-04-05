@@ -31,6 +31,7 @@ public class Option extends BaseObservable implements Parcelable {
     @SerializedName("participants")
     private List<ParticipantVotes> mParticipantVotes;
     private boolean mIsChecked;
+    private String mDate;
 
     public Option() {
     }
@@ -42,6 +43,7 @@ public class Option extends BaseObservable implements Parcelable {
         mPollId = in.readInt();
         mCreatedTime = in.readString();
         mUpdatedTime = in.readString();
+        mDate = in.readString();
         mIsChecked = in.readByte() != 0;
     }
 
@@ -154,7 +156,18 @@ public class Option extends BaseObservable implements Parcelable {
         dest.writeInt(mPollId);
         dest.writeString(mCreatedTime);
         dest.writeString(mUpdatedTime);
+        dest.writeString(mDate);
         dest.writeByte((byte) (mIsChecked ? 1 : 0));
+    }
+
+    @Bindable
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+        notifyPropertyChanged(BR.date);
     }
 
     @Override
