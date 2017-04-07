@@ -4,11 +4,9 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.Poll;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -23,6 +21,8 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     private int mCountComments;
     @SerializedName("activities")
     private List<FpollComment> mFpollComment;
+    @SerializedName("token_type")
+    private int mTokenType;
 
     @Bindable
     public List<FpollComment> getFpollComment() {
@@ -42,6 +42,36 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     public void setPoll(PollItem poll) {
         this.mPoll = poll;
         notifyPropertyChanged(BR.poll);
+    }
+
+    @Bindable
+    public int getTokenType() {
+        return mTokenType;
+    }
+
+    public void setTokenType(int tokenType) {
+        mTokenType = tokenType;
+        notifyPropertyChanged(BR.tokenType);
+    }
+
+    @Bindable
+    public int getCountParticipant() {
+        return mCountParticipant;
+    }
+
+    public void setCountParticipant(int countParticipant) {
+        mCountParticipant = countParticipant;
+        notifyPropertyChanged(BR.countParticipant);
+    }
+
+    @Bindable
+    public int getCountComments() {
+        return mCountComments;
+    }
+
+    public void setCountComments(int countComments) {
+        mCountComments = countComments;
+        notifyPropertyChanged(BR.countComments);
     }
 
     public static final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {

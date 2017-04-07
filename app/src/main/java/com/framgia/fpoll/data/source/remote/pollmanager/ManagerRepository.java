@@ -2,11 +2,9 @@ package com.framgia.fpoll.data.source.remote.pollmanager;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
-
 import java.util.List;
 
 /**
@@ -58,7 +56,7 @@ public class ManagerRepository implements ManagerDataSource {
 
     @Override
     public void getHistory(@NonNull String token,
-                           @NonNull final DataCallback<List<HistoryPoll>> callback) {
+            @NonNull final DataCallback<List<HistoryPoll>> callback) {
         if (mDataSource == null) return;
         mDataSource.getHistory(token, new DataCallback<List<HistoryPoll>>() {
             @Override
@@ -75,7 +73,7 @@ public class ManagerRepository implements ManagerDataSource {
 
     @Override
     public void getPollClosed(@NonNull String token,
-                              @NonNull final DataCallback<List<HistoryPoll>> callback) {
+            @NonNull final DataCallback<List<HistoryPoll>> callback) {
         if (mDataSource == null) return;
         mDataSource.getPollClosed(token, new DataCallback<List<HistoryPoll>>() {
             @Override
@@ -92,7 +90,7 @@ public class ManagerRepository implements ManagerDataSource {
 
     @Override
     public void getPollParticipated(@NonNull String token,
-                                    @NonNull final DataCallback<List<HistoryPoll>> callback) {
+            @NonNull final DataCallback<List<HistoryPoll>> callback) {
         if (mDataSource == null) return;
         mDataSource.getPollParticipated(token, new DataCallback<List<HistoryPoll>>() {
             @Override
@@ -109,26 +107,42 @@ public class ManagerRepository implements ManagerDataSource {
 
     @Override
     public void updateLinkPoll(@NonNull String token, @NonNull String oldUser,
-                               @NonNull String oldAdmin, @NonNull String newUser,
-                               @NonNull String newAdmin,
-                               @NonNull final DataCallback<String> callback) {
+            @NonNull String oldAdmin, @NonNull String newUser, @NonNull String newAdmin,
+            @NonNull final DataCallback<String> callback) {
         if (mDataSource == null) return;
         mDataSource.updateLinkPoll(token, oldUser, oldAdmin, newUser, newAdmin,
-            new DataCallback<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    callback.onSuccess(data);
-                }
+                new DataCallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        callback.onSuccess(data);
+                    }
 
-                @Override
-                public void onError(String msg) {
-                    callback.onError(msg);
-                }
-            });
+                    @Override
+                    public void onError(String msg) {
+                        callback.onError(msg);
+                    }
+                });
     }
 
     @Override
     public void getPoll(@NonNull String token, @NonNull final DataCallback<DataInfoItem> callback) {
+        if (mDataSource == null) return;
+        mDataSource.getPoll(token, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void getPollDetail(@NonNull String token,
+            @NonNull final DataCallback<DataInfoItem> callback) {
         if (mDataSource == null) return;
         mDataSource.getPoll(token, new DataCallback<DataInfoItem>() {
             @Override

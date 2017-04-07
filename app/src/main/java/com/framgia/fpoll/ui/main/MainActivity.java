@@ -31,6 +31,7 @@ import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.introduction.IntroduceAppFragment;
+import com.framgia.fpoll.ui.joinpoll.JoinPollActivity;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
@@ -101,6 +102,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.action_home:
                 addHomeFragment();
+                break;
+            case R.id.action_join_poll:
+                startActivity(JoinPollActivity.getIntent(this));
                 break;
             case R.id.action_guide:
                 setIsShowAddPoll(false);
