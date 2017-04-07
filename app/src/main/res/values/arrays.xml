@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="array_history">
-        <item>@string/title_poll_initiate</item>
-        <item>@string/title_poll_participate</item>
-        <item>@string/title_poll_close</item>
+        <item>@string/title_initiate</item>
+        <item>@string/title_participate</item>
+        <item>@string/title_close</item>
     </string-array>
     <string-array name="array_manage">
         <item>@string/title_information</item>

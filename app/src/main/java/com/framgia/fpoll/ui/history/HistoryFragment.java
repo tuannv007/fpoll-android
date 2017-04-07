@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
@@ -15,7 +14,6 @@ import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
 import com.framgia.fpoll.ui.pollmanage.action.EditPollFragment;
 import com.framgia.fpoll.ui.pollmanage.information.PollInformationFragment;
 import com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +32,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     private ObservableField<DataInfoItem> mPollInfo = new ObservableField<>();
     private String mToken;
 
-    public static HistoryFragment newInstance(ViewpagerType type,
-                                              DataInfoItem dataInfoItemList, String token) {
+    public static HistoryFragment newInstance(ViewpagerType type, DataInfoItem dataInfoItemList,
+            String token) {
         HistoryFragment fragment = new HistoryFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
@@ -47,7 +45,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false);
         getDataFromActivity();
         mBinding.setFragment(this);
@@ -91,5 +89,31 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     public ViewPagerAdapter getAdapter() {
         return mAdapter;
+    }
+
+    public void clearData() {
+        int size = mAdapter.getCount();
+        for (int i = 0; i < size; i++) {
+            Fragment fragment = mAdapter.getItem(i);
+            if (fragment != null && fragment instanceof PollHistoryFragment) {
+                ((PollHistoryFragment) fragment).clearData();
+            }
+        }
+    }
+
+    public void setTitle(PollHistoryType type) {
+        switch (type) {
+            case INITIATE:
+                getActivity().setTitle(R.string.title_poll_initiate);
+                break;
+            case PARTICIPATE:
+                getActivity().setTitle(R.string.title_poll_participate);
+                break;
+            case CLOSE:
+                getActivity().setTitle(R.string.title_poll_close);
+                break;
+            default:
+                break;
+        }
     }
 }

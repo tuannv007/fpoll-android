@@ -77,9 +77,12 @@
     <string name="msg_send_email">If you want send mail to participants, let enter email into
         below textbox!
     </string>
-    <string name="title_poll_initiate">Initiated</string>
-    <string name="title_poll_participate">Participated</string>
-    <string name="title_poll_close">Closed</string>
+    <string name="title_initiate">Initiated</string>
+    <string name="title_participate">Participated</string>
+    <string name="title_close">Closed</string>
+    <string name="title_poll_initiate">Poll Initiated</string>
+    <string name="title_poll_participate">Poll Participated</string>
+    <string name="title_poll_close">Poll Closed</string>
     <string name="action_open">Open</string>
     <string name="action_close">Close</string>
     <string name="title_history">Poll history</string>

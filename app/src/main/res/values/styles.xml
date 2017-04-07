@@ -1,6 +1,8 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="AppTheme.Base"/>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/color_teal_800</item>
         <item name="colorPrimaryDark">@color/color_teal_800</item>
         <item name="colorAccent">@color/color_orange_200</item>
@@ -177,5 +179,14 @@
     <style name="FloatMenuTitleStyle">
         <item name="android:background">@drawable/bg_float_menu_title</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="NavigationHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/color_teal_500</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:paddingBottom">@dimen/dp_16</item>
+        <item name="android:paddingTop">@dimen/dp_16</item>
     </style>
 </resources>
