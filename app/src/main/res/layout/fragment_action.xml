@@ -130,7 +130,7 @@
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->handler.viewHistory()}"
+                android:onClick="@{()->handler.viewHistory(floatActionMenu)}"
                 fab:fab_colorNormal="@android:color/white"
                 fab:fab_colorPressed="@color/color_seashell"
                 fab:fab_icon="@drawable/ic_history_white_24px"
@@ -140,7 +140,7 @@
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->handler.editPoll()}"
+                android:onClick="@{()->handler.editPoll(floatActionMenu)}"
                 fab:fab_colorNormal="@android:color/white"
                 fab:fab_colorPressed="@color/color_seashell"
                 fab:fab_icon="@drawable/ic_mode_edit_black_24px"
@@ -150,7 +150,7 @@
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->handler.closePoll()}"
+                android:onClick="@{()->handler.closePoll(floatActionMenu)}"
                 android:visibility="@{presenter.pollOpen ? View.VISIBLE : View.GONE}"
                 fab:fab_colorNormal="@android:color/white"
                 fab:fab_colorPressed="@color/color_seashell"
@@ -161,7 +161,7 @@
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->handler.deleteVoting()}"
+                android:onClick="@{()->handler.deleteVoting(floatActionMenu)}"
                 android:visibility="@{presenter.pollOpen ? View.GONE : View.VISIBLE}"
                 fab:fab_colorNormal="@android:color/white"
                 fab:fab_colorPressed="@android:color/white"
@@ -172,7 +172,7 @@
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->handler.createDuplicate()}"
+                android:onClick="@{()->handler.createDuplicate(floatActionMenu)}"
                 fab:fab_colorNormal="@android:color/white"
                 fab:fab_colorPressed="@color/color_seashell"
                 fab:fab_icon="@drawable/ic_copy"

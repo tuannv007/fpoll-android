@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.pollmanage.action;
 
 import android.support.annotation.NonNull;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 /**
  * Created by tran.trung.phong on 01/03/2017.
@@ -17,23 +18,33 @@ public class EditPollHandler {
         if (mListener != null) mListener.updateLinkPoll();
     }
 
-    public void viewHistory() {
-        if (mListener != null) mListener.viewHistory();
+    public void viewHistory(FloatingActionsMenu menu) {
+        if (mListener == null) return;
+        menu.collapse();
+        mListener.viewHistory();
     }
 
-    public void editPoll() {
-        if (mListener != null) mListener.editPoll();
+    public void editPoll(FloatingActionsMenu menu) {
+        if (mListener == null) return;
+        menu.collapse();
+        mListener.editPoll();
     }
 
-    public void closePoll() {
-        if (mListener != null) mListener.closePoll();
+    public void closePoll(FloatingActionsMenu menu) {
+        if (mListener == null) return;
+        menu.collapse();
+        mListener.closePoll();
     }
 
-    public void createDuplicate() {
-        if (mListener != null) mListener.createDuplicate();
+    public void createDuplicate(FloatingActionsMenu menu) {
+        if (mListener == null) return;
+        menu.collapse();
+        mListener.createDuplicate();
     }
 
-    public void deleteVoting() {
-        if (mListener != null) mListener.deleteVoting();
+    public void deleteVoting(FloatingActionsMenu menu) {
+        if (mListener == null) return;
+        menu.collapse();
+        mListener.deleteVoting();
     }
 }
