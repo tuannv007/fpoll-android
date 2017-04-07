@@ -9,19 +9,33 @@ import com.framgia.fpoll.ui.base.BaseView;
 public class OptionPollContract {
     interface View extends BaseView {
         void openGallery(Option optionItem, int position);
+
         void deletePoll(int position);
+
         void augmentPoll(int position);
+
         void pickImage();
-        void showError();
+
+        void showOptionError();
+
         void datePicker(Option option, int position);
+
+        void notifyData();
     }
 
     interface Presenter {
         void pickImage(Option optionItem, int position);
+
         void deletePoll(Option optionItem, int position);
+
         void augmentPoll(int position);
+
         void pickDate(Option optionItem, int position);
+
         void deleteImage(Option option);
+
         void deleteDateOfOption(Option option);
+
+        void checkNextUi(OptionPollFragment.OnCheckOptionListenner listenner);
     }
 }

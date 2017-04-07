@@ -257,7 +257,7 @@
     <string name="msg_update_fail">Update Fail</string>
     <string name="update_success">Update successfully</string>
     <string name="title_copy">Copy</string>
-    <string name="action_click_me">Click me</string>
+    <string name="action_resend_email">Resend</string>
     <string name="msg_number_vote">Number vote: %d</string>
     <string name="title_anonymous">Anonymous </string>
     <string name="title_user_created">Created by :</string>

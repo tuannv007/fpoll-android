@@ -6,16 +6,13 @@ import android.database.Cursor;
 import android.databinding.ObservableField;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
@@ -25,11 +22,9 @@ import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.util.TimeUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-
 import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
@@ -41,10 +36,9 @@ import static com.framgia.fpoll.util.Constant.Tag.TIME_PICKER_TAG;
  * <
  */
 public class OptionPollFragment extends Fragment
-    implements OptionPollContract.View, DatePickerDialog.OnDateSetListener,
-    TimePickerDialog.OnTimeSetListener {
-    private static final int DEFAULT_OPTION = 4;
-    private static final long DELAY_VIEW_TIME = 700;
+        implements OptionPollContract.View, DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener {
+    public static final int DEFAULT_OPTION = 4;
     private FragmentPageOptionBinding mBinding;
     private OptionPollContract.Presenter mPresenter;
     private ObservableField<OptionAdapter> mAdapter = new ObservableField<>();
@@ -70,10 +64,10 @@ public class OptionPollFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding = FragmentPageOptionBinding.inflate(inflater, container, false);
         getDataFromActivity();
-        mPresenter = new OptionPresenter(this, mPoll, mPoll.getOptions());
+        mPresenter = new OptionPresenter(this, mPoll);
         mBinding.setHandler(new OptionHandler(mPresenter));
         mBinding.setPresenter((OptionPresenter) mPresenter);
         mBinding.setFragment(this);
@@ -101,7 +95,7 @@ public class OptionPollFragment extends Fragment
     @Override
     public void pickImage() {
         Intent intent = new Intent(Intent.ACTION_PICK,
-            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMAGE_PICKER_SELECT);
     }
 
@@ -125,36 +119,35 @@ public class OptionPollFragment extends Fragment
     public void datePicker(Option option, int position) {
         mOption = option;
         if (mCalendar == null) mCalendar = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-            this,
-            mCalendar.get(Calendar.YEAR),
-            mCalendar.get(Calendar.MONTH),
-            mCalendar.get(Calendar.DAY_OF_MONTH)
-        );
+        DatePickerDialog dpd = DatePickerDialog.newInstance(this, mCalendar.get(Calendar.YEAR),
+                mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
         dpd.show(getActivity().getFragmentManager(), DATE_PICKER_TAG);
+    }
+
+    @Override
+    public void notifyData() {
+        mAdapter.get().notifyDataSetChanged();
     }
 
     private void showTimePicker() {
         if (mCalendar == null) mCalendar = Calendar.getInstance();
-        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
-            this,
-            mCalendar.get(Calendar.HOUR_OF_DAY),
-            mCalendar.get(Calendar.MINUTE),
-            mCalendar.get(Calendar.SECOND),
-            true
-        );
+        TimePickerDialog timePickerDialog =
+                TimePickerDialog.newInstance(this, mCalendar.get(Calendar.HOUR_OF_DAY),
+                        mCalendar.get(Calendar.MINUTE), mCalendar.get(Calendar.SECOND), true);
         timePickerDialog.show(getActivity().getFragmentManager(), TIME_PICKER_TAG);
     }
 
     @Override
-    public void showError() {
+    public void showOptionError() {
         ActivityUtil.showToast(getActivity(), R.string.msg_option_blank);
     }
 
     @Override
     public void deletePoll(int position) {
-        if (position == 0 && mAdapter.get().getItemCount() == 1 ||
-            position > mAdapter.get().getItemCount() - 1) return;
+        if (position == 0 && mAdapter.get().getItemCount() == 1
+                || position > mAdapter.get().getItemCount() - 1) {
+            return;
+        }
         mPoll.getOptions().remove(position);
         mAdapter.get().notifyDataSetChanged();
     }
@@ -168,23 +161,27 @@ public class OptionPollFragment extends Fragment
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode != PERMISSIONS_REQUEST_WRITE_EXTERNAL) return;
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             pickImage();
-        } else ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
+        } else {
+            ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_PICKER_SELECT &&
-            resultCode == RESULT_OK && data != null && mOption != null) {
+        if (requestCode == IMAGE_PICKER_SELECT
+                && resultCode == RESULT_OK
+                && data != null
+                && mOption != null) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
             Cursor cursor = getActivity().getContentResolver()
-                .query(selectedImage, filePathColumn, null, null, null);
+                    .query(selectedImage, filePathColumn, null, null, null);
             if (cursor == null) return;
             cursor.moveToFirst();
             String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
@@ -197,35 +194,8 @@ public class OptionPollFragment extends Fragment
         return mAdapter;
     }
 
-    public void checkNextUI(@NonNull final OnCheckOptionListenner listtenner) {
-        boolean isDeleteEmptyOption = false;
-        for (int i = mPoll.getOptions().size() - 1; i >= 0; i--) {
-            Option item = mPoll.getOptions().get(i);
-            if (item.getName() == null || TextUtils.isEmpty(item.getName()) &&
-                item.getImage() == null) {
-                mPoll.getOptions().remove(i);
-                isDeleteEmptyOption = true;
-            }
-        }
-        if (mPoll.getOptions().size() == 0) {
-            for (int i = 0; i < DEFAULT_OPTION; i++) {
-                mPoll.getOptions().add(new Option());
-            }
-            ActivityUtil.showToast(getApplicationContext(), R.string.msg_option_blank);
-            return;
-        }
-        if (isDeleteEmptyOption) {
-            mAdapter.get().notifyDataSetChanged();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    listtenner.onSuccessful();
-                }
-            }, DELAY_VIEW_TIME);
-        } else {
-            listtenner.onSuccessful();
-        }
+    public void checkNextUI(@NonNull OnCheckOptionListenner listenner) {
+        mPresenter.checkNextUi(listenner);
     }
 
     public interface OnCheckOptionListenner {
