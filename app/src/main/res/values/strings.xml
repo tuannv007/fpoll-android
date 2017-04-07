@@ -278,4 +278,8 @@
     <string name="action_save_setting">Save setting</string>
     <string name="no_item">No item, click (+) to create poll</string>
     <string name="no_item_need_login">No item, please login</string>
+    <string name="title_join_poll">Join poll</string>
+    <string name="title_enter_link_vote">Enter the token to vote</string>
+    <string name="title_url">poll.framgia.vn/</string>
+    <string name="title_next_to_vote">Join Poll</string>
 </resources>

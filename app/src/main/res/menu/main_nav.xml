@@ -9,6 +9,10 @@
         android:icon="@drawable/ic_home_white_24px"
         android:title="@string/title_home"/>
     <item
+        android:id="@+id/action_join_poll"
+        android:icon="@drawable/ic_elections"
+        android:title="@string/title_join_poll"/>
+    <item
         android:id="@+id/action_introduce"
         android:icon="@drawable/ic_about"
         android:title="@string/title_introduce_app"/>

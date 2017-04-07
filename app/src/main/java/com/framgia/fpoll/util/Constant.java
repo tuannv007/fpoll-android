@@ -43,9 +43,9 @@ public class Constant {
         public static final String BASE_URL = "http://poll.framgia.vn/";
         public static final String POLL_URL = BASE_URL + "link/";
         public static final String HELP_URL =
-            "https://docs.google.com/viewer?url=" + BASE_URL + "tutorial";
+                "https://docs.google.com/viewer?url=" + BASE_URL + "tutorial";
         public static final String DATA_SCOPE =
-            "oauth2:https://www.googleapis.com/auth/userinfo.profile";
+                "oauth2:https://www.googleapis.com/auth/userinfo.profile";
     }
 
     public static class DataConstant {
@@ -102,6 +102,11 @@ public class Constant {
         public static final int KEY_SINGER_CHOOSE = 0;
         public static final String KEY_POLL_OPTION = "key_poll_option";
         public static final String KEY_POLL_SETTING = "key_poll_setting";
+    }
+
+    public class TokenType {
+        public static final int TYPE_USER = 0;
+        public static final int TYPE_ADMIN = 1;
     }
 
     public static class Setting {
