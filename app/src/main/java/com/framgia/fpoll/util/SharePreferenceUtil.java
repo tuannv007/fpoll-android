@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_IS_LOGIN;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_LANGUAGE;
 import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_TOKEN;

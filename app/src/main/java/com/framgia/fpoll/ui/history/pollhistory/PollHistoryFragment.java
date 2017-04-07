@@ -62,7 +62,8 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
             SharePreferenceUtil.getIntances(getActivity()));
         mBinding.setPresenter((PollHistoryPresenter) mPresenter);
         mBinding.setFragment(this);
-        mAdapter.set(new PollHistoryAdapter(mListPollHistory, mPollHistoryType, mPresenter));
+        mAdapter.set(
+            new PollHistoryAdapter(getContext(), mListPollHistory, mPollHistoryType, mPresenter));
         mPresenter.getData();
         return mBinding.getRoot();
     }

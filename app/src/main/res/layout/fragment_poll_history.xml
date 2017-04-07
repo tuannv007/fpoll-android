@@ -24,7 +24,6 @@
         bind:colorSwipeLayout="@{@color/color_teal_600}"
         bind:refreshSwipeLayout="@{fragment.loadFinish}"
         bind:swipeOnRefresh="@{presenter}">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
@@ -33,6 +32,5 @@
             android:paddingRight="@dimen/dp_8"
             app:adapter="@{fragment.adapter}"
             app:layoutManager="@{LayoutManageUtil.linear()}"/>
-
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>
