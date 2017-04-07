@@ -3,6 +3,7 @@ package com.framgia.fpoll.networking.api;
 import android.text.TextUtils;
 
 import com.framgia.fpoll.data.model.FpollComment;
+import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.model.poll.Poll;
@@ -21,6 +22,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -33,8 +35,16 @@ public interface VoteInfoAPI {
     Call<ResponseItem<VoteInfo>> showVoteInfo(@Path("token") String token);
     @GET("/api/v1/poll/result/{token}")
     Call<ResponseItem<ResultVoteItem>> getVoteResult(@Path("token") String token);
+    @GET("/api/v1/poll/result-detail/{token}")
+    Call<ResponseItem<VoteDetail>> getVoteDetail(@Path("token") String token);
     @POST("/api/v1/poll/comment")
     Call<ResponseItem<FpollComment>> postComment(@Body CommentBody commentBody);
+    @Multipart
+    @POST("/api/v1/user/vote")
+    Call<ResponseItem<ParticipantVotes>> votePoll(@Body RequestBody options);
+    @POST("/api/v1/poll/update/{id}")
+    Call<ResponseItem<Poll>> updateOption(@Path("id") int pollId,
+                                          @Body RequestBody newOption);
     public class CommentBody {
         @SerializedName("name")
         private String mName;
@@ -61,19 +71,20 @@ public interface VoteInfoAPI {
             return mContent;
         }
     }
-    @POST("/api/v1/user/vote")
-    Call<ResponseItem<ParticipantVotes>> votePoll(@Body RequestBody options);
+
     public class OptionsBody {
         private static final String NAME = "name";
         private static final String EMAIL = "email";
         private static final String ID_POLL = "idPoll";
-        private static final String OPTION = "option";
-        private static final String OPEN_SQUARE_BR = "[";
-        private static final String CLOSE_SQUARE_BR = "]";
+        private static final String OPTION = "option[%s]";
+        private static final String OPTION_TEXT = "optionText[0]";
+        private static final String OPTION_IMAGE = "optionImage[0]";
         private String mName;
         private String mEmail;
         private int mIdPoll;
         private List<Option> mListOptions;
+        private String mOptionText;
+        private String mOptionImage;
 
         public OptionsBody(String name, String email, int idPoll,
                            List<Option> listOptions) {
@@ -81,6 +92,16 @@ public interface VoteInfoAPI {
             mEmail = email;
             mIdPoll = idPoll;
             mListOptions = listOptions;
+        }
+
+        public OptionsBody(String name, String email, int idPoll,
+                           List<Option> listOptions, String optionText, String optionImage) {
+            mName = name;
+            mEmail = email;
+            mIdPoll = idPoll;
+            mListOptions = listOptions;
+            mOptionText = optionText;
+            mOptionImage = optionImage;
         }
 
         public List<Option> getListOptions() {
@@ -93,19 +114,18 @@ public interface VoteInfoAPI {
             builder.addFormDataPart(NAME, this.mName);
             builder.addFormDataPart(EMAIL, this.mEmail);
             builder.addFormDataPart(ID_POLL, String.valueOf(this.mIdPoll));
-            for (int i = 0; i < this.mListOptions.size(); i++) {
-                String optionKey = OPTION + OPEN_SQUARE_BR +
-                    String.valueOf(this.mListOptions.get(i).getId()) +
-                    CLOSE_SQUARE_BR;
-                builder.addFormDataPart(optionKey,
-                    String.valueOf(this.mListOptions.get(i).getId()));
+            for (Option option : mListOptions) {
+                if (!TextUtils.isEmpty(option.getName()) && !TextUtils.isEmpty(option.getImage())) {
+                    String optionKey = String.format(OPTION, option.getId());
+                    builder.addFormDataPart(optionKey, String.valueOf(option.getId()));
+                }
             }
+            if (mOptionText != null) builder.addFormDataPart(OPTION_TEXT, mOptionText);
+            if (mOptionImage != null) builder.addFormDataPart(OPTION_IMAGE, mOptionImage);
             return builder.build();
         }
     }
-    @POST("/api/v1/poll/update/{id}")
-    Call<ResponseItem<Poll>> updateOption(@Path("id") int pollId,
-                                          @Body RequestBody newOption);
+
     public class NewOptionBody {
         private static final String TYPE_EDIT = "type_edit";
         private static final String OPTION_TEXT = "optionText[newOption1]";

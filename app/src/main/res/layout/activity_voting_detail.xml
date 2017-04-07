@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
+
+        <variable
+            name="presenter"
+            type="com.framgia.fpoll.ui.votemanager.detail.VotingDetailPresenter"/>
+
+        <variable
+            name="view"
+            type="com.framgia.fpoll.ui.votemanager.detail.VotingDetailActivity"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_toolbar"
+            layout="@layout/partial_toolbar"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:adapter="@{view.adapter}"
+            app:layoutManager="@{LayoutManageUtil.linear()}"/>
+    </LinearLayout>
+</layout>

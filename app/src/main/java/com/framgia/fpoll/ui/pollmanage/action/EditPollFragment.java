@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentActionBinding;
@@ -83,8 +82,8 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
     }
 
     @Override
-    public void startUiPollCreation(DataInfoItem data) {
-        startActivity(PollCreationActivity.getIntent(getActivity(), data.getPoll()));
+    public void startUiPollCreation(PollItem data) {
+        startActivity(PollCreationActivity.getIntent(getActivity(),data));
     }
 
     @Override

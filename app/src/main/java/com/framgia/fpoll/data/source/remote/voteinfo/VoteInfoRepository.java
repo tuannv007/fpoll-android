@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.framgia.fpoll.data.model.FpollComment;
+import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
@@ -52,6 +53,23 @@ public class VoteInfoRepository implements VoteInfoDataSource {
         mDataSource.getVoteResult(token, new DataCallback<ResultVoteItem>() {
             @Override
             public void onSuccess(ResultVoteItem data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void getVoteDetail(@NonNull String token,
+                              @NonNull final DataCallback<VoteDetail> callback) {
+        if (mDataSource == null) return;
+        mDataSource.getVoteDetail(token, new DataCallback<VoteDetail>() {
+            @Override
+            public void onSuccess(VoteDetail data) {
                 callback.onSuccess(data);
             }
 
