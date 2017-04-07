@@ -14,11 +14,17 @@ public class OptionHandler {
     }
 
     public void clickPickImage(Option optionItem, int position) {
-        if (mListener != null) mListener.pickImage(optionItem, position);
+        if (mListener != null) {
+            mListener.pickImage(optionItem, position);
+            mListener.augmentPoll(position);
+        }
     }
 
     public void clickPickDate(Option optionItem, int position) {
-        if (mListener != null) mListener.pickDate(optionItem, position);
+        if (mListener != null) {
+            mListener.pickDate(optionItem, position);
+            mListener.augmentPoll(position);
+        }
     }
 
     public void clickDeletePoll(Option optionItem, int position) {
@@ -32,7 +38,8 @@ public class OptionHandler {
     public void onDeleteImageClicked(Option option) {
         if (mListener != null) mListener.deleteImage(option);
     }
-    public void clickDeleteDate(Option option){
+
+    public void clickDeleteDate(Option option) {
         if (mListener != null) mListener.deleteDateOfOption(option);
     }
 }
