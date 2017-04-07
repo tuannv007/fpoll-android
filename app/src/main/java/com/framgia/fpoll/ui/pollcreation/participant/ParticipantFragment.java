@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
 import com.framgia.fpoll.ui.pollcreated.PollCreatedActivity;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 import com.tokenautocomplete.TokenCompleteTextView;
+import java.util.List;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 
@@ -44,11 +44,11 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding = FragmentPageParticipantBinding.inflate(inflater, container, false);
         getDataFromActivity();
         mPresenter =
-            new ParticipantPresenter(this, PollRepository.getInstance(getContext()), mPoll);
+                new ParticipantPresenter(this, PollRepository.getInstance(getContext()), mPoll);
         mBinding.setPresenter((ParticipantPresenter) mPresenter);
         return mBinding.getRoot();
     }
@@ -57,6 +57,11 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     public void startUiPollCreated(PollItem data) {
         startActivity(PollCreatedActivity.getIntent(getActivity(), data));
         getActivity().finish();
+    }
+
+    @Override
+    public List<String> getMembers() {
+        return mBinding.editSendEmail.getObjects();
     }
 
     @Override

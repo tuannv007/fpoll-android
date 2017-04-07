@@ -1,15 +1,12 @@
 package com.framgia.fpoll.networking.api;
 
 import android.text.TextUtils;
-
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.networking.ResponseItem;
-
 import java.io.File;
 import java.util.List;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -68,7 +65,7 @@ public class PollCreationApi {
             builder.addFormDataPart(DESCRIPTION, pollItem.getDescription());
         }
         builder.addFormDataPart(MULTIPLE,
-            String.valueOf(pollItem.isMultiple() ? TYPE_MULTIPLE : TYPE_SINGLE));
+                String.valueOf(pollItem.isMultiple() ? TYPE_MULTIPLE : TYPE_SINGLE));
         if (!TextUtils.isEmpty(pollItem.getDateClose())) {
             builder.addFormDataPart(DATE_CLOSE, pollItem.getDateClose());
         }
@@ -111,14 +108,14 @@ public class PollCreationApi {
             if (optionItemList.get(i).getDate() != null) {
                 title.append(optionItemList.get(i).getDate());
             }
-            builder.addFormDataPart(OPTION_TEXT, title.toString());
+            builder.addFormDataPart(String.format(OPTION_TEXT, String.valueOf(i)),
+                    title.toString());
             if (optionItemList.get(i).getImage() == null) continue;
             File file = new File(optionItemList.get(i).getImage());
             if (!file.exists()) continue;
-            RequestBody requestBody =
-                RequestBody.create(MediaType.parse(TYPE_IMAGE), file);
+            RequestBody requestBody = RequestBody.create(MediaType.parse(TYPE_IMAGE), file);
             builder.addFormDataPart(String.format(OPTION_IMAGE, String.valueOf(i)), file.getName(),
-                requestBody);
+                    requestBody);
         }
         return builder.build();
     }

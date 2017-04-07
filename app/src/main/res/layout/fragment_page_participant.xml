@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/tools">
+    >
 
     <data>
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter"/>
+            type="com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter"
+            />
     </data>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -28,7 +31,8 @@
                 android:paddingRight="@dimen/dp_16"
                 android:paddingTop="@dimen/dp_8"
                 android:text="@string/msg_send_email"
-                android:textSize="@dimen/sp_18"/>
+                android:textSize="@dimen/sp_18"
+                />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -38,7 +42,8 @@
                 android:paddingRight="@dimen/dp_16"
                 android:paddingTop="@dimen/dp_8"
                 android:text="@string/msg_multi_email"
-                android:textSize="@dimen/sp_17"/>
+                android:textSize="@dimen/sp_17"
+                />
 
             <com.framgia.fpoll.widget.ChipsContactView
                 android:id="@+id/edit_send_email"
@@ -53,9 +58,8 @@
                 android:hint="@string/hint_enter_email_participant"
                 android:minHeight="@dimen/dp_180"
                 android:padding="@dimen/dp_8"
-                android:text="@={presenter.poll.members}"
                 android:textColorHint="@color/color_grey_400"
-                bind:textChange="@{presenter}"/>
+                />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </layout>

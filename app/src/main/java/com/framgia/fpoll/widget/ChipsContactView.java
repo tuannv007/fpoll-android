@@ -42,7 +42,7 @@ public class ChipsContactView extends TokenCompleteTextView<String> {
     }
 
     @Override
-    protected String defaultObject(String completionText) {
+    public String defaultObject(String completionText) {
         return completionText;
     }
 }
