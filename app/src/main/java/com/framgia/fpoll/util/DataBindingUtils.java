@@ -21,9 +21,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -46,13 +44,13 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.databinding.PartialHeadBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginType;
+import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
 import com.framgia.fpoll.ui.main.MainHandler;
 import com.framgia.fpoll.ui.main.MainPresenter;
 import com.framgia.fpoll.ui.pollcreated.CopyLinkType;
 import com.framgia.fpoll.ui.pollcreated.PollCreatedHandler;
 import com.framgia.fpoll.ui.pollcreation.option.OptionHandler;
-import com.framgia.fpoll.ui.pollcreation.participant.ParticipantPresenter;
 import com.framgia.fpoll.ui.pollcreation.setting.EventSwitchType;
 import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
@@ -65,6 +63,9 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
 
+import static com.framgia.fpoll.ui.history.PollHistoryType.CLOSE;
+import static com.framgia.fpoll.ui.history.PollHistoryType.INITIATE;
+import static com.framgia.fpoll.ui.history.PollHistoryType.PARTICIPATE;
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_MULTI_CHOOSE;
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_SINGER_CHOOSE;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_NO_TITLE;
@@ -171,6 +172,42 @@ public class DataBindingUtils {
     @BindingAdapter({ "bind:adapterViewPager" })
     public static void setViewPagerAdapter(ViewPager view, FragmentPagerAdapter adapter) {
         view.setAdapter(adapter);
+    }
+
+    /**
+     * bind tab layout listener set title for toolbar history main
+     */
+    @BindingAdapter({ "bind:titleTabLayout" })
+    public static void tabLayoutListener(TabLayout tableLayout, final HistoryFragment fragment) {
+        tableLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        fragment.setTitle(INITIATE);
+                        break;
+                    case 1:
+                        fragment.setTitle(PARTICIPATE);
+                        return;
+                    case 2:
+                        fragment.setTitle(CLOSE);
+                        break;
+                    default:
+                        fragment.setTitle(INITIATE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @BindingAdapter({ "bind:viewPager" })

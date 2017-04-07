@@ -18,6 +18,7 @@ public interface MainContract {
         void hideProgressDialog();
         void changeLangStatus(String message);
         void startUIPollCreation();
+        void clearDataHome();
     }
 
     interface Presenter {

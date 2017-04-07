@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
@@ -18,7 +17,6 @@ import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_VIEW_PAGE_TYPE;
 
@@ -27,7 +25,6 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
     private ManagePollContract.Presenter mPresenter;
     private ViewpagerType mViewpagerType;
     private ObservableField<DataInfoItem> mDataList = new ObservableField<>();
-    private FPollProgressDialog mDialog;
     private String mToken;
 
     public static Intent getManageIntent(Context context, ViewpagerType type, String token) {
@@ -45,7 +42,7 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
         getDataFromIntent();
         mPresenter =
-            new ManagePollPresenter(this, mViewpagerType, ManagerRepository.getInstance(this));
+                new ManagePollPresenter(this, mViewpagerType, ManagerRepository.getInstance(this));
         startUiViewPageManage();
         if (mToken != null) mPresenter.getAllData(mToken);
     }
@@ -73,14 +70,13 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
     @Override
     public void addFragment(Fragment fragment, int resTitle) {
         setTitle(resTitle);
-        ActivityUtil
-            .addFragment(getSupportFragmentManager(), fragment, R.id.frame_layout);
+        ActivityUtil.addFragment(getSupportFragmentManager(), fragment, R.id.frame_layout);
     }
 
     @Override
     public void startUiViewPageManage() {
         addFragment(HistoryFragment.newInstance(ViewpagerType.MANAGE, mDataList.get(), mToken),
-            R.string.title_manage_poll);
+                R.string.title_manage_poll);
     }
 
     @Override
@@ -96,12 +92,11 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
 
     @Override
     public void showDialog() {
-        if (mDialog == null) mDialog = new FPollProgressDialog(this);
-        mDialog.show();
+        showProgressDialog();
     }
 
     @Override
     public void dismissDialog() {
-        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+        hideProgressDialog();
     }
 }

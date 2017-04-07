@@ -75,9 +75,12 @@
     <string name="msg_send_email">Nếu bạn muốn gởi thư mời tham gia bầu chọn đến email cụ thể, hãy
         nhập vào ô dưới đây!
     </string>
-    <string name="title_poll_initiate">Đã tạo</string>
-    <string name="title_poll_participate">Tham gia</string>
-    <string name="title_poll_close">Đã đóng</string>
+    <string name="title_initiate">Đã tạo</string>
+    <string name="title_participate">Tham gia</string>
+    <string name="title_close">Đã đóng</string>
+    <string name="title_poll_initiate">Poll đã tạo</string>
+    <string name="title_poll_participate">Poll tham gia</string>
+    <string name="title_poll_close">Poll đã đóng</string>
     <string name="action_open">Mở</string>
     <string name="action_close">Đóng</string>
     <string name="title_history">Lịch sử poll</string>

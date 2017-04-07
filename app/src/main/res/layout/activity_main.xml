@@ -2,7 +2,8 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    >
 
     <data>
 
@@ -10,35 +11,38 @@
 
         <variable
             name="view"
-            type="com.framgia.fpoll.ui.main.MainActivity"/>
+            type="com.framgia.fpoll.ui.main.MainActivity"
+            />
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.main.MainHandler"/>
+            type="com.framgia.fpoll.ui.main.MainHandler"
+            />
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.main.MainPresenter"/>
+            type="com.framgia.fpoll.ui.main.MainPresenter"
+            />
     </data>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        bind:openDrawer="start">
+        bind:openDrawer="start"
+        >
 
         <android.support.design.widget.CoordinatorLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            >
 
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                >
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -48,7 +52,8 @@
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:layout_collapseMode="pin"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    />
 
             </android.support.design.widget.AppBarLayout>
 
@@ -56,7 +61,8 @@
                 android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -66,7 +72,8 @@
                 android:onClick="@{()->handler.clickStartUiPollCreation()}"
                 android:src="@drawable/ic_add_white"
                 android:visibility="@{view.isShowAddPoll ? View.VISIBLE : View.GONE}"
-                app:backgroundTint="@color/color_teal_600"/>
+                app:backgroundTint="@color/color_teal_600"
+                />
         </android.support.design.widget.CoordinatorLayout>
 
         <android.support.design.widget.NavigationView
@@ -78,6 +85,7 @@
             app:menu="@menu/main_nav"
             bind:bindHeader="@{presenter}"
             bind:isLogin="@{presenter.isLogin}"
-            bind:user="@{presenter.user}"/>
+            bind:user="@{presenter.user}"
+            />
     </android.support.v4.widget.DrawerLayout>
 </layout>

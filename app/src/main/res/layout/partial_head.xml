@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="isLogin"
-            type="java.lang.Boolean"/>
+            type="java.lang.Boolean"
+            />
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.main.MainHandler"/>
+            type="com.framgia.fpoll.ui.main.MainHandler"
+            />
 
         <variable
             name="user"
-            type="com.framgia.fpoll.data.model.authorization.User"/>
+            type="com.framgia.fpoll.data.model.authorization.User"
+            />
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_teal_500"
-        android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/dp_8"
-        android:paddingTop="@dimen/dp_8"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        style="@style/NavigationHeader"
+        >
 
         <ImageView
             android:layout_width="@dimen/dp_86"
@@ -36,7 +36,8 @@
             android:onClick="@{()->handler.clickUpdateProfile()}"
             android:scaleType="fitXY"
             bind:bindError="@{@drawable/ic_fpoll_logo}"
-            bind:bindImage="@{user.avatar}"/>
+            bind:bindImage="@{user.avatar}"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -47,6 +48,7 @@
             android:text="@{user.username}"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_20"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
     </LinearLayout>
 </layout>

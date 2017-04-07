@@ -20,7 +20,6 @@ import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.SharePreferenceUtil;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,6 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     private ObservableBoolean mLoadFinish = new ObservableBoolean();
     private PollHistoryContract.Presenter mPresenter;
     private PollHistoryType mPollHistoryType;
-    private FPollProgressDialog mProgressDialog;
 
     public static PollHistoryFragment getInstance(PollHistoryType typeHistory) {
         PollHistoryFragment fragment = new PollHistoryFragment();
@@ -89,6 +87,13 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     @Override
     public void onOpenVoteClick(String token) {
         startActivity(LinkVoteActivity.getTokenIntent(getActivity(), token));
+    }
+
+    public void clearData() {
+        if (mListPollHistory != null && mAdapter != null && mAdapter.get() != null) {
+            mListPollHistory.clear();
+            mAdapter.get().update(mListPollHistory);
+        }
     }
 
     @Override

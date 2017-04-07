@@ -20,7 +20,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
@@ -45,7 +44,7 @@ import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_VN;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_LOGIN;
 
 public class MainActivity extends AppCompatActivity
-    implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
+        implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
     private static final int NO_ANIMATION = 0;
     private MainContract.Presenter mPresenter;
     private ActivityMainBinding mBinding;
@@ -57,9 +56,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext())
-            , SettingRepository.getInstance(getApplicationContext()),
-            SharePreferenceUtil.getIntances(this));
+        mPresenter = new MainPresenter(this, LoginRepository.getInstance(getApplicationContext()),
+                SettingRepository.getInstance(getApplicationContext()),
+                SharePreferenceUtil.getIntances(this));
         mBinding.setPresenter((MainPresenter) mPresenter);
         mBinding.setHandler(new MainHandler(mPresenter));
         mBinding.setView(this);
@@ -72,13 +71,13 @@ public class MainActivity extends AppCompatActivity
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDrawerLayout = mBinding.drawerLayout;
         ActionBarDrawerToggle toggle =
-            new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.action_open,
-                R.string.action_close);
+                new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.action_open,
+                        R.string.action_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         mBinding.navView.setNavigationItemSelectedListener(this);
         addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-            R.string.title_home);
+                R.string.title_home);
     }
 
     public void showProgressDialog() {
@@ -98,15 +97,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_login:
                 setIsShowAddPoll(false);
                 startActivityForResult(AuthenticationActivity.getAuthenticationIntent(this),
-                    REQUEST_LOGIN);
+                        REQUEST_LOGIN);
                 break;
             case R.id.action_home:
-                setIsShowAddPoll(true);
-                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
-                if (!(fragment instanceof HistoryFragment)) {
-                    addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-                        R.string.title_home);
-                }
+                addHomeFragment();
                 break;
             case R.id.action_guide:
                 setIsShowAddPoll(false);
@@ -143,6 +137,15 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void addHomeFragment() {
+        setIsShowAddPoll(true);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (!(fragment instanceof HistoryFragment)) {
+            addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
+                    R.string.title_home);
+        }
+    }
+
     public void changeLang(String lang) {
         mPresenter.changeLanguage(lang);
         LanguageUtil.changeLang(lang, MainActivity.this);
@@ -155,8 +158,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void addFragment(Fragment fragment, int title) {
-        ActivityUtil
-            .addFragment(getSupportFragmentManager(), fragment, R.id.frame_layout);
+        ActivityUtil.addFragment(getSupportFragmentManager(), fragment, R.id.frame_layout);
         setTitle(title);
     }
 
@@ -170,16 +172,18 @@ public class MainActivity extends AppCompatActivity
         Uri helpUri = Uri.parse(Constant.WebUrl.HELP_URL);
         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
         intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.color_teal_500))
-            .setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.color_teal_800))
-            .build().launchUrl(this, helpUri);
+                .setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.color_teal_800))
+                .build()
+                .launchUrl(this, helpUri);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
+            setIsShowAddPoll(true);
             addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-                R.string.title_home);
+                    R.string.title_home);
             mPresenter.setInformation();
             openNavigation();
         }
@@ -200,7 +204,9 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else super.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -214,19 +220,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showConfirmDialog(final String lang) {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this)
-            .setCancelable(true)
-            .setTitle(R.string.title_change_language)
-            .setMessage(R.string.msg_change_language)
-            .setPositiveButton(android.R.string.yes,
-                new DialogInterface.OnClickListener() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this).setCancelable(true)
+                .setTitle(R.string.title_change_language)
+                .setMessage(R.string.msg_change_language)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                     public void onClick(DialogInterface dialog, int which) {
                         changeLang(lang);
                     }
                 })
-            .setNegativeButton(android.R.string.no, null);
+                .setNegativeButton(android.R.string.no, null);
         alertBuilder.show();
+    }
+
+    @Override
+    public void clearDataHome() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (fragment != null && fragment instanceof HistoryFragment) {
+            ((HistoryFragment) fragment).clearData();
+            setIsShowAddPoll(true);
+        }
     }
 
     public void setIsShowAddPoll(boolean isShow) {
