@@ -37,7 +37,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.facebook.share.model.ShareLinkContent;
@@ -85,36 +84,36 @@ import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_NOT_EQUAL_EMAIL;
  * <></>
  */
 public class DataBindingUtils {
-    @BindingAdapter({"bind:imageResource"})
+    @BindingAdapter({ "bind:imageResource" })
     public static void loadImage(ImageView view, Drawable drawable) {
         view.setImageDrawable(drawable);
     }
 
-    @BindingAdapter({"bind:drawableLeftStart"})
+    @BindingAdapter({ "bind:drawableLeftStart" })
     public static void bindDrawableLeft(AppCompatButton view, Drawable drawable) {
         view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
     }
 
-    @BindingAdapter({"bind:imagePath"})
+    @BindingAdapter({ "bind:imagePath" })
     public static void loadImagePath(ImageView view, String path) {
-        Glide.with(view.getContext())
-            .load(path)
-            .placeholder(R.drawable.ic_no_image)
-            .into(view);
+        Glide.with(view.getContext()).load(path).placeholder(R.drawable.ic_no_image).into(view);
     }
 
-    @BindingAdapter({"bind:imageDrawable"})
+    @BindingAdapter({ "bind:imageDrawable" })
     public static void loadImageDrawable(ImageView view, int source) {
-        Glide.with(view.getContext()).load(source).asBitmap().centerCrop()
-            .into(new BitmapImageViewTarget(view) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(view.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    view.setImageDrawable(circularBitmapDrawable);
-                }
-            });
+        Glide.with(view.getContext())
+                .load(source)
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(view) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(view.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        view.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
     }
 
     @BindingAdapter("bind:cardBackground")
@@ -123,25 +122,26 @@ public class DataBindingUtils {
         switch (typeLogin) {
             case FACEBOOK:
                 view.setCardBackgroundColor(
-                    ContextCompat.getColor(view.getContext(), R.color.color_indigo_600));
+                        ContextCompat.getColor(view.getContext(), R.color.color_indigo_600));
                 break;
             case GOOGLE:
                 view.setCardBackgroundColor(
-                    ContextCompat.getColor(view.getContext(), R.color.color_red_500));
+                        ContextCompat.getColor(view.getContext(), R.color.color_red_500));
                 break;
             case TWITTER:
                 view.setCardBackgroundColor(
-                    ContextCompat.getColor(view.getContext(), R.color.color_blue));
+                        ContextCompat.getColor(view.getContext(), R.color.color_blue));
                 break;
             default:
                 break;
         }
     }
 
-    @BindingAdapter(value = {"bind:selectedValue", "bind:selectedValueAttrChanged"},
-        requireAll = false)
+    @BindingAdapter(value = {
+            "bind:selectedValue", "bind:selectedValueAttrChanged"
+    }, requireAll = false)
     public static void bindSpinnerData(Spinner spinner, int selectedPosition,
-                                       final InverseBindingListener newTextAttrChanged) {
+            final InverseBindingListener newTextAttrChanged) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -157,9 +157,9 @@ public class DataBindingUtils {
         }
     }
 
-    @BindingAdapter({"bind:swipeOnRefresh"})
+    @BindingAdapter({ "bind:swipeOnRefresh" })
     public static void setViewPagerAdapter(SwipeRefreshLayout view,
-                                           final PollHistoryPresenter presenter) {
+            final PollHistoryPresenter presenter) {
         view.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -168,42 +168,41 @@ public class DataBindingUtils {
         });
     }
 
-    @BindingAdapter({"bind:adapterViewPager"})
+    @BindingAdapter({ "bind:adapterViewPager" })
     public static void setViewPagerAdapter(ViewPager view, FragmentPagerAdapter adapter) {
         view.setAdapter(adapter);
     }
 
-    @BindingAdapter({"bind:viewPager"})
+    @BindingAdapter({ "bind:viewPager" })
     public static void setUpWithViewPager(TabLayout tabLayout, ViewPager viewPager) {
         tabLayout.setupWithViewPager(viewPager, true);
     }
 
     @BindingAdapter("layoutManager")
     public static void setLayoutManager(RecyclerView view,
-                                        LayoutManageUtil.LayoutManagerFactory layout) {
+            LayoutManageUtil.LayoutManagerFactory layout) {
         view.setLayoutManager(layout.create(view));
     }
 
-    @BindingAdapter({"bind:colorSwipeLayout"})
+    @BindingAdapter({ "bind:colorSwipeLayout" })
     public static void setColorSwipeLayout(SwipeRefreshLayout view, int color) {
         view.setColorSchemeColors(color);
     }
 
-    @BindingAdapter({"bind:refreshSwipeLayout"})
+    @BindingAdapter({ "bind:refreshSwipeLayout" })
     public static void setColorSwipeLayout(SwipeRefreshLayout view, boolean isReFresh) {
         view.setRefreshing(isReFresh);
     }
 
-    @InverseBindingAdapter(attribute = "bind:selectedValue",
-        event = "bind:selectedValueAttrChanged")
+    @InverseBindingAdapter(attribute = "bind:selectedValue", event =
+            "bind:selectedValueAttrChanged")
     public static int captureSelectedValue(Spinner spinner) {
         return spinner.getSelectedItemPosition();
     }
 
-    @BindingAdapter({"bind:setVisibility", "bind:presenter", "bind:eventType"})
+    @BindingAdapter({ "bind:setVisibility", "bind:presenter", "bind:eventType" })
     public static void setVisibilityLinkPoll(final View view, SwitchCompat switchCompat,
-                                             final SettingPresenter presenter,
-                                             final EventSwitchType event) {
+            final SettingPresenter presenter, final EventSwitchType event) {
         view.setVisibility(switchCompat.isChecked() ? View.VISIBLE : View.GONE);
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -229,27 +228,7 @@ public class DataBindingUtils {
         });
     }
 
-    @BindingAdapter(value = {"bind:textChange"}, requireAll = false)
-    public static void setTextWatcher(final EditText view,
-                                      final ParticipantPresenter presenter) {
-        TextWatcher values = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                presenter.getEmail(s.toString());
-            }
-        };
-        view.addTextChangedListener(values);
-    }
-
-    @BindingAdapter({"bind:bindBarChart"})
+    @BindingAdapter({ "bind:bindBarChart" })
     public static void setBarChart(BarChart view, BarData data) {
         view.setData(data);
         view.setTouchEnabled(false);
@@ -262,17 +241,17 @@ public class DataBindingUtils {
         view.setDrawGridBackground(false);
     }
 
-    @BindingAdapter({"bind:showImage"})
+    @BindingAdapter({ "bind:showImage" })
     public static void setShowImage(ImageView view, boolean isShow) {
         view.setImageResource(isShow ? R.drawable.ic_eye : R.drawable.ic_eye_blocked);
     }
 
-    @BindingAdapter({"bind:showPassword"})
+    @BindingAdapter({ "bind:showPassword" })
     public static void setShowImage(EditText view, boolean isShow) {
         view.setTransformationMethod(isShow ? null : new PasswordTransformationMethod());
     }
 
-    @BindingAdapter({"bind:eventRadioGroup"})
+    @BindingAdapter({ "bind:eventRadioGroup" })
     public static void eventRadioGroup(RadioGroup view, final SettingPresenter presenter) {
         view.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -294,7 +273,7 @@ public class DataBindingUtils {
         });
     }
 
-    @BindingAdapter(value = {"bind:pieData"})
+    @BindingAdapter(value = { "bind:pieData" })
     public static void setPieData(final PieChart pieChart, final PieData pieData) {
         pieChart.setData(pieData);
         pieChart.setTouchEnabled(false);
@@ -304,29 +283,33 @@ public class DataBindingUtils {
         pieChart.setUsePercentValues(true);
     }
 
-    @BindingAdapter({"bind:bindImage", "bind:bindError"})
+    @BindingAdapter({ "bind:bindImage", "bind:bindError" })
     public static void bindImage(ImageView view, String url, Drawable error) {
-        Glide.with(view.getContext()).load(url).asBitmap().error(error).placeholder(error)
-            .centerCrop()
-            .into(new BitmapImageViewTarget(view) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(view.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    view.setImageDrawable(circularBitmapDrawable);
-                }
-            });
+        Glide.with(view.getContext())
+                .load(url)
+                .asBitmap()
+                .error(error)
+                .placeholder(error)
+                .centerCrop()
+                .into(new BitmapImageViewTarget(view) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(view.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        view.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
     }
 
-    @BindingAdapter({"bind:bindHeader", "bind:user", "bind:isLogin"})
+    @BindingAdapter({ "bind:bindHeader", "bind:user", "bind:isLogin" })
     public static void loadHeader(NavigationView view, MainPresenter presenter, User user,
-                                  boolean isLogin) {
+            boolean isLogin) {
         for (int i = 0; i < view.getHeaderCount(); i++) {
             view.removeHeaderView(view.getHeaderView(i));
         }
         PartialHeadBinding binding =
-            PartialHeadBinding.inflate(LayoutInflater.from(view.getContext()));
+                PartialHeadBinding.inflate(LayoutInflater.from(view.getContext()));
         binding.setUser(user);
         binding.setHandler(new MainHandler(presenter));
         binding.setIsLogin(presenter.getIsLogin().get());
@@ -336,34 +319,33 @@ public class DataBindingUtils {
         view.addHeaderView(binding.getRoot());
     }
 
-    @BindingAdapter({"bind:bindAdapter"})
+    @BindingAdapter({ "bind:bindAdapter" })
     public static void bindAdapterRecycler(RecyclerView view, RecyclerView.Adapter adapter) {
         view.setNestedScrollingEnabled(false);
         view.setAdapter(adapter);
     }
 
-    @BindingAdapter({"bind:setErrorEditText"})
+    @BindingAdapter({ "bind:setErrorEditText" })
     public static void setError(final EditText editText, final String msg) {
         if (TextUtils.isEmpty(editText.getText())) editText.setError(msg);
     }
 
-    @BindingAdapter({"bind:setErrorEmail"})
+    @BindingAdapter({ "bind:setErrorEmail" })
     public static void setErrorEmail(final EditText editText, final String msg) {
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(editText.getText()).matches()) {
             editText.setError(msg);
         }
     }
 
-    @BindingAdapter({"bind:shareContent"})
+    @BindingAdapter({ "bind:shareContent" })
     public static void setShareContent(ShareButton shareButton, String token) {
         if (token == null) return;
         String linkPoll = Constant.WebUrl.POLL_URL + token;
-        shareButton.setShareContent(new ShareLinkContent.Builder()
-            .setContentUrl(Uri.parse(linkPoll))
-            .build());
+        shareButton.setShareContent(
+                new ShareLinkContent.Builder().setContentUrl(Uri.parse(linkPoll)).build());
     }
 
-    @BindingAdapter({"bind:objectId"})
+    @BindingAdapter({ "bind:objectId" })
     public static void setObjectId(LikeView likeView, String token) {
         if (token == null) return;
         String linkPoll = Constant.WebUrl.POLL_URL + token;
@@ -371,14 +353,13 @@ public class DataBindingUtils {
         likeView.setObjectIdAndType(linkPoll, LikeView.ObjectType.PAGE);
     }
 
-    @BindingAdapter({"bind:numAnswer"})
+    @BindingAdapter({ "bind:numAnswer" })
     public static void setNumAnswer(Spinner view, boolean multiple) {
-        int type = multiple ? KEY_MULTI_CHOOSE :
-            KEY_SINGER_CHOOSE;
+        int type = multiple ? KEY_MULTI_CHOOSE : KEY_SINGER_CHOOSE;
         view.setSelection(type);
     }
 
-    @BindingAdapter({"bind:valueSetting"})
+    @BindingAdapter({ "bind:valueSetting" })
     public static void setValueSetting(TextView view, int values) {
         switch (values) {
             case TYPE_INPUT_EMAIL:
@@ -417,9 +398,9 @@ public class DataBindingUtils {
         }
     }
 
-    @BindingAdapter({"bind:eventRadioButtonEdit", "bind:requireVoteTypeEdit"})
-    public static void eventRadioButtonEdit(AppCompatRadioButton view, final EditSettingPresenter
-        presenter, final RequireVoteType requireVoteType) {
+    @BindingAdapter({ "bind:eventRadioButtonEdit", "bind:requireVoteTypeEdit" })
+    public static void eventRadioButtonEdit(AppCompatRadioButton view,
+            final EditSettingPresenter presenter, final RequireVoteType requireVoteType) {
         view.setOnCheckedChangeListener(new AppCompatRadioButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -428,10 +409,9 @@ public class DataBindingUtils {
         });
     }
 
-    @BindingAdapter({"bind:presenterEdit", "bind:eventTypeEdit"})
+    @BindingAdapter({ "bind:presenterEdit", "bind:eventTypeEdit" })
     public static void setVisibilityLinkPollEdit(final SwitchCompat switchCompat,
-                                                 final EditSettingPresenter presenter,
-                                                 final EventSwitchType event) {
+            final EditSettingPresenter presenter, final EventSwitchType event) {
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -458,14 +438,12 @@ public class DataBindingUtils {
     /*
     * bind spinner choice number answer
     * */
-    @BindingAdapter(value = {"bind:choiceAnswer", "bind:choiceAnswerChanged"},
-        requireAll = false)
+    @BindingAdapter(value = { "bind:choiceAnswer", "bind:choiceAnswerChanged" }, requireAll = false)
     public static void spinnerChoiceAnswer(Spinner spinner, boolean selectedPosition,
-                                           final InverseBindingListener newTextAttrChanged) {
+            final InverseBindingListener newTextAttrChanged) {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position,
-                                       long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 newTextAttrChanged.onChange();
             }
 
@@ -481,41 +459,38 @@ public class DataBindingUtils {
         return (spinner.getSelectedItemPosition() == KEY_MULTI_CHOOSE);
     }
 
-    @BindingAdapter(value =
-        {"bind:imageUrl", "bind:placeholder", "bind:error"}, requireAll = false)
-    public static void setImageUrl(
-        ImageView view, String path, Drawable placeholder, Drawable error) {
+    @BindingAdapter(value = {
+            "bind:imageUrl", "bind:placeholder", "bind:error"
+    }, requireAll = false)
+    public static void setImageUrl(ImageView view, String path, Drawable placeholder,
+            Drawable error) {
         if (TextUtils.isEmpty(path)) return;
-        Glide.with(view.getContext())
-            .load(path)
-            .placeholder(placeholder)
-            .error(error)
-            .into(view);
+        Glide.with(view.getContext()).load(path).placeholder(placeholder).error(error).into(view);
     }
 
     @BindingAdapter("bind:containView")
     public static void setContainerView(FloatingActionsMenu menu, final RelativeLayout layout) {
         layout.setVisibility(menu.isExpanded() ? View.VISIBLE : View.GONE);
         menu.setOnFloatingActionsMenuUpdateListener(
-            new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
-                @Override
-                public void onMenuExpanded() {
-                    layout.setVisibility(View.VISIBLE);
-                }
+                new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+                    @Override
+                    public void onMenuExpanded() {
+                        layout.setVisibility(View.VISIBLE);
+                    }
 
-                @Override
-                public void onMenuCollapsed() {
-                    layout.setVisibility(View.GONE);
-                }
-            });
+                    @Override
+                    public void onMenuCollapsed() {
+                        layout.setVisibility(View.GONE);
+                    }
+                });
     }
 
     /*
     * bind event copy link poll create
     * */
-    @BindingAdapter({"bind:clickCopy", "bind:copyType"})
+    @BindingAdapter({ "bind:clickCopy", "bind:copyType" })
     public static void copyLink(ImageView view, final PollCreatedHandler handler,
-                                final CopyLinkType type) {
+            final CopyLinkType type) {
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
         popupMenu.getMenuInflater().inflate(R.menu.menu_poll_created, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -544,9 +519,9 @@ public class DataBindingUtils {
         view.setTextColor(ContextCompat.getColor(view.getContext(), color));
     }
 
-    @BindingAdapter({"bind:onTouch", "bind:position"})
+    @BindingAdapter({ "bind:onTouch", "bind:position" })
     public static void setOnTouchListenner(EditText view, final OptionHandler hanlder,
-                                           final int position) {
+            final int position) {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -556,9 +531,9 @@ public class DataBindingUtils {
         });
     }
 
-    @BindingAdapter({"bind:onTouchEdit", "bind:position"})
+    @BindingAdapter({ "bind:onTouchEdit", "bind:position" })
     public static void setOnTouchListenner(EditText view, final EditOptionHandle hanlder,
-                                           final int position) {
+            final int position) {
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
