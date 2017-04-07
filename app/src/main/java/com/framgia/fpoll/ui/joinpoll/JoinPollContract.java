@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.joinpoll;
 
-import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -14,9 +13,9 @@ public interface JoinPollContract {
 
         void showMessage(String msg);
 
-        void startUIManager(DataInfoItem poll);
+        void startUIManager(String poll);
 
-        void startUIVote(DataInfoItem poll);
+        void startUIVote(String poll);
     }
 
     interface Presenter {

@@ -7,10 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.ActivityJoinPollBinding;
 import com.framgia.fpoll.ui.base.BaseActivity;
+import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
+import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 
 /**
@@ -43,14 +44,13 @@ public class JoinPollActivity extends BaseActivity implements JoinPollContract.V
     }
 
     @Override
-    public void startUIManager(DataInfoItem poll) {
-        // TODO: 4/7/2017 start  Manager poll
+    public void startUIManager(String poll) {
+        startActivity(ManagePollActivity.getTokenIntent(this, poll));
     }
 
     @Override
-    public void startUIVote(DataInfoItem poll) {
-        // TODO: 4/7/2017 start  vote manager
-
+    public void startUIVote(String poll) {
+        startActivity(LinkVoteActivity.getTokenIntent(this, poll));
     }
 
     @Override

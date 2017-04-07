@@ -11,27 +11,37 @@ import android.widget.Toast;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
-import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
+import com.framgia.fpoll.databinding.ActivityManagePollBinding;
 import com.framgia.fpoll.ui.base.BaseActivity;
-import com.framgia.fpoll.ui.history.HistoryFragment;
-import com.framgia.fpoll.ui.history.ViewpagerType;
-import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.ui.history.ViewPagerAdapter;
+import com.framgia.fpoll.ui.pollmanage.action.EditPollFragment;
+import com.framgia.fpoll.ui.pollmanage.information.PollInformationFragment;
+import com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_VIEW_PAGE_TYPE;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 
 public class ManagePollActivity extends BaseActivity implements ManagePollContract.View {
-    private ActivityAuthenticationBinding mBinding;
+    private ActivityManagePollBinding mBinding;
     private ManagePollContract.Presenter mPresenter;
-    private ViewpagerType mViewpagerType;
-    private ObservableField<DataInfoItem> mDataList = new ObservableField<>();
+    private ObservableField<DataInfoItem> mPoll = new ObservableField<>();
     private String mToken;
+    private ViewPagerAdapter mAdapter;
 
-    public static Intent getManageIntent(Context context, ViewpagerType type, String token) {
+    public static Intent getPollIntent(Context context, DataInfoItem poll) {
         Intent intent = new Intent(context, ManagePollActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_PAGE_TYPE, type);
-        bundle.putString(Constant.ConstantApi.KEY_TOKEN, token);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, poll);
+        intent.putExtras(bundle);
+        return intent;
+    }
+
+    public static Intent getTokenIntent(Context context, String token) {
+        Intent intent = new Intent(context, ManagePollActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(BUNDLE_TOKEN, token);
         intent.putExtras(bundle);
         return intent;
     }
@@ -39,20 +49,24 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_manage_poll);
         getDataFromIntent();
-        mPresenter =
-                new ManagePollPresenter(this, mViewpagerType, ManagerRepository.getInstance(this));
-        startUiViewPageManage();
+        mPresenter = new ManagePollPresenter(this, ManagerRepository.getInstance(this));
+        mBinding.setView(this);
         if (mToken != null) mPresenter.getAllData(mToken);
+        start();
     }
 
     @Override
     public void getDataFromIntent() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) return;
-        mViewpagerType = (ViewpagerType) bundle.getSerializable(BUNDLE_VIEW_PAGE_TYPE);
-        mToken = bundle.getString(Constant.ConstantApi.KEY_TOKEN);
+        if (bundle.getString(BUNDLE_TOKEN) != null) {
+            mToken = bundle.getString(BUNDLE_TOKEN);
+        }
+        if (bundle.getParcelable(BUNDLE_POLL_ITEM) != null) {
+            mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        }
     }
 
     @Override
@@ -63,26 +77,19 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
 
     @Override
     public void start() {
-        setSupportActionBar(mBinding.layoutToolbar.toolbar);
+        setSupportActionBar(mBinding.toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public void addFragment(Fragment fragment, int resTitle) {
-        setTitle(resTitle);
-        ActivityUtil.addFragment(getSupportFragmentManager(), fragment, R.id.frame_layout);
-    }
-
-    @Override
-    public void startUiViewPageManage() {
-        addFragment(HistoryFragment.newInstance(ViewpagerType.MANAGE, mDataList.get(), mToken),
-                R.string.title_manage_poll);
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(PollInformationFragment.newInstance(mToken));
+        fragments.add(ResultVoteFragment.newInstance(mToken));
+        fragments.add(EditPollFragment.newInstance(mToken));
+        String[] titles = getResources().getStringArray(R.array.array_manage);
+        mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
     }
 
     @Override
     public void onSuccess(DataInfoItem data) {
-        mDataList.set(data);
-        startUiViewPageManage();
+        mPoll.set(data);
     }
 
     @Override
@@ -98,5 +105,13 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
     @Override
     public void dismissDialog() {
         hideProgressDialog();
+    }
+
+    public ObservableField<DataInfoItem> getPoll() {
+        return mPoll;
+    }
+
+    public ViewPagerAdapter getAdapter() {
+        return mAdapter;
     }
 }

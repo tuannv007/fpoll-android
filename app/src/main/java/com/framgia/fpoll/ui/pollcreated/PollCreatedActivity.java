@@ -9,13 +9,11 @@ import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.resentemail.ResentEmailRepository;
 import com.framgia.fpoll.databinding.ActivityPollCreatedBinding;
 import com.framgia.fpoll.ui.base.BaseActivity;
-import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -67,7 +65,9 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
         Bundle bundle = getIntent().getExtras();
         if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) {
             mPoll = new PollItem();
-        } else mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        } else {
+            mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        }
         if (mPoll == null || mPoll.getLink().size() == 0) return;
         mLinkAdmin.set(BASE_URL + mPoll.getLink().get(POSITION_LINK_ADMIN).getToken());
         mLinkUser.set(BASE_URL + mPoll.getLink().get(POSITION_LINK_INVITE).getToken());
@@ -94,9 +94,12 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
     @Override
     public void startUiPollManager() {
         String token;
-        if (mPoll == null || mPoll.getLink().size() == 0 ||
-            (token = mPoll.getLink().get(POSITION_LINK_ADMIN).getToken()) == null) return;
-        startActivity(ManagePollActivity.getManageIntent(this, ViewpagerType.MANAGE, token));
+        if (mPoll == null
+                || mPoll.getLink().size() == 0
+                || (token = mPoll.getLink().get(POSITION_LINK_ADMIN).getToken()) == null) {
+            return;
+        }
+        startActivity(ManagePollActivity.getTokenIntent(this, token));
     }
 
     @Override
@@ -122,8 +125,11 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
     @Override
     public void startUiLinkInviteVote() {
         String token;
-        if (mPoll == null || mPoll.getLink().size() == 0 ||
-            (token = mPoll.getLink().get(POSITION_LINK_INVITE).getToken()) == null) return;
+        if (mPoll == null
+                || mPoll.getLink().size() == 0
+                || (token = mPoll.getLink().get(POSITION_LINK_INVITE).getToken()) == null) {
+            return;
+        }
         startActivity(LinkVoteActivity.getTokenIntent(this, token));
     }
 

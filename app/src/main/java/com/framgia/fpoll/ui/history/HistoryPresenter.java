@@ -6,25 +6,9 @@ package com.framgia.fpoll.ui.history;
  */
 public class HistoryPresenter implements HistoryContract.Presenter {
     private final HistoryContract.View mView;
-    private ViewpagerType mViewpagerType;
 
-    public HistoryPresenter(HistoryContract.View view, ViewpagerType viewpagerType) {
+    public HistoryPresenter(HistoryContract.View view) {
         mView = view;
-        mViewpagerType = viewpagerType;
         mView.start();
-    }
-
-    @Override
-    public void getAdapterType() {
-        switch (mViewpagerType) {
-            case HISTORY:
-                mView.initAdapterHistory();
-                break;
-            case MANAGE:
-                mView.initAdapterManage();
-                break;
-            default:
-                break;
-        }
     }
 }

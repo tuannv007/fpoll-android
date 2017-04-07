@@ -11,9 +11,6 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
-import com.framgia.fpoll.ui.pollmanage.action.EditPollFragment;
-import com.framgia.fpoll.ui.pollmanage.information.PollInformationFragment;
-import com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +46,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false);
         getDataFromActivity();
         mBinding.setFragment(this);
-        mPresenter = new HistoryPresenter(this, mViewpagerType);
-        mPresenter.getAdapterType();
+        mPresenter = new HistoryPresenter(this);
         return mBinding.getRoot();
     }
 
@@ -65,25 +61,11 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void start() {
-    }
-
-    @Override
-    public void initAdapterHistory() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(PollHistoryFragment.getInstance(PollHistoryType.INITIATE));
         fragments.add(PollHistoryFragment.getInstance(PollHistoryType.PARTICIPATE));
         fragments.add(PollHistoryFragment.getInstance(PollHistoryType.CLOSE));
         String[] titles = getActivity().getResources().getStringArray(R.array.array_history);
-        mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
-    }
-
-    @Override
-    public void initAdapterManage() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(PollInformationFragment.newInstance(mPollInfo.get()));
-        fragments.add(ResultVoteFragment.newInstance(mToken));
-        fragments.add(EditPollFragment.newInstance(mToken));
-        String[] titles = getActivity().getResources().getStringArray(R.array.array_manage);
         mAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
     }
 

@@ -48,7 +48,7 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public boolean getAdminToken() {
+    public boolean isAdminToken() {
         return mIsAdminToken;
     }
 
