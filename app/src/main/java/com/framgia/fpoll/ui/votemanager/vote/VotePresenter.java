@@ -1,21 +1,20 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
-import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.v4.util.PatternsCompat.EMAIL_ADDRESS;
-import static com.framgia.fpoll.util.Constant.TypeEditPoll.TYPE_EDIT_OPTION;
 
 /**
  * Created by tran.trung.phong on 23/02/2017.
@@ -23,18 +22,18 @@ import static com.framgia.fpoll.util.Constant.TypeEditPoll.TYPE_EDIT_OPTION;
 public class VotePresenter implements VoteContract.Presenter {
     private VoteContract.View mView;
     private VoteInfoRepository mVoteInfoRepository;
-    private ObservableField<String> mName = new ObservableField<>();
-    private ObservableField<String> mEmail = new ObservableField<>();
     private ObservableField<Option> mOption = new ObservableField<>(new Option());
+    private ObservableBoolean mIsLogin = new ObservableBoolean();
+    private User mUser;
     private boolean mIsMultiple;
 
     public VotePresenter(VoteContract.View view, VoteInfoRepository voteInfoRepository,
-                         boolean isMultiple) {
+            SharePreferenceUtil preference, boolean isMultiple) {
         mView = view;
         mVoteInfoRepository = voteInfoRepository;
         mIsMultiple = isMultiple;
-        mName.set("");
-        mEmail.set("");
+        mIsLogin.set(preference.isLogin());
+        mUser = preference.getUser() != null ? preference.getUser() : new User();
         mView.start();
     }
 
@@ -52,11 +51,12 @@ public class VotePresenter implements VoteContract.Presenter {
         for (Option option : voteInfoModel.getOptionModels()) {
             if (option.isChecked()) options.add(option);
         }
-        if (options.size() == 0) mView.onNotifyVote();
-        else {
+        if (options.size() == 0) {
+            mView.onNotifyVote();
+        } else {
             VoteInfoAPI.OptionsBody optionsBody =
-                new VoteInfoAPI.OptionsBody(mName.get(), mEmail.get(), idPoll, options,
-                    mOption.get().getName(), mOption.get().getImage());
+                    new VoteInfoAPI.OptionsBody(mUser.getUsername(), mUser.getEmail(), idPoll,
+                            options, mOption.get().getName(), mOption.get().getImage());
             votePoll(optionsBody, voteInfoModel);
         }
     }
@@ -88,66 +88,27 @@ public class VotePresenter implements VoteContract.Presenter {
 
     private boolean validateInput(VoteInfoModel voteInfoModel) {
         //Check vote setting
-        if (voteInfoModel.isNameRequired() && mName.get().isEmpty()) {
+        if (voteInfoModel.isNameRequired() && mUser.getUsername().isEmpty()) {
             mView.showVoteRequirement(R.string.msg_name_required);
             return false;
-        } else if (voteInfoModel.isEmailRequired() && mEmail.get().isEmpty()) {
+        } else if (voteInfoModel.isEmailRequired() && mUser.getEmail().isEmpty()) {
             mView.showVoteRequirement(R.string.msg_email_required);
             return false;
-        } else if (voteInfoModel.isEmailAndNameRequired()
-            && (mEmail.get().isEmpty() || mName.get().isEmpty())) {
+        } else if (voteInfoModel.isEmailAndNameRequired() && (mUser.getEmail().isEmpty()
+                || mUser.getUsername().isEmpty())) {
             mView.showVoteRequirement(R.string.msg_name_and_email_required);
             return false;
         }
         //Check email input
-        if (!mEmail.get().isEmpty() && !EMAIL_ADDRESS.matcher(mEmail.get()).matches()) {
+        if (!mUser.getEmail().isEmpty() && !EMAIL_ADDRESS.matcher(mUser.getUsername()).matches()) {
             mView.showVoteRequirement(R.string.msg_email_invalidate);
             return false;
         }
         return true;
     }
 
-    private void updateNewOption(final int idPoll, final VoteInfoModel voteInfoModel,
-                                 final List<Option> options) {
-        String newOptionText = mOption.get().getName();
-        String newOptionImage = mOption.get().getImage();
-        VoteInfoAPI.NewOptionBody newOptionBody =
-            new VoteInfoAPI.NewOptionBody(
-                String.valueOf(TYPE_EDIT_OPTION), newOptionText, newOptionImage);
-        mView.setLoading(true);
-        mVoteInfoRepository.updateNewOption(idPoll, newOptionBody,
-            new DataCallback<Poll>() {
-                @Override
-                public void onSuccess(Poll data) {
-                    mView.setLoading(false);
-                    if (data == null) return;
-                    /**
-                     *  Hien tai data Poll tra ve mang option chua co' mang user vote va
-                     *  participant vote nen chua the cap nhat UI
-                     */
-                    voteInfoModel.getVoteInfo().setPoll(data);
-                    List<Option> list = new ArrayList<>();
-                    list.addAll(data.getOptions());
-                    /**
-                     * Option Model hien tai k co so luong user vote va participant vote
-                     */
-                    voteInfoModel.setOptionModels(list);
-                    //Checked new option to list option then submit vote
-                    options.add(voteInfoModel.getOptionModels().get(0));
-                    VoteInfoAPI.OptionsBody optionsBody =
-                        new VoteInfoAPI.OptionsBody(mName.get(), mEmail.get(), idPoll, options);
-                    votePoll(optionsBody, voteInfoModel);
-                }
-
-                @Override
-                public void onError(String msg) {
-                    mView.setLoading(false);
-                }
-            });
-    }
-
     private void votePoll(final VoteInfoAPI.OptionsBody optionBody,
-                          final VoteInfoModel voteInfoModel) {
+            final VoteInfoModel voteInfoModel) {
         mView.setLoading(true);
         mVoteInfoRepository.votePoll(optionBody, new DataCallback<ParticipantVotes>() {
             @Override
@@ -157,8 +118,7 @@ public class VotePresenter implements VoteContract.Presenter {
                 List<Option> currentOptions = voteInfoModel.getVoteInfo().getPoll().getOptions();
                 for (int i = 0; i < currentOptions.size(); i++) {
                     for (int j = 0; j < updatedList.size(); j++) {
-                        if (currentOptions.get(i).getId() ==
-                            updatedList.get(j).getId()) {
+                        if (currentOptions.get(i).getId() == updatedList.get(j).getId()) {
                             currentOptions.set(i, updatedList.get(j));
                         }
                     }
@@ -197,12 +157,12 @@ public class VotePresenter implements VoteContract.Presenter {
         mOption.get().setImage(null);
     }
 
-    public ObservableField<String> getName() {
-        return mName;
+    public ObservableBoolean getIsLogin() {
+        return mIsLogin;
     }
 
-    public ObservableField<String> getEmail() {
-        return mEmail;
+    public User getUser() {
+        return mUser;
     }
 
     public ObservableField<Option> getOption() {

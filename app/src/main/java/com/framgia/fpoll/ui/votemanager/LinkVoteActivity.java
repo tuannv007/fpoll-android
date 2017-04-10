@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
@@ -13,8 +12,8 @@ import com.framgia.fpoll.data.model.poll.Setting;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
+import com.framgia.fpoll.ui.base.BaseActivity;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
-import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
@@ -29,7 +28,7 @@ import java.util.List;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 
-public class LinkVoteActivity extends AppCompatActivity
+public class LinkVoteActivity extends BaseActivity
         implements LinkVoteContract.View, PasswordAlertDialog.PasswordDialogCallback {
     private ActivityLinkVoteBinding mBinding;
     private LinkVoteContract.Presenter mPresenter;
