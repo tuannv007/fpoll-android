@@ -91,7 +91,7 @@
             <include
                 layout="@layout/partial_button_login"
                 bind:handler="@{handler}"
-                bind:imageButton="@{@drawable/ic_facebook}"
+                bind:imageButton="@{@drawable/ic_facebook_white}"
                 bind:titleLogin="@{@string/text_facebook}"
                 bind:typeLogin="@{LoginType.FACEBOOK}"/>
 

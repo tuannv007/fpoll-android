@@ -2,7 +2,6 @@ package com.framgia.fpoll.data.source.remote.voteinfo;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
@@ -48,7 +47,7 @@ public class VoteInfoRepository implements VoteInfoDataSource {
 
     @Override
     public void getVoteResult(@NonNull String token,
-                              @NonNull final DataCallback<ResultVoteItem> callback) {
+            @NonNull final DataCallback<ResultVoteItem> callback) {
         if (mDataSource == null) return;
         mDataSource.getVoteResult(token, new DataCallback<ResultVoteItem>() {
             @Override
@@ -65,7 +64,7 @@ public class VoteInfoRepository implements VoteInfoDataSource {
 
     @Override
     public void getVoteDetail(@NonNull String token,
-                              @NonNull final DataCallback<VoteDetail> callback) {
+            @NonNull final DataCallback<VoteDetail> callback) {
         if (mDataSource == null) return;
         mDataSource.getVoteDetail(token, new DataCallback<VoteDetail>() {
             @Override
@@ -82,7 +81,7 @@ public class VoteInfoRepository implements VoteInfoDataSource {
 
     @Override
     public void postComment(VoteInfoAPI.CommentBody comment,
-                            final DataCallback<FpollComment> callback) {
+            final DataCallback<FpollComment> callback) {
         if (mDataSource == null) return;
         mDataSource.postComment(comment, new DataCallback<FpollComment>() {
             @Override
@@ -99,7 +98,7 @@ public class VoteInfoRepository implements VoteInfoDataSource {
 
     @Override
     public void votePoll(VoteInfoAPI.OptionsBody optionsBody,
-                         final DataCallback<ParticipantVotes> callback) {
+            final DataCallback<ParticipantVotes> callback) {
         if (mDataSource == null) return;
         mDataSource.votePoll(optionsBody, new DataCallback<ParticipantVotes>() {
             @Override
@@ -115,10 +114,10 @@ public class VoteInfoRepository implements VoteInfoDataSource {
     }
 
     @Override
-    public void updateNewOption(int pollId, VoteInfoAPI.NewOptionBody newOptionBody,
-                                final DataCallback<Poll> callback) {
+    public void updateOption(int pollId, int optionId, String title, String date, String image,
+            @NonNull final DataCallback<Poll> callback) {
         if (mDataSource == null) return;
-        mDataSource.updateNewOption(pollId, newOptionBody, new DataCallback<Poll>() {
+        mDataSource.updateOption(pollId, optionId, title, date, image, new DataCallback<Poll>() {
             @Override
             public void onSuccess(Poll data) {
                 callback.onSuccess(data);

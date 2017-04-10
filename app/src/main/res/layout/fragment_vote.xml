@@ -218,11 +218,12 @@
                     />
 
                 <EditText
+                    android:enabled="@{!presenter.isLogin || presenter.user.username == null}"
                     android:gravity="center_vertical"
                     android:hint="@string/title_username"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={presenter.name}"
+                    android:text="@={presenter.user.username}"
                     style="@style/EditTextStyle"
                     />
             </LinearLayout>
@@ -238,11 +239,11 @@
                     />
 
                 <EditText
+                    android:enabled="@{!presenter.isLogin || presenter.user.email == null}"
                     android:gravity="center_vertical"
                     android:hint="@string/title_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:text="@={presenter.email}"
                     style="@style/EditTextStyle"
                     />
             </LinearLayout>
