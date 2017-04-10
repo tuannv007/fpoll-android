@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.pollmanage.information;
 
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -9,20 +10,37 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface PollInformationContract {
     interface View extends BaseView {
         void startUiVoting();
+
         void showDialogOption();
+
         void showDialogSetting();
+
         void saveSuccess(String message);
+
         void onError(String message);
+
         void showDateTimePicker();
+
         void showProgress();
+
         void hideProgress();
+
+        void onGetPollSuccessful(DataInfoItem data);
+
+        void onGetPollFailed(String message);
     }
 
     interface Presenter {
         void clickLinkVote();
+
         void clickViewOption();
+
         void clickViewSetting();
+
         void saveInformation(int id);
+
         void showDateTimePicker();
+
+        void loadData();
     }
 }

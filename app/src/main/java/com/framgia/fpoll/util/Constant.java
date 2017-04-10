@@ -46,6 +46,9 @@ public class Constant {
                 "https://docs.google.com/viewer?url=" + BASE_URL + "tutorial";
         public static final String DATA_SCOPE =
                 "oauth2:https://www.googleapis.com/auth/userinfo.profile";
+        public static final int OPTION_TITLE = 0;
+        public static final int OPTION_DATE = 1;
+        public static final int OPTION_SIZE = 2;
     }
 
     public static class DataConstant {

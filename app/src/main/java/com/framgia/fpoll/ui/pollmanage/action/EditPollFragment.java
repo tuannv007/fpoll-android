@@ -6,18 +6,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentActionBinding;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.framgia.fpoll.ui.polledition.ModifyPollActivity;
+import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.pollmanage.history.HistoryManageActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 
 /**
@@ -26,7 +27,8 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 public class EditPollFragment extends Fragment implements EditPollContract.View {
     private FragmentActionBinding mBinding;
     private EditPollContract.Presenter mPresenter;
-    private FPollProgressDialog mProgressDialog;
+    private String mToken;
+    private DataInfoItem mPoll;
 
     public static EditPollFragment newInstance(String token) {
         EditPollFragment fragment = new EditPollFragment();
@@ -36,20 +38,27 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
         return fragment;
     }
 
-    private String getToken() {
+    private void getDataFromActivity() {
         Bundle bundle = getArguments();
-        if (bundle == null || bundle.getString(BUNDLE_TOKEN) == null) return "";
-        return bundle.getString(BUNDLE_TOKEN);
+        if (bundle.getString(BUNDLE_TOKEN) != null) {
+            mToken = bundle.getString(BUNDLE_TOKEN);
+        }
+        if (bundle.getParcelable(BUNDLE_POLL_ITEM) != null) {
+            mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_action, container, false);
+        getDataFromActivity();
         mPresenter = new EditPollPresenter(this, ManagerRepository.getInstance(getActivity()),
-            SharePreferenceUtil.getIntances(getActivity()), getToken());
+                SharePreferenceUtil.getIntances(getActivity()), mToken, mPoll);
         mBinding.setPresenter((EditPollPresenter) mPresenter);
         mBinding.setHandler(new EditPollHandler(mPresenter));
+        if (mToken != null) mPresenter.loadData();
+        if (mPoll != null) mPresenter.initData();
         return mBinding.getRoot();
     }
 
@@ -59,16 +68,12 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
 
     @Override
     public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new FPollProgressDialog(getActivity());
-            mProgressDialog.setCancelable(false);
-        }
-        if (!mProgressDialog.isShowing()) mProgressDialog.show();
+        ((ManagePollActivity) getActivity()).showProgressDialog();
     }
 
     @Override
     public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.dismiss();
+        ((ManagePollActivity) getActivity()).hideProgressDialog();
     }
 
     @Override
@@ -83,12 +88,12 @@ public class EditPollFragment extends Fragment implements EditPollContract.View 
 
     @Override
     public void startUiPollCreation(PollItem data) {
-        startActivity(PollCreationActivity.getIntent(getActivity(),data));
+        startActivity(PollCreationActivity.getIntent(getActivity(), data));
     }
 
     @Override
     public void viewHistory() {
-        startActivity(HistoryManageActivity.getInstance(getActivity(), getToken()));
+        startActivity(HistoryManageActivity.getInstance(getActivity(), mToken));
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.framgia.fpoll.ui.pollmanage.information;
 
 import android.databinding.ObservableField;
-
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
+import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.api.UpdateInfoPollService;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -19,15 +19,35 @@ import static com.framgia.fpoll.util.Constant.TypeEditPoll.TYPE_EDIT_POLL;
  */
 public class PollInformationPresenter implements PollInformationContract.Presenter {
     private final PollInformationContract.View mView;
+    private final String mToken;
     private PollRepository mRepository;
+    private ManagerRepository mManagerRepository;
     private ObservableField<DataInfoItem> mPoll = new ObservableField<>();
 
-    public PollInformationPresenter(PollInformationContract.View view, DataInfoItem item,
-                                    PollRepository repository) {
+    public PollInformationPresenter(PollInformationContract.View view, PollRepository repository,
+            ManagerRepository manageRepository, String token) {
         mView = view;
         mRepository = repository;
+        mToken = token;
+        mManagerRepository = manageRepository;
         mView.start();
-        mPoll.set(item);
+        loadData();
+    }
+
+    @Override
+    public void loadData() {
+        if (mManagerRepository == null || mView == null || mToken == null) return;
+        mManagerRepository.getPollDetail(mToken, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                mView.onGetPollSuccessful(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.onGetPollFailed(msg);
+            }
+        });
     }
 
     @Override
@@ -54,8 +74,9 @@ public class PollInformationPresenter implements PollInformationContract.Present
         int type = mPoll.get().getPoll().isMultiple() ? TYPE_MULTI : TYPE_SINGER;
         String dateClose = mPoll.get().getPoll().getDateClose();
         String description = mPoll.get().getPoll().getDescription();
-        UpdateInfoPollService.PollInfoBody body = new UpdateInfoPollService.PollInfoBody
-            (username, email, title, type, TYPE_EDIT_POLL, dateClose, description);
+        UpdateInfoPollService.PollInfoBody body =
+                new UpdateInfoPollService.PollInfoBody(username, email, title, type, TYPE_EDIT_POLL,
+                        dateClose, description);
         mView.showProgress();
         mRepository.editPollInformation(id, body, new DataCallback<ResponseItem<DataInfoItem>>() {
             @Override

@@ -1,32 +1,39 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="msgError"
-            type="java.lang.String"/>
+            type="java.lang.String"
+            />
 
         <variable
             name="msgErrorEmail"
-            type="java.lang.String"/>
+            type="java.lang.String"
+            />
 
         <variable
             name="information"
-            type="com.framgia.fpoll.data.model.PollItem"/>
+            type="com.framgia.fpoll.data.model.PollItem"
+            />
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment"/>
+            type="com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment"
+            />
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.pollcreation.infomation.CreatePollActionHandle"/>
+            type="com.framgia.fpoll.ui.pollcreation.infomation.CreatePollActionHandle"
+            />
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.pollcreation.infomation.CreationPresenter"/>
+            type="com.framgia.fpoll.ui.pollcreation.infomation.CreationPresenter"
+            />
 
         <import type="com.framgia.fpoll.util.TimeUtil"/>
 
@@ -37,51 +44,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingRight="@dimen/dp_16">
+            android:paddingRight="@dimen/dp_16"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/dp_8"
-                android:paddingRight="@dimen/dp_8">
+                android:paddingRight="@dimen/dp_8"
+                >
 
                 <LinearLayout
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_person_black_24dp"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_person_black_24dp"/>
+                        />
 
                     <EditText
                         android:id="@+id/edt_user_name"
-                        style="@style/EditTextStyle"
+                        android:enabled="@{!presenter.isLogin}"
                         android:hint="@string/title_username"
                         android:text="@={information.user.username}"
-                        bind:setErrorEditText="@{msgError}"/>
+                        bind:setErrorEditText="@{msgError}"
+                        style="@style/EditTextStyle"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_email_white_24px"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_email_white_24px"/>
+                        />
 
                     <EditText
                         android:id="@+id/edt_email"
-                        style="@style/EditTextStyle"
+                        android:enabled="@{!presenter.isLogin}"
                         android:hint="@string/title_email"
                         android:inputType="textEmailAddress"
                         android:text="@={information.user.email}"
                         bind:setErrorEditText="@{msgError}"
-                        bind:setErrorEmail="@{msgErrorEmail}"/>
+                        bind:setErrorEmail="@{msgErrorEmail}"
+                        style="@style/EditTextStyle"
+                        />
 
                 </LinearLayout>
 
@@ -89,16 +105,18 @@
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_title"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_title"/>
+                        />
 
                     <EditText
                         android:id="@+id/edt_poll_title"
-                        style="@style/EditTextStyle"
                         android:hint="@string/hint_poll_title"
                         android:inputType="textEmailAddress"
                         android:text="@={information.title}"
-                        bind:setErrorEditText="@{msgError}"/>
+                        bind:setErrorEditText="@{msgError}"
+                        style="@style/EditTextStyle"
+                        />
 
                 </LinearLayout>
 
@@ -106,50 +124,57 @@
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_question_answer_grey_24px"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_question_answer_grey_24px"/>
+                        />
 
                     <android.support.v7.widget.AppCompatSpinner
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:entries="@array/array_answer"
                         android:padding="@dimen/dp_4"
                         android:spinnerMode="dropdown"
                         android:splitMotionEvents="true"
-                        bind:choiceAnswer="@={information.multiple}"/>
+                        bind:choiceAnswer="@={information.multiple}"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_description_grey"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_description_grey"/>
+                        />
 
                     <android.support.v7.widget.AppCompatEditText
-                        style="@style/EditTextStyle"
                         android:gravity="start"
                         android:hint="@string/title_description_poll"
                         android:inputType="textEmailAddress"
                         android:padding="@dimen/dp_8"
-                        android:text="@={information.description}"/>
+                        android:text="@={information.description}"
+                        style="@style/EditTextStyle"
+                        />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/btn_choose_time"
+                    android:onClick="@{() -> handler. showDatePicker()}"
                     style="@style/LinearLayoutStyle"
-                    android:onClick="@{() -> handler. showDatePicker()}">
+                    >
 
                     <ImageView
+                        android:src="@drawable/ic_alarm_black_24px"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_alarm_black_24px"/>
+                        />
 
                     <TextView
-                        style="@style/EditTextStyle"
                         android:background="?attr/editTextBackground"
-                        android:text="@{information.dateClose}"/>
+                        android:text="@{information.dateClose}"
+                        style="@style/EditTextStyle"
+                        />
 
                 </LinearLayout>
 
@@ -157,14 +182,16 @@
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_location_on_black_24px"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_location_on_black_24px"/>
+                        />
 
                     <com.framgia.fpoll.widget.PlaceAutoCompleteView
                         android:id="@+id/edit_location"
-                        style="@style/EditTextStyle"
                         android:hint="@string/hint_position"
-                        android:text="@={information.location}"/>
+                        android:text="@={information.location}"
+                        style="@style/EditTextStyle"
+                        />
 
                 </LinearLayout>
             </LinearLayout>
