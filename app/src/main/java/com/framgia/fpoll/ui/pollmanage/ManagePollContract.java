@@ -1,7 +1,5 @@
 package com.framgia.fpoll.ui.pollmanage;
 
-import android.support.v4.app.Fragment;
-
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
@@ -12,8 +10,6 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface ManagePollContract {
     interface View extends BaseView {
         void getDataFromIntent();
-        void addFragment(Fragment fragment, int resTitle);
-        void startUiViewPageManage();
         void onSuccess(DataInfoItem data);
         void onError(String message);
         void showDialog();

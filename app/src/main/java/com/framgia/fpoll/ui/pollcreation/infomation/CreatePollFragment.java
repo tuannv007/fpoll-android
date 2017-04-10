@@ -7,17 +7,16 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentCreatePollBinding;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.util.TimeUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-
 import java.util.Calendar;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
@@ -25,8 +24,8 @@ import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
 import static com.framgia.fpoll.util.Constant.Tag.TIME_PICKER_TAG;
 
 public class CreatePollFragment extends Fragment
-    implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
-    CreationContract.View, GoogleApiClient.OnConnectionFailedListener {
+        implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
+        CreationContract.View, GoogleApiClient.OnConnectionFailedListener {
     private FragmentCreatePollBinding mBinding;
     private CreationContract.Presenter mPresenter;
     private PollItem mPoll;
@@ -50,18 +49,18 @@ public class CreatePollFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         mBinding = FragmentCreatePollBinding.inflate(inflater, container, false);
         getDataFromActivity();
-        mPresenter = new CreationPresenter(this, mPoll);
+        mPresenter =
+                new CreationPresenter(this, mPoll, SharePreferenceUtil.getIntances(getActivity()));
         mBinding.setInformation(mPoll);
         mBinding.setHandler(new CreatePollActionHandle(mPresenter));
         mBinding.setPresenter((CreationPresenter) mPresenter);
         mBinding.setFragment(this);
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-            .addApi(Places.GEO_DATA_API)
-            .enableAutoManage(getActivity(), this)
-            .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addApi(Places.GEO_DATA_API)
+                .enableAutoManage(getActivity(), this)
+                .build();
         mBinding.editLocation.setGoogleApiClient(mGoogleApiClient);
         return mBinding.getRoot();
     }
@@ -85,12 +84,8 @@ public class CreatePollFragment extends Fragment
     @Override
     public void showDatePicker() {
         if (mCalendar == null) mCalendar = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-            this,
-            mCalendar.get(Calendar.YEAR),
-            mCalendar.get(Calendar.MONTH),
-            mCalendar.get(Calendar.DAY_OF_MONTH)
-        );
+        DatePickerDialog dpd = DatePickerDialog.newInstance(this, mCalendar.get(Calendar.YEAR),
+                mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
         dpd.show(getActivity().getFragmentManager(), DATE_PICKER_TAG);
     }
 
@@ -103,13 +98,9 @@ public class CreatePollFragment extends Fragment
     @Override
     public void showTimePicker() {
         if (mCalendar == null) mCalendar = Calendar.getInstance();
-        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
-            this,
-            mCalendar.get(Calendar.HOUR_OF_DAY),
-            mCalendar.get(Calendar.MINUTE),
-            mCalendar.get(Calendar.SECOND),
-            true
-        );
+        TimePickerDialog timePickerDialog =
+                TimePickerDialog.newInstance(this, mCalendar.get(Calendar.HOUR_OF_DAY),
+                        mCalendar.get(Calendar.MINUTE), mCalendar.get(Calendar.SECOND), true);
         timePickerDialog.show(getActivity().getFragmentManager(), TIME_PICKER_TAG);
     }
 
@@ -130,9 +121,10 @@ public class CreatePollFragment extends Fragment
 
     public boolean checkNextUI() {
         bindError();
-        return !(TextUtils.isEmpty(mPoll.getUser().getUsername()) ||
-            TextUtils.isEmpty(mPoll.getUser().getEmail()) ||
-            TextUtils.isEmpty(mPoll.getTitle()) ||
-            !android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail()).matches());
+        return !(TextUtils.isEmpty(mPoll.getUser().getUsername())
+                || TextUtils.isEmpty(mPoll.getUser().getEmail())
+                || TextUtils.isEmpty(mPoll.getTitle())
+                || !android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail())
+                .matches());
     }
 }

@@ -8,19 +8,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
 import com.framgia.fpoll.ui.history.PollHistoryType;
-import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.SharePreferenceUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,24 +43,24 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     private void getDataFromActivity() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mPollHistoryType = (PollHistoryType) bundle
-                .getSerializable(Constant.BundleConstant.BUNDLE_TYPE_HISTORY);
+            mPollHistoryType = (PollHistoryType) bundle.getSerializable(
+                    Constant.BundleConstant.BUNDLE_TYPE_HISTORY);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_poll_history, container, false);
+                DataBindingUtil.inflate(inflater, R.layout.fragment_poll_history, container, false);
         getDataFromActivity();
         mPresenter = new PollHistoryPresenter(this, mPollHistoryType,
-            ManagerRepository.getInstance(getActivity()),
-            SharePreferenceUtil.getIntances(getActivity()));
+                ManagerRepository.getInstance(getActivity()),
+                SharePreferenceUtil.getIntances(getActivity()));
         mBinding.setPresenter((PollHistoryPresenter) mPresenter);
         mBinding.setFragment(this);
-        mAdapter.set(
-            new PollHistoryAdapter(getContext(), mListPollHistory, mPollHistoryType, mPresenter));
+        mAdapter.set(new PollHistoryAdapter(getContext(), mListPollHistory, mPollHistoryType,
+                mPresenter));
         mPresenter.getData();
         return mBinding.getRoot();
     }
@@ -81,8 +78,7 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
 
     @Override
     public void onOpenManagerPollClick(String token) {
-        startActivity(
-            ManagePollActivity.getManageIntent(getActivity(), ViewpagerType.MANAGE, token));
+        startActivity(ManagePollActivity.getTokenIntent(getActivity(), token));
     }
 
     @Override

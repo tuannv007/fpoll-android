@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.poll.Setting;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.ActivityLinkVoteBinding;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
+import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.pollmanage.result.ResultVoteFragment;
 import com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
@@ -22,28 +23,46 @@ import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.widget.PasswordAlertDialog;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContract.View,
-    PasswordAlertDialog.PasswordDialogCallback {
-    private static final String EXTRA_TOKEN = "EXTRA_TOKEN";
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
+
+public class LinkVoteActivity extends AppCompatActivity
+        implements LinkVoteContract.View, PasswordAlertDialog.PasswordDialogCallback {
     private ActivityLinkVoteBinding mBinding;
     private LinkVoteContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
     private VoteInfoModel mVoteInfoModel;
     private String mToken;
+    private DataInfoItem mPoll;
 
-    public static Intent getTokenIntent(Context context, String token) {
+    public static Intent getPollIntent(Context context, DataInfoItem poll) {
         Intent intent = new Intent(context, LinkVoteActivity.class);
-        intent.putExtra(EXTRA_TOKEN, token);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BUNDLE_POLL_ITEM, poll);
+        intent.putExtras(bundle);
         return intent;
     }
 
-    private void getDataFromIntent() {
-        if (getIntent().getStringExtra(EXTRA_TOKEN) == null) return;
-        mToken = getIntent().getStringExtra(EXTRA_TOKEN);
+    public static Intent getTokenIntent(Context context, String token) {
+        Intent intent = new Intent(context, LinkVoteActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(BUNDLE_TOKEN, token);
+        intent.putExtras(bundle);
+        return intent;
+    }
+
+    public void getDataFromIntent() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) return;
+        if (bundle.getString(BUNDLE_TOKEN) != null) {
+            mToken = bundle.getString(BUNDLE_TOKEN);
+        }
+        if (bundle.getParcelable(BUNDLE_POLL_ITEM) != null) {
+            mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+        }
     }
 
     @Override
@@ -53,7 +72,7 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         getDataFromIntent();
         mBinding.setActivity(this);
         mPresenter = new LinkVotePresenter(this, VoteInfoRepository.getInstance(this));
-        mPresenter.getVoteInfo(mToken);
+        if (mToken != null) mPresenter.getVoteInfo(mToken);
     }
 
     @Override
@@ -75,7 +94,9 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
         setListVoteSetting(voteInfo);
         if (mVoteInfoModel.getPasswordRequired() != null) {
             PasswordAlertDialog.newInstance().show(getSupportFragmentManager(), "");
-        } else mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+        } else {
+            mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
+        }
     }
 
     @Override
@@ -119,8 +140,8 @@ public class LinkVoteActivity extends AppCompatActivity implements LinkVoteContr
                     break;
                 case Constant.Setting.LIMIT_VOTE_NUMBER:
                     if (settingList.get(i).getValue() == null) break;
-                    mVoteInfoModel
-                        .setNumberVoteLimit(Integer.parseInt(settingList.get(i).getValue()));
+                    mVoteInfoModel.setNumberVoteLimit(
+                            Integer.parseInt(settingList.get(i).getValue()));
                     break;
                 case Constant.Setting.OPTION_EDITABLE:
                     mVoteInfoModel.setOptionEditable(true);

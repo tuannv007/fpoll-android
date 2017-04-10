@@ -5,13 +5,15 @@ import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 
-import static com.framgia.fpoll.util.Constant.TokenType.TYPE_ADMIN;
-import static com.framgia.fpoll.util.Constant.TokenType.TYPE_USER;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_DATE;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_SIZE;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_TITLE;
 
 /**
  * Created by tuanbg on 4/3/17.
  */
 public class JoinPollPresenter implements JoinPollContract.Presenter {
+
     private JoinPollContract.View mView;
     private ObservableField<String> mPollLink = new ObservableField<>();
     private ManagerRepository mRepository;
@@ -29,15 +31,10 @@ public class JoinPollPresenter implements JoinPollContract.Presenter {
             @Override
             public void onSuccess(DataInfoItem data) {
                 mView.hideProgress();
-                switch (data.getTokenType()) {
-                    case TYPE_USER:
-                        mView.startUIVote(data);
-                        break;
-                    case TYPE_ADMIN:
-                        mView.startUIManager(data);
-                        break;
-                    default:
-                        break;
+                if (data.isAdminToken()) {
+                    mView.startUIManager(getTokenAdminFromPoll(data));
+                } else {
+                    mView.startUIVote(getTokenUserFromPoll(data));
                 }
             }
 
@@ -47,6 +44,20 @@ public class JoinPollPresenter implements JoinPollContract.Presenter {
                 mView.hideProgress();
             }
         });
+    }
+
+    private String getTokenAdminFromPoll(DataInfoItem data) {
+        if (data.getPoll().getLink() != null && data.getPoll().getLink().size() == OPTION_SIZE) {
+            return data.getPoll().getLink().get(OPTION_DATE).getToken();
+        }
+        return null;
+    }
+
+    private String getTokenUserFromPoll(DataInfoItem data) {
+        if (data.getPoll().getLink() != null && data.getPoll().getLink().size() > OPTION_TITLE) {
+            return data.getPoll().getLink().get(OPTION_TITLE).getToken();
+        }
+        return null;
     }
 
     public ObservableField<String> getPollLink() {
