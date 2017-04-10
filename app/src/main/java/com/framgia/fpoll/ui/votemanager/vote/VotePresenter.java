@@ -14,7 +14,7 @@ import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.v4.util.PatternsCompat.EMAIL_ADDRESS;
+import static android.util.Patterns.EMAIL_ADDRESS;
 
 /**
  * Created by tran.trung.phong on 23/02/2017.
@@ -100,7 +100,7 @@ public class VotePresenter implements VoteContract.Presenter {
             return false;
         }
         //Check email input
-        if (!mUser.getEmail().isEmpty() && !EMAIL_ADDRESS.matcher(mUser.getUsername()).matches()) {
+        if (!mUser.getEmail().isEmpty() && !EMAIL_ADDRESS.matcher(mUser.getEmail()).matches()) {
             mView.showVoteRequirement(R.string.msg_email_invalidate);
             return false;
         }
@@ -109,7 +109,7 @@ public class VotePresenter implements VoteContract.Presenter {
 
     private void votePoll(final VoteInfoAPI.OptionsBody optionBody,
             final VoteInfoModel voteInfoModel) {
-        mView.setLoading(true);
+        mView.showDialog();
         mVoteInfoRepository.votePoll(optionBody, new DataCallback<ParticipantVotes>() {
             @Override
             public void onSuccess(ParticipantVotes data) {
@@ -124,13 +124,13 @@ public class VotePresenter implements VoteContract.Presenter {
                     }
                 }
                 mView.onSubmitSuccess(currentOptions);
-                mView.setLoading(false);
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(String msg) {
                 mView.onSubmitFailed(msg);
-                mView.setLoading(false);
+                mView.dismissDialog();
             }
         });
     }

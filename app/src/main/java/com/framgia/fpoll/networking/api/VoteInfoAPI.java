@@ -19,7 +19,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -40,7 +39,6 @@ public interface VoteInfoAPI {
     @POST("/api/v1/poll/comment")
     Call<ResponseItem<FpollComment>> postComment(@Body CommentBody commentBody);
 
-    @Multipart
     @POST("/api/v1/user/vote")
     Call<ResponseItem<ParticipantVotes>> votePoll(@Body RequestBody options);
 
@@ -116,9 +114,9 @@ public interface VoteInfoAPI {
             builder.addFormDataPart(EMAIL, this.mEmail);
             builder.addFormDataPart(ID_POLL, String.valueOf(this.mIdPoll));
             for (Option option : mListOptions) {
-                if (!TextUtils.isEmpty(option.getName()) && !TextUtils.isEmpty(option.getImage())) {
+                if (!TextUtils.isEmpty(option.getName())) {
                     String optionKey = String.format(OPTION, option.getId());
-                    builder.addFormDataPart(optionKey, String.valueOf(option.getId()));
+                    builder.addFormDataPart(optionKey, String.valueOf(option.getPollId()));
                 }
             }
             if (mOptionText != null) builder.addFormDataPart(OPTION_TEXT, mOptionText);

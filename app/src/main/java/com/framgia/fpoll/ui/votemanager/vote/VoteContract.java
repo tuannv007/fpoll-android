@@ -21,6 +21,8 @@ public interface VoteContract {
         void showVoteRequirement(int msg);
         void resetChoiceBox();
         void onCheckedChanged(boolean check);
+        void showDialog();
+        void dismissDialog();
     }
 
     interface Presenter {
