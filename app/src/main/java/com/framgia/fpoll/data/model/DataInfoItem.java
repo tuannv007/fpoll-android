@@ -22,7 +22,10 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     @SerializedName("activities")
     private List<FpollComment> mFpollComment;
     @SerializedName("token_type")
-    private int mTokenType;
+    private boolean mIsAdminToken;
+
+    public DataInfoItem() {
+    }
 
     @Bindable
     public List<FpollComment> getFpollComment() {
@@ -45,13 +48,13 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public int getTokenType() {
-        return mTokenType;
+    public boolean getAdminToken() {
+        return mIsAdminToken;
     }
 
-    public void setTokenType(int tokenType) {
-        mTokenType = tokenType;
-        notifyPropertyChanged(BR.tokenType);
+    public void setAdminToken(boolean adminToken) {
+        mIsAdminToken = adminToken;
+        notifyPropertyChanged(BR.adminToken);
     }
 
     @Bindable
@@ -102,8 +105,5 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
         dest.writeParcelable(mPoll, flags);
         dest.writeInt(mCountParticipant);
         dest.writeInt(mCountComments);
-    }
-
-    public DataInfoItem() {
     }
 }

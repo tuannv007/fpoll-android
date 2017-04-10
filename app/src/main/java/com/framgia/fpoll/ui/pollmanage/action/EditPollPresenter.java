@@ -17,6 +17,7 @@ import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
  * Created by tran.trung.phong on 01/03/2017.
  */
 public class EditPollPresenter implements EditPollContract.Presenter {
+    private static final int ID_POLL_ERROR = -1;
     private static final String KEY_SPLIT = ";";
     private static final int NUMBER_ADMIN = 0;
     private static final int NUMBER_USER = 1;
@@ -31,16 +32,29 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     private String mOldLinkAdmin;
     private ManagerRepository mRepository;
     private String mToken;
+    private DataInfoItem mPoll;
+    private int mIdPoll = ID_POLL_ERROR;
     private User mUser;
 
     public EditPollPresenter(EditPollContract.View view, ManagerRepository repository,
-            SharePreferenceUtil preference, String token) {
+            SharePreferenceUtil preference, String token, DataInfoItem poll) {
         mView = view;
         mRepository = repository;
         mToken = token;
+        mPoll = poll;
         mUser = preference.getUser();
         mView.start();
-        loadData();
+    }
+
+    @Override
+    public void initData() {
+        if (mPoll == null) return;
+        mIdPoll = mPoll.getPoll().getId();
+        mPollOpen.set(mPoll.getPoll().isOpen());
+        mOldLinkAdmin = mPoll.getPoll().getLink().get(NUMBER_ADMIN).getToken();
+        mOldLinkUser = mPoll.getPoll().getLink().get(NUMBER_USER).getToken();
+        mLinkVoting.set(mOldLinkUser);
+        mLinkManager.set(mOldLinkAdmin);
     }
 
     @Override
@@ -50,11 +64,8 @@ public class EditPollPresenter implements EditPollContract.Presenter {
         mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
-                mPollOpen.set(data.getPoll().isOpen());
-                mOldLinkAdmin = data.getPoll().getLink().get(NUMBER_ADMIN).getToken();
-                mOldLinkUser = data.getPoll().getLink().get(NUMBER_USER).getToken();
-                mLinkVoting.set(mOldLinkUser);
-                mLinkManager.set(mOldLinkAdmin);
+                mPoll = data;
+                initData();
                 mView.hideProgressDialog();
             }
 
@@ -134,16 +145,19 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void closePoll() {
-        if (mRepository == null) return;
-        mRepository.switchPollStatus(mToken, new DataCallback<String>() {
+        if (mRepository == null || mView == null || mIdPoll == ID_POLL_ERROR) return;
+        mView.showProgressDialog();
+        mRepository.switchPollStatus(String.valueOf(mIdPoll), new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 mView.showMessage(data);
+                loadData();
             }
 
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgressDialog();
             }
         });
     }
