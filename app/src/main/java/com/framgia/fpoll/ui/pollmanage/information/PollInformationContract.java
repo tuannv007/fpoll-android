@@ -15,9 +15,9 @@ public interface PollInformationContract {
 
         void showDialogSetting();
 
-        void saveSuccess(String message);
+        void showMessage(String message);
 
-        void onError(String message);
+        void showMessage(int message);
 
         void showDateTimePicker();
 

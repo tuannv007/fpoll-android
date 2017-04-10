@@ -154,12 +154,12 @@ public class PollInformationFragment extends Fragment
     }
 
     @Override
-    public void saveSuccess(String data) {
+    public void showMessage(String data) {
         ActivityUtil.showToast(getActivity(), data);
     }
 
     @Override
-    public void onError(String msg) {
+    public void showMessage(int msg) {
         ActivityUtil.showToast(getActivity(), msg);
     }
 }

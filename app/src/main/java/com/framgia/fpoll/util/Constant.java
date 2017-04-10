@@ -80,6 +80,7 @@ public class Constant {
         public static final int REQUEST_GOOGLE = 3;
         public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL = 4;
         public static final int REQUEST_LOGIN = 5;
+        public static final int REQUEST_CREATE_POLL = 6;
     }
 
     public static class TimeFormat {

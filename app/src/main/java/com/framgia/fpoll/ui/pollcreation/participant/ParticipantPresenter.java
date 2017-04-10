@@ -1,8 +1,10 @@
 package com.framgia.fpoll.ui.pollcreation.participant;
 
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
+import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import java.util.List;
 
 /**
@@ -24,18 +26,20 @@ public class ParticipantPresenter implements ParticipantPollContract.Presenter {
     }
 
     @Override
-    public void createPoll() {
+    public void createPoll(final PollCreationActivity.OnPollCreation onPollCreation) {
         if (mView == null || mCreationRepository == null) return;
         mView.showDialog();
         mPoll.setMembers(getMembersEmail(mView.getMembers()));
-        mCreationRepository.createPoll(mPoll, new DataCallback<PollItem>() {
+        mCreationRepository.createPoll(mPoll, new DataCallback<HistoryPoll>() {
             @Override
-            public void onSuccess(PollItem data) {
+            public void onSuccess(HistoryPoll data) {
                 if (mView != null) {
                     mPoll.setId(data.getId());
                     mPoll.setLink(data.getLink());
                     mView.hideDialog();
-                    mView.startUiPollCreated(data);
+                    if (onPollCreation != null) {
+                        onPollCreation.onPollCreationSuccess(data);
+                    }
                 }
             }
 

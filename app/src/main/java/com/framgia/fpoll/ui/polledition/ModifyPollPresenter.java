@@ -1,18 +1,14 @@
 package com.framgia.fpoll.ui.polledition;
 
 import android.support.annotation.Nullable;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
-import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.api.PollEditionApi;
 import com.framgia.fpoll.networking.api.UpdateInfoPollService;
-import com.framgia.fpoll.util.ActivityUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +25,7 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
     private PollRepository mRepository;
 
     public ModifyPollPresenter(ModifyPollContract.View view, PollItem poll,
-                               PollRepository repository) {
+            PollRepository repository) {
         mView = view;
         mPoll = poll;
         mRepository = repository;
@@ -51,22 +47,22 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
         int type = mPoll.isMultiple() ? TYPE_MULTI : TYPE_SINGER;
         String dateClose = mPoll.getDateClose();
         String description = mPoll.getDescription();
-        UpdateInfoPollService.PollInfoBody body = new UpdateInfoPollService.PollInfoBody
-            (username, email, title, type, TYPE_EDIT_POLL, dateClose, description);
-        mRepository.editPollInformation(mPoll.getId(), body, new
-            DataCallback<ResponseItem<DataInfoItem>>() {
-                @Override
-                public void onSuccess(ResponseItem<DataInfoItem> data) {
-                    mView.hideProgress();
-                    mView.showMessage(ActivityUtil.byString(data.getMessage()));
-                }
+        UpdateInfoPollService.PollInfoBody body =
+                new UpdateInfoPollService.PollInfoBody(username, email, title, type, TYPE_EDIT_POLL,
+                        dateClose, description);
+        mRepository.editPollInformation(mPoll.getId(), body, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                mView.hideProgress();
+                mView.showMessage(R.string.update_success);
+            }
 
-                @Override
-                public void onError(String msg) {
-                    mView.hideProgress();
-                    mView.showMessage(msg);
-                }
-            });
+            @Override
+            public void onError(String msg) {
+                mView.hideProgress();
+                mView.showMessage(msg);
+            }
+        });
     }
 
     @Override
@@ -76,19 +72,19 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
         mPoll.setOptions(listOptionReal);
         mView.showProgress();
         mRepository.editPoll(PollEditionApi.TYPE_EDIT_OPTION, mPoll,
-            new DataCallback<DataInfoItem>() {
-                @Override
-                public void onSuccess(DataInfoItem data) {
-                    mView.hideProgress();
-                    mView.showMessage(R.string.update_success);
-                }
+                new DataCallback<DataInfoItem>() {
+                    @Override
+                    public void onSuccess(DataInfoItem data) {
+                        mView.hideProgress();
+                        mView.showMessage(R.string.update_success);
+                    }
 
-                @Override
-                public void onError(String msg) {
-                    mView.hideProgress();
-                    mView.showMessage(msg);
-                }
-            });
+                    @Override
+                    public void onError(String msg) {
+                        mView.hideProgress();
+                        mView.showMessage(msg);
+                    }
+                });
     }
 
     @Nullable
@@ -108,18 +104,18 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
     public void submitEditSetting() {
         mView.showProgress();
         mRepository.editPoll(PollEditionApi.TYPE_EDIT_SETTING, mPoll,
-            new DataCallback<DataInfoItem>() {
-                @Override
-                public void onSuccess(DataInfoItem data) {
-                    mView.hideProgress();
-                    mView.showMessage(R.string.update_success);
-                }
+                new DataCallback<DataInfoItem>() {
+                    @Override
+                    public void onSuccess(DataInfoItem data) {
+                        mView.hideProgress();
+                        mView.showMessage(R.string.update_success);
+                    }
 
-                @Override
-                public void onError(String msg) {
-                    mView.showMessage(msg);
-                }
-            });
+                    @Override
+                    public void onError(String msg) {
+                        mView.showMessage(msg);
+                    }
+                });
     }
 
     @Override
