@@ -27,6 +27,7 @@ import java.util.List;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_TITLE;
 
 public class LinkVoteActivity extends BaseActivity
         implements LinkVoteContract.View, PasswordAlertDialog.PasswordDialogCallback {
@@ -61,6 +62,9 @@ public class LinkVoteActivity extends BaseActivity
         }
         if (bundle.getParcelable(BUNDLE_POLL_ITEM) != null) {
             mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+            if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getLink().size() > 0) {
+                mToken = mPoll.getPoll().getLink().get(OPTION_TITLE).getToken();
+            }
         }
     }
 
@@ -87,6 +91,9 @@ public class LinkVoteActivity extends BaseActivity
 
     @Override
     public void onGetVoteInfoSuccess(VoteInfo voteInfo) {
+        if (voteInfo != null && voteInfo.getPoll() != null) {
+            setTitle(voteInfo.getPoll().getTitle());
+        }
         mVoteInfoModel.setVoteInfo(voteInfo);
         mVoteInfoModel.setToken(mToken);
         setListOptionModel(voteInfo);
@@ -105,9 +112,10 @@ public class LinkVoteActivity extends BaseActivity
 
     @Override
     public void start() {
-        setSupportActionBar(mBinding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(getString(R.string.title_vote));
+        setTitle(R.string.title_information);
+        if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getTitle() != null) {
+            setTitle(mPoll.getPoll().getTitle());
+        }
         mVoteInfoModel = new VoteInfoModel();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(VoteFragment.newInstance(mVoteInfoModel));
@@ -187,5 +195,4 @@ public class LinkVoteActivity extends BaseActivity
     public VoteInfoModel getVoteInfoModel() {
         return mVoteInfoModel;
     }
-
 }

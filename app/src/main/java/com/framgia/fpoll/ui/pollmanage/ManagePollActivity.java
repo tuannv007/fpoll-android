@@ -3,14 +3,11 @@ package com.framgia.fpoll.ui.pollmanage;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
-import android.widget.Toast;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
-import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.ActivityManagePollBinding;
 import com.framgia.fpoll.ui.base.BaseActivity;
 import com.framgia.fpoll.ui.history.ViewPagerAdapter;
@@ -22,11 +19,12 @@ import java.util.List;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_TITLE;
 
 public class ManagePollActivity extends BaseActivity implements ManagePollContract.View {
     private ActivityManagePollBinding mBinding;
     private ManagePollContract.Presenter mPresenter;
-    private ObservableField<DataInfoItem> mPoll = new ObservableField<>();
+    private DataInfoItem mPoll;
     private String mToken;
     private ViewPagerAdapter mAdapter;
 
@@ -51,14 +49,11 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_manage_poll);
         getDataFromIntent();
-        mPresenter = new ManagePollPresenter(this, ManagerRepository.getInstance(this));
+        mPresenter = new ManagePollPresenter(this);
         mBinding.setView(this);
-        if (mToken != null) mPresenter.getAllData(mToken);
-        start();
     }
 
-    @Override
-    public void getDataFromIntent() {
+    private void getDataFromIntent() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) return;
         if (bundle.getString(BUNDLE_TOKEN) != null) {
@@ -66,6 +61,9 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
         }
         if (bundle.getParcelable(BUNDLE_POLL_ITEM) != null) {
             mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+            if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getLink().size() > 0) {
+                mToken = mPoll.getPoll().getLink().get(OPTION_TITLE).getToken();
+            }
         }
     }
 
@@ -77,38 +75,12 @@ public class ManagePollActivity extends BaseActivity implements ManagePollContra
 
     @Override
     public void start() {
-        setSupportActionBar(mBinding.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(PollInformationFragment.newInstance(mToken));
+        fragments.add(PollInformationFragment.newInstance(mPoll, mToken));
         fragments.add(ResultVoteFragment.newInstance(mToken));
         fragments.add(EditPollFragment.newInstance(mToken));
         String[] titles = getResources().getStringArray(R.array.array_manage);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
-    }
-
-    @Override
-    public void onSuccess(DataInfoItem data) {
-        mPoll.set(data);
-    }
-
-    @Override
-    public void onError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showDialog() {
-        showProgressDialog();
-    }
-
-    @Override
-    public void dismissDialog() {
-        hideProgressDialog();
-    }
-
-    public ObservableField<DataInfoItem> getPoll() {
-        return mPoll;
     }
 
     public ViewPagerAdapter getAdapter() {

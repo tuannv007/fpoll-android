@@ -37,7 +37,7 @@ public interface PollInformationContract {
 
         void clickViewSetting();
 
-        void saveInformation(int id);
+        void saveInformation();
 
         void showDateTimePicker();
 

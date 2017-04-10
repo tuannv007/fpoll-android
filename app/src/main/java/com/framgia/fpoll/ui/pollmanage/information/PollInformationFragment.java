@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
@@ -23,10 +24,12 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 import static com.framgia.fpoll.util.Constant.POSITION_LINK_INVITE;
 import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
 import static com.framgia.fpoll.util.Constant.Tag.TIME_PICKER_TAG;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_TITLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,19 +41,28 @@ public class PollInformationFragment extends Fragment
     private String mToken;
     private DataInfoItem mPoll;
     private FragmentInformationBinding mBinding;
+    private PollInformationContract.Presenter mPresenter;
 
-    public static PollInformationFragment newInstance(String token) {
+    public static PollInformationFragment newInstance(DataInfoItem poll, String token) {
         PollInformationFragment fragment = new PollInformationFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_TOKEN, token);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, poll);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     private void getDataFromActivity() {
         Bundle bundle = getArguments();
+        if (bundle == null) return;
         if (bundle.getString(BUNDLE_TOKEN) != null) {
             mToken = bundle.getString(BUNDLE_TOKEN);
+        }
+        if (bundle.getParcelable(BUNDLE_POLL_ITEM) != null) {
+            mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
+            if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getLink().size() > 0) {
+                mToken = mPoll.getPoll().getLink().get(OPTION_TITLE).getToken();
+            }
         }
     }
 
@@ -59,23 +71,29 @@ public class PollInformationFragment extends Fragment
             Bundle savedInstanceState) {
         mBinding = FragmentInformationBinding.inflate(inflater, container, false);
         getDataFromActivity();
-        PollInformationContract.Presenter presenter =
-                new PollInformationPresenter(this, PollRepository.getInstance(getActivity()),
-                        ManagerRepository.getInstance(getActivity()),
-                        SharePreferenceUtil.getIntances(getActivity()), mToken);
-        mBinding.setHandler(new PollInformationHandler(presenter));
+        mPresenter = new PollInformationPresenter(this, PollRepository.getInstance(getActivity()),
+                ManagerRepository.getInstance(getActivity()),
+                SharePreferenceUtil.getIntances(getActivity()), mPoll, mToken);
+        mBinding.setPresenter((PollInformationPresenter) mPresenter);
+        mBinding.setHandler(new PollInformationHandler(mPresenter));
         return mBinding.getRoot();
     }
 
     @Override
     public void start() {
+        getActivity().setTitle(R.string.title_information);
+        if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getTitle() != null) {
+            getActivity().setTitle(mPoll.getPoll().getTitle());
+        }
     }
 
     @Override
     public void startUiVoting() {
-        if (mPoll == null) return;
-        String token = mPoll.getPoll().getLink().get(POSITION_LINK_INVITE).getToken();
-        startActivity(LinkVoteActivity.getTokenIntent(getActivity(), token));
+        if (mToken == null && mPoll != null) {
+            mToken = mPoll.getPoll().getLink().get(POSITION_LINK_INVITE).getToken();
+        }
+        if (mToken == null) return;
+        startActivity(LinkVoteActivity.getTokenIntent(getActivity(), mToken));
     }
 
     @Override
@@ -131,16 +149,14 @@ public class PollInformationFragment extends Fragment
     @Override
     public void onGetPollSuccessful(DataInfoItem data) {
         mPoll = data;
-        mBinding.setInformation(mPoll);
+        if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getTitle() != null) {
+            getActivity().setTitle(mPoll.getPoll().getTitle());
+        }
     }
 
     @Override
     public void onGetPollFailed(String message) {
         ActivityUtil.showToast(getActivity(), message);
-    }
-
-    public DataInfoItem getPoll() {
-        return mPoll;
     }
 
     @Override
