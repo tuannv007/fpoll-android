@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteInfoBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.ItemStatus;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 
 /**
  * Created by Nhahv0902 on 2/28/2017.
@@ -39,17 +39,19 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null)
+        if (getArguments() != null) {
             mVoteInfoModel = getArguments().getParcelable(ARGUMENT_VOTE_INFO);
+        }
         mPresenter =
-            new VoteInformationPresenter(this, VoteInfoRepository.getInstance(getContext()));
+                new VoteInformationPresenter(this, VoteInfoRepository.getInstance(getContext()),
+                        SharePreferenceUtil.getIntances(getActivity()));
         mCommentAdapter = new CommentAdapter(mPresenter, mVoteInfoModel);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding = FragmentVoteInfoBinding.inflate(inflater, container, false);
         mBinding.setVoteInfoModel(mVoteInfoModel);
         mBinding.setPresenter((VoteInformationPresenter) mPresenter);
@@ -79,7 +81,7 @@ public class VoteInformationFragment extends Fragment implements VoteInformation
     public void onPostCommentFailed() {
         mVoteInfoModel.setItemStatus(ItemStatus.AVAILABLE);
         Toast.makeText(getContext(), getString(R.string.error_post_comments), Toast.LENGTH_SHORT)
-            .show();
+                .show();
     }
 
     @Override

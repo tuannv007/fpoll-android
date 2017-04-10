@@ -1,16 +1,15 @@
 package com.framgia.fpoll.ui.votemanager.information;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-
-import java.util.ArrayList;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 
 /**
  * Created by anhtv on 23/02/2017.
@@ -19,11 +18,13 @@ public class VoteInformationPresenter implements VoteInformationContract.Present
     private VoteInformationContract.View mView;
     private ObservableField<FpollComment> mFpollComment = new ObservableField<>();
     private VoteInfoRepository mVoteInfoRepository;
+    private ObservableBoolean mIsLogin = new ObservableBoolean();
 
     public VoteInformationPresenter(VoteInformationContract.View view,
-                                    VoteInfoRepository voteInfoRepository) {
+            VoteInfoRepository voteInfoRepository, SharePreferenceUtil preference) {
         mView = view;
         mVoteInfoRepository = voteInfoRepository;
+        mIsLogin.set(preference.isLogin());
         mView.start();
         mFpollComment.set(new FpollComment());
     }
@@ -38,7 +39,7 @@ public class VoteInformationPresenter implements VoteInformationContract.Present
         } else {
             mView.setLoading();
             VoteInfoAPI.CommentBody commentBody =
-                new VoteInfoAPI.CommentBody(userName, idPoll, content);
+                    new VoteInfoAPI.CommentBody(userName, idPoll, content);
             mVoteInfoRepository.postComment(commentBody, new DataCallback<FpollComment>() {
                 @Override
                 public void onSuccess(FpollComment data) {
@@ -56,5 +57,9 @@ public class VoteInformationPresenter implements VoteInformationContract.Present
 
     public ObservableField<FpollComment> getFpollComment() {
         return mFpollComment;
+    }
+
+    public ObservableBoolean getIsLogin() {
+        return mIsLogin;
     }
 }

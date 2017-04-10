@@ -1,11 +1,9 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,21 +12,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteBinding;
+import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
-
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static android.graphics.Color.TRANSPARENT;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 
 /**
@@ -41,7 +37,6 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     private boolean mIsMultiple;
     private VoteInfoModel mVoteInfoModel;
     private VoteContract.Presenter mPresenter;
-    private ProgressDialog mProgressDialog;
 
     public static VoteFragment newInstance(VoteInfoModel voteInfo) {
         VoteFragment voteInformationFragment = new VoteFragment();
@@ -54,19 +49,20 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null)
+        if (getArguments() != null) {
             mVoteInfoModel = getArguments().getParcelable(ARGUMENT_VOTE_INFO);
+        }
         if (mVoteInfoModel == null) return;
         mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
-        mPresenter =
-            new VotePresenter(this, VoteInfoRepository.getInstance(getContext()), mIsMultiple);
+        mPresenter = new VotePresenter(this, VoteInfoRepository.getInstance(getContext()),
+                SharePreferenceUtil.getIntances(getActivity()), mIsMultiple);
         mAdapter.set(new VoteAdapter(mPresenter, mVoteInfoModel));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_vote, container, false);
         mBinding.setFragment(this);
         mBinding.setPresenter((VotePresenter) mPresenter);
@@ -126,22 +122,14 @@ public class VoteFragment extends Fragment implements VoteContract.View {
 
     @Override
     public void setLoading(boolean isShow) {
-        if (!isShow && mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-            return;
-        }
-        mProgressDialog = ProgressDialog.show(getContext(), null, null, true, false);
-        if (mProgressDialog.getWindow() != null)
-            mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-        mProgressDialog.setContentView(new ProgressBar(getContext()));
+        ((LinkVoteActivity) getActivity()).showProgressDialog();
     }
 
     @Override
     public void showGallery() {
         if (PermissionsUtil.isAllowPermissions(getActivity())) {
-            Intent intent = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent intent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, IMAGE_PICKER_SELECT);
         }
     }
@@ -171,9 +159,9 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         if (requestCode != IMAGE_PICKER_SELECT || resultCode != RESULT_OK || data == null) return;
         Uri selectedImage = data.getData();
         if (selectedImage == null) return;
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
         Cursor cursor = getActivity().getContentResolver()
-            .query(selectedImage, filePathColumn, null, null, null);
+                .query(selectedImage, filePathColumn, null, null, null);
         if (cursor == null) return;
         cursor.moveToFirst();
         mPresenter.setImageOption(cursor.getString(cursor.getColumnIndex(filePathColumn[0])));

@@ -8,7 +8,6 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public interface HistoryContract {
     interface View extends BaseView {
-        void getDataFromActivity();
     }
 
     interface Presenter {

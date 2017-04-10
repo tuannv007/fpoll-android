@@ -17,6 +17,7 @@ import com.framgia.fpoll.ui.pollmanage.information.viewoption.PollOptionDialogFr
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.util.TimeUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -60,7 +61,8 @@ public class PollInformationFragment extends Fragment
         getDataFromActivity();
         PollInformationContract.Presenter presenter =
                 new PollInformationPresenter(this, PollRepository.getInstance(getActivity()),
-                        ManagerRepository.getInstance(getActivity()), mToken);
+                        ManagerRepository.getInstance(getActivity()),
+                        SharePreferenceUtil.getIntances(getActivity()), mToken);
         mBinding.setHandler(new PollInformationHandler(presenter));
         return mBinding.getRoot();
     }

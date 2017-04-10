@@ -29,7 +29,6 @@ import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.editprofile.EditProfileActivity;
 import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
-import com.framgia.fpoll.ui.history.ViewpagerType;
 import com.framgia.fpoll.ui.introduction.IntroduceActivity;
 import com.framgia.fpoll.ui.joinpoll.JoinPollActivity;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
@@ -77,8 +76,7 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         mBinding.navView.setNavigationItemSelectedListener(this);
-        addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-                R.string.title_home);
+        addFragment(HistoryFragment.newInstance(), R.string.title_home);
     }
 
     public void showProgressDialog() {
@@ -145,8 +143,7 @@ public class MainActivity extends AppCompatActivity
         setIsShowAddPoll(true);
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
         if (!(fragment instanceof HistoryFragment)) {
-            addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-                    R.string.title_home);
+            addFragment(HistoryFragment.newInstance(), R.string.title_home);
         }
     }
 
@@ -186,8 +183,7 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
             setIsShowAddPoll(true);
-            addFragment(HistoryFragment.newInstance(ViewpagerType.HISTORY, null, ""),
-                    R.string.title_home);
+            addFragment(HistoryFragment.newInstance(), R.string.title_home);
             mPresenter.setInformation();
             openNavigation();
         }

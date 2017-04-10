@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.pollmanage.information;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -8,6 +9,7 @@ import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.api.UpdateInfoPollService;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 
 import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_MULTI;
 import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_SINGER;
@@ -23,13 +25,15 @@ public class PollInformationPresenter implements PollInformationContract.Present
     private PollRepository mRepository;
     private ManagerRepository mManagerRepository;
     private ObservableField<DataInfoItem> mPoll = new ObservableField<>();
+    private ObservableBoolean mIsLogin = new ObservableBoolean();
 
     public PollInformationPresenter(PollInformationContract.View view, PollRepository repository,
-            ManagerRepository manageRepository, String token) {
+            ManagerRepository manageRepository, SharePreferenceUtil preference, String token) {
         mView = view;
         mRepository = repository;
         mToken = token;
         mManagerRepository = manageRepository;
+        mIsLogin.set(preference.isLogin());
         mView.start();
         loadData();
     }
@@ -97,5 +101,9 @@ public class PollInformationPresenter implements PollInformationContract.Present
     @Override
     public void showDateTimePicker() {
         if (mView != null) mView.showDateTimePicker();
+    }
+
+    public ObservableBoolean getIsLogin() {
+        return mIsLogin;
     }
 }
