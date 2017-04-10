@@ -29,6 +29,7 @@ public class ActivityUtil {
     }
 
     public static void showToast(Context context, int res) {
+        if (context == null) return;
         Toast.makeText(context, res, Toast.LENGTH_LONG).show();
     }
 

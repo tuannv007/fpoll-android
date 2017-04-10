@@ -23,4 +23,5 @@
     <color name="color_black_transprarent">#B2000000</color>
     <color name="color_seashell">#F1F1F1</color>
     <color name="color_grey_transparent">#ccf7f3f7</color>
+    <color name="color_grey_400_transparent">#B3a4acac</color>
 </resources>

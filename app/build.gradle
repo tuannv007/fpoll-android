@@ -45,6 +45,11 @@ buildscript {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile('com.twitter.sdk.android:twitter:2.3.1@aar') {
+        transitive = true;
+    }
+    compile files('build/libs/opencsv-2.4.jar')
+    compile files('libs/opencsv-2.4.jar')
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:support-v4:25.1.1'
@@ -57,16 +62,11 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.wdullaer:materialdatetimepicker:3.1.2'
-    compile('com.twitter.sdk.android:twitter:2.3.1@aar') {
-        transitive = true;
-    }
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.splitwise:tokenautocomplete:2.0.8@aar'
-    compile files('build/libs/opencsv-2.4.jar')
-    compile files('libs/opencsv-2.4.jar')
     compile 'com.itextpdf:itextg:5.5.10'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.android.gms:play-services-places:10.0.1'

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="handler"
+            type="com.framgia.fpoll.ui.introduction.IntroduceHandlerAction"
+            />
+        <variable
+            name="activity"
+            type="com.framgia.fpoll.ui.introduction.IntroduceActivity"
+            />
+        <import type="com.framgia.fpoll.util.DataBindingUtils"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        >
+        <com.framgia.fpoll.widget.ViewPageAutoScroll
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            bind:bindAdapterViewPager="@{activity.adapter}"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
+            android:text="@string/title_introduce_poll"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/ic_location_on_black_24px"
+                />
+
+            <TextView
+                android:text="@string/title_address_company"
+                style="@style/TextViewIntroduce"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/ic_phone_in_talk_white_24dp"
+                />
+
+            <TextView
+                android:text="@string/title_phone_company"
+                style="@style/TextViewIntroduce"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
+            >
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/ic_email_white_24px"
+                />
+
+            <TextView
+                android:text="@string/title_email_company"
+                style="@style/TextViewIntroduce"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@android:color/darker_gray"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:onClick="@{() -> handler.openFacebook()}"
+                android:src="@drawable/ic_facebook"
+                style="@style/ImageViewIntroduce"
+                />
+
+            <ImageView
+                android:onClick="@{() -> handler.openGitHub()}"
+                android:src="@drawable/ic_github"
+                style="@style/ImageViewIntroduce"
+                />
+
+            <ImageView
+                android:onClick="@{() -> handler.openLinkeDin()}"
+                android:src="@drawable/ic_linkedin"
+                style="@style/ImageViewIntroduce"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@android:color/darker_gray"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
+            >
+            <ImageView
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:src="@drawable/ic_framgia"
+                />
+
+            <TextView
+                android:text="@string/title_copy_right"
+                style="@style/TextViewIntroduce"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
