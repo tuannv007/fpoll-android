@@ -2,7 +2,6 @@ package com.framgia.fpoll.data.source.remote.voteinfo;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
@@ -30,122 +29,149 @@ public class VoteInfoRemoteDataSource implements VoteInfoDataSource {
     }
 
     public static VoteInfoRemoteDataSource getInstance(Context context) {
-        if (sVoteInfoRemoteDataSource == null) sVoteInfoRemoteDataSource = new
-            VoteInfoRemoteDataSource(context);
+        if (sVoteInfoRemoteDataSource == null) {
+            sVoteInfoRemoteDataSource = new VoteInfoRemoteDataSource(context);
+        }
         return sVoteInfoRemoteDataSource;
     }
 
     @Override
     public void getVoteInfo(String token, @NonNull final DataCallback<VoteInfo> callback) {
         if (mService == null) return;
-        mService.showVoteInfo(token).enqueue(
-            new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem<VoteInfo>>() {
-                @Override
-                public void onResponse(ResponseItem<VoteInfo> data) {
-                    if (data != null) callback.onSuccess(data.getData());
-                }
+        mService.showVoteInfo(token)
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<VoteInfo>>() {
+                            @Override
+                            public void onResponse(ResponseItem<VoteInfo> data) {
+                                if (data != null && data.getData() != null) {
+                                    callback.onSuccess(data.getData());
+                                } else if (data != null) {
+                                    callback.onError(ActivityUtil.byString(data.getMessage()));
+                                }
+                            }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 
     @Override
     public void getVoteResult(@NonNull String token,
-                              @NonNull final DataCallback<ResultVoteItem> callback) {
+            @NonNull final DataCallback<ResultVoteItem> callback) {
         if (mService == null) return;
-        mService.getVoteResult(token).enqueue(new CallbackManager<>(mContext,
-            new CallbackManager.CallBack<ResponseItem<ResultVoteItem>>() {
-                @Override
-                public void onResponse(ResponseItem<ResultVoteItem> data) {
-                    if (data != null && data.getData() != null) {
-                        callback.onSuccess(data.getData());
-                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
-                }
+        mService.getVoteResult(token)
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<ResultVoteItem>>() {
+                            @Override
+                            public void onResponse(ResponseItem<ResultVoteItem> data) {
+                                if (data != null && data.getData() != null) {
+                                    callback.onSuccess(data.getData());
+                                } else if (data != null) {
+                                    callback.onError(ActivityUtil.byString(data.getMessage()));
+                                }
+                            }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 
     @Override
     public void getVoteDetail(@NonNull String token,
-                              @NonNull final DataCallback<VoteDetail> callback) {
+            @NonNull final DataCallback<VoteDetail> callback) {
         if (mService == null) return;
-        mService.getVoteDetail(token).enqueue(new CallbackManager<>(mContext,
-            new CallbackManager.CallBack<ResponseItem<VoteDetail>>() {
-                @Override
-                public void onResponse(ResponseItem<VoteDetail> data) {
-                    if (data != null && data.getData() != null) {
-                        callback.onSuccess(data.getData());
-                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
-                }
+        mService.getVoteDetail(token)
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<VoteDetail>>() {
+                            @Override
+                            public void onResponse(ResponseItem<VoteDetail> data) {
+                                if (data != null && data.getData() != null) {
+                                    callback.onSuccess(data.getData());
+                                } else if (data != null) {
+                                    callback.onError(ActivityUtil.byString(data.getMessage()));
+                                }
+                            }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 
     @Override
     public void postComment(VoteInfoAPI.CommentBody comment,
-                            final DataCallback<FpollComment> callback) {
+            final DataCallback<FpollComment> callback) {
         if (mService == null) return;
         mService.postComment(comment)
-            .enqueue(new CallbackManager<>(mContext,
-                new CallbackManager.CallBack<ResponseItem<FpollComment>>() {
-                    @Override
-                    public void onResponse(ResponseItem<FpollComment> data) {
-                        if (data != null) callback.onSuccess(data.getData());
-                    }
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<FpollComment>>() {
+                            @Override
+                            public void onResponse(ResponseItem<FpollComment> data) {
+                                if (data != null && data.getData() != null) {
+                                    callback.onSuccess(data.getData());
+                                } else if (data != null) {
+                                    callback.onError(ActivityUtil.byString(data.getMessage()));
+                                }
+                            }
 
-                    @Override
-                    public void onFailure(String message) {
-                        callback.onError(message);
-                    }
-                }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 
     @Override
     public void votePoll(VoteInfoAPI.OptionsBody optionsBody,
-                         final DataCallback<ParticipantVotes> callback) {
+            final DataCallback<ParticipantVotes> callback) {
         if (mService == null) return;
-        mService.votePoll(optionsBody.getRequestBody()).enqueue(new CallbackManager<>(mContext,
-            new CallbackManager.CallBack<ResponseItem<ParticipantVotes>>() {
-                @Override
-                public void onResponse(ResponseItem<ParticipantVotes> data) {
-                    if (data != null && data.getData() != null) {
-                        callback.onSuccess(data.getData());
-                    } else callback.onError(ActivityUtil.byString(data.getMessage()));
-                }
+        mService.votePoll(optionsBody.getRequestBody())
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<ParticipantVotes>>() {
+                            @Override
+                            public void onResponse(ResponseItem<ParticipantVotes> data) {
+                                if (data != null && data.getData() != null) {
+                                    callback.onSuccess(data.getData());
+                                } else if (data != null) {
+                                    callback.onError(ActivityUtil.byString(data.getMessage()));
+                                }
+                            }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 
     @Override
-    public void updateNewOption(int pollId, VoteInfoAPI.NewOptionBody newOptionBody,
-                                final DataCallback<Poll> callback) {
+    public void updateOption(int pollId, int optionId, String title, String date, String image,
+            @NonNull final DataCallback<Poll> callback) {
         if (mService == null) return;
-        mService.updateOption(pollId, newOptionBody.getRequestBody()).enqueue(new CallbackManager<>(
-            mContext, new CallbackManager.CallBack<ResponseItem<Poll>>() {
-            @Override
-            public void onResponse(ResponseItem<Poll> data) {
-                callback.onSuccess(data.getData());
-            }
+        if (date != null) title = title + date;
+        VoteInfoAPI.UpdateOptionBody body =
+                new VoteInfoAPI.UpdateOptionBody(optionId, title, image);
+        mService.updateOption(pollId, body.getRequestBody())
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<Poll>>() {
+                            @Override
+                            public void onResponse(ResponseItem<Poll> data) {
+                                if (data != null && data.getData() != null) {
+                                    callback.onSuccess(data.getData());
+                                } else if (data != null) {
+                                    callback.onError(ActivityUtil.byString(data.getMessage()));
+                                }
+                            }
 
-            @Override
-            public void onFailure(String message) {
-                callback.onError(message);
-            }
-        }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 }
