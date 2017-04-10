@@ -21,6 +21,7 @@ import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     private boolean mIsMultiple;
     private VoteInfoModel mVoteInfoModel;
     private VoteContract.Presenter mPresenter;
+    private FPollProgressDialog mDialog;
 
     public static VoteFragment newInstance(VoteInfoModel voteInfo) {
         VoteFragment voteInformationFragment = new VoteFragment();
@@ -91,6 +93,17 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         for (Option option : mVoteInfoModel.getOptionModels()) {
             option.setChecked(false);
         }
+    }
+
+    @Override
+    public void showDialog() {
+        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
+        mDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
     }
 
     /**

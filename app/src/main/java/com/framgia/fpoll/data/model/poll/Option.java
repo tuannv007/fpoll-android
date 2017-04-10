@@ -4,10 +4,8 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -162,25 +160,11 @@ public class Option extends BaseObservable implements Parcelable {
 
     @Bindable
     public String getDate() {
-        return mDate;
+        return mDate == null ? "" : mDate;
     }
 
     public void setDate(String date) {
         mDate = date;
         notifyPropertyChanged(BR.date);
-    }
-
-    @Override
-    public String toString() {
-        return "Option{" +
-            "mId=" + mId +
-            ", mName='" + mName + '\'' +
-            ", mImage='" + mImage + '\'' +
-            ", mPollId=" + mPollId +
-            ", mCreatedTime='" + mCreatedTime + '\'' +
-            ", mUpdatedTime='" + mUpdatedTime + '\'' +
-            ", mVotes=" + mVotes +
-            ", mParticipantVotes=" + mParticipantVotes +
-            '}';
     }
 }
