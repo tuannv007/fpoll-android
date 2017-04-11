@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentPageParticipantBinding;
-import com.framgia.fpoll.ui.pollcreated.PollCreatedActivity;
+import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 import com.tokenautocomplete.TokenCompleteTextView;
 import java.util.List;
@@ -54,12 +54,6 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
     }
 
     @Override
-    public void startUiPollCreated(PollItem data) {
-        startActivity(PollCreatedActivity.getIntent(getActivity(), data));
-        getActivity().finish();
-    }
-
-    @Override
     public List<String> getMembers() {
         return mBinding.editSendEmail.getObjects();
     }
@@ -88,8 +82,7 @@ public class ParticipantFragment extends Fragment implements ParticipantPollCont
         mBinding.editSendEmail.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Delete);
     }
 
-    public void createPoll() {
-        if (mPresenter == null) return;
-        mPresenter.createPoll();
+    public void createPoll(PollCreationActivity.OnPollCreation onPollCreation) {
+        if (mPresenter != null) mPresenter.createPoll(onPollCreation);
     }
 }

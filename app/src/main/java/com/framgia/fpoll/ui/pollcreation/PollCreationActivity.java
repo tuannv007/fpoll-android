@@ -10,10 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
+import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.databinding.ActivityPollCreationBinding;
+import com.framgia.fpoll.ui.pollcreated.PollCreatedActivity;
 import com.framgia.fpoll.ui.pollcreation.infomation.CreatePollFragment;
 import com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment;
 import com.framgia.fpoll.ui.pollcreation.participant.ParticipantFragment;
@@ -24,6 +26,7 @@ import static com.framgia.fpoll.ui.pollcreation.PollCreationType.OPTION;
 import static com.framgia.fpoll.ui.pollcreation.PollCreationType.PARTICIPANT;
 import static com.framgia.fpoll.ui.pollcreation.PollCreationType.SETTING;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
 
 public class PollCreationActivity extends AppCompatActivity implements PollCreationContract.View {
     private ActivityPollCreationBinding mBinding;
@@ -38,7 +41,7 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
     private SettingPollFragment mSettingFragment;
     private ParticipantFragment mParticipantFragment;
 
-    public static Intent getIntent(Context context, PollItem data) {
+    public static Intent getIntent(Context context, Poll data) {
         Intent intent = new Intent(context, PollCreationActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_POLL_ITEM, data);
@@ -70,6 +73,15 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
     public void start() {
         setSupportActionBar(mBinding.layoutToolbar.toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CREATE_POLL && data != null) {
+            setResult(RESULT_OK, data);
+            finish();
+        }
     }
 
     public void addFragment(Fragment fragment) {
@@ -183,18 +195,17 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-            .setMessage(getString(R.string.msg_cancel_create_poll))
-            .setPositiveButton(getString(android.R.string.ok),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        PollCreationActivity.super.onBackPressed();
-                    }
-                })
-            .setNegativeButton(getString(android.R.string.cancel), null)
-            .create()
-            .show();
+        new AlertDialog.Builder(this).setMessage(getString(R.string.msg_cancel_create_poll))
+                .setPositiveButton(getString(android.R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                PollCreationActivity.super.onBackPressed();
+                            }
+                        })
+                .setNegativeButton(getString(android.R.string.cancel), null)
+                .create()
+                .show();
     }
 
     @Override
@@ -202,7 +213,14 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
         if (mParticipantFragment == null) {
             mParticipantFragment = ParticipantFragment.newInstance(mPoll);
         }
-        mParticipantFragment.createPoll();
+        mParticipantFragment.createPoll(new OnPollCreation() {
+            @Override
+            public void onPollCreationSuccess(HistoryPoll data) {
+                startActivityForResult(
+                        PollCreatedActivity.getIntent(PollCreationActivity.this, data),
+                        REQUEST_CREATE_POLL);
+            }
+        });
     }
 
     private void setIsShowPrevious(boolean isShowPrevious) {
@@ -227,5 +245,9 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
 
     public ObservableBoolean getIsShowNext() {
         return mIsShowNext;
+    }
+
+    public interface OnPollCreation {
+        void onPollCreationSuccess(HistoryPoll data);
     }
 }

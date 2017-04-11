@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.data.source.remote.settings.SettingRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
@@ -38,9 +39,11 @@ import com.framgia.fpoll.util.LanguageUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_JP;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_VN;
+import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_LOGIN;
 
 public class MainActivity extends AppCompatActivity
@@ -181,11 +184,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
-            setIsShowAddPoll(true);
-            addFragment(HistoryFragment.newInstance(), R.string.title_home);
-            mPresenter.setInformation();
-            openNavigation();
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_LOGIN:
+                setIsShowAddPoll(true);
+                addFragment(HistoryFragment.newInstance(), R.string.title_home);
+                mPresenter.setInformation();
+                openNavigation();
+                break;
+            case REQUEST_CREATE_POLL:
+                if (data == null) return;
+                HistoryPoll poll = data.getExtras().getParcelable(BUNDLE_POLL_ITEM);
+                if (poll == null) return;
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+                if (fragment != null && fragment instanceof HistoryFragment) {
+                    ((HistoryFragment) fragment).updatePollHistory(poll);
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -197,7 +214,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void startUIPollCreation() {
-        startActivity(PollCreationActivity.getIntent(this, new PollItem()));
+        startActivityForResult(PollCreationActivity.getIntent(this, new PollItem()),
+                REQUEST_CREATE_POLL);
     }
 
     @Override

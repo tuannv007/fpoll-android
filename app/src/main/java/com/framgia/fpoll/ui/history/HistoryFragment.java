@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
 import java.util.ArrayList;
@@ -68,6 +69,16 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void updatePollHistory(HistoryPoll poll) {
+        int size = mAdapter.getCount();
+        for (int i = 0; i < size; i++) {
+            Fragment fragment = mAdapter.getItem(i);
+            if (fragment != null && fragment instanceof PollHistoryFragment) {
+                ((PollHistoryFragment) fragment).updatePollHistory(poll);
+            }
         }
     }
 }

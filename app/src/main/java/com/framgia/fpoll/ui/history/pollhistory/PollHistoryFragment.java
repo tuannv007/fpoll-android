@@ -76,6 +76,14 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
         mAdapter.get().update(mListPollHistory);
     }
 
+    public void updatePollHistory(HistoryPoll poll) {
+        if (mListPollHistory == null || poll == null) return;
+        if (mPollHistoryType == PollHistoryType.INITIATE) {
+            mListPollHistory.add(0, poll);
+            mAdapter.get().update(mListPollHistory);
+        }
+    }
+
     @Override
     public void onOpenManagerPollClick(String token) {
         startActivity(ManagePollActivity.getTokenIntent(getActivity(), token));

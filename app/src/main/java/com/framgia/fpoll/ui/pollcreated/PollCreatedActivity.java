@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.remote.resentemail.ResentEmailRepository;
 import com.framgia.fpoll.databinding.ActivityPollCreatedBinding;
 import com.framgia.fpoll.ui.base.BaseActivity;
@@ -33,9 +33,9 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
     private ClipboardManager mClipboardManager;
     private ObservableField<String> mLinkAdmin = new ObservableField<>();
     private ObservableField<String> mLinkUser = new ObservableField<>();
-    private PollItem mPoll = new PollItem();
+    private HistoryPoll mPoll = new HistoryPoll();
 
-    public static Intent getIntent(Context context, PollItem pollItem) {
+    public static Intent getIntent(Context context, HistoryPoll pollItem) {
         Intent intent = new Intent(context, PollCreatedActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
@@ -64,7 +64,7 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
     public void getDataFromIntent() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) {
-            mPoll = new PollItem();
+            mPoll = new HistoryPoll();
         } else {
             mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
         }
@@ -133,7 +133,13 @@ public class PollCreatedActivity extends BaseActivity implements PollCreatedCont
         startActivity(LinkVoteActivity.getTokenIntent(this, token));
     }
 
-    public PollItem getPoll() {
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK, getIntent());
+        finish();
+    }
+
+    public HistoryPoll getPoll() {
         return mPoll;
     }
 

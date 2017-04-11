@@ -2,13 +2,12 @@ package com.framgia.fpoll.ui.pollmanage.information;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
-import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.api.UpdateInfoPollService;
-import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 
 import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_MULTI;
@@ -82,17 +81,17 @@ public class PollInformationPresenter implements PollInformationContract.Present
                 new UpdateInfoPollService.PollInfoBody(username, email, title, type, TYPE_EDIT_POLL,
                         dateClose, description);
         mView.showProgress();
-        mRepository.editPollInformation(id, body, new DataCallback<ResponseItem<DataInfoItem>>() {
+        mRepository.editPollInformation(id, body, new DataCallback<DataInfoItem>() {
             @Override
-            public void onSuccess(ResponseItem<DataInfoItem> data) {
-                mView.saveSuccess(ActivityUtil.byString(data.getMessage()));
-                mPoll.set(data.getData());
+            public void onSuccess(DataInfoItem data) {
+                mView.showMessage(R.string.update_success);
+                mPoll.set(data);
                 mView.hideProgress();
             }
 
             @Override
             public void onError(String msg) {
-                mView.onError(msg);
+                mView.showMessage(msg);
                 mView.hideProgress();
             }
         });

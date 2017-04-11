@@ -1,11 +1,10 @@
 package com.framgia.fpoll.data.source.remote.polldatasource;
 
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
-import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.api.UpdateInfoPollService;
 
 /**
@@ -13,9 +12,12 @@ import com.framgia.fpoll.networking.api.UpdateInfoPollService;
  */
 public interface PollDataSource {
     void editPollInformation(int pollId, UpdateInfoPollService.PollInfoBody body,
-                             DataCallback callback);
-    void createPoll(PollItem pollItem, @NonNull DataCallback<PollItem> callback);
-    void editPoll(int typeEdit, PollItem pollItem, @NonNull final DataCallback<DataInfoItem>
-        callback);
-    void getActivity(String token, @NonNull DataCallback<ResponseItem<DataInfoItem>> callback);
+            @NonNull DataCallback<DataInfoItem> callback);
+
+    void createPoll(PollItem pollItem, @NonNull DataCallback<HistoryPoll> callback);
+
+    void editPoll(int typeEdit, PollItem pollItem,
+            @NonNull final DataCallback<DataInfoItem> callback);
+
+    void getActivity(String token, @NonNull DataCallback<DataInfoItem> callback);
 }
