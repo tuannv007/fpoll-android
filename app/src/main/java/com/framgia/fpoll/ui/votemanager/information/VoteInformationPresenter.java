@@ -32,9 +32,9 @@ public class VoteInformationPresenter implements VoteInformationContract.Present
     @Override
     public void postComment(@NonNull VoteInfoModel voteInfoModel) {
         int idPoll = voteInfoModel.getVoteInfo().getPoll().getId();
-        String userName = mFpollComment.get().getName();
+        String userName = voteInfoModel.getVoteInfo().getPoll().getUser().getUsername();
         String content = mFpollComment.get().getContent();
-        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(content)) {
+        if (TextUtils.isEmpty(content)) {
             mView.showEmptyError();
         } else {
             mView.setLoading();
