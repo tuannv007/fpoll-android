@@ -187,4 +187,5 @@ public class LinkVoteActivity extends BaseActivity
     public VoteInfoModel getVoteInfoModel() {
         return mVoteInfoModel;
     }
+
 }
