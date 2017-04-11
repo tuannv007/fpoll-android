@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
 
@@ -10,21 +11,25 @@
 
         <variable
             name="msgError"
-            type="java.lang.String"/>
+            type="java.lang.String"
+            />
 
         <variable
             name="voteInfoModel"
-            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"/>
+            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"
+            />
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.votemanager.information.VoteInformationPresenter"/>
+            type="com.framgia.fpoll.ui.votemanager.information.VoteInformationPresenter"
+            />
 
     </data>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,115 +37,131 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:padding="@dimen/dp_16">
+            android:padding="@dimen/dp_16"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TextView
-                    style="@style/TextViewPollInformation"
                     android:drawableLeft="@drawable/ic_info"
                     android:drawableStart="@drawable/ic_info"
                     android:text="@{voteInfoModel.voteInfo.poll.title}"
-                    android:visibility="@{voteInfoModel.voteInfo.poll.title == null ? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{voteInfoModel.voteInfo.poll.title == null ? View.GONE : View.VISIBLE}"
+                    style="@style/TextViewPollInformation"
+                    />
 
                 <TextView
-                    style="@style/TextViewPollInformation"
                     android:drawableLeft="@drawable/ic_person_black_24dp"
                     android:drawableStart="@drawable/ic_person_black_24dp"
                     android:text="@{voteInfoModel.voteInfo.poll.name}"
-                    android:visibility="@{voteInfoModel.voteInfo.poll.name == null ? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{voteInfoModel.voteInfo.poll.name == null ? View.GONE : View.VISIBLE}"
+                    style="@style/TextViewPollInformation"
+                    />
 
                 <TextView
-                    style="@style/TextViewPollInformation"
                     android:drawableLeft="@drawable/ic_clock"
                     android:drawableStart="@drawable/ic_clock"
                     android:text="@{voteInfoModel.voteInfo.poll.createdTime}"
-                    android:visibility="@{voteInfoModel.voteInfo.poll.createdTime == null ? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{voteInfoModel.voteInfo.poll.createdTime == null ? View.GONE : View.VISIBLE}"
+                    style="@style/TextViewPollInformation"
+                    />
 
                 <TextView
-                    style="@style/TextViewPollInformation"
                     android:drawableLeft="@drawable/ic_time_close"
                     android:drawableStart="@drawable/ic_time_close"
                     android:text="@{voteInfoModel.voteInfo.poll.dateClose}"
-                    android:visibility="@{voteInfoModel.voteInfo.poll.dateClose == null ? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{voteInfoModel.voteInfo.poll.dateClose == null ? View.GONE : View.VISIBLE}"
+                    style="@style/TextViewPollInformation"
+                    />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <LinearLayout
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_person_black_24dp"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_person_black_24dp"/>
+                        />
 
                     <EditText
                         android:id="@+id/edit_name"
-                        style="@style/EditTextStyle"
                         android:enabled="@{voteInfoModel.itemStatus != ItemStatus.POSTING}"
                         android:hint="@string/hint_enter_name"
                         android:inputType="text"
-                        android:text="@={presenter.fpollComment.name}"
-                        bind:setErrorEditText="@{msgError}"/>
+                        android:text="@={voteInfoModel.voteInfo.poll.user.username}"
+                        bind:setErrorEditText="@{msgError}"
+                        style="@style/EditTextStyle"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/LinearLayoutStyle">
 
                     <ImageView
+                        android:src="@drawable/ic_question_answer_grey_24px"
                         style="@style/ImageViewStyle"
-                        android:src="@drawable/ic_question_answer_grey_24px"/>
+                        />
 
                     <EditText
                         android:id="@+id/edit_comment"
-                        style="@style/EditTextStyle"
                         android:enabled="@{voteInfoModel.itemStatus != ItemStatus.POSTING}"
                         android:hint="@string/hint_enter_comment"
                         android:inputType="text"
                         android:text="@={presenter.fpollComment.content}"
-                        bind:setErrorEditText="@{msgError}"/>
+                        bind:setErrorEditText="@{msgError}"
+                        style="@style/EditTextStyle"
+                        />
                 </LinearLayout>
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dp_10">
+                    android:layout_marginTop="@dimen/dp_10"
+                    >
 
                     <android.support.v7.widget.CardView
-                        style="@style/FPollCardView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:onClick="@{() -> presenter.postComment(voteInfoModel)}">
+                        android:onClick="@{() -> presenter.postComment(voteInfoModel)}"
+                        style="@style/FPollCardView"
+                        >
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:text="@string/action_post_comment"
                             style="@style/FPollTextCardView"
-                            android:text="@string/action_post_comment"/>
+                            />
                     </android.support.v7.widget.CardView>
 
                     <ProgressBar
-                        style="@android:style/Widget.DeviceDefault.ProgressBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|end"
                         android:layout_marginLeft="@dimen/dp_16"
                         android:layout_marginRight="@dimen/dp_16"
                         android:translationZ="@dimen/dp_2"
-                        android:visibility="@{voteInfoModel.itemStatus == ItemStatus.POSTING ? View.VISIBLE : View.GONE}"/>
+                        android:visibility="@{voteInfoModel.itemStatus == ItemStatus.POSTING ? View.VISIBLE : View.GONE}"
+                        style="@android:style/Widget.DeviceDefault.ProgressBar.Small"
+                        />
                 </FrameLayout>
             </LinearLayout>
 
             <include
+                layout="@layout/partial_comments"
                 android:id="@+id/layout_comments"
-                layout="@layout/partial_comments"/>
+                />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

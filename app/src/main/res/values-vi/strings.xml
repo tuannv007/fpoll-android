@@ -186,8 +186,8 @@
     <string name="post_users">%d Users</string>
     <string name="error_load_comments">Không thể tải được bình luận</string>
     <string name="action_post_comment">Đăng bình luận</string>
-    <string name="action_show_comments">Hiển thị bình luận</string>
-    <string name="action_hide_comments">Ẩn bình luận</string>
+    <string name="action_show_comments">Hiển thị</string>
+    <string name="action_hide_comments">Ẩn </string>
     <string name="hint_feedback">Nhập phản hồi của bạn</string>
     <string name="msg_send_feedback_error">Không gửi được phản hồi</string>
     <string name="title_poll_open">Poll Open</string>

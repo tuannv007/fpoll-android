@@ -44,6 +44,7 @@ public class PollInformationPresenter implements PollInformationContract.Present
             @Override
             public void onSuccess(DataInfoItem data) {
                 mView.onGetPollSuccessful(data);
+                mPoll.set(data);
             }
 
             @Override
@@ -70,7 +71,8 @@ public class PollInformationPresenter implements PollInformationContract.Present
 
     @Override
     public void saveInformation(int id) {
-        if (mPoll.get() == null || mRepository == null) return;
+        if (mPoll.get() == null || mPoll.get().getPoll() == null || mPoll == null) return;
+        if (mPoll.get().getPoll().getUser() == null) return;
         String username = mPoll.get().getPoll().getUser().getUsername();
         String email = mPoll.get().getPoll().getUser().getEmail();
         String title = mPoll.get().getPoll().getTitle();
