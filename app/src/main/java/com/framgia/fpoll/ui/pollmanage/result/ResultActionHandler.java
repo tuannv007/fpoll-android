@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.pollmanage.result;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 /**
  * Created by tuanbg on 3/12/17.
  */
@@ -10,11 +12,17 @@ public class ResultActionHandler {
         mListener = listener;
     }
 
-    public void exportPdf() {
-        if (mListener != null) mListener.exportPDF();
+    public void exportPdf(FloatingActionsMenu menu) {
+        if (mListener != null) {
+            menu.collapse();
+            mListener.exportPDF();
+        }
     }
 
-    public void exportExcel() {
-        if (mListener != null) mListener.exportExcel();
+    public void exportExcel(FloatingActionsMenu menu) {
+        if (mListener != null) {
+            menu.collapse();
+            mListener.exportExcel();
+        }
     }
 }

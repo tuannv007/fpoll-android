@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
@@ -15,7 +16,6 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
@@ -64,16 +64,18 @@ import com.framgia.fpoll.widget.ViewPageAutoScroll;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.utils.PercentFormatter;
 
 import static com.framgia.fpoll.ui.history.PollHistoryType.CLOSE;
 import static com.framgia.fpoll.ui.history.PollHistoryType.INITIATE;
 import static com.framgia.fpoll.ui.history.PollHistoryType.PARTICIPATE;
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_MULTI_CHOOSE;
 import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_SINGER_CHOOSE;
-import static com.framgia.fpoll.util.Constant.DataConstant.DATA_NO_TITLE;
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_SPACE;
 import static com.framgia.fpoll.util.Constant.TypeSetting.HIDENT_RESULT;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_ADD_OPTION;
 import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_COUNT_VOTE;
@@ -90,14 +92,15 @@ import static com.framgia.fpoll.util.Constant.TypeSetting.TYPE_NOT_EQUAL_EMAIL;
  * <></>
  */
 public class DataBindingUtils {
+    private static final float TEXT_LABLE_SIZE = 11f;
+    private static final int HOLE_RADIUS = 60;
+    private static final float SPACE_X = 5f;
+    private static final float SPACE_Y = 60f;
+    private static final int ROTATION_ANGLE = 0;
+
     @BindingAdapter({ "bind:imageResource" })
     public static void loadImage(ImageView view, Drawable drawable) {
         view.setImageDrawable(drawable);
-    }
-
-    @BindingAdapter({ "bind:drawableLeftStart" })
-    public static void bindDrawableLeft(AppCompatButton view, Drawable drawable) {
-        view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
     }
 
     @BindingAdapter({ "bind:imagePath" })
@@ -278,15 +281,49 @@ public class DataBindingUtils {
 
     @BindingAdapter({ "bind:bindBarChart" })
     public static void setBarChart(BarChart view, BarData data) {
-        view.setData(data);
-        view.setTouchEnabled(false);
-        view.setDescription("");
+        view.setDrawBarShadow(false);
+        view.setDrawValueAboveBar(true);
+        view.setDescription(DATA_SPACE);
+        view.setMaxVisibleValueCount(HOLE_RADIUS);
+        view.setPinchZoom(false);
+        view.setDrawGridBackground(false);
+        view.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        view.getXAxis().setDrawGridLines(false);
         view.getAxisLeft().setEnabled(false);
         view.getAxisRight().setEnabled(false);
-        view.getXAxis().setDrawGridLines(false);
-        view.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        view.getLegend().setEnabled(false);
-        view.setDrawGridBackground(false);
+
+        Legend legend = view.getLegend();
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setFormSize(SPACE_Y);
+        legend.setTextSize(TEXT_LABLE_SIZE);
+        legend.setXEntrySpace(SPACE_X);
+
+        view.setData(data);
+        view.invalidate();
+    }
+
+    @BindingAdapter(value = { "bind:pieData" })
+    public static void setPieData(final PieChart pieChart, final PieData pieData) {
+        pieChart.setUsePercentValues(true);
+        pieChart.setHoleColorTransparent(true);
+        pieChart.setHoleRadius(HOLE_RADIUS);
+        pieChart.setDescription(DATA_SPACE);
+        pieChart.setDrawCenterText(true);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setRotationEnabled(true);
+        pieChart.setRotationAngle(ROTATION_ANGLE);
+        Legend legend = pieChart.getLegend();
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        legend.setXEntrySpace(SPACE_Y);
+        legend.setYEntrySpace(SPACE_X);
+
+        pieData.setValueFormatter(new PercentFormatter());
+        pieData.setValueTextSize(TEXT_LABLE_SIZE);
+        pieData.setValueTextColor(Color.WHITE);
+
+        pieChart.setData(pieData);
+        pieChart.invalidate();
     }
 
     @BindingAdapter({ "bind:showImage" })
@@ -319,16 +356,6 @@ public class DataBindingUtils {
                 presenter.resetAdditionRequire();
             }
         });
-    }
-
-    @BindingAdapter(value = { "bind:pieData" })
-    public static void setPieData(final PieChart pieChart, final PieData pieData) {
-        pieChart.setData(pieData);
-        pieChart.setTouchEnabled(false);
-        pieChart.setDescription("");
-        pieChart.setDrawSliceText(false);
-        pieChart.setDescription(DATA_NO_TITLE);
-        pieChart.setUsePercentValues(true);
     }
 
     @BindingAdapter({ "bind:bindImage", "bind:bindError" })
@@ -399,12 +426,6 @@ public class DataBindingUtils {
         String linkPoll = Constant.WebUrl.POLL_URL + token;
         likeView.setLikeViewStyle(LikeView.Style.BUTTON);
         likeView.setObjectIdAndType(linkPoll, LikeView.ObjectType.PAGE);
-    }
-
-    @BindingAdapter({ "bind:numAnswer" })
-    public static void setNumAnswer(Spinner view, boolean multiple) {
-        int type = multiple ? KEY_MULTI_CHOOSE : KEY_SINGER_CHOOSE;
-        view.setSelection(type);
     }
 
     @BindingAdapter({ "bind:valueSetting" })
