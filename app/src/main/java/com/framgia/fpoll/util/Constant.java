@@ -73,6 +73,7 @@ public class Constant {
         public static final String BUNDLE_POLL_ITEM = "BUNDLE_POLL_ITEM";
         public static final String BUNDLE_TOKEN = "BUNDLE_TOKEN";
         public static final String BUNDLE_HISTORY = "BUNDLE_HISTORY";
+        public static final String BUNDLE_EVENT = "BUNDLE_EVENT";
     }
 
     public static class RequestCode {

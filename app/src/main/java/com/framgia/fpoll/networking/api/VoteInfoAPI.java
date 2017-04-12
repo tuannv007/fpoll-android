@@ -112,11 +112,11 @@ public interface VoteInfoAPI {
             builder.setType(MultipartBody.FORM);
             builder.addFormDataPart(NAME, this.mName);
             builder.addFormDataPart(EMAIL, this.mEmail);
-            builder.addFormDataPart(ID_POLL, String.valueOf(this.mIdPoll));
+            builder.addFormDataPart(ID_POLL, String.valueOf(mIdPoll));
             for (Option option : mListOptions) {
                 if (!TextUtils.isEmpty(option.getName())) {
                     String optionKey = String.format(OPTION, option.getId());
-                    builder.addFormDataPart(optionKey, String.valueOf(option.getPollId()));
+                    builder.addFormDataPart(optionKey, String.valueOf(option.getId()));
                 }
             }
             if (mOptionText != null) builder.addFormDataPart(OPTION_TEXT, mOptionText);

@@ -9,6 +9,7 @@ import com.framgia.fpoll.data.model.poll.ParticipantVotes;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
+import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import static android.util.Patterns.EMAIL_ADDRESS;
  * Created by tran.trung.phong on 23/02/2017.
  */
 public class VotePresenter implements VoteContract.Presenter {
+    private final LinkVoteActivity.EventVote mEventVote;
     private VoteContract.View mView;
     private VoteInfoRepository mVoteInfoRepository;
     private ObservableField<Option> mOption = new ObservableField<>(new Option());
@@ -28,8 +30,10 @@ public class VotePresenter implements VoteContract.Presenter {
     private boolean mIsMultiple;
 
     public VotePresenter(VoteContract.View view, VoteInfoRepository voteInfoRepository,
-            SharePreferenceUtil preference, boolean isMultiple) {
+            SharePreferenceUtil preference, boolean isMultiple,
+            LinkVoteActivity.EventVote eventVote) {
         mView = view;
+        mEventVote = eventVote;
         mVoteInfoRepository = voteInfoRepository;
         mIsMultiple = isMultiple;
         mIsLogin.set(preference.isLogin());
@@ -123,6 +127,7 @@ public class VotePresenter implements VoteContract.Presenter {
                         }
                     }
                 }
+                if (mEventVote != null) mEventVote.onVoteSuccess();
                 mView.onSubmitSuccess(currentOptions);
                 mView.dismissDialog();
             }

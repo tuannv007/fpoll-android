@@ -15,6 +15,7 @@ import com.framgia.fpoll.util.SharePreferenceUtil;
  * Created by anhtv on 23/02/2017.
  */
 public class VoteInformationPresenter implements VoteInformationContract.Presenter {
+
     private VoteInformationContract.View mView;
     private ObservableField<FpollComment> mFpollComment = new ObservableField<>();
     private VoteInfoRepository mVoteInfoRepository;

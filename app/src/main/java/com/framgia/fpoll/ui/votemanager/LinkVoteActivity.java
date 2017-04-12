@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import com.framgia.fpoll.R;
@@ -36,6 +38,8 @@ public class LinkVoteActivity extends BaseActivity
     private ViewPagerAdapter mAdapter;
     private VoteInfoModel mVoteInfoModel;
     private String mToken;
+
+    private ResultVoteFragment mVoteResultFragment;
     private DataInfoItem mPoll;
 
     public static Intent getPollIntent(Context context, DataInfoItem poll) {
@@ -112,17 +116,42 @@ public class LinkVoteActivity extends BaseActivity
 
     @Override
     public void start() {
-        setTitle(R.string.title_information);
         if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getTitle() != null) {
             setTitle(mPoll.getPoll().getTitle());
         }
+        mVoteResultFragment = ResultVoteFragment.newInstance(mToken);
+        initToolbar();
         mVoteInfoModel = new VoteInfoModel();
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(VoteFragment.newInstance(mVoteInfoModel));
+        fragments.add(VoteFragment.newInstance(mVoteInfoModel, new EventVote() {
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+
+            }
+
+            @Override
+            public void onVoteSuccess() {
+                if (mVoteResultFragment == null) {
+                    mVoteResultFragment = ResultVoteFragment.newInstance(mToken);
+                }
+                mVoteResultFragment.loadData();
+            }
+        }));
         fragments.add(VoteInformationFragment.newInstance(mVoteInfoModel));
-        fragments.add(ResultVoteFragment.newInstance(mToken));
+        fragments.add(mVoteResultFragment);
         String[] titles = getResources().getStringArray(R.array.array_vote);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
+    }
+
+    public void initToolbar() {
+        setSupportActionBar(mBinding.toolbar);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getString(R.string.title_vote));
     }
 
     private void setListVoteSetting(VoteInfo voteInfo) {
@@ -194,5 +223,9 @@ public class LinkVoteActivity extends BaseActivity
 
     public VoteInfoModel getVoteInfoModel() {
         return mVoteInfoModel;
+    }
+
+    public interface EventVote extends Parcelable {
+        void onVoteSuccess();
     }
 }
