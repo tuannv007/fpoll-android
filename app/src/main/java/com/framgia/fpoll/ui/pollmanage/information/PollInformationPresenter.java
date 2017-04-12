@@ -4,6 +4,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
@@ -23,18 +24,20 @@ public class PollInformationPresenter implements PollInformationContract.Present
     private final String mToken;
     private PollRepository mRepository;
     private ManagerRepository mManagerRepository;
-    private ObservableField<DataInfoItem> mPoll = new ObservableField<>();
+    private ObservableField<Poll> mPoll = new ObservableField<>();
     private ObservableBoolean mIsLogin = new ObservableBoolean();
 
     public PollInformationPresenter(PollInformationContract.View view, PollRepository repository,
-            ManagerRepository manageRepository, SharePreferenceUtil preference, String token) {
+            ManagerRepository manageRepository, SharePreferenceUtil preference, DataInfoItem poll,
+            String token) {
         mView = view;
         mRepository = repository;
         mToken = token;
         mManagerRepository = manageRepository;
         mIsLogin.set(preference.isLogin());
+        if (poll != null && poll.getPoll() != null) mPoll.set(poll.getPoll());
+        if (poll == null && token != null) loadData();
         mView.start();
-        loadData();
     }
 
     @Override
@@ -43,8 +46,8 @@ public class PollInformationPresenter implements PollInformationContract.Present
         mManagerRepository.getPollDetail(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
+                mPoll.set(data.getPoll());
                 mView.onGetPollSuccessful(data);
-                mPoll.set(data);
             }
 
             @Override
@@ -70,38 +73,43 @@ public class PollInformationPresenter implements PollInformationContract.Present
     }
 
     @Override
-    public void saveInformation(int id) {
-        if (mPoll.get() == null || mPoll.get().getPoll() == null || mPoll == null) return;
-        if (mPoll.get().getPoll().getUser() == null) return;
-        String username = mPoll.get().getPoll().getUser().getUsername();
-        String email = mPoll.get().getPoll().getUser().getEmail();
-        String title = mPoll.get().getPoll().getTitle();
-        int type = mPoll.get().getPoll().isMultiple() ? TYPE_MULTI : TYPE_SINGER;
-        String dateClose = mPoll.get().getPoll().getDateClose();
-        String description = mPoll.get().getPoll().getDescription();
+
+    public void saveInformation() {
+        if (mPoll.get() == null || mRepository == null) return;
+        String username = mPoll.get().getUser().getUsername();
+        String email = mPoll.get().getUser().getEmail();
+        String title = mPoll.get().getTitle();
+        int type = mPoll.get().isMultiple() ? TYPE_MULTI : TYPE_SINGER;
+        String dateClose = mPoll.get().getDateClose();
+        String description = mPoll.get().getDescription();
         UpdateInfoPollService.PollInfoBody body =
                 new UpdateInfoPollService.PollInfoBody(username, email, title, type, TYPE_EDIT_POLL,
                         dateClose, description);
         mView.showProgress();
-        mRepository.editPollInformation(id, body, new DataCallback<DataInfoItem>() {
-            @Override
-            public void onSuccess(DataInfoItem data) {
-                mView.showMessage(R.string.update_success);
-                mPoll.set(data);
-                mView.hideProgress();
-            }
+        mRepository.editPollInformation(mPoll.get().getId(), body,
+                new DataCallback<DataInfoItem>() {
+                    @Override
+                    public void onSuccess(DataInfoItem data) {
+                        mView.showMessage(R.string.update_success);
+                        mPoll.set(data.getPoll());
+                        mView.hideProgress();
+                    }
 
-            @Override
-            public void onError(String msg) {
-                mView.showMessage(msg);
-                mView.hideProgress();
-            }
-        });
+                    @Override
+                    public void onError(String msg) {
+                        mView.showMessage(msg);
+                        mView.hideProgress();
+                    }
+                });
     }
 
     @Override
     public void showDateTimePicker() {
         if (mView != null) mView.showDateTimePicker();
+    }
+
+    public ObservableField<Poll> getPoll() {
+        return mPoll;
     }
 
     public ObservableBoolean getIsLogin() {

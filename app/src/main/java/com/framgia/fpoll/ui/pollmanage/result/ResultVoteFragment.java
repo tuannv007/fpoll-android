@@ -12,18 +12,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteResultBinding;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
-
 import java.io.File;
 
-import static com.framgia.fpoll.util.Constant.ConstantApi.KEY_TOKEN;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 import static com.framgia.fpoll.util.Constant.Export.FILE_NAME_SAVED_EXCEL;
 import static com.framgia.fpoll.util.Constant.Export.FPOLL_FOLDER_NAME;
 import static com.framgia.fpoll.util.Constant.Export.TYPE_EXPORT_PDF;
@@ -40,29 +39,32 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
     private String mToken;
     private File mFile;
     private ObservableField<ResultType> mResultType = new ObservableField<>(ResultType.TABLE);
+    private DataInfoItem mPoll;
 
     public static ResultVoteFragment newInstance(String token) {
         ResultVoteFragment resultVoteFragment = new ResultVoteFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_TOKEN, token);
+        bundle.putString(BUNDLE_TOKEN, token);
         resultVoteFragment.setArguments(bundle);
         return resultVoteFragment;
     }
 
-    public void getDataFromIntent() {
+    private void getDataFromIntent() {
         Bundle bundle = getArguments();
-        if (bundle == null || bundle.getString(KEY_TOKEN) == null) return;
-        mToken = bundle.getString(KEY_TOKEN);
+        if (bundle == null) return;
+        if (bundle.getString(BUNDLE_TOKEN) != null) {
+            mToken = bundle.getString(BUNDLE_TOKEN);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         mBinding = FragmentVoteResultBinding.inflate(inflater, container, false);
         getDataFromIntent();
         mPresenter =
-            new ResultVotePresenter(this, VoteInfoRepository.getInstance(getActivity()), mToken,
-                mFile);
+                new ResultVotePresenter(this, VoteInfoRepository.getInstance(getActivity()), mToken,
+                        mFile);
         mBinding.setFragment(this);
         mBinding.setHandler(new ResultActionHandler(mPresenter));
         return mBinding.getRoot();
@@ -71,8 +73,7 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
     @Override
     public void start() {
         setHasOptionsMenu(true);
-        File exportDir =
-            new File(Environment.getExternalStorageDirectory(), FPOLL_FOLDER_NAME);
+        File exportDir = new File(Environment.getExternalStorageDirectory(), FPOLL_FOLDER_NAME);
         if (!exportDir.exists()) exportDir.mkdirs();
         mFile = new File(exportDir, getCurentTime() + FILE_NAME_SAVED_EXCEL);
         mAdapter.set(new ResultVoteAdapter());
@@ -139,12 +140,15 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode != PERMISSIONS_REQUEST_WRITE_EXTERNAL) return;
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (mPresenter.getKey() == TYPE_EXPORT_PDF) mPresenter.exportPDF();
-            else mPresenter.exportExcel();
+            if (mPresenter.getKey() == TYPE_EXPORT_PDF) {
+                mPresenter.exportPDF();
+            } else {
+                mPresenter.exportExcel();
+            }
         } else {
             ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
         }
