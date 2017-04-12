@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 
 /**
@@ -39,11 +40,14 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     private VoteInfoModel mVoteInfoModel;
     private VoteContract.Presenter mPresenter;
     private FPollProgressDialog mDialog;
+    private LinkVoteActivity.EventVote mEventVote;
 
-    public static VoteFragment newInstance(VoteInfoModel voteInfo) {
+    public static VoteFragment newInstance(VoteInfoModel voteInfo,
+            LinkVoteActivity.EventVote eventVote) {
         VoteFragment voteInformationFragment = new VoteFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGUMENT_VOTE_INFO, voteInfo);
+        bundle.putParcelable(BUNDLE_EVENT, eventVote);
         voteInformationFragment.setArguments(bundle);
         return voteInformationFragment;
     }
@@ -53,11 +57,12 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mVoteInfoModel = getArguments().getParcelable(ARGUMENT_VOTE_INFO);
+            mEventVote = getArguments().getParcelable(BUNDLE_EVENT);
         }
         if (mVoteInfoModel == null) return;
         mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
         mPresenter = new VotePresenter(this, VoteInfoRepository.getInstance(getContext()),
-                SharePreferenceUtil.getIntances(getActivity()), mIsMultiple);
+                SharePreferenceUtil.getIntances(getActivity()), mIsMultiple, mEventVote);
         mAdapter.set(new VoteAdapter(mPresenter, mVoteInfoModel));
     }
 

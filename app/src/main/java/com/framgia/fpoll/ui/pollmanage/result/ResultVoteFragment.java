@@ -161,4 +161,8 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
     public ObservableField<ResultType> getResultType() {
         return mResultType;
     }
+
+    public void loadData() {
+        if (mPresenter != null) mPresenter.getAllData();
+    }
 }
