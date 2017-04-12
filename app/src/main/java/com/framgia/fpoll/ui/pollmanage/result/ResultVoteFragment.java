@@ -20,6 +20,8 @@ import com.framgia.fpoll.databinding.FragmentVoteResultBinding;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.PieData;
 import java.io.File;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
@@ -40,6 +42,8 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
     private File mFile;
     private ObservableField<ResultType> mResultType = new ObservableField<>(ResultType.TABLE);
     private DataInfoItem mPoll;
+    private BarData mBarData = new BarData();
+    private PieData mPieChart = new PieData();
 
     public static ResultVoteFragment newInstance(String token) {
         ResultVoteFragment resultVoteFragment = new ResultVoteFragment();
@@ -67,6 +71,8 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
                         mFile);
         mBinding.setFragment(this);
         mBinding.setHandler(new ResultActionHandler(mPresenter));
+        mBinding.setBarChart(mBarData);
+        mBinding.setPieChart(mPieChart);
         return mBinding.getRoot();
     }
 
@@ -152,6 +158,18 @@ public class ResultVoteFragment extends Fragment implements ResultVoteContract.V
         } else {
             ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
         }
+    }
+
+    @Override
+    public void updateBarChart(BarData barChart) {
+        mBarData = barChart;
+        mBinding.setBarChart(barChart);
+    }
+
+    @Override
+    public void updatePieChart(PieData pieData) {
+        mPieChart = pieData;
+        mBinding.setPieChart(mPieChart);
     }
 
     public ObservableField<ResultVoteAdapter> getAdapter() {

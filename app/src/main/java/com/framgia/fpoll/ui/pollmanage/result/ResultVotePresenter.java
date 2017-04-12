@@ -1,8 +1,5 @@
 package com.framgia.fpoll.ui.pollmanage.result;
 
-import android.databinding.ObservableField;
-import android.util.Log;
-
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
@@ -16,7 +13,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +25,12 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
     private VoteInfoRepository mRepository;
     private ResultVoteContract.View mView;
     private List<ResultVoteItem.Result> mResultList = new ArrayList<>();
-    private ObservableField<BarData> mBarChart = new ObservableField<>();
-    private ObservableField<PieData> mPieData = new ObservableField<>();
     private String mToken;
     private File mFile;
     private int mKey;
 
     public ResultVotePresenter(ResultVoteContract.View view, VoteInfoRepository repository,
-                               String token, File file) {
+            String token, File file) {
         mRepository = repository;
         mToken = token;
         mView = view;
@@ -82,12 +76,12 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
 
     @Override
     public void getAllData() {
-        if (mRepository == null) return;
+        if (mRepository == null || mToken == null) return;
         mRepository.getVoteResult(mToken, new DataCallback<ResultVoteItem>() {
             @Override
             public void onSuccess(ResultVoteItem data) {
-                setUpPieData(data.getResults());
-                getBarData(data.getResults());
+                mView.updatePieChart(setUpPieData(data.getResults()));
+                mView.updateBarChart(getBarData(data.getResults()));
                 mView.onSuccess(data);
             }
 
@@ -98,53 +92,32 @@ public class ResultVotePresenter implements ResultVoteContract.Presenter {
         });
     }
 
-    public List<BarDataSet> getDataSet(List<ResultVoteItem.Result> itemList) {
-        List<BarDataSet> dataSets = new ArrayList<>();
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        for (int i = 0; i < itemList.size(); i++) {
-            barEntries.add(new BarEntry(itemList.get(i).getVoters(), i));
+    private BarData getBarData(List<ResultVoteItem.Result> results) {
+        int size = results.size();
+        List<BarDataSet> dataSets = new ArrayList<>(size);
+        List<String> xValue = new ArrayList<>(size);
+        ArrayList<BarEntry> yValue = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            xValue.add(results.get(i).getName());
+            yValue.add(new BarEntry(results.get(i).getVoters(), i));
         }
-        BarDataSet barDataSet = new BarDataSet(barEntries, "");
+        BarDataSet barDataSet = new BarDataSet(yValue, "");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSets.add(barDataSet);
-        return dataSets;
+        return new BarData(xValue, dataSets);
     }
 
-    public List<String> getXAxisValues(List<ResultVoteItem.Result> itemList) {
-        ArrayList<String> xAxis = new ArrayList<>();
-        for (ResultVoteItem.Result item : itemList) {
-            xAxis.add(item.getName());
-        }
-        return xAxis;
-    }
-
-    @Override
-    public void getBarData(List<ResultVoteItem.Result> itemList) {
-        mBarChart.set(new BarData(getXAxisValues(itemList), getDataSet(itemList)));
-    }
-
-    public ObservableField<BarData> getBarChart() {
-        return mBarChart;
-    }
-
-    @Override
-    public void setUpPieData(List<ResultVoteItem.Result> itemList) {
-        ArrayList<Entry> entries = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
+    private PieData setUpPieData(List<ResultVoteItem.Result> itemList) {
+        List<Entry> entries = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
         for (int i = 0; i < itemList.size(); i++) {
             entries.add(new Entry(itemList.get(i).getVoters(), i));
             labels.add(itemList.get(i).getName());
         }
-        PieDataSet pieDataSet =
-            new PieDataSet(entries, Constant.DataConstant.DATA_NO_TITLE);
+        PieDataSet pieDataSet = new PieDataSet(entries, Constant.DataConstant.DATA_NO_TITLE);
         pieDataSet.setValueTextSize(TEXT_SIZE);
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        mPieData.set(new PieData(labels, pieDataSet));
-        mPieData.get().setValueTextSize(TEXT_SIZE);
-    }
-
-    public ObservableField<PieData> getPieData() {
-        return mPieData;
+        return new PieData(labels, pieDataSet);
     }
 
     @Override
