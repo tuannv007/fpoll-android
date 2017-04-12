@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.history.pollhistory;
 
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 
 /**
@@ -15,8 +14,8 @@ public class PollHistoryHandler {
         mListener = listener;
     }
 
-    public void clickPollHistory(HistoryPoll item) {
+    public void openPollHistory(HistoryPoll item) {
         if (mListener == null) return;
-        mListener.clickPollHistory(item);
+        mListener.openPollHistory(item);
     }
 }

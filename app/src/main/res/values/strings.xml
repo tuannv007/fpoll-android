@@ -285,4 +285,5 @@
     <string name="action_next">Next</string>
     <string name="action_finnish">Finnish</string>
     <string name="title_skip">Skip</string>
+    <string name="msg_reopen">You have sure to open an poll ?</string>
 </resources>

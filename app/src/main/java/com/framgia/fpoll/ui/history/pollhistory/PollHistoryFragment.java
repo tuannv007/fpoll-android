@@ -1,10 +1,15 @@
 package com.framgia.fpoll.ui.history.pollhistory;
 
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +23,12 @@ import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.SharePreferenceUtil;
+import com.framgia.fpoll.widget.FPollProgressDialog;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
+import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CODE_RESULT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +40,7 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     private ObservableBoolean mLoadFinish = new ObservableBoolean();
     private PollHistoryContract.Presenter mPresenter;
     private PollHistoryType mPollHistoryType;
+    private FPollProgressDialog mDialog;
 
     public static PollHistoryFragment getInstance(PollHistoryType typeHistory) {
         PollHistoryFragment fragment = new PollHistoryFragment();
@@ -66,6 +76,12 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_RESULT && resultCode == RESULT_OK) mPresenter.getData();
+    }
+
+    @Override
     public void start() {
     }
 
@@ -86,7 +102,8 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
 
     @Override
     public void onOpenManagerPollClick(String token) {
-        startActivity(ManagePollActivity.getTokenIntent(getActivity(), token));
+        startActivityForResult(ManagePollActivity.getTokenIntent(getActivity(), token),
+                REQUEST_CODE_RESULT);
     }
 
     @Override
@@ -112,6 +129,17 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
     }
 
     @Override
+    public void showDialog() {
+        if (mDialog == null) mDialog = new FPollProgressDialog(getActivity());
+        mDialog.show();
+    }
+
+    @Override
+    public void hideDialog() {
+        if (mDialog != null && mDialog.isShowing()) mDialog.dismiss();
+    }
+
+    @Override
     public void setLoadingTrue() {
         mLoadFinish.set(true);
     }
@@ -127,5 +155,21 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
 
     public ObservableBoolean getLoadFinish() {
         return mLoadFinish;
+    }
+
+    public void showConfirmDialog(final HistoryPoll historyPoll) {
+        AlertDialog.Builder alertBuilder =
+                new AlertDialog.Builder(getActivity()).setCancelable(true)
+                        .setTitle(R.string.title_re_open)
+                        .setMessage(R.string.msg_reopen)
+                        .setPositiveButton(android.R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mPresenter.reopenPoll(historyPoll);
+                                    }
+                                })
+                        .setNegativeButton(android.R.string.no, null);
+        alertBuilder.show();
     }
 }

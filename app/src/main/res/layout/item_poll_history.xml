@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
 
         <import type="com.framgia.fpoll.util.TimeUtil"/>
-
+        <import type="android.view.View"/>
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.history.pollhistory.PollHistoryHandler"/>
+            type="com.framgia.fpoll.ui.history.pollhistory.PollHistoryHandler"
+            />
 
         <variable
             name="title"
-            type="java.lang.String"/>
-
+            type="java.lang.String"
+            />
         <variable
-            name="icon"
-            type="android.graphics.drawable.Drawable"/>
+            name="reopen"
+            type="java.lang.Boolean"
+            />
 
         <variable
             name="pollHistory"
-            type="com.framgia.fpoll.data.model.poll.HistoryPoll"/>
+            type="com.framgia.fpoll.data.model.poll.HistoryPoll"
+            />
     </data>
 
     <android.support.v7.widget.CardView
@@ -29,20 +33,24 @@
         app:cardBackgroundColor="@color/color_white"
         app:cardCornerRadius="@dimen/dp_1"
         app:cardElevation="@dimen/dp_1"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        >
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->handler.clickPollHistory(pollHistory)}"
+            android:onClick="@{()->handler.openPollHistory(pollHistory)}"
             android:orientation="horizontal"
-            android:padding="@dimen/dp_16">
+            android:padding="@dimen/dp_16"
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="3"
+                android:orientation="vertical"
+                >
 
                 <TextView
                     android:id="@+id/text_subject"
@@ -51,23 +59,34 @@
                     android:padding="@dimen/dp_3"
                     android:text="@{@string/title_subject(pollHistory.title)}"
                     android:textColor="@color/color_teal_600"
-                    android:textSize="@dimen/sp_20"/>
+                    android:textSize="@dimen/sp_20"
+                    />
 
                 <TextView
                     android:id="@+id/text_participants"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_3"
-                    android:text="@{@string/title_participants(pollHistory.listActivities.size())}"/>
+                    android:text="@{@string/title_participants(pollHistory.listActivities.size())}"
+                    />
 
                 <TextView
                     android:id="@+id/text_latest_activity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_3"
-                    android:text="@{@string/title_latest_activity(pollHistory.listActivities.size() > 0 ? TimeUtil.timeToString(pollHistory.listActivities.get(0).updatedTime): @string/msg_not_activity)}"/>
+                    android:text="@{@string/title_latest_activity(pollHistory.listActivities.size() > 0 ? TimeUtil.timeToString(pollHistory.listActivities.get(0).updatedTime): @string/msg_not_activity)}"
+                    />
 
             </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:onClick="@{()->handler.openPollHistory(pollHistory)}"
+                android:src="@drawable/ic_reopen"
+                android:visibility="@{reopen.booleanValue() ? View.VISIBLE : View.INVISIBLE}"
+                />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </layout>
