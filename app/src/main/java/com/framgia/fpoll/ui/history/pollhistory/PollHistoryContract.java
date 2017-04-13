@@ -29,6 +29,8 @@ public interface PollHistoryContract {
         void hideDialog();
 
         void showConfirmDialog(HistoryPoll historyPoll);
+
+        void showPollClosedDialog();
     }
 
     interface Presenter {

@@ -104,17 +104,25 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     public void openPollHistory(HistoryPoll data) {
         switch (mHistoryType) {
             case INITIATE:
-                if (data != null
-                        && data.getLink().get(NUMBER_LINK_ADMIN) != null
-                        && data.getLink().get(NUMBER_LINK_ADMIN).getToken() != null) {
+                if (data == null
+                        || data.getLink().get(NUMBER_LINK_ADMIN) == null
+                        || data.getLink().get(NUMBER_LINK_ADMIN).getToken() == null) {
+                    return;
+                }
+                if (data.isOpen()) {
                     mView.onOpenManagerPollClick(data.getLink().get(NUMBER_LINK_ADMIN).getToken());
                 }
                 break;
             case PARTICIPATE:
-                if (data != null
-                        && data.getLink().get(NUMBER_LINK_ADMIN) != null
-                        && data.getLink().get(NUMBER_LINK_ADMIN).getToken() != null) {
+                if (data == null
+                        || data.getLink().get(NUMBER_LINK_ADMIN) == null
+                        || data.getLink().get(NUMBER_LINK_ADMIN).getToken() == null) {
+                    return;
+                }
+                if (data.isOpen()) {
                     mView.onOpenVoteClick(data.getLink().get(NUMBER_LINK_ADMIN).getToken());
+                } else {
+                    mView.showPollClosedDialog();
                 }
                 break;
             case CLOSE:
