@@ -9,6 +9,7 @@ import android.databinding.ObservableField;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
 import com.framgia.fpoll.ui.history.PollHistoryType;
+import com.framgia.fpoll.ui.history.dialog.ClosedDialogFragment;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -115,6 +117,14 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
         if (mListPollHistory != null && mAdapter != null && mAdapter.get() != null) {
             mListPollHistory.clear();
             mAdapter.get().update(mListPollHistory);
+        }
+    }
+
+    @Override
+    public void showPollClosedDialog() {
+        if (getChildFragmentManager() != null) {
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            ClosedDialogFragment.newInstance().show(transaction, "");
         }
     }
 

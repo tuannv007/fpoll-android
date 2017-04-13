@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="dialog"
+            type="com.framgia.fpoll.ui.history.dialog.ClosedDialogFragment"
+            />
+    </data>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_16"
+            android:gravity="center"
+            android:text="@string/msg_closed_poll"
+            android:textSize="@dimen/sp_18"
+            />
+        <ImageView
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="@dimen/dp_200"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_poll_closed"
+            />
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:onClick="@{()->dialog.hideDialog()}"
+            android:padding="@dimen/dp_16"
+            android:text="@string/mdtp_ok"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/sp_18"
+            />
+    </LinearLayout>
+</layout>
