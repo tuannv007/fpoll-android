@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.main;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity
     private FPollProgressDialog mProgressDialog;
     private final ObservableBoolean mIsShowAddPoll = new ObservableBoolean(true);
 
+    public static Intent getInstance(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.action_login:
                 setIsShowAddPoll(false);
-                startActivityForResult(AuthenticationActivity.getAuthenticationIntent(this),
+                startActivityForResult(AuthenticationActivity.getAuthenticationIntent(this, true),
                         REQUEST_LOGIN);
                 break;
             case R.id.action_home:
@@ -117,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.action_introduce:
                 setIsShowAddPoll(false);
-                startActivity(new Intent(this, IntroduceActivity.class));
+                startActivity(IntroduceActivity.getInstance(this, true));
                 break;
             case R.id.action_log_out:
                 setIsShowAddPoll(false);

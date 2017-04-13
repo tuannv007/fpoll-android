@@ -4,24 +4,14 @@ package com.framgia.fpoll.ui.introduction;
  * Created by tuanbg on 2/22/17.
  */
 public class IntroduceHandlerAction {
-    private IntroduceAppPresenter mListener;
+    private IntroduceAppContract.Presenter mListener;
 
-    public IntroduceHandlerAction(IntroduceAppPresenter listener) {
+    public IntroduceHandlerAction(IntroduceAppContract.Presenter listener) {
         mListener = listener;
     }
 
-    public void openFacebook() {
+    public void onPageChange(int pagePosition) {
         if (mListener == null) return;
-        mListener.openFacebook();
-    }
-
-    public void openGitHub() {
-        if (mListener == null) return;
-        mListener.openGitHub();
-    }
-
-    public void openLinkeDin() {
-        if (mListener == null) return;
-        mListener.openLikeDin();
+        mListener.onPageChange(pagePosition);
     }
 }

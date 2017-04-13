@@ -144,6 +144,7 @@ public class Constant {
         public static final String PREF_EMAIL = "PREF_EMAIL";
         public static final String PREF_PASSWORD = "PREF_PASSWORD";
         public static final String PREF_REMEM_BER = "PREF_REMEM_BER";
+        public static final String PREF_SHOW_INTRODUCT = "PREF_SHOW_INTRODUCT";
     }
 
     public class Language {
