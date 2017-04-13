@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.framgia.fpoll.R;
 import com.tokenautocomplete.TokenCompleteTextView;
 
@@ -27,9 +26,9 @@ public class ChipsContactView extends TokenCompleteTextView<String> {
     @Override
     protected View getViewForObject(final String contact) {
         LayoutInflater inflater =
-            (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View viewChild =
-            inflater.inflate(R.layout.partial_chips_view, (ViewGroup) getParent(), false);
+                inflater.inflate(R.layout.partial_chips_view, (ViewGroup) getParent(), false);
         final TextView textView = (TextView) viewChild.findViewById(R.id.text_email);
         textView.setText(contact);
         viewChild.findViewById(R.id.ic_clear).setOnClickListener(new OnClickListener() {

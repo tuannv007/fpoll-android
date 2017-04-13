@@ -657,7 +657,5 @@ public class DataBindingUtils {
             }
         });
     }
-
-
 }
 

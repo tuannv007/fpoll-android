@@ -2,7 +2,6 @@ package com.framgia.fpoll.networking.api;
 
 import com.framgia.fpoll.networking.ResponseItem;
 import com.google.gson.annotations.SerializedName;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -14,6 +13,7 @@ import retrofit2.http.POST;
 public interface FeedbackAPI {
     @POST("api/v1/feedback")
     Call<ResponseItem> feedback(@Body FeedbackBody feedbackBody);
+
     public class FeedbackBody {
         @SerializedName("name")
         private String mName;

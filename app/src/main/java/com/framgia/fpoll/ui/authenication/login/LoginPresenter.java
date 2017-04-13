@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Intent;
 import android.databinding.ObservableBoolean;
-
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -39,7 +38,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     private ObservableBoolean mIsRemember = new ObservableBoolean();
 
     public LoginPresenter(LoginContract.View view, LoginRepository repository,
-                          SharePreferenceUtil preference) {
+            SharePreferenceUtil preference) {
         mView = view;
         mRepository = repository;
         mPreference = preference;
@@ -53,37 +52,37 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void initFacebook() {
         mCallbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(mCallbackManager,
-            new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(final LoginResult loginResult) {
-                    mRepository.loginSocial(loginResult.getAccessToken().getToken(), null,
-                        LoginType.FACEBOOK.getProvider(), new DataCallback<SocialData>() {
-                            @Override
-                            public void onSuccess(SocialData data) {
-                                data.getUser().setToken(data.getToken());
-                                mPreference.writeUser(data.getUser());
-                                writeLogin();
-                                mView.loginSuccess();
-                            }
+        LoginManager.getInstance()
+                .registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(final LoginResult loginResult) {
+                        mRepository.loginSocial(loginResult.getAccessToken().getToken(), null,
+                                LoginType.FACEBOOK.getProvider(), new DataCallback<SocialData>() {
+                                    @Override
+                                    public void onSuccess(SocialData data) {
+                                        data.getUser().setToken(data.getToken());
+                                        mPreference.writeUser(data.getUser());
+                                        writeLogin();
+                                        mView.loginSuccess();
+                                    }
 
-                            @Override
-                            public void onError(String msg) {
-                                mView.loginError();
-                            }
-                        });
-                }
+                                    @Override
+                                    public void onError(String msg) {
+                                        mView.loginError();
+                                    }
+                                });
+                    }
 
-                @Override
-                public void onCancel() {
-                    mView.loginError();
-                }
+                    @Override
+                    public void onCancel() {
+                        mView.loginError();
+                    }
 
-                @Override
-                public void onError(FacebookException exception) {
-                    mView.loginError();
-                }
-            });
+                    @Override
+                    public void onError(FacebookException exception) {
+                        mView.loginError();
+                    }
+                });
     }
 
     @Override
@@ -96,7 +95,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void checkLoginGoogleResult(GoogleSignInResult result) {
         if (result.isSuccess() && result.getSignInAccount() != null) {
             requestGoogleToken(result.getSignInAccount().getEmail());
-        } else mView.loginError();
+        } else {
+            mView.loginError();
+        }
     }
 
     @Override
@@ -113,20 +114,20 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void loginTwitterSuccess(TwitterAuthToken token) {
                 mRepository.loginSocial(token.token, token.secret, LoginType.TWITTER.getProvider(),
-                    new DataCallback<SocialData>() {
-                        @Override
-                        public void onSuccess(SocialData data) {
-                            data.getUser().setToken(data.getToken());
-                            mPreference.writeUser(data.getUser());
-                            writeLogin();
-                            mView.loginSuccess();
-                        }
+                        new DataCallback<SocialData>() {
+                            @Override
+                            public void onSuccess(SocialData data) {
+                                data.getUser().setToken(data.getToken());
+                                mPreference.writeUser(data.getUser());
+                                writeLogin();
+                                mView.loginSuccess();
+                            }
 
-                        @Override
-                        public void onError(String msg) {
-                            mView.loginError();
-                        }
-                    });
+                            @Override
+                            public void onError(String msg) {
+                                mView.loginError();
+                            }
+                        });
             }
 
             @Override
@@ -158,21 +159,21 @@ public class LoginPresenter implements LoginContract.Presenter {
             public void onValidateSuccess() {
                 mView.showProgressDialog();
                 mRepository.loginNormal(mUser.getEmail(), mUser.getPassword(),
-                    new DataCallback<LoginNormalData>() {
-                        @Override
-                        public void onSuccess(LoginNormalData data) {
-                            saveEmailPassword();
-                            data.getUser().setToken(data.getAccessToken());
-                            mPreference.writeUser(data.getUser());
-                            writeLogin();
-                            mView.loginSuccess();
-                        }
+                        new DataCallback<LoginNormalData>() {
+                            @Override
+                            public void onSuccess(LoginNormalData data) {
+                                saveEmailPassword();
+                                data.getUser().setToken(data.getAccessToken());
+                                mPreference.writeUser(data.getUser());
+                                writeLogin();
+                                mView.loginSuccess();
+                            }
 
-                        @Override
-                        public void onError(String msg) {
-                            mView.loginError();
-                        }
-                    });
+                            @Override
+                            public void onError(String msg) {
+                                mView.loginError();
+                            }
+                        });
             }
         });
     }
@@ -202,9 +203,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void requestGoogleToken(String email) {
         if (mFPollGoogleApiClient == null) mFPollGoogleApiClient = mView.newGoogleClient();
         mFPollGoogleApiClient.requestToken(email, new FPollGoogleApiClient.CallBack() {
-                @Override
-                public void onGetTokenSuccess(String token) {
-                    mRepository.loginSocial(token, null, LoginType.GOOGLE.getProvider(),
+            @Override
+            public void onGetTokenSuccess(String token) {
+                mRepository.loginSocial(token, null, LoginType.GOOGLE.getProvider(),
                         new DataCallback<SocialData>() {
                             @Override
                             public void onSuccess(SocialData data) {
@@ -219,14 +220,13 @@ public class LoginPresenter implements LoginContract.Presenter {
                                 mView.loginError();
                             }
                         });
-                }
-
-                @Override
-                public void onGetTokenFail() {
-                    mView.loginError();
-                }
             }
-        );
+
+            @Override
+            public void onGetTokenFail() {
+                mView.loginError();
+            }
+        });
     }
 
     private void saveEmailPassword() {

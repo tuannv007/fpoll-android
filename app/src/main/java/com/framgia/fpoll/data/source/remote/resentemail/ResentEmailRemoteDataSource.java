@@ -2,7 +2,6 @@ package com.framgia.fpoll.data.source.remote.resentemail;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
 import com.framgia.fpoll.networking.ResponseItem;
@@ -29,19 +28,19 @@ public class ResentEmailRemoteDataSource implements ResentEmailDataSource {
     @Override
     public void resentEmail(int pollId, final DataCallback callback) {
         if (callback == null) return;
-        ResentEmailService getData =
-            ServiceGenerator.createService(ResentEmailService.class);
-        getData.resentEmail(pollId).enqueue(new CallbackManager<>(mContext,
-            new CallbackManager.CallBack<ResponseItem>() {
-                @Override
-                public void onResponse(ResponseItem data) {
-                    callback.onSuccess(data);
-                }
+        ResentEmailService getData = ServiceGenerator.createService(ResentEmailService.class);
+        getData.resentEmail(pollId)
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem>() {
+                            @Override
+                            public void onResponse(ResponseItem data) {
+                                callback.onSuccess(data);
+                            }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 }

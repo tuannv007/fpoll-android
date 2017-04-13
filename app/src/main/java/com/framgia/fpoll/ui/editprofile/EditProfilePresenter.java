@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.editprofile;
 
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -20,8 +19,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     private LoginRepository mRepository;
 
     public EditProfilePresenter(@NonNull EditProfileContract.View view,
-                                @NonNull SharePreferenceUtil preference,
-                                @NonNull LoginRepository repository) {
+            @NonNull SharePreferenceUtil preference, @NonNull LoginRepository repository) {
         mView = view;
         mPreference = preference;
         mRepository = repository;

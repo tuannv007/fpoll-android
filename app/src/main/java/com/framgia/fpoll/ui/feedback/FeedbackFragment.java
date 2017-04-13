@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.feedback.FeedbackRepository;
 import com.framgia.fpoll.databinding.FragmentFeedbackBinding;
@@ -27,7 +26,7 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feedback, container, false);
         mPresenter = new FeedbackPresenter(this, FeedbackRepository.getInstance(getActivity()));
         mBinding.setPresenter((FeedbackPresenter) mPresenter);

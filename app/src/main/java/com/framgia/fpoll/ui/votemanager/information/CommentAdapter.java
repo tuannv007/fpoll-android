@@ -4,14 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.databinding.ItemPollCommentBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by anhtv on 27/02/2017.
@@ -22,7 +18,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private VoteInfoModel mVoteInfoModel;
 
     public CommentAdapter(VoteInformationContract.Presenter presenter,
-                          VoteInfoModel voteInfoModel) {
+            VoteInfoModel voteInfoModel) {
         mPresenter = presenter;
         mVoteInfoModel = voteInfoModel;
     }
@@ -40,8 +36,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     @Override
     public int getItemCount() {
-        return mVoteInfoModel.getVoteInfo().getPoll().getComments() == null ? 0 : mVoteInfoModel
-            .getVoteInfo().getPoll().getComments().size();
+        return mVoteInfoModel.getVoteInfo().getPoll().getComments() == null ? 0
+                : mVoteInfoModel.getVoteInfo().getPoll().getComments().size();
     }
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {

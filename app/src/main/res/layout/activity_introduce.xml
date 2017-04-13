@@ -99,8 +99,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()-> activity.nextAction(viewPager)}"
                 android:layout_alignParentRight="true"
+                android:onClick="@{()-> activity.nextAction(viewPager)}"
                 android:padding="@dimen/dp_10"
                 android:text="@{activity.currentAction}"
                 android:textColor="@android:color/white"

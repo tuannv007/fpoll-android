@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentPageSettingBinding;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -40,7 +39,7 @@ public class SettingPollFragment extends Fragment implements SettingPollContract
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding = FragmentPageSettingBinding.inflate(inflater, container, false);
         getDataFromActivity();
         mPresenter = new SettingPresenter(this, mPoll);

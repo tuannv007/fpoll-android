@@ -12,8 +12,8 @@ import static com.framgia.fpoll.ui.pollcreation.option.OptionPollFragment.DEFAUL
  * Created by framgia on 22/02/2017.
  */
 public class OptionPresenter implements OptionPollContract.Presenter {
-    private OptionPollContract.View mView;
     private static final long DELAY_VIEW_TIME = 700;
+    private OptionPollContract.View mView;
     private PollItem mPollItem;
 
     public OptionPresenter(OptionPollContract.View view, PollItem pollItem) {

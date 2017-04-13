@@ -10,6 +10,11 @@ public class IntroduceItem extends BaseObservable {
     private int mImage;
     private String mTitle;
 
+    public IntroduceItem(String title, int image) {
+        this.mImage = image;
+        this.mTitle = title;
+    }
+
     @Bindable
     public int getImage() {
         return mImage;
@@ -28,16 +33,8 @@ public class IntroduceItem extends BaseObservable {
         this.mTitle = title;
     }
 
-    public IntroduceItem(String title, int image) {
-        this.mImage = image;
-        this.mTitle = title;
-    }
-
     @Override
     public String toString() {
-        return "IntroduceItem{" +
-            "mImage='" + mImage + '\'' +
-            ", mTitle='" + mTitle + '\'' +
-            '}';
+        return "IntroduceItem{" + "mImage='" + mImage + '\'' + ", mTitle='" + mTitle + '\'' + '}';
     }
 }

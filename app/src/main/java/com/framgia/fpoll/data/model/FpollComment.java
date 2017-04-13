@@ -2,7 +2,6 @@ package com.framgia.fpoll.data.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.ui.pollmanage.history.TypeLayoutHistory;

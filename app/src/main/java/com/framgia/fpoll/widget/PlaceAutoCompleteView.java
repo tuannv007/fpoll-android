@@ -8,13 +8,11 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
-
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class PlaceAutoCompleteView extends AppCompatAutoCompleteTextView {
     public void setUpContent(final Context context) {
         final List items = new ArrayList();
         final ArrayAdapter<String> arrayAdapter =
-            new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, items);
+                new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, items);
         setAdapter(arrayAdapter);
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -53,13 +51,12 @@ public class PlaceAutoCompleteView extends AppCompatAutoCompleteTextView {
                 if (mGoogleApiClient == null) return;
                 if (TextUtils.isEmpty(charSequence)) return;
                 PendingResult<AutocompletePredictionBuffer> placeResult =
-                    Places.GeoDataApi
-                        .getAutocompletePredictions(mGoogleApiClient, charSequence.toString(), null,
-                            null);
+                        Places.GeoDataApi.getAutocompletePredictions(mGoogleApiClient,
+                                charSequence.toString(), null, null);
                 placeResult.setResultCallback(new ResultCallback<AutocompletePredictionBuffer>() {
                     @Override
                     public void onResult(
-                        @NonNull AutocompletePredictionBuffer autocompletePredictions) {
+                            @NonNull AutocompletePredictionBuffer autocompletePredictions) {
                         if (!autocompletePredictions.getStatus().isSuccess()) return;
                         items.clear();
                         int length = Math.min(autocompletePredictions.getCount(), MAX_HINT);
@@ -67,9 +64,8 @@ public class PlaceAutoCompleteView extends AppCompatAutoCompleteTextView {
                         for (int i = 0; i < length; i++) {
                             items.add(autocompletePredictions.get(i).getFullText(null));
                         }
-                        ArrayAdapter<String> arrayAdapter =
-                            new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line,
-                                items);
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context,
+                                android.R.layout.simple_dropdown_item_1line, items);
                         setAdapter(arrayAdapter);
                     }
                 });

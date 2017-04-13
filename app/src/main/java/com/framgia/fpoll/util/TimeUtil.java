@@ -2,7 +2,6 @@ package com.framgia.fpoll.util;
 
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,8 +27,8 @@ public class TimeUtil {
 
     public static String timeOptionToString(Calendar calendar) {
         if (calendar == null) return DATA_SPACE;
-        return new SimpleDateFormat(DATE_OPTION_FORMAT_, Locale.getDefault())
-            .format(calendar.getTime());
+        return new SimpleDateFormat(DATE_OPTION_FORMAT_, Locale.getDefault()).format(
+                calendar.getTime());
     }
 
     public static String getCurentTime() {
@@ -53,7 +52,7 @@ public class TimeUtil {
         if (TextUtils.isEmpty(date)) return false;
         try {
             return new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).parse(date)
-                .before(new Date());
+                    .before(new Date());
         } catch (ParseException e) {
             e.printStackTrace();
             return false;

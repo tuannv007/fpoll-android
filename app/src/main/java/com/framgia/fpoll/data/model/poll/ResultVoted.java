@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,16 +11,6 @@ import com.google.gson.annotations.SerializedName;
  * Created by anhtv on 07/03/2017.
  */
 public class ResultVoted extends BaseObservable implements Parcelable {
-    @SerializedName("option_id")
-    private int mOptionId;
-    @SerializedName("count_vote")
-    private int mCountVote;
-
-    protected ResultVoted(Parcel in) {
-        mOptionId = in.readInt();
-        mCountVote = in.readInt();
-    }
-
     public static final Creator<ResultVoted> CREATOR = new Creator<ResultVoted>() {
         @Override
         public ResultVoted createFromParcel(Parcel in) {
@@ -33,6 +22,15 @@ public class ResultVoted extends BaseObservable implements Parcelable {
             return new ResultVoted[size];
         }
     };
+    @SerializedName("option_id")
+    private int mOptionId;
+    @SerializedName("count_vote")
+    private int mCountVote;
+
+    protected ResultVoted(Parcel in) {
+        mOptionId = in.readInt();
+        mCountVote = in.readInt();
+    }
 
     @Bindable
     public int getCountVote() {

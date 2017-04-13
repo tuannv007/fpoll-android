@@ -1,10 +1,8 @@
 package com.framgia.fpoll.data.source.local;
 
 import android.content.Context;
-
 import com.framgia.fpoll.data.model.IntroduceItem;
 import com.framgia.fpoll.data.source.local.introduce.IntroduceLocalDataSource;
-
 import java.util.List;
 
 /**
@@ -14,16 +12,16 @@ public class IntroduceRepository implements IntroduceDataSource {
     private static IntroduceRepository sIntroduceRepository;
     private IntroduceDataSource mLocalDataSource;
 
+    public IntroduceRepository(IntroduceLocalDataSource introduceDataSource) {
+        mLocalDataSource = introduceDataSource;
+    }
+
     public static IntroduceRepository getInstance(Context context) {
         if (sIntroduceRepository == null) {
             sIntroduceRepository =
-                new IntroduceRepository(IntroduceLocalDataSource.getInstance(context));
+                    new IntroduceRepository(IntroduceLocalDataSource.getInstance(context));
         }
         return sIntroduceRepository;
-    }
-
-    public IntroduceRepository(IntroduceLocalDataSource introduceDataSource) {
-        mLocalDataSource = introduceDataSource;
     }
 
     @Override

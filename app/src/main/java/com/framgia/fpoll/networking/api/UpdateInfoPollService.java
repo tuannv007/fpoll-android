@@ -3,7 +3,6 @@ package com.framgia.fpoll.networking.api;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.google.gson.annotations.SerializedName;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -15,6 +14,7 @@ import retrofit2.http.Path;
 public interface UpdateInfoPollService {
     @POST("api/v1/poll/update/{id}")
     Call<ResponseItem<DataInfoItem>> updateInfo(@Path("id") int id, @Body PollInfoBody poll);
+
     class PollInfoBody {
         @SerializedName("name")
         private String mName;
@@ -32,7 +32,7 @@ public interface UpdateInfoPollService {
         private String mDescription;
 
         public PollInfoBody(String name, String email, String title, int mutiple, int editType,
-                            String dateClose, String description) {
+                String dateClose, String description) {
             mName = name;
             mEmail = email;
             mTitle = title;

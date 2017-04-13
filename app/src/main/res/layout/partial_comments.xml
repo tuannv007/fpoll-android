@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:bind="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    >
 
     <data>
 
@@ -13,11 +14,13 @@
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment"/>
+            type="com.framgia.fpoll.ui.votemanager.information.VoteInformationFragment"
+            />
 
         <variable
             name="voteInfoModel"
-            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"/>
+            type="com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel"
+            />
 
     </data>
 
@@ -25,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,13 +37,15 @@
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/dp_8"
             android:paddingLeft="@dimen/dp_8"
-            android:paddingTop="@dimen/dp_8">
+            android:paddingTop="@dimen/dp_8"
+            >
 
             <com.facebook.share.widget.LikeView
                 android:id="@+id/like_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                bind:objectId="@{voteInfoModel.token}"/>
+                bind:objectId="@{voteInfoModel.token}"
+                />
 
             <com.facebook.share.widget.ShareButton
                 android:id="@+id/button_share"
@@ -47,37 +53,42 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
-                bind:shareContent="@{voteInfoModel.token}"/>
+                bind:shareContent="@{voteInfoModel.token}"
+                />
 
             <TextView
-                style="@style/TextViewPollInformation"
                 android:layout_width="match_parent"
                 android:drawableRight="@{fragment.commentExpand ? @drawable/ic_arrow_drop_up : @drawable/ic_arrow_drop_down}"
                 android:gravity="center|end"
                 android:onClick="@{()-> fragment.setCommentsView()}"
-                android:text="@{fragment.commentExpand ? @string/action_hide_comments : @string/action_show_comments}"/>
+                android:text="@{fragment.commentExpand ? @string/action_hide_comments : @string/action_show_comments}"
+                style="@style/TextViewPollInformation"
+                />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/relative_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{fragment.commentExpand ? View.VISIBLE : View.GONE}">
+            android:visibility="@{fragment.commentExpand ? View.VISIBLE : View.GONE}"
+            >
 
             <TextView
                 android:id="@+id/text_user_comments"
-                style="@style/TextViewPollInformation"
                 android:drawableLeft="@drawable/ic_people"
                 android:drawableStart="@drawable/ic_people"
-                android:text="@{voteInfoModel.voteInfo.countParticipant &lt; 2 ? @string/post_user(voteInfoModel.voteInfo.countParticipant): @string/post_users(voteInfoModel.voteInfo.countParticipant)}"/>
+                android:text="@{voteInfoModel.voteInfo.countParticipant &lt; 2 ? @string/post_user(voteInfoModel.voteInfo.countParticipant): @string/post_users(voteInfoModel.voteInfo.countParticipant)}"
+                style="@style/TextViewPollInformation"
+                />
 
             <TextView
-                style="@style/TextViewPollInformation"
                 android:layout_alignTop="@id/text_user_comments"
                 android:layout_toRightOf="@id/text_user_comments"
                 android:drawableLeft="@drawable/ic_comment"
                 android:drawableStart="@drawable/ic_comment"
-                android:text="@{voteInfoModel.voteInfo.countComments &lt; 2 ? @string/post_comment(voteInfoModel.voteInfo.countComments): @string/post_comments(voteInfoModel.voteInfo.countComments)}"/>
+                android:text="@{voteInfoModel.voteInfo.countComments &lt; 2 ? @string/post_comment(voteInfoModel.voteInfo.countComments): @string/post_comments(voteInfoModel.voteInfo.countComments)}"
+                style="@style/TextViewPollInformation"
+                />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -86,7 +97,8 @@
                 android:layout_below="@id/text_user_comments"
                 android:padding="@dimen/dp_8"
                 app:layoutManager="@{LayoutManageUtil.linear()}"
-                bind:bindAdapter="@{fragment.adapter}"/>
+                bind:bindAdapter="@{fragment.adapter}"
+                />
         </RelativeLayout>
     </LinearLayout>
 </layout>

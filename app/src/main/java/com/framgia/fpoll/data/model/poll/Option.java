@@ -12,6 +12,17 @@ import java.util.List;
  * Created by anhtv on 07/03/2017.
  */
 public class Option extends BaseObservable implements Parcelable {
+    public static final Creator<Option> CREATOR = new Creator<Option>() {
+        @Override
+        public Option createFromParcel(Parcel in) {
+            return new Option(in);
+        }
+
+        @Override
+        public Option[] newArray(int size) {
+            return new Option[size];
+        }
+    };
     @SerializedName("id")
     private int mId;
     @SerializedName("name")
@@ -45,18 +56,6 @@ public class Option extends BaseObservable implements Parcelable {
         mIsChecked = in.readByte() != 0;
     }
 
-    public static final Creator<Option> CREATOR = new Creator<Option>() {
-        @Override
-        public Option createFromParcel(Parcel in) {
-            return new Option(in);
-        }
-
-        @Override
-        public Option[] newArray(int size) {
-            return new Option[size];
-        }
-    };
-
     public int getId() {
         return mId;
     }
@@ -86,34 +85,14 @@ public class Option extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.name);
     }
 
-    public void setImage(String image) {
-        mImage = image;
-        notifyPropertyChanged(BR.image);
-    }
-
-    public void setCreatedTime(String createdTime) {
-        mCreatedTime = createdTime;
-        notifyPropertyChanged(BR.createdTime);
-    }
-
-    public void setUpdatedTime(String updatedTime) {
-        mUpdatedTime = updatedTime;
-        notifyPropertyChanged(BR.updatedTime);
-    }
-
-    public void setVotes(List<ParticipantVotes> votes) {
-        mVotes = votes;
-        notifyPropertyChanged(BR.votes);
-    }
-
-    public void setParticipantVotes(List<ParticipantVotes> participantVotes) {
-        mParticipantVotes = participantVotes;
-        notifyPropertyChanged(BR.participantVotes);
-    }
-
     @Bindable
     public String getImage() {
         return mImage;
+    }
+
+    public void setImage(String image) {
+        mImage = image;
+        notifyPropertyChanged(BR.image);
     }
 
     @Bindable
@@ -126,9 +105,19 @@ public class Option extends BaseObservable implements Parcelable {
         return mCreatedTime;
     }
 
+    public void setCreatedTime(String createdTime) {
+        mCreatedTime = createdTime;
+        notifyPropertyChanged(BR.createdTime);
+    }
+
     @Bindable
     public String getUpdatedTime() {
         return mUpdatedTime;
+    }
+
+    public void setUpdatedTime(String updatedTime) {
+        mUpdatedTime = updatedTime;
+        notifyPropertyChanged(BR.updatedTime);
     }
 
     @Bindable
@@ -136,9 +125,19 @@ public class Option extends BaseObservable implements Parcelable {
         return mVotes;
     }
 
+    public void setVotes(List<ParticipantVotes> votes) {
+        mVotes = votes;
+        notifyPropertyChanged(BR.votes);
+    }
+
     @Bindable
     public List<ParticipantVotes> getParticipantVotes() {
         return mParticipantVotes;
+    }
+
+    public void setParticipantVotes(List<ParticipantVotes> participantVotes) {
+        mParticipantVotes = participantVotes;
+        notifyPropertyChanged(BR.participantVotes);
     }
 
     @Override

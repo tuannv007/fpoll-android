@@ -1,7 +1,6 @@
 package com.framgia.fpoll.data.source.remote.register;
 
 import android.content.Context;
-
 import com.framgia.fpoll.data.model.authorization.User;
 
 /**
@@ -11,16 +10,16 @@ public class RegisterRepository implements RegisterDataSource {
     private static RegisterRepository sRegisterRepository;
     private static RegisterDataSource mRemoteDataSource;
 
+    public RegisterRepository(RegisterRemoteDataSource registerRemoteDataSource) {
+        mRemoteDataSource = registerRemoteDataSource;
+    }
+
     public static RegisterRepository getInstance(Context context) {
         if (sRegisterRepository == null) {
             sRegisterRepository =
-                new RegisterRepository(RegisterRemoteDataSource.getInstance(context));
+                    new RegisterRepository(RegisterRemoteDataSource.getInstance(context));
         }
         return sRegisterRepository;
-    }
-
-    public RegisterRepository(RegisterRemoteDataSource registerRemoteDataSource) {
-        mRemoteDataSource = registerRemoteDataSource;
     }
 
     @Override

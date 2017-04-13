@@ -4,11 +4,9 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,17 @@ import java.util.List;
  * Created by anhtv on 09/03/2017.
  */
 public class VoteInfoModel extends BaseObservable implements Parcelable {
+    public static final Creator<VoteInfoModel> CREATOR = new Creator<VoteInfoModel>() {
+        @Override
+        public VoteInfoModel createFromParcel(Parcel in) {
+            return new VoteInfoModel(in);
+        }
+
+        @Override
+        public VoteInfoModel[] newArray(int size) {
+            return new VoteInfoModel[size];
+        }
+    };
     private VoteInfo mVoteInfo;
     private List<Option> mOptionModels = new ArrayList<>();
     private boolean mIsEmailRequired;
@@ -50,18 +59,6 @@ public class VoteInfoModel extends BaseObservable implements Parcelable {
         mHiddenResult = in.readByte() != 0;
         mToken = in.readString();
     }
-
-    public static final Creator<VoteInfoModel> CREATOR = new Creator<VoteInfoModel>() {
-        @Override
-        public VoteInfoModel createFromParcel(Parcel in) {
-            return new VoteInfoModel(in);
-        }
-
-        @Override
-        public VoteInfoModel[] newArray(int size) {
-            return new VoteInfoModel[size];
-        }
-    };
 
     @Bindable
     public ItemStatus getItemStatus() {

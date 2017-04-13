@@ -6,15 +6,9 @@ import com.framgia.fpoll.R;
  * Created by tuanbg on 3/28/17.
  */
 public enum TypeLayoutHistory {
-    TYPE_PARTICIPATED(1),
-    TYPE_ALL_PARTICIPANTS_DELETE(2),
-    TYPE_ADD_A_COMMENT(3),
-    TYPE_RESET_LINK(4),
-    TYPE_DELETED_COMMENT(5),
-    TYPE_EDIT_VOTE(6),
-    TYPE_EDIT_POLL(7),
-    TYPE_CLOSE_POLL(8),
-    TYPE_REOPEN_POLL(9);
+    TYPE_PARTICIPATED(1), TYPE_ALL_PARTICIPANTS_DELETE(2), TYPE_ADD_A_COMMENT(3), TYPE_RESET_LINK(
+            4), TYPE_DELETED_COMMENT(5), TYPE_EDIT_VOTE(6), TYPE_EDIT_POLL(7), TYPE_CLOSE_POLL(
+            8), TYPE_REOPEN_POLL(9);
     private int mType;
 
     TypeLayoutHistory(int type) {

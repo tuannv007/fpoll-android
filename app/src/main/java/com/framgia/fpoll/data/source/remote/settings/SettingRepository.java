@@ -1,7 +1,6 @@
 package com.framgia.fpoll.data.source.remote.settings;
 
 import android.content.Context;
-
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.ResponseItem;
 

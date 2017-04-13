@@ -18,8 +18,8 @@ import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.List;
 
 public class IntroduceActivity extends AppCompatActivity implements IntroduceAppContract.View {
-    private static final int FIRST_POSITION = 0;
     public static final String EXTRA_OPEN_FROM_MAIN = "EXTRA_OPEN_FROM_MAIN";
+    private static final int FIRST_POSITION = 0;
     private List<IntroduceItem> mItems;
     private ObservableField<ViewPageAdapterAuto> mAdapter = new ObservableField<>();
     private ObservableField<String> mCurrentAction = new ObservableField<>();

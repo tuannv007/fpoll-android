@@ -50,11 +50,11 @@ import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_LOGIN;
 public class MainActivity extends AppCompatActivity
         implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
     private static final int NO_ANIMATION = 0;
+    private final ObservableBoolean mIsShowAddPoll = new ObservableBoolean(true);
     private MainContract.Presenter mPresenter;
     private ActivityMainBinding mBinding;
     private DrawerLayout mDrawerLayout;
     private FPollProgressDialog mProgressDialog;
-    private final ObservableBoolean mIsShowAddPoll = new ObservableBoolean(true);
 
     public static Intent getInstance(Context context) {
         return new Intent(context, MainActivity.class);
@@ -265,11 +265,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void setIsShowAddPoll(boolean isShow) {
-        mIsShowAddPoll.set(isShow);
-    }
-
     public ObservableBoolean getIsShowAddPoll() {
         return mIsShowAddPoll;
+    }
+
+    public void setIsShowAddPoll(boolean isShow) {
+        mIsShowAddPoll.set(isShow);
     }
 }

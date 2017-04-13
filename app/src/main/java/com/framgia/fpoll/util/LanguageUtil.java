@@ -1,7 +1,6 @@
 package com.framgia.fpoll.util;
 
 import android.app.Activity;
-
 import java.util.Locale;
 
 public class LanguageUtil {
@@ -17,7 +16,9 @@ public class LanguageUtil {
         Locale.setDefault(locale);
         android.content.res.Configuration config = new android.content.res.Configuration();
         config.locale = locale;
-        activity.getBaseContext().getResources().updateConfiguration(config,
-            activity.getBaseContext().getResources().getDisplayMetrics());
+        activity.getBaseContext()
+                .getResources()
+                .updateConfiguration(config,
+                        activity.getBaseContext().getResources().getDisplayMetrics());
     }
 }

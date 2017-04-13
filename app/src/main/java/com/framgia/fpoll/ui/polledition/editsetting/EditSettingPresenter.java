@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.polledition.editsetting;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableInt;
-
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Setting;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
@@ -24,7 +23,7 @@ public class EditSettingPresenter implements EditSettingContract.Presenter {
     private PollRepository mRepository;
 
     public EditSettingPresenter(EditSettingContract.View view, PollItem poll,
-                                PollRepository repository) {
+            PollRepository repository) {
         mView = view;
         mRepository = repository;
         mShowPassword.set(false);

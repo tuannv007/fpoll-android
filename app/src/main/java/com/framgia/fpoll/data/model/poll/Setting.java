@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.android.databinding.library.baseAdapters.BR;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +11,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by anhtv on 07/03/2017.
  */
 public class Setting extends BaseObservable implements Parcelable {
+    public static final Creator<Setting> CREATOR = new Creator<Setting>() {
+        @Override
+        public Setting createFromParcel(Parcel in) {
+            return new Setting(in);
+        }
+
+        @Override
+        public Setting[] newArray(int size) {
+            return new Setting[size];
+        }
+    };
     @SerializedName("id")
     private int mId;
     @SerializedName("poll_id")
@@ -33,18 +43,6 @@ public class Setting extends BaseObservable implements Parcelable {
         mCreatedTime = in.readString();
         mUpdatedTime = in.readString();
     }
-
-    public static final Creator<Setting> CREATOR = new Creator<Setting>() {
-        @Override
-        public Setting createFromParcel(Parcel in) {
-            return new Setting(in);
-        }
-
-        @Override
-        public Setting[] newArray(int size) {
-            return new Setting[size];
-        }
-    };
 
     public int getId() {
         return mId;

@@ -3,10 +3,8 @@ package com.framgia.fpoll.ui.votemanager.detail;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.databinding.ItemVoteDetailBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ import java.util.List;
  * <></>
  */
 public class VotingDetailAdapter
-    extends RecyclerView.Adapter<VotingDetailAdapter.VotingDetailHolder> {
+        extends RecyclerView.Adapter<VotingDetailAdapter.VotingDetailHolder> {
     private List<VoteDetail.Result> mResultList = new ArrayList<>();
     private LayoutInflater mInflater;
 

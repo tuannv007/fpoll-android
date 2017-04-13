@@ -66,8 +66,10 @@ public class UserValidation {
     }
 
     private boolean isValidatePasswordUpdateProfile() {
-        if ((mUser.getPassword() == null || mUser.getPassword().trim().isEmpty()) &&
-            (mUser.getConfirmPassword() == null || mUser.getConfirmPassword().trim().isEmpty())) {
+        if ((mUser.getPassword() == null || mUser.getPassword().trim().isEmpty())
+                && (mUser.getConfirmPassword() == null || mUser.getConfirmPassword()
+                .trim()
+                .isEmpty())) {
             return true;
         }
         return isValidatePassword() && isValidateConfirmPassword() && isValidateLengthPassword();
@@ -82,8 +84,8 @@ public class UserValidation {
     }
 
     public boolean isValidateConfirmPassword() {
-        return mUser.getConfirmPassword() != null &&
-            mUser.getConfirmPassword().equals(mUser.getPassword());
+        return mUser.getConfirmPassword() != null && mUser.getConfirmPassword()
+                .equals(mUser.getPassword());
     }
 
     private boolean isValidateUserName() {
@@ -91,8 +93,8 @@ public class UserValidation {
     }
 
     private boolean isValidateEmail() {
-        return mUser.getEmail() != null && android.util.Patterns.EMAIL_ADDRESS.matcher(mUser
-            .getEmail()).matches();
+        return mUser.getEmail() != null && android.util.Patterns.EMAIL_ADDRESS.matcher(
+                mUser.getEmail()).matches();
     }
 
     private boolean isValidatePassword() {
@@ -100,22 +102,17 @@ public class UserValidation {
     }
 
     private boolean isValidateLengthPassword() {
-        return mUser.getPassword() != null &&
-            mUser.getPassword().trim().length() >= Constant.MIN_LENGTH_PASSWORD;
+        return mUser.getPassword() != null
+                && mUser.getPassword().trim().length() >= Constant.MIN_LENGTH_PASSWORD;
     }
 
     public enum Error {
-        USER_NAME,
-        EMAIL,
-        GENDER,
-        PASSWORD,
-        CONFIRM_PASSWORD,
-        AVATAR,
-        PASSWORD_LENGTH,
+        USER_NAME, EMAIL, GENDER, PASSWORD, CONFIRM_PASSWORD, AVATAR, PASSWORD_LENGTH,
     }
 
     public interface CallBack {
         void onError(Error error);
+
         void onValidateSuccess();
     }
 }

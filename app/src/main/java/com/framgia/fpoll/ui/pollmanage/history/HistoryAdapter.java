@@ -4,11 +4,9 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.databinding.ItemViewHistoryActivityBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
         ItemViewHistoryActivityBinding binding =
-            DataBindingUtil.inflate(mInflater, R.layout.item_view_history_activity, parent, false);
+                DataBindingUtil.inflate(mInflater, R.layout.item_view_history_activity, parent,
+                        false);
         return new HistoryViewHolder(binding);
     }
 

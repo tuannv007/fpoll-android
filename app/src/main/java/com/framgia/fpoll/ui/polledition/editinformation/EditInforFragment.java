@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentEditInforBinding;
@@ -16,7 +15,6 @@ import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-
 import java.util.Calendar;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
@@ -25,11 +23,11 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
  * Created by framgia on 16/03/2017.
  */
 public class EditInforFragment extends Fragment
-    implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
-    EditInforContract.View {
+        implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
+        EditInforContract.View {
+    public final ObservableField<Calendar> mTime = new ObservableField<>();
     private FragmentEditInforBinding mBinding;
     private EditInforContract.Presenter mPresenter;
-    public final ObservableField<Calendar> mTime = new ObservableField<>();
     private PollItem mPoll;
     private Calendar mSavePickCalendar = Calendar.getInstance();
 
@@ -50,9 +48,9 @@ public class EditInforFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_edit_infor, container, false);
+                DataBindingUtil.inflate(inflater, R.layout.fragment_edit_infor, container, false);
         mPoll = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         mPresenter = new EditInforPresenter(this, mPoll);
         mBinding.setInformation(mPoll);
@@ -86,12 +84,8 @@ public class EditInforFragment extends Fragment
     @Override
     public void showDatePicker() {
         if (mTime.get() == null) mTime.set(Calendar.getInstance());
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-            this,
-            mTime.get().get(Calendar.YEAR),
-            mTime.get().get(Calendar.MONTH),
-            mTime.get().get(Calendar.DAY_OF_MONTH)
-        );
+        DatePickerDialog dpd = DatePickerDialog.newInstance(this, mTime.get().get(Calendar.YEAR),
+                mTime.get().get(Calendar.MONTH), mTime.get().get(Calendar.DAY_OF_MONTH));
         dpd.show(getActivity().getFragmentManager(), Constant.Tag.DATE_PICKER_TAG);
     }
 
@@ -103,13 +97,9 @@ public class EditInforFragment extends Fragment
 
     @Override
     public void showTimePicker() {
-        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
-            this,
-            mTime.get().get(Calendar.HOUR_OF_DAY),
-            mTime.get().get(Calendar.MINUTE),
-            mTime.get().get(Calendar.SECOND),
-            true
-        );
+        TimePickerDialog timePickerDialog =
+                TimePickerDialog.newInstance(this, mTime.get().get(Calendar.HOUR_OF_DAY),
+                        mTime.get().get(Calendar.MINUTE), mTime.get().get(Calendar.SECOND), true);
         timePickerDialog.show(getActivity().getFragmentManager(), Constant.Tag.TIME_PICKER_TAG);
     }
 
@@ -119,9 +109,10 @@ public class EditInforFragment extends Fragment
 
     public boolean checkNextUI() {
         bindError();
-        return !(TextUtils.isEmpty(mPoll.getUser().getUsername()) ||
-            TextUtils.isEmpty(mPoll.getUser().getEmail()) ||
-            TextUtils.isEmpty(mPoll.getTitle()) ||
-            !android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail()).matches());
+        return !(TextUtils.isEmpty(mPoll.getUser().getUsername())
+                || TextUtils.isEmpty(mPoll.getUser().getEmail())
+                || TextUtils.isEmpty(mPoll.getTitle())
+                || !android.util.Patterns.EMAIL_ADDRESS.matcher(mPoll.getUser().getEmail())
+                .matches());
     }
 }

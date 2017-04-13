@@ -2,11 +2,21 @@ package com.framgia.fpoll.data.model;
 
 import android.databinding.Bindable;
 import android.os.Parcel;
-
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.poll.Poll;
 
 public class PollItem extends Poll {
+    public static final Creator<PollItem> CREATOR = new Creator<PollItem>() {
+        @Override
+        public PollItem createFromParcel(Parcel in) {
+            return new PollItem(in);
+        }
+
+        @Override
+        public PollItem[] newArray(int size) {
+            return new PollItem[size];
+        }
+    };
     private boolean mIsRequireVote;
     private int mRequiteType;
     private boolean mIsSameEmail;
@@ -25,158 +35,6 @@ public class PollItem extends Poll {
     public PollItem() {
     }
 
-    @Bindable
-    public boolean isCoincidentEmail() {
-        return mCoincidentEmail;
-    }
-
-    @Bindable
-    public boolean isRequireVote() {
-        return mIsRequireVote;
-    }
-
-    @Bindable
-    public int getRequiteType() {
-        return mRequiteType;
-    }
-
-    @Bindable
-    public boolean isSameEmail() {
-        return mIsSameEmail;
-    }
-
-    @Bindable
-    public boolean isMaxVote() {
-        return mIsMaxVote;
-    }
-
-    @Bindable
-    public int getNumMaxVote() {
-        return mNumMaxVote;
-    }
-
-    @Bindable
-    public boolean isHasPass() {
-        return mIsHasPass;
-    }
-
-    @Bindable
-    public String getPass() {
-        return mPass;
-    }
-
-    @Bindable
-    public boolean isHideResult() {
-        return mIsHideResult;
-    }
-
-    @Bindable
-    public String getMembers() {
-        return mMembers;
-    }
-
-    @Bindable
-    public boolean isAllowAddOption() {
-        return mIsAllowAddOption;
-    }
-
-    @Bindable
-    public boolean isAllowEditOption() {
-        return mIsAllowEditOption;
-    }
-
-    @Bindable
-    public boolean isOptimizeLink() {
-        return mIsOptimizeLink;
-    }
-
-    @Bindable
-    public String getTextOptimizeLink() {
-        return mTextOptimizeLink;
-    }
-
-    public void setRequireVote(boolean requireVote) {
-        mIsRequireVote = requireVote;
-        notifyPropertyChanged(BR.requireVote);
-    }
-
-    public void setRequiteType(int requiteType) {
-        mRequiteType = requiteType;
-        notifyPropertyChanged(BR.requiteType);
-    }
-
-    public void setSameEmail(boolean sameEmail) {
-        mIsSameEmail = sameEmail;
-        notifyPropertyChanged(BR.sameEmail);
-    }
-
-    public void setMaxVote(boolean maxVote) {
-        mIsMaxVote = maxVote;
-        notifyPropertyChanged(BR.maxVote);
-    }
-
-    public void setNumMaxVote(int numMaxVote) {
-        mNumMaxVote = numMaxVote;
-        notifyPropertyChanged(BR.numMaxVote);
-    }
-
-    public void setOptimizeLink(boolean optimizeLink) {
-        mIsOptimizeLink = optimizeLink;
-        notifyPropertyChanged(BR.optimizeLink);
-    }
-
-    public void setTextOptimizeLink(String textOptimizeLink) {
-        mTextOptimizeLink = textOptimizeLink;
-        notifyPropertyChanged(BR.textOptimizeLink);
-    }
-
-    public void setHasPass(boolean hasPass) {
-        mIsHasPass = hasPass;
-        notifyPropertyChanged(BR.hasPass);
-    }
-
-    public void setPass(String pass) {
-        mPass = pass;
-        notifyPropertyChanged(BR.pass);
-    }
-
-    public void setHideResult(boolean hideResult) {
-        mIsHideResult = hideResult;
-        notifyPropertyChanged(BR.hideResult);
-    }
-
-    public void setMembers(String members) {
-        mMembers = members;
-        notifyPropertyChanged(BR.members);
-    }
-
-    public void setAllowAddOption(boolean allowAddOption) {
-        mIsAllowAddOption = allowAddOption;
-        notifyPropertyChanged(BR.allowAddOption);
-    }
-
-    public void setAllowEditOption(boolean allowEditOption) {
-        mIsAllowEditOption = allowEditOption;
-        notifyPropertyChanged(BR.allowEditOption);
-    }
-
-    public void setCoincidentEmail(boolean coincidentEmail) {
-        mCoincidentEmail = coincidentEmail;
-        notifyPropertyChanged(BR.coincidentEmail);
-    }
-
-    public static final Creator<PollItem> CREATOR = new Creator<PollItem>() {
-        @Override
-        public PollItem createFromParcel(Parcel in) {
-            return new PollItem(in);
-        }
-
-        @Override
-        public PollItem[] newArray(int size) {
-            return new PollItem[size];
-        }
-    };
-
     protected PollItem(Parcel in) {
         super(in);
         mIsRequireVote = in.readByte() != 0;
@@ -188,6 +46,146 @@ public class PollItem extends Poll {
         mPass = in.readString();
         mIsHideResult = in.readByte() != 0;
         mMembers = in.readString();
+    }
+
+    @Bindable
+    public boolean isCoincidentEmail() {
+        return mCoincidentEmail;
+    }
+
+    public void setCoincidentEmail(boolean coincidentEmail) {
+        mCoincidentEmail = coincidentEmail;
+        notifyPropertyChanged(BR.coincidentEmail);
+    }
+
+    @Bindable
+    public boolean isRequireVote() {
+        return mIsRequireVote;
+    }
+
+    public void setRequireVote(boolean requireVote) {
+        mIsRequireVote = requireVote;
+        notifyPropertyChanged(BR.requireVote);
+    }
+
+    @Bindable
+    public int getRequiteType() {
+        return mRequiteType;
+    }
+
+    public void setRequiteType(int requiteType) {
+        mRequiteType = requiteType;
+        notifyPropertyChanged(BR.requiteType);
+    }
+
+    @Bindable
+    public boolean isSameEmail() {
+        return mIsSameEmail;
+    }
+
+    public void setSameEmail(boolean sameEmail) {
+        mIsSameEmail = sameEmail;
+        notifyPropertyChanged(BR.sameEmail);
+    }
+
+    @Bindable
+    public boolean isMaxVote() {
+        return mIsMaxVote;
+    }
+
+    public void setMaxVote(boolean maxVote) {
+        mIsMaxVote = maxVote;
+        notifyPropertyChanged(BR.maxVote);
+    }
+
+    @Bindable
+    public int getNumMaxVote() {
+        return mNumMaxVote;
+    }
+
+    public void setNumMaxVote(int numMaxVote) {
+        mNumMaxVote = numMaxVote;
+        notifyPropertyChanged(BR.numMaxVote);
+    }
+
+    @Bindable
+    public boolean isHasPass() {
+        return mIsHasPass;
+    }
+
+    public void setHasPass(boolean hasPass) {
+        mIsHasPass = hasPass;
+        notifyPropertyChanged(BR.hasPass);
+    }
+
+    @Bindable
+    public String getPass() {
+        return mPass;
+    }
+
+    public void setPass(String pass) {
+        mPass = pass;
+        notifyPropertyChanged(BR.pass);
+    }
+
+    @Bindable
+    public boolean isHideResult() {
+        return mIsHideResult;
+    }
+
+    public void setHideResult(boolean hideResult) {
+        mIsHideResult = hideResult;
+        notifyPropertyChanged(BR.hideResult);
+    }
+
+    @Bindable
+    public String getMembers() {
+        return mMembers;
+    }
+
+    public void setMembers(String members) {
+        mMembers = members;
+        notifyPropertyChanged(BR.members);
+    }
+
+    @Bindable
+    public boolean isAllowAddOption() {
+        return mIsAllowAddOption;
+    }
+
+    public void setAllowAddOption(boolean allowAddOption) {
+        mIsAllowAddOption = allowAddOption;
+        notifyPropertyChanged(BR.allowAddOption);
+    }
+
+    @Bindable
+    public boolean isAllowEditOption() {
+        return mIsAllowEditOption;
+    }
+
+    public void setAllowEditOption(boolean allowEditOption) {
+        mIsAllowEditOption = allowEditOption;
+        notifyPropertyChanged(BR.allowEditOption);
+    }
+
+    @Bindable
+    public boolean isOptimizeLink() {
+        return mIsOptimizeLink;
+    }
+
+    public void setOptimizeLink(boolean optimizeLink) {
+        mIsOptimizeLink = optimizeLink;
+        notifyPropertyChanged(BR.optimizeLink);
+    }
+
+    @Bindable
+    public String getTextOptimizeLink() {
+        return mTextOptimizeLink;
+    }
+
+    public void setTextOptimizeLink(String textOptimizeLink) {
+        mTextOptimizeLink = textOptimizeLink;
+        notifyPropertyChanged(BR.textOptimizeLink);
     }
 
     @Override

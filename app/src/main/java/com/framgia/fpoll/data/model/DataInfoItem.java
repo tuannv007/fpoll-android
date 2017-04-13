@@ -13,6 +13,17 @@ import java.util.List;
  * Created by tuanbg on 3/6/17.
  */
 public class DataInfoItem extends BaseObservable implements Parcelable {
+    public static final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
+        @Override
+        public DataInfoItem createFromParcel(Parcel in) {
+            return new DataInfoItem(in);
+        }
+
+        @Override
+        public DataInfoItem[] newArray(int size) {
+            return new DataInfoItem[size];
+        }
+    };
     @SerializedName("poll")
     private PollItem mPoll;
     @SerializedName("countParticipant")
@@ -25,6 +36,12 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     private boolean mIsAdminToken;
 
     public DataInfoItem() {
+    }
+
+    public DataInfoItem(Parcel in) {
+        mPoll = in.readParcelable(Poll.class.getClassLoader());
+        mCountParticipant = in.readInt();
+        mCountComments = in.readInt();
     }
 
     @Bindable
@@ -75,24 +92,6 @@ public class DataInfoItem extends BaseObservable implements Parcelable {
     public void setCountComments(int countComments) {
         mCountComments = countComments;
         notifyPropertyChanged(BR.countComments);
-    }
-
-    public static final Creator<DataInfoItem> CREATOR = new Creator<DataInfoItem>() {
-        @Override
-        public DataInfoItem createFromParcel(Parcel in) {
-            return new DataInfoItem(in);
-        }
-
-        @Override
-        public DataInfoItem[] newArray(int size) {
-            return new DataInfoItem[size];
-        }
-    };
-
-    public DataInfoItem(Parcel in) {
-        mPoll = in.readParcelable(Poll.class.getClassLoader());
-        mCountParticipant = in.readInt();
-        mCountComments = in.readInt();
     }
 
     @Override

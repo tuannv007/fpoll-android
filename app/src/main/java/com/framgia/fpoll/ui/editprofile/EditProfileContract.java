@@ -8,15 +8,21 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface EditProfileContract {
     interface View extends BaseView {
         void chooseImage();
+
         void showMessageError(int message);
+
         void showMessage(String msg);
+
         void showProgressDialog();
+
         void hideProgressDialog();
     }
 
     interface Presenter {
         void submitEditProfile();
+
         void openGallery();
+
         void setUserUrlImage(String url);
     }
 }

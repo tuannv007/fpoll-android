@@ -11,9 +11,9 @@ import java.util.List;
  * <></>
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
+    public static final int OFFSET_VIEWPAGER = 3;
     private List<Fragment> mListFragment = new ArrayList<>();
     private String[] mTitle;
-    public static final int OFFSET_VIEWPAGER = 3;
 
     public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, String[] titles) {
         super(fm);

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.FpollComment;
@@ -17,7 +16,6 @@ import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.ActivityHistoryManageBinding;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
-
 import java.util.ArrayList;
 import java.util.List;
 

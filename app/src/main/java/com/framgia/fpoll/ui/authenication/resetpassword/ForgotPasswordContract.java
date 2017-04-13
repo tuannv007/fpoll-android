@@ -8,8 +8,11 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface ForgotPasswordContract {
     interface View extends BaseView {
         void showMessageError();
+
         void showMessage(String message);
+
         void showDialog();
+
         void dismissDialog();
     }
 

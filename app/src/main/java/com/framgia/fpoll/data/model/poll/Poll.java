@@ -4,12 +4,10 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +15,17 @@ import java.util.List;
  * Created by anhtv on 07/03/2017.
  */
 public class Poll extends BaseObservable implements Parcelable {
+    public static final Creator<Poll> CREATOR = new Creator<Poll>() {
+        @Override
+        public Poll createFromParcel(Parcel in) {
+            return new Poll(in);
+        }
+
+        @Override
+        public Poll[] newArray(int size) {
+            return new Poll[size];
+        }
+    };
     @SerializedName("id")
     private int mId;
     @SerializedName("user_id")
@@ -53,6 +62,25 @@ public class Poll extends BaseObservable implements Parcelable {
     private List<PollLink> mLink = new ArrayList<>();
 
     public Poll() {
+    }
+
+    protected Poll(Parcel in) {
+        mId = in.readInt();
+        mUserId = in.readString();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mLocation = in.readString();
+        mIsOpen = in.readByte() != 0;
+        mIsMultiple = in.readByte() != 0;
+        mCreatedTime = in.readString();
+        mUpdatedTime = in.readString();
+        mDateClose = in.readString();
+        mName = in.readString();
+        mEmail = in.readString();
+        mUser = in.readParcelable(User.class.getClassLoader());
+        mSettings = in.createTypedArrayList(Setting.CREATOR);
+        mOptions = in.createTypedArrayList(Option.CREATOR);
+        mLink = in.createTypedArrayList(PollLink.CREATOR);
     }
 
     @Bindable
@@ -224,37 +252,6 @@ public class Poll extends BaseObservable implements Parcelable {
         mComments = comments;
         notifyPropertyChanged(BR.comments);
     }
-
-    protected Poll(Parcel in) {
-        mId = in.readInt();
-        mUserId = in.readString();
-        mTitle = in.readString();
-        mDescription = in.readString();
-        mLocation = in.readString();
-        mIsOpen = in.readByte() != 0;
-        mIsMultiple = in.readByte() != 0;
-        mCreatedTime = in.readString();
-        mUpdatedTime = in.readString();
-        mDateClose = in.readString();
-        mName = in.readString();
-        mEmail = in.readString();
-        mUser = in.readParcelable(User.class.getClassLoader());
-        mSettings = in.createTypedArrayList(Setting.CREATOR);
-        mOptions = in.createTypedArrayList(Option.CREATOR);
-        mLink = in.createTypedArrayList(PollLink.CREATOR);
-    }
-
-    public static final Creator<Poll> CREATOR = new Creator<Poll>() {
-        @Override
-        public Poll createFromParcel(Parcel in) {
-            return new Poll(in);
-        }
-
-        @Override
-        public Poll[] newArray(int size) {
-            return new Poll[size];
-        }
-    };
 
     @Override
     public int describeContents() {

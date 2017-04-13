@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.remote.register.RegisterRepository;
@@ -48,10 +47,10 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false);
         mPresenter =
-            new RegisterPresenter(this, mUser, RegisterRepository.getInstance(getActivity()));
+                new RegisterPresenter(this, mUser, RegisterRepository.getInstance(getActivity()));
         mBinding.setHandler(new RegisterItemActionHandle(mPresenter));
         mBinding.setPresenter((RegisterPresenter) mPresenter);
         return mBinding.getRoot();
@@ -83,9 +82,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     }
 
     public void pickImage() {
-        Intent intent = new Intent(
-            Intent.ACTION_PICK,
-            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, Constant.RequestCode.IMAGE_PICKER_SELECT);
     }
 
@@ -114,12 +112,14 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constant.RequestCode.IMAGE_PICKER_SELECT && resultCode == RESULT_OK &&
-            null != data) {
+        if (requestCode == Constant.RequestCode.IMAGE_PICKER_SELECT
+                && resultCode == RESULT_OK
+                && null != data) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = this.getActivity().getContentResolver().query(selectedImage,
-                filePathColumn, null, null, null);
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = this.getActivity()
+                    .getContentResolver()
+                    .query(selectedImage, filePathColumn, null, null, null);
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String urlAvatar = cursor.getString(columnIndex);
@@ -130,10 +130,9 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         if (requestCode == Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL) {
-            if (grantResults.length > 0 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 pickImage();
             } else {
                 ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);

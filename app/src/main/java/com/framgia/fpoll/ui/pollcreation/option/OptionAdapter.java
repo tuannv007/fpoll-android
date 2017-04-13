@@ -4,11 +4,9 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemPageOptionBinding;
-
 import java.util.List;
 
 /**
@@ -30,7 +28,7 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHold
     public OptionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
         ItemPageOptionBinding binding =
-            DataBindingUtil.inflate(mInflater, R.layout.item_page_option, parent, false);
+                DataBindingUtil.inflate(mInflater, R.layout.item_page_option, parent, false);
         binding.setHandler(new OptionHandler(mPresenter));
         return new OptionHolder(binding);
     }

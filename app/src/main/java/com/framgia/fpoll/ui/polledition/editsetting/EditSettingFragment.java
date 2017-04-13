@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentEditSettingBinding;
@@ -35,11 +34,11 @@ public class EditSettingFragment extends Fragment implements EditSettingContract
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding = FragmentEditSettingBinding.inflate(inflater, container, false);
         mPollItem = getArguments().getParcelable(BUNDLE_POLL_ITEM);
-        mPresenter =
-            new EditSettingPresenter(this, mPollItem, PollRepository.getInstance(getActivity()));
+        mPresenter = new EditSettingPresenter(this, mPollItem,
+                PollRepository.getInstance(getActivity()));
         mBinding.setHandler(new EditSettingHandler(mPresenter));
         mBinding.setPresenter((EditSettingPresenter) mPresenter);
         mProgressDialog = new FPollProgressDialog(getActivity());

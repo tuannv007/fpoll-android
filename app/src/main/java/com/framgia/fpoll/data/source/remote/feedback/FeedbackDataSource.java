@@ -1,7 +1,6 @@
 package com.framgia.fpoll.data.source.remote.feedback;
 
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.data.source.DataCallback;
 
 /**
@@ -10,5 +9,5 @@ import com.framgia.fpoll.data.source.DataCallback;
  */
 public interface FeedbackDataSource {
     void sendFeedback(String name, String email, String content,
-                      @NonNull DataCallback<String> callback);
+            @NonNull DataCallback<String> callback);
 }

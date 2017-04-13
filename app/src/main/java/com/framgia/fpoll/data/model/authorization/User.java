@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +11,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by tuanbg on 2/9/17.
  */
 public class User extends BaseObservable implements Parcelable {
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
     @SerializedName("name")
     private String mUsername;
     @SerializedName("email")
@@ -32,6 +42,21 @@ public class User extends BaseObservable implements Parcelable {
     private boolean mIsActive;
     @SerializedName("created_at")
     private String mCreateAt;
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        mUsername = in.readString();
+        mEmail = in.readString();
+        mGender = in.readInt();
+        mPassword = in.readString();
+        mConfirmPassword = in.readString();
+        mAvatar = in.readString();
+        mChatWorkId = in.readString();
+        mToken = in.readString();
+        mIsActive = in.readByte() != 0;
+    }
 
     @Bindable
     public String getCreateAt() {
@@ -133,36 +158,9 @@ public class User extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.active);
     }
 
-    public User() {
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    protected User(Parcel in) {
-        mUsername = in.readString();
-        mEmail = in.readString();
-        mGender = in.readInt();
-        mPassword = in.readString();
-        mConfirmPassword = in.readString();
-        mAvatar = in.readString();
-        mChatWorkId = in.readString();
-        mToken = in.readString();
-        mIsActive = in.readByte() != 0;
     }
 
     @Override

@@ -129,9 +129,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void loginSuccess() {
         hideProgressDialog();
         ActivityUtil.showToast(getActivity(), R.string.msg_login_success);
-        if (mIsOpenFromMain){
+        if (mIsOpenFromMain) {
             getActivity().setResult(RESULT_OK);
-        }else {
+        } else {
             startActivity(MainActivity.getInstance(getContext()));
         }
         getActivity().finish();

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="position"
-            type="java.lang.Integer"/>
+            type="java.lang.Integer"
+            />
 
         <variable
             name="option"
-            type="com.framgia.fpoll.data.model.poll.Option"/>
+            type="com.framgia.fpoll.data.model.poll.Option"
+            />
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle"/>
+            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle"
+            />
 
         <import type="android.view.View"/>
     </data>
@@ -25,30 +29,35 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_2">
+                android:layout_margin="@dimen/dp_2"
+                >
 
                 <RelativeLayout
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="@dimen/dp_100"
                     android:onClick="@{()->handler.clickPickImage(option, position)}"
-                    android:visibility="@{option.image == null ? View.GONE: View.VISIBLE}">
+                    android:visibility="@{option.image == null ? View.GONE: View.VISIBLE}"
+                    >
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_add_image"
-                        bind:imageUrl="@{option.image}"/>
+                        bind:imageUrl="@{option.image}"
+                        />
 
                     <ImageView
                         android:layout_width="@dimen/dp_30"
@@ -57,7 +66,8 @@
                         android:layout_gravity="center"
                         android:onClick="@{()->handler.onDeleteImageClicked(option)}"
                         android:padding="@dimen/dp_5"
-                        android:src="@drawable/ic_delete"/>
+                        android:src="@drawable/ic_delete"
+                        />
 
                 </RelativeLayout>
 
@@ -67,7 +77,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:onClick="@{()->handler.clickPickImage(option, position)}"
-                    android:src="@drawable/ic_add_picture"/>
+                    android:src="@drawable/ic_add_picture"
+                    />
 
             </RelativeLayout>
 
@@ -78,7 +89,8 @@
                 android:maxLines="4"
                 android:text="@={option.name}"
                 bind:onTouchEdit="@{handler}"
-                bind:position="@{position}"/>
+                bind:position="@{position}"
+                />
 
             <ImageView
                 android:layout_width="@dimen/dp_30"
@@ -86,7 +98,8 @@
                 android:layout_gravity="center"
                 android:onClick="@{()->handler.clickDeletePoll(option, position)}"
                 android:padding="@dimen/dp_5"
-                android:src="@drawable/ic_delete"/>
+                android:src="@drawable/ic_delete"
+                />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

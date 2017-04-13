@@ -2,10 +2,8 @@ package com.framgia.fpoll.data.model.poll;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-
 import com.android.databinding.library.baseAdapters.BR;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class ResultVoteItem extends BaseObservable {
