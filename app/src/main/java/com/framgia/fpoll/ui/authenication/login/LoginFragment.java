@@ -143,8 +143,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
 
     @Override
-    public void loginError() {
+    public void loginError(String msg) {
         hideProgressDialog();
-        ActivityUtil.showToast(getActivity(), R.string.msg_login_error);
+        ActivityUtil.showToast(getActivity(), msg);
     }
+
 }

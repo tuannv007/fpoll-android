@@ -68,19 +68,21 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                                     @Override
                                     public void onError(String msg) {
-                                        mView.loginError();
+                                        mView.loginError(msg);
+
                                     }
                                 });
                     }
 
                     @Override
                     public void onCancel() {
-                        mView.loginError();
+                        mView.hideProgressDialog();
+                        mView.showMessageError(R.string.msg_login_cancel);
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        mView.loginError();
+                        mView.loginError(exception.getMessage());
                     }
                 });
     }
@@ -96,7 +98,8 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (result.isSuccess() && result.getSignInAccount() != null) {
             requestGoogleToken(result.getSignInAccount().getEmail());
         } else {
-            mView.loginError();
+            mView.hideProgressDialog();
+            mView.showMessageError(R.string.msg_login_cancel);
         }
     }
 
@@ -125,7 +128,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                             @Override
                             public void onError(String msg) {
-                                mView.loginError();
+                                mView.loginError(msg);
                             }
                         });
             }
@@ -133,7 +136,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void loginTwitterError(TwitterException exception) {
                 exception.printStackTrace();
-                mView.loginError();
+                mView.loginError(exception.getMessage());
             }
         });
     }
@@ -171,7 +174,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                             @Override
                             public void onError(String msg) {
-                                mView.loginError();
+                                mView.loginError(msg);
                             }
                         });
             }
@@ -217,14 +220,15 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                             @Override
                             public void onError(String msg) {
-                                mView.loginError();
+                                mView.loginError(msg);
                             }
                         });
             }
 
             @Override
             public void onGetTokenFail() {
-                mView.loginError();
+                mView.showMessageError(R.string.msg_login_error);
+                mView.hideProgressDialog();
             }
         });
     }

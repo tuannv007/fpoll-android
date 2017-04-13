@@ -101,6 +101,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     public void registerSuccess(User user) {
         ActivityUtil.showToast(getActivity(), R.string.msg_register_success);
         dismissDialog();
+        switchUiLogin();
     }
 
     @Override

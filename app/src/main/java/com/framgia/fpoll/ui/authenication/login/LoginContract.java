@@ -15,7 +15,7 @@ public interface LoginContract {
 
         void loginSuccess();
 
-        void loginError();
+        void loginError(String msg);
 
         void loginFacebook();
 
