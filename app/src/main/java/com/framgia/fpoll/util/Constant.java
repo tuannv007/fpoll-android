@@ -15,30 +15,6 @@ public class Constant {
     public static final int POSITION_LINK_INVITE = 0;
     public static final int LIMIT_VOTE_NUMBER_MINIUM = 2;
 
-    public class TypeChoose {
-        public static final int TYPE_MULTI = 1;
-        public static final int TYPE_SINGER = 0;
-    }
-
-    public class TypeEditPoll {
-        public static final int TYPE_EDIT_POLL = 1;
-        public static final int TYPE_EDIT_OPTION = 2;
-        public static final int TYPE_EDIT_SETTING = 3;
-    }
-
-    public class TypeSetting {
-        public static final int TYPE_INPUT_EMAIL = 1;
-        public static final int TYPE_INPUT_NAME = 7;
-        public static final int TYPE_INPUT_EMAIL_NAME = 8;
-        public static final int TYPE_NOT_EQUAL_EMAIL = 10;
-        public static final int HIDENT_RESULT = 2;
-        public static final int TYPE_EDIT_LINK = 3;
-        public static final int TYPE_COUNT_VOTE = 4;
-        public static final int TYPE_CREATE_PASSWORD = 5;
-        public static final int TYPE_ADD_OPTION = 9;
-        public static final int TYPE_EDIT_OPTION = 11;
-    }
-
     public static class WebUrl {
         public static final String BASE_URL = "http://poll.framgia.vn/";
         public static final String POLL_URL = BASE_URL + "link/";
@@ -110,11 +86,6 @@ public class Constant {
         public static final String KEY_POLL_SETTING = "key_poll_setting";
     }
 
-    public class TokenType {
-        public static final int TYPE_USER = 0;
-        public static final int TYPE_ADMIN = 1;
-    }
-
     public static class Setting {
         public static final int EMAIL_REQUIRED = 1;
         public static final int HIDDEN_RESULT = 2;
@@ -128,15 +99,6 @@ public class Constant {
         public static final int OPTION_EDITABLE = 11;
     }
 
-    public class Export {
-        public static final String FILE_NAME_SAVED_PDF = "_save_file.pdf";
-        public static final String FILE_NAME_SAVED_EXCEL = "_save_file.xls";
-        public static final String TITLE_NAME = "name";
-        public static final String TITLE_VOTE = "vote";
-        public static final String FPOLL_FOLDER_NAME = "save_report";
-        public static final int TYPE_EXPORT_PDF = 1;
-    }
-
     public static class PreferenceConstant {
         public static final String PREF_USER = "PREF_USER";
         public static final String PREF_TOKEN = "PREF_TOKEN";
@@ -146,6 +108,44 @@ public class Constant {
         public static final String PREF_PASSWORD = "PREF_PASSWORD";
         public static final String PREF_REMEM_BER = "PREF_REMEM_BER";
         public static final String PREF_SHOW_INTRODUCT = "PREF_SHOW_INTRODUCT";
+    }
+
+    public class TypeChoose {
+        public static final int TYPE_MULTI = 1;
+        public static final int TYPE_SINGER = 0;
+    }
+
+    public class TypeEditPoll {
+        public static final int TYPE_EDIT_POLL = 1;
+        public static final int TYPE_EDIT_OPTION = 2;
+        public static final int TYPE_EDIT_SETTING = 3;
+    }
+
+    public class TypeSetting {
+        public static final int TYPE_INPUT_EMAIL = 1;
+        public static final int TYPE_INPUT_NAME = 7;
+        public static final int TYPE_INPUT_EMAIL_NAME = 8;
+        public static final int TYPE_NOT_EQUAL_EMAIL = 10;
+        public static final int HIDENT_RESULT = 2;
+        public static final int TYPE_EDIT_LINK = 3;
+        public static final int TYPE_COUNT_VOTE = 4;
+        public static final int TYPE_CREATE_PASSWORD = 5;
+        public static final int TYPE_ADD_OPTION = 9;
+        public static final int TYPE_EDIT_OPTION = 11;
+    }
+
+    public class TokenType {
+        public static final int TYPE_USER = 0;
+        public static final int TYPE_ADMIN = 1;
+    }
+
+    public class Export {
+        public static final String FILE_NAME_SAVED_PDF = "_save_file.pdf";
+        public static final String FILE_NAME_SAVED_EXCEL = "_save_file.xls";
+        public static final String TITLE_NAME = "name";
+        public static final String TITLE_VOTE = "vote";
+        public static final String FPOLL_FOLDER_NAME = "save_report";
+        public static final int TYPE_EXPORT_PDF = 1;
     }
 
     public class Language {

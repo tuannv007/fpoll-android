@@ -37,24 +37,24 @@ public class VoteDetail {
             return mName;
         }
 
-        @Bindable
-        public String getImage() {
-            return mImage;
-        }
-
-        @Bindable
-        public Option getVoters() {
-            return mVoters;
-        }
-
         public void setName(String name) {
             mName = name;
             notifyPropertyChanged(BR.name);
         }
 
+        @Bindable
+        public String getImage() {
+            return mImage;
+        }
+
         public void setImage(String image) {
             mImage = image;
             notifyPropertyChanged(BR.image);
+        }
+
+        @Bindable
+        public Option getVoters() {
+            return mVoters;
         }
 
         public void setVoters(Option voters) {

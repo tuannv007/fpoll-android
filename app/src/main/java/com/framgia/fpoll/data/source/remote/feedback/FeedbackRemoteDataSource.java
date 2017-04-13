@@ -2,7 +2,6 @@ package com.framgia.fpoll.data.source.remote.feedback;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
@@ -30,21 +29,26 @@ public class FeedbackRemoteDataSource implements FeedbackDataSource {
 
     @Override
     public void sendFeedback(String name, String email, String content,
-                             @NonNull final DataCallback<String> callback) {
+            @NonNull final DataCallback<String> callback) {
         FeedbackAPI.FeedbackBody body = new FeedbackAPI.FeedbackBody(name, email, content);
-        ServiceGenerator.createService(FeedbackAPI.class).feedback(body).enqueue(
-            new CallbackManager<>(mContext, new CallbackManager.CallBack<ResponseItem>() {
-                @Override
-                public void onResponse(ResponseItem data) {
-                    if (data != null && data.getMessage() != null) {
-                        callback.onSuccess(ActivityUtil.byString(data.getMessage()));
-                    } else callback.onError(mContext.getString(R.string.msg_send_feedback_error));
-                }
+        ServiceGenerator.createService(FeedbackAPI.class)
+                .feedback(body)
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem>() {
+                            @Override
+                            public void onResponse(ResponseItem data) {
+                                if (data != null && data.getMessage() != null) {
+                                    callback.onSuccess(ActivityUtil.byString(data.getMessage()));
+                                } else {
+                                    callback.onError(
+                                            mContext.getString(R.string.msg_send_feedback_error));
+                                }
+                            }
 
-                @Override
-                public void onFailure(String message) {
-                    callback.onError(message);
-                }
-            }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 }

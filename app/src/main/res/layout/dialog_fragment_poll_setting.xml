@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:bind="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    >
 
     <data>
 
@@ -9,7 +10,8 @@
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment"/>
+            type="com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment"
+            />
     </data>
 
     <LinearLayout
@@ -17,7 +19,8 @@
         android:layout_height="match_parent"
         android:background="@color/color_white"
         android:minWidth="@dimen/dp_300"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <TextView
             android:layout_width="match_parent"
@@ -27,7 +30,8 @@
             android:layout_marginTop="@dimen/dp_10"
             android:text="@string/title_setting_poll"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/sp_17"/>
+            android:textSize="@dimen/sp_17"
+            />
 
         <View
             android:layout_width="match_parent"
@@ -35,7 +39,8 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_20"
-            android:background="@color/color_teal_500"/>
+            android:background="@color/color_teal_500"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -44,7 +49,8 @@
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
             app:layoutManager="@{LayoutManageUtil.linear()}"
-            bind:bindAdapter="@{fragment.adapter}"/>
+            bind:bindAdapter="@{fragment.adapter}"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +63,8 @@
             android:text="@string/mdtp_ok"
             android:textColor="@color/color_teal_500"
             android:textSize="@dimen/sp_17"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
     </LinearLayout>
 
 </layout>

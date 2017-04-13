@@ -1,12 +1,9 @@
 package com.framgia.fpoll.networking;
 
 import android.content.Context;
-
 import com.framgia.fpoll.R;
 import com.google.gson.Gson;
-
 import java.io.IOException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,16 +23,19 @@ public class CallbackManager<T> implements Callback<T> {
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         if (mCallback == null) return;
-        if (response.isSuccessful()) mCallback.onResponse(response.body());
-        else try {
-            ResponseItem error = new Gson().fromJson(response.errorBody()
-                .string(), ResponseItem.class);
-            if (error == null) return;
-            String message = "";
-            for (Object str : error.getMessage()) message += str + "\n";
-            mCallback.onFailure(message);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (response.isSuccessful()) {
+            mCallback.onResponse(response.body());
+        } else {
+            try {
+                ResponseItem error =
+                        new Gson().fromJson(response.errorBody().string(), ResponseItem.class);
+                if (error == null) return;
+                String message = "";
+                for (Object str : error.getMessage()) message += str + "\n";
+                mCallback.onFailure(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -46,6 +46,7 @@ public class CallbackManager<T> implements Callback<T> {
 
     public interface CallBack<T> {
         void onResponse(T data);
+
         void onFailure(String message);
     }
 }

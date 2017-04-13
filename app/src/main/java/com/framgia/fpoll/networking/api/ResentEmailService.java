@@ -1,7 +1,6 @@
 package com.framgia.fpoll.networking.api;
 
 import com.framgia.fpoll.networking.ResponseItem;
-
 import retrofit2.Call;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;

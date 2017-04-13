@@ -9,8 +9,11 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface FeedbackContract {
     interface View extends BaseView {
         void sendFeedbackSuccess();
+
         void showMessage(int resString);
+
         void showProgressDialog();
+
         void hideProgressDialog();
     }
 

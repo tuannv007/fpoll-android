@@ -14,6 +14,17 @@ import java.util.List;
  * <></>
  */
 public class HistoryPoll extends Poll implements Parcelable {
+    public static final Creator<Poll> CREATOR = new Creator<Poll>() {
+        @Override
+        public HistoryPoll createFromParcel(Parcel in) {
+            return new HistoryPoll(in);
+        }
+
+        @Override
+        public HistoryPoll[] newArray(int size) {
+            return new HistoryPoll[size];
+        }
+    };
     @SerializedName("activities")
     private List<FpollComment> mListActivities = new ArrayList<>();
 
@@ -28,18 +39,6 @@ public class HistoryPoll extends Poll implements Parcelable {
         super(in);
         mListActivities = listActivities;
     }
-
-    public static final Creator<Poll> CREATOR = new Creator<Poll>() {
-        @Override
-        public HistoryPoll createFromParcel(Parcel in) {
-            return new HistoryPoll(in);
-        }
-
-        @Override
-        public HistoryPoll[] newArray(int size) {
-            return new HistoryPoll[size];
-        }
-    };
 
     @Override
     public int describeContents() {

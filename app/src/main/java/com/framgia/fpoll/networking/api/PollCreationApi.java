@@ -50,11 +50,6 @@ public class PollCreationApi {
     private static final String TYPE_MULTIPLE = "1";
     private static final String TYPE_SINGLE = "0";
 
-    public interface PollService {
-        @POST("api/v1/poll")
-        Call<ResponseItem<HistoryPoll>> createPoll(@Body RequestBody body);
-    }
-
     public static RequestBody getRequestBody(@NonNull PollItem pollItem) {
         List<Option> optionItemList = pollItem.getOptions();
         MultipartBody.Builder builder = new MultipartBody.Builder();
@@ -119,5 +114,10 @@ public class PollCreationApi {
                     requestBody);
         }
         return builder.build();
+    }
+
+    public interface PollService {
+        @POST("api/v1/poll")
+        Call<ResponseItem<HistoryPoll>> createPoll(@Body RequestBody body);
     }
 }

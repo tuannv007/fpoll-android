@@ -2,13 +2,11 @@ package com.framgia.fpoll.ui.pollmanage.result.export;
 
 import android.os.AsyncTask;
 import android.os.Environment;
-
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,7 +28,7 @@ public class ExportPdfTask extends AsyncTask<Void, String, String> {
     private ExportExcelTask.CallBackExport mCallBackExport;
 
     public ExportPdfTask(List<ResultVoteItem.Result> list,
-                         ExportExcelTask.CallBackExport callBackExport) {
+            ExportExcelTask.CallBackExport callBackExport) {
         mList = list;
         mCallBackExport = callBackExport;
     }
@@ -41,8 +39,7 @@ public class ExportPdfTask extends AsyncTask<Void, String, String> {
     }
 
     private String createPdf() {
-        File exportDir =
-            new File(Environment.getExternalStorageDirectory(), FPOLL_FOLDER_NAME);
+        File exportDir = new File(Environment.getExternalStorageDirectory(), FPOLL_FOLDER_NAME);
         if (!exportDir.exists()) exportDir.mkdirs();
         File file = new File(exportDir, getCurentTime() + FILE_NAME_SAVED_PDF);
         OutputStream output;
@@ -75,7 +72,10 @@ public class ExportPdfTask extends AsyncTask<Void, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (!s.isEmpty()) mCallBackExport.onExportSuccess(s);
-        else mCallBackExport.onExportError();
+        if (!s.isEmpty()) {
+            mCallBackExport.onExportSuccess(s);
+        } else {
+            mCallBackExport.onExportError();
+        }
     }
 }

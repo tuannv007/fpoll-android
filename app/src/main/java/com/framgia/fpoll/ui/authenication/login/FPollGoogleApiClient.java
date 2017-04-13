@@ -2,14 +2,12 @@ package com.framgia.fpoll.ui.authenication.login;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import com.framgia.fpoll.R;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
-
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
@@ -24,27 +22,24 @@ public class FPollGoogleApiClient {
     private WeakReference<Context> mReference;
     private GoogleApiClient mGoogleApiClient;
 
-    public static FPollGoogleApiClient getInstance(Context context) {
-        if (mInstance == null) mInstance = new FPollGoogleApiClient(context);
-        return mInstance;
-    }
-
     private FPollGoogleApiClient(Context context) {
         mReference = new WeakReference<>(context);
         initGoogle();
+    }
+
+    public static FPollGoogleApiClient getInstance(Context context) {
+        if (mInstance == null) mInstance = new FPollGoogleApiClient(context);
+        return mInstance;
     }
 
     public void initGoogle() {
         Context context = mReference.get();
         if (context == null) return;
         GoogleSignInOptions gso =
-            new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(context.getString(R.string.server_client_id))
-                .requestEmail()
-                .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(context)
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build();
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(
+                        context.getString(R.string.server_client_id)).requestEmail().build();
+        mGoogleApiClient =
+                new GoogleApiClient.Builder(context).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
         mGoogleApiClient.connect();
     }
 
@@ -58,6 +53,7 @@ public class FPollGoogleApiClient {
 
     public interface CallBack {
         void onGetTokenSuccess(String token);
+
         void onGetTokenFail();
     }
 
@@ -84,8 +80,11 @@ public class FPollGoogleApiClient {
         protected void onPostExecute(String token) {
             super.onPostExecute(token);
             if (mCallBack == null) return;
-            if (token != null) mCallBack.onGetTokenSuccess(token);
-            else mCallBack.onGetTokenFail();
+            if (token != null) {
+                mCallBack.onGetTokenSuccess(token);
+            } else {
+                mCallBack.onGetTokenFail();
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
     private LoginFragment mLoginFragment;
     private RegisterFragment mRegisterFragment;
     private ForgotPasswordFragment mPasswordFragment;
+    private boolean mIsOpenFromMain;
     private EventSwitchUI mEventSwitchUI = new EventSwitchUI() {
         @Override
         public int describeContents() {
@@ -54,7 +55,6 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
             showLoginFragment();
         }
     };
-    private boolean mIsOpenFromMain;
 
     public static Intent getAuthenticationIntent(Context context, boolean isOpenFromMain) {
         Intent intent = new Intent(context, AuthenticationActivity.class);

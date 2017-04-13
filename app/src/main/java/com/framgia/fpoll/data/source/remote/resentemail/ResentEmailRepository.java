@@ -1,7 +1,6 @@
 package com.framgia.fpoll.data.source.remote.resentemail;
 
 import android.content.Context;
-
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.ResponseItem;
 
@@ -19,7 +18,7 @@ public class ResentEmailRepository implements ResentEmailDataSource {
     public static ResentEmailRepository getInstance(Context context) {
         if (sEmailRepository == null) {
             sEmailRepository =
-                new ResentEmailRepository(ResentEmailRemoteDataSource.getInstance(context));
+                    new ResentEmailRepository(ResentEmailRemoteDataSource.getInstance(context));
         }
         return sEmailRepository;
     }

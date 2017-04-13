@@ -16,7 +16,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     private RegisterRepository mRepository;
 
     public RegisterPresenter(RegisterContract.View view, User user,
-                             RegisterRepository registerRepository) {
+            RegisterRepository registerRepository) {
         mRepository = registerRepository;
         mView = view;
         mUser = user;

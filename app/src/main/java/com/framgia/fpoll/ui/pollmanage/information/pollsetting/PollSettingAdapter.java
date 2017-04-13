@@ -4,11 +4,9 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Setting;
 import com.framgia.fpoll.databinding.ItemViewSettingBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
  * Created by tuanbg on 3/9/17.
  */
 public class PollSettingAdapter
-    extends RecyclerView.Adapter<PollSettingAdapter.PollSettingViewHOlder> {
+        extends RecyclerView.Adapter<PollSettingAdapter.PollSettingViewHOlder> {
     private List<Setting> mListItems = new ArrayList<>();
     private LayoutInflater mInflater;
 
@@ -28,7 +26,7 @@ public class PollSettingAdapter
     public PollSettingViewHOlder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
         ItemViewSettingBinding binding =
-            DataBindingUtil.inflate(mInflater, R.layout.item_view_setting, parent, false);
+                DataBindingUtil.inflate(mInflater, R.layout.item_view_setting, parent, false);
         return new PollSettingViewHOlder(binding);
     }
 

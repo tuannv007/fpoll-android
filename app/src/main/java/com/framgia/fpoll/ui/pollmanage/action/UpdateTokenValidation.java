@@ -37,6 +37,7 @@ public class UpdateTokenValidation {
 
     public interface UpdateTokenCallback {
         void onSuccess();
+
         void onError(UpdateTokenError error);
     }
 }

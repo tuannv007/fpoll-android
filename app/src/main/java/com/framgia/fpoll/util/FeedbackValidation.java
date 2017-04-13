@@ -45,12 +45,13 @@ public class FeedbackValidation {
         return mName != null && !mName.isEmpty();
     }
 
-    public interface Callback {
-        void onSuccess();
-        void onError(FeedbackError error);
-    }
-
     public enum FeedbackError {
         CONTENT, NAME, EMAIL
+    }
+
+    public interface Callback {
+        void onSuccess();
+
+        void onError(FeedbackError error);
     }
 }

@@ -3,10 +3,8 @@ package com.framgia.fpoll.ui.pollmanage.result;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.databinding.ItemResultVoteBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 

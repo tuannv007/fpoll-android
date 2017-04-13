@@ -3,7 +3,6 @@ package com.framgia.fpoll.ui.votemanager;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
-
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -2,7 +2,6 @@ package com.framgia.fpoll.data.source.remote.feedback;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import com.framgia.fpoll.data.source.DataCallback;
 
 /**
@@ -24,7 +23,7 @@ public class FeedbackRepository implements FeedbackDataSource {
 
     @Override
     public void sendFeedback(String name, String email, String content,
-                             @NonNull final DataCallback<String> callback) {
+            @NonNull final DataCallback<String> callback) {
         mDataSource.sendFeedback(name, email, content, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {

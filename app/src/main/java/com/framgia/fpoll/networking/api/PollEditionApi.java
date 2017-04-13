@@ -5,10 +5,8 @@ import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.Constant;
-
 import java.io.File;
 import java.util.List;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -28,6 +26,8 @@ import static com.framgia.fpoll.util.Constant.Setting.PASSWORD_REQUIRED;
  * Created by framgia on 27/03/2017.
  */
 public class PollEditionApi {
+    public static final int TYPE_EDIT_OPTION = 2;
+    public static final int TYPE_EDIT_SETTING = 3;
     private static final String OPTION_TEXT = "optionText";
     private static final String OPTION_IMAGE = "optionImage";
     private static final String OPEN_SQUARE_BR = "[";
@@ -43,14 +43,6 @@ public class PollEditionApi {
     private static final String ALLOW_ADD_OPTION = "setting[9]";
     private static final String ALLOW_EDIT_OPTION = "setting[11]";
     private static final String IS_HIDE_RESULT = "setting[2]";
-    public static final int TYPE_EDIT_OPTION = 2;
-    public static final int TYPE_EDIT_SETTING = 3;
-
-    public interface PollEditionService {
-        @POST("api/v1/poll/update/{id}")
-        Call<ResponseItem<DataInfoItem>> updatePoll(@Path("id") int id,
-                                                    @Body RequestBody requestBody);
-    }
 
     public static RequestBody getRequestBodyEdit(int typeEdit, PollItem pollItem) {
         if (typeEdit == TYPE_EDIT_OPTION) return getRequestBodyEditOption(pollItem);
@@ -65,18 +57,18 @@ public class PollEditionApi {
         for (int i = 0; i < optionItemList.size(); i++) {
             StringBuilder fieldOptionText = new StringBuilder(OPTION_TEXT);
             fieldOptionText.append(OPEN_SQUARE_BR)
-                .append(String.valueOf(i))
-                .append(CLOSE_SQUARE_BR);
+                    .append(String.valueOf(i))
+                    .append(CLOSE_SQUARE_BR);
             builder.addFormDataPart(fieldOptionText.toString(), optionItemList.get(i).getName());
             if (optionItemList.get(i).getImage() == null) continue;
             File file = new File(optionItemList.get(i).getImage());
             if (!file.exists()) continue;
             RequestBody requestBody =
-                RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file);
+                    RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file);
             StringBuilder fieldOptionImage = new StringBuilder(OPTION_IMAGE);
             fieldOptionImage.append(OPEN_SQUARE_BR)
-                .append(String.valueOf(i))
-                .append(CLOSE_SQUARE_BR);
+                    .append(String.valueOf(i))
+                    .append(CLOSE_SQUARE_BR);
             builder.addFormDataPart(fieldOptionImage.toString(), file.getName(), requestBody);
         }
         builder.addFormDataPart(TYPE_EDIT, String.valueOf(TYPE_EDIT_OPTION));
@@ -112,5 +104,11 @@ public class PollEditionApi {
         }
         builder.addFormDataPart(TYPE_EDIT, String.valueOf(TYPE_EDIT_SETTING));
         return builder.build();
+    }
+
+    public interface PollEditionService {
+        @POST("api/v1/poll/update/{id}")
+        Call<ResponseItem<DataInfoItem>> updatePoll(@Path("id") int id,
+                @Body RequestBody requestBody);
     }
 }

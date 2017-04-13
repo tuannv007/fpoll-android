@@ -9,13 +9,17 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface PollCreationContract {
     interface View extends BaseView {
         void previousUI();
+
         void nextUI();
+
         void finishCreate();
     }
 
     interface Presenter {
         void previous();
+
         void next();
+
         void finish();
     }
 }

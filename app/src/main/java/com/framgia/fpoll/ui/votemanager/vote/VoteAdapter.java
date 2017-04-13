@@ -3,7 +3,6 @@ package com.framgia.fpoll.ui.votemanager.vote;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemVoteSingleBinding;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
@@ -40,8 +39,8 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteSingleHold
 
     @Override
     public int getItemCount() {
-        return mVoteInfoModel.getOptionModels() == null ? 0 :
-            mVoteInfoModel.getOptionModels().size();
+        return mVoteInfoModel.getOptionModels() == null ? 0
+                : mVoteInfoModel.getOptionModels().size();
     }
 
     public class VoteSingleHolder extends RecyclerView.ViewHolder {

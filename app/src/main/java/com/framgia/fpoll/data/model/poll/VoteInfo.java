@@ -4,16 +4,25 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
  * Created by anhtv on 07/03/2017.
  */
 public class VoteInfo extends BaseObservable implements Parcelable {
+    public static final Creator<VoteInfo> CREATOR = new Creator<VoteInfo>() {
+        @Override
+        public VoteInfo createFromParcel(Parcel in) {
+            return new VoteInfo(in);
+        }
+
+        @Override
+        public VoteInfo[] newArray(int size) {
+            return new VoteInfo[size];
+        }
+    };
     private String mId;
     @SerializedName("poll")
     private Poll mPoll;
@@ -30,18 +39,6 @@ public class VoteInfo extends BaseObservable implements Parcelable {
         mCountParticipant = in.readInt();
         mCountComments = in.readInt();
     }
-
-    public static final Creator<VoteInfo> CREATOR = new Creator<VoteInfo>() {
-        @Override
-        public VoteInfo createFromParcel(Parcel in) {
-            return new VoteInfo(in);
-        }
-
-        @Override
-        public VoteInfo[] newArray(int size) {
-            return new VoteInfo[size];
-        }
-    };
 
     @Bindable
     public String getId() {

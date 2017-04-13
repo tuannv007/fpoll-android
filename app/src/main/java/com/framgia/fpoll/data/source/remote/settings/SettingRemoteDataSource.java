@@ -1,7 +1,6 @@
 package com.framgia.fpoll.data.source.remote.settings;
 
 import android.content.Context;
-
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
 import com.framgia.fpoll.networking.ResponseItem;
@@ -28,19 +27,19 @@ public class SettingRemoteDataSource implements SettingDataSource {
     public void changeLanguage(String lang, final DataCallback callback) {
         if (callback == null) return;
         ServiceGenerator.createService(SettingService.class)
-            .changeLanguage(lang)
-            .enqueue(new CallbackManager<>(mContext,
-                new CallbackManager.CallBack<ResponseItem>() {
-                    @Override
-                    public void onResponse(ResponseItem data) {
-                        if (data == null) return;
-                        callback.onSuccess(data);
-                    }
+                .changeLanguage(lang)
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem>() {
+                            @Override
+                            public void onResponse(ResponseItem data) {
+                                if (data == null) return;
+                                callback.onSuccess(data);
+                            }
 
-                    @Override
-                    public void onFailure(String message) {
-                        callback.onError(message);
-                    }
-                }));
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
     }
 }

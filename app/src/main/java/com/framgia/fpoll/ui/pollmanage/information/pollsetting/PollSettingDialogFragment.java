@@ -10,12 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Setting;
 import com.framgia.fpoll.databinding.DialogFragmentPollSettingBinding;
 import com.framgia.fpoll.util.Constant;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class PollSettingDialogFragment extends DialogFragment {
     public static PollSettingDialogFragment newInstance(List<Setting> settings) {
         Bundle args = new Bundle();
         args.putParcelableArrayList(Constant.ConstantApi.KEY_POLL_SETTING,
-            (ArrayList<? extends Parcelable>) settings);
+                (ArrayList<? extends Parcelable>) settings);
         PollSettingDialogFragment fragment = new PollSettingDialogFragment();
         fragment.setArguments(args);
         return fragment;
@@ -39,10 +37,11 @@ public class PollSettingDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        mBinding = DataBindingUtil
-            .inflate(inflater, R.layout.dialog_fragment_poll_setting, container, false);
+        mBinding =
+                DataBindingUtil.inflate(inflater, R.layout.dialog_fragment_poll_setting, container,
+                        false);
         mBinding.setFragment(this);
         getDataFromIntent();
         mAdapter.set(new PollSettingAdapter(mSettingList));

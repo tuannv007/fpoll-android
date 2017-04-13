@@ -12,10 +12,14 @@ import com.framgia.fpoll.data.source.DataCallback;
  */
 public interface LoginDataSource {
     void loginSocial(@NonNull String token, String secret, @NonNull String provider,
-                     @NonNull DataCallback<SocialData> callback);
+            @NonNull DataCallback<SocialData> callback);
+
     void loginNormal(String email, String password,
-                     @NonNull DataCallback<LoginNormalData> callback);
+            @NonNull DataCallback<LoginNormalData> callback);
+
     void logout(String header, @NonNull DataCallback<String> callback);
+
     void updateProfile(@NonNull User user, @NonNull DataCallback<User> callback);
+
     void resetPassword(@NonNull String email, @NonNull DataCallback<String> callback);
 }

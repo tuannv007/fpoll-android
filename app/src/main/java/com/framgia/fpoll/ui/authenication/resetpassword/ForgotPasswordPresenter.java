@@ -14,7 +14,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter
     private LoginRepository mRepository;
 
     public ForgotPasswordPresenter(ForgotPasswordContract.View view, User user,
-                                   LoginRepository repository) {
+            LoginRepository repository) {
         mView = view;
         mUser = user;
         mRepository = repository;

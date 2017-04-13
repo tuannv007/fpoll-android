@@ -29,13 +29,13 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
 
 public class PollCreationActivity extends AppCompatActivity implements PollCreationContract.View {
+    private final ObservableBoolean mIsShowPrevious = new ObservableBoolean(false);
+    private final ObservableBoolean mIsShowFinish = new ObservableBoolean(false);
+    private final ObservableBoolean mIsShowNext = new ObservableBoolean(true);
     private ActivityPollCreationBinding mBinding;
     private PollCreationContract.Presenter mPresenter;
     private PollItem mPoll;
     private PollCreationType mType = PollCreationType.INFORMATION;
-    private final ObservableBoolean mIsShowPrevious = new ObservableBoolean(false);
-    private final ObservableBoolean mIsShowFinish = new ObservableBoolean(false);
-    private final ObservableBoolean mIsShowNext = new ObservableBoolean(true);
     private CreatePollFragment mInformationFragment;
     private OptionPollFragment mOptionFragment;
     private SettingPollFragment mSettingFragment;
@@ -223,28 +223,28 @@ public class PollCreationActivity extends AppCompatActivity implements PollCreat
         });
     }
 
-    private void setIsShowPrevious(boolean isShowPrevious) {
-        mIsShowPrevious.set(isShowPrevious);
-    }
-
-    private void setIsShowNext(boolean isShowPrevious) {
-        mIsShowNext.set(isShowPrevious);
-    }
-
-    private void setIsShowFinish(boolean isShowPrevious) {
-        mIsShowFinish.set(isShowPrevious);
-    }
-
     public ObservableBoolean getIsShowPrevious() {
         return mIsShowPrevious;
+    }
+
+    private void setIsShowPrevious(boolean isShowPrevious) {
+        mIsShowPrevious.set(isShowPrevious);
     }
 
     public ObservableBoolean getIsShowFinish() {
         return mIsShowFinish;
     }
 
+    private void setIsShowFinish(boolean isShowPrevious) {
+        mIsShowFinish.set(isShowPrevious);
+    }
+
     public ObservableBoolean getIsShowNext() {
         return mIsShowNext;
+    }
+
+    private void setIsShowNext(boolean isShowPrevious) {
+        mIsShowNext.set(isShowPrevious);
     }
 
     public interface OnPollCreation {

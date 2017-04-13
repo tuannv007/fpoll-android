@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.framgia.fpoll.BR;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +11,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by anhtv on 07/03/2017.
  */
 public class ParticipantVotes extends BaseObservable implements Parcelable {
+    public static final Creator<ParticipantVotes> CREATOR = new Creator<ParticipantVotes>() {
+        @Override
+        public ParticipantVotes createFromParcel(Parcel in) {
+            return new ParticipantVotes(in);
+        }
+
+        @Override
+        public ParticipantVotes[] newArray(int size) {
+            return new ParticipantVotes[size];
+        }
+    };
     @SerializedName("id")
     private String mId;
     @SerializedName("user_id")
@@ -36,18 +46,6 @@ public class ParticipantVotes extends BaseObservable implements Parcelable {
         mCreatedTime = in.readString();
         mUpdatedTime = in.readString();
     }
-
-    public static final Creator<ParticipantVotes> CREATOR = new Creator<ParticipantVotes>() {
-        @Override
-        public ParticipantVotes createFromParcel(Parcel in) {
-            return new ParticipantVotes(in);
-        }
-
-        @Override
-        public ParticipantVotes[] newArray(int size) {
-            return new ParticipantVotes[size];
-        }
-    };
 
     @Bindable
     public String getId() {

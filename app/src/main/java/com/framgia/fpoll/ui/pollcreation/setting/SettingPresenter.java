@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.pollcreation.setting;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableInt;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Setting;
@@ -131,8 +130,7 @@ public class SettingPresenter implements SettingPollContract.Presenter {
     @Override
     public boolean validateSetting() {
         //If user set limit vote number option but don't set limit number
-        if (mPoll.isMaxVote() &&
-            mPoll.getNumMaxVote() < Constant.LIMIT_VOTE_NUMBER_MINIUM) {
+        if (mPoll.isMaxVote() && mPoll.getNumMaxVote() < Constant.LIMIT_VOTE_NUMBER_MINIUM) {
             mView.notifyError(R.string.msg_set_vote_number);
             return false;
         }

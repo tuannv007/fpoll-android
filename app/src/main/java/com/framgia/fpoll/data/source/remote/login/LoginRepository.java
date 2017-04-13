@@ -1,7 +1,6 @@
 package com.framgia.fpoll.data.source.remote.login;
 
 import android.content.Context;
-
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.authorization.LoginNormalData;
 import com.framgia.fpoll.data.model.authorization.SocialData;
@@ -29,7 +28,7 @@ public class LoginRepository implements LoginDataSource {
 
     @Override
     public void loginSocial(@NonNull String token, String secret, @NonNull String provider,
-                            @NonNull final DataCallback<SocialData> callback) {
+            @NonNull final DataCallback<SocialData> callback) {
         mDataSource.loginSocial(token, secret, provider, new DataCallback<SocialData>() {
             @Override
             public void onSuccess(SocialData data) {
@@ -45,7 +44,7 @@ public class LoginRepository implements LoginDataSource {
 
     @Override
     public void loginNormal(String email, String password,
-                            @NonNull final DataCallback<LoginNormalData> callback) {
+            @NonNull final DataCallback<LoginNormalData> callback) {
         mDataSource.loginNormal(email, password, new DataCallback<LoginNormalData>() {
             @Override
             public void onSuccess(LoginNormalData data) {

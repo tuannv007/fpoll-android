@@ -4,11 +4,9 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemEditOptionBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class EditOptionAdapter extends RecyclerView.Adapter<EditOptionAdapter.Ed
     public EditOptionAdapter.EditOptionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
         ItemEditOptionBinding binding =
-            DataBindingUtil.inflate(mInflater, R.layout.item_edit_option, parent, false);
+                DataBindingUtil.inflate(mInflater, R.layout.item_edit_option, parent, false);
         binding.setHandler(new EditOptionHandle(mPresenter));
         return new EditOptionAdapter.EditOptionHolder(binding);
     }

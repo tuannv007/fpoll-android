@@ -2,19 +2,37 @@ package com.framgia.fpoll.data.model.poll;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by framgia on 10/03/2017.
  */
 public class PollLink implements Parcelable {
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<PollLink> CREATOR = new Parcelable.Creator<PollLink>() {
+        @Override
+        public PollLink createFromParcel(Parcel in) {
+            return new PollLink(in);
+        }
+
+        @Override
+        public PollLink[] newArray(int size) {
+            return new PollLink[size];
+        }
+    };
     @SerializedName("token")
     private String mToken;
     @SerializedName("link_admin")
     private Boolean mLinkAdmin;
     @SerializedName("poll_id")
     private int mPollId;
+
+    protected PollLink(Parcel in) {
+        mToken = in.readString();
+        byte mLinkAdminVal = in.readByte();
+        mLinkAdmin = mLinkAdminVal == 0x02 ? null : mLinkAdminVal != 0x00;
+        mPollId = in.readInt();
+    }
 
     public String getToken() {
         return mToken;
@@ -40,13 +58,6 @@ public class PollLink implements Parcelable {
         mPollId = pollId;
     }
 
-    protected PollLink(Parcel in) {
-        mToken = in.readString();
-        byte mLinkAdminVal = in.readByte();
-        mLinkAdmin = mLinkAdminVal == 0x02 ? null : mLinkAdminVal != 0x00;
-        mPollId = in.readInt();
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -62,17 +73,4 @@ public class PollLink implements Parcelable {
         }
         dest.writeInt(mPollId);
     }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<PollLink> CREATOR = new Parcelable.Creator<PollLink>() {
-        @Override
-        public PollLink createFromParcel(Parcel in) {
-            return new PollLink(in);
-        }
-
-        @Override
-        public PollLink[] newArray(int size) {
-            return new PollLink[size];
-        }
-    };
 }

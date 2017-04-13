@@ -14,7 +14,7 @@ public class VotingDetailPresenter implements VotingDetailContract.Presenter {
     private VoteInfoRepository mRepository;
 
     public VotingDetailPresenter(VotingDetailContract.View view, String token,
-                                 VoteInfoRepository repository) {
+            VoteInfoRepository repository) {
         mView = view;
         mToken = token;
         mRepository = repository;

@@ -29,8 +29,8 @@ public class ViewPageAutoScroll extends ViewPager {
 
             @Override
             public void onFinish() {
-                int nextItem =
-                    getCurrentItem() == (getAdapter().getCount() - 1) ? 0 : getCurrentItem() + 1;
+                int nextItem = getCurrentItem() == (getAdapter().getCount() - 1) ? 0
+                        : getCurrentItem() + 1;
                 ViewPageAutoScroll.this.setCurrentItem(nextItem, false);
                 if (mCountDownTimer != null) mCountDownTimer.start();
             }

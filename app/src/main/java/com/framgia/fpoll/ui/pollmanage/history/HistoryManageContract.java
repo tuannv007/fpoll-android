@@ -10,8 +10,11 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface HistoryManageContract {
     interface View extends BaseView {
         void onSuccess(DataInfoItem user);
+
         void showDialog();
+
         void dismissDialog();
+
         void onError(String msg);
     }
 

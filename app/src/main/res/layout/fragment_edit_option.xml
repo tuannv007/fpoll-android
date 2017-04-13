@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle"/>
+            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle"
+            />
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionPresenter"/>
+            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionPresenter"
+            />
 
         <variable
             name="fragment"
-            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionFragment"/>
+            type="com.framgia.fpoll.ui.polledition.editoption.EditOptionFragment"
+            />
 
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
 
@@ -26,5 +30,6 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         app:bindAdapter="@{fragment.adapter}"
-        app:layoutManager="@{LayoutManageUtil.linear()}"/>
+        app:layoutManager="@{LayoutManageUtil.linear()}"
+        />
 </layout>

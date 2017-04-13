@@ -9,20 +9,31 @@ import com.framgia.fpoll.ui.base.BaseView;
 public interface RegisterContract {
     interface View extends BaseView {
         void chooseImage();
+
         void showMessageError(int message);
+
         void switchUiLogin();
+
         void switchUiForgotPassword();
+
         void registerSuccess(User user);
+
         void showDialog();
+
         void dismissDialog();
+
         void showRegisterError(String message);
     }
 
     interface Presenter {
         void registerUser();
+
         void openGallery();
+
         void setUserUrlImage(String url);
+
         void switchUiLogin();
+
         void switchUiForgotPassword();
     }
 }

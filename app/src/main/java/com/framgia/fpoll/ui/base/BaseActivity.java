@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.base;
 
 import android.support.v7.app.AppCompatActivity;
-
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
 /**

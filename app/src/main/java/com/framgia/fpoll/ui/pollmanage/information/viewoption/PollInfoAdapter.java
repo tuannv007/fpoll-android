@@ -4,19 +4,16 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemViewOptionBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by tuanbg on 3/9/17.
  */
-public class PollInfoAdapter
-    extends RecyclerView.Adapter<PollInfoAdapter.PollOptionViewHolder> {
+public class PollInfoAdapter extends RecyclerView.Adapter<PollInfoAdapter.PollOptionViewHolder> {
     private List<Option> mListItems = new ArrayList<>();
     private LayoutInflater mInflater;
 
@@ -28,7 +25,7 @@ public class PollInfoAdapter
     public PollOptionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
         ItemViewOptionBinding binding =
-            DataBindingUtil.inflate(mInflater, R.layout.item_view_option, parent, false);
+                DataBindingUtil.inflate(mInflater, R.layout.item_view_option, parent, false);
         return new PollOptionViewHolder(binding);
     }
 

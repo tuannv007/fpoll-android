@@ -5,7 +5,8 @@
 
         <variable
             name="item"
-            type="com.framgia.fpoll.data.model.poll.Option"/>
+            type="com.framgia.fpoll.data.model.poll.Option"
+            />
     </data>
 
     <TextView
@@ -14,5 +15,6 @@
         android:layout_margin="@dimen/dp_7"
         android:text="@{item.name}"
         android:textColor="@color/color_grey_700"
-        android:textSize="@dimen/sp_15"/>
+        android:textSize="@dimen/sp_15"
+        />
 </layout>

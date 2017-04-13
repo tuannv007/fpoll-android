@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
@@ -30,11 +29,11 @@ public class ForgotPasswordFragment extends Fragment implements ForgotPasswordCo
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_forgot_password, container, false);
-        mPresenter =
-            new ForgotPasswordPresenter(this, mUser, LoginRepository.getInstance(getActivity()));
+            @Nullable Bundle savedInstanceState) {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_forgot_password, container,
+                false);
+        mPresenter = new ForgotPasswordPresenter(this, mUser,
+                LoginRepository.getInstance(getActivity()));
         mBinding.setHandler((new ForgotPasswordHandler(mPresenter)));
         mBinding.setPresenter(mPresenter);
         return mBinding.getRoot();

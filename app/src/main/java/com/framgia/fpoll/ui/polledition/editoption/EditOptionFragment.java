@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
@@ -56,12 +55,12 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_edit_option, container, false);
+                DataBindingUtil.inflate(inflater, R.layout.fragment_edit_option, container, false);
         mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         mPresenter =
-            new EditOptionPresenter(this, mPollItem, PollRepository.getInstance(getActivity()));
+                new EditOptionPresenter(this, mPollItem, PollRepository.getInstance(getActivity()));
         mBinding.setHandler(new EditOptionHandle(mPresenter));
         mBinding.setPresenter((EditOptionPresenter) mPresenter);
         mBinding.setFragment(this);
@@ -90,7 +89,7 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     @Override
     public void pickImage() {
         Intent intent = new Intent(Intent.ACTION_PICK,
-            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMAGE_PICKER_SELECT);
     }
 
@@ -118,12 +117,14 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode != PERMISSIONS_REQUEST_WRITE_EXTERNAL) return;
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             pickImage();
-        } else ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
+        } else {
+            ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
+        }
     }
 
     @Override
@@ -131,9 +132,9 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_PICKER_SELECT && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
             Cursor cursor = getActivity().getContentResolver()
-                .query(selectedImage, filePathColumn, null, null, null);
+                    .query(selectedImage, filePathColumn, null, null, null);
             if (cursor == null) return;
             cursor.moveToFirst();
             String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));

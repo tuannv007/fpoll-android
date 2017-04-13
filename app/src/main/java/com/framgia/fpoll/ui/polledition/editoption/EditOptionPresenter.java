@@ -1,7 +1,6 @@
 package com.framgia.fpoll.ui.polledition.editoption;
 
 import android.text.TextUtils;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
@@ -20,7 +19,7 @@ public class EditOptionPresenter implements EditOptionContract.Presenter {
     private PollRepository mRepository;
 
     public EditOptionPresenter(EditOptionContract.View view, PollItem pollItem,
-                               PollRepository repository) {
+            PollRepository repository) {
         mView = view;
         mPollItem = pollItem;
         mRepository = repository;
@@ -57,8 +56,8 @@ public class EditOptionPresenter implements EditOptionContract.Presenter {
         boolean isDeleteEmptyOption = false;
         for (int i = mPollItem.getOptions().size() - 1; i >= 0; i--) {
             Option item = mPollItem.getOptions().get(i);
-            if (item.getName() == null || TextUtils.isEmpty(item.getName()) &&
-                item.getImage() == null) {
+            if (item.getName() == null
+                    || TextUtils.isEmpty(item.getName()) && item.getImage() == null) {
                 mPollItem.getOptions().remove(i);
                 isDeleteEmptyOption = true;
             }

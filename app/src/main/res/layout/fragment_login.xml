@@ -1,17 +1,20 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.authenication.login.LoginActionHandler"/>
+            type="com.framgia.fpoll.ui.authenication.login.LoginActionHandler"
+            />
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.authenication.login.LoginPresenter"/>
+            type="com.framgia.fpoll.ui.authenication.login.LoginPresenter"
+            />
 
         <import type="com.framgia.fpoll.ui.authenication.login.LoginType"/>
     </data>
@@ -19,7 +22,8 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,34 +31,39 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/dp_32"
             android:paddingRight="@dimen/dp_32"
-            android:paddingTop="@dimen/dp_60">
+            android:paddingTop="@dimen/dp_60"
+            >
 
             <LinearLayout
                 style="@style/LinearLayoutStyle">
 
                 <ImageView
+                    android:src="@drawable/ic_person_black_24dp"
                     style="@style/ImageViewStyle"
-                    android:src="@drawable/ic_person_black_24dp"/>
+                    />
 
                 <EditText
-                    style="@style/EditTextStyle"
                     android:hint="@string/title_username"
                     android:inputType="textEmailAddress"
-                    android:text="@={presenter.user.email}"/>
+                    android:text="@={presenter.user.email}"
+                    style="@style/EditTextStyle"
+                    />
             </LinearLayout>
 
             <LinearLayout
                 style="@style/LinearLayoutStyle">
 
                 <ImageView
+                    android:src="@drawable/ic_vpn_key_white_24px"
                     style="@style/ImageViewStyle"
-                    android:src="@drawable/ic_vpn_key_white_24px"/>
+                    />
 
                 <EditText
-                    style="@style/EditTextStyle"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword"
-                    android:text="@={presenter.user.password}"/>
+                    android:text="@={presenter.user.password}"
+                    style="@style/EditTextStyle"
+                    />
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatCheckBox
@@ -65,7 +74,8 @@
                 android:checked="@={presenter.isRemember}"
                 android:text="@string/remember_account"
                 android:textColor="@color/color_grey_700"
-                android:textSize="@dimen/sp_16"/>
+                android:textSize="@dimen/sp_16"
+                />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -75,7 +85,8 @@
                 app:cardBackgroundColor="@color/color_teal_600"
                 app:cardCornerRadius="@dimen/dp_2"
                 app:cardElevation="@dimen/dp_1"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                >
 
                 <TextView
                     android:id="@+id/text_login"
@@ -84,7 +95,8 @@
                     android:gravity="center"
                     android:text="@string/title_login"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/sp_20"/>
+                    android:textSize="@dimen/sp_20"
+                    />
 
             </android.support.v7.widget.CardView>
 
@@ -93,28 +105,32 @@
                 bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_facebook_white}"
                 bind:titleLogin="@{@string/text_facebook}"
-                bind:typeLogin="@{LoginType.FACEBOOK}"/>
+                bind:typeLogin="@{LoginType.FACEBOOK}"
+                />
 
             <include
                 layout="@layout/partial_button_login"
                 bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_google}"
                 bind:titleLogin="@{@string/text_google}"
-                bind:typeLogin="@{LoginType.GOOGLE}"/>
+                bind:typeLogin="@{LoginType.GOOGLE}"
+                />
 
             <include
                 layout="@layout/partial_button_login"
                 bind:handler="@{handler}"
                 bind:imageButton="@{@drawable/ic_twitter}"
                 bind:titleLogin="@{@string/text_twitter}"
-                bind:typeLogin="@{LoginType.TWITTER}"/>
+                bind:typeLogin="@{LoginType.TWITTER}"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"
                 android:orientation="horizontal"
-                android:padding="@dimen/dp_4">
+                android:padding="@dimen/dp_4"
+                >
 
                 <TextView
                     android:id="@+id/text_forget_password"
@@ -125,7 +141,8 @@
                     android:padding="@dimen/dp_4"
                     android:text="@string/text_forget_password"
                     android:textColor="@color/color_blue"
-                    android:textSize="@dimen/sp_18"/>
+                    android:textSize="@dimen/sp_18"
+                    />
 
                 <TextView
                     android:id="@+id/text_register"
@@ -136,7 +153,8 @@
                     android:padding="@dimen/dp_4"
                     android:text="@string/text_register"
                     android:textColor="@color/color_blue"
-                    android:textSize="@dimen/sp_18"/>
+                    android:textSize="@dimen/sp_18"
+                    />
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

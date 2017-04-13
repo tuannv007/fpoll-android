@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.util.Constant;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class PollOptionDialogFragment extends DialogFragment {
     public static PollOptionDialogFragment newInstance(List<Option> option) {
         Bundle args = new Bundle();
         args.putParcelableArrayList(Constant.ConstantApi.KEY_POLL_OPTION,
-            (ArrayList<? extends Parcelable>) option);
+                (ArrayList<? extends Parcelable>) option);
         PollOptionDialogFragment fragment = new PollOptionDialogFragment();
         fragment.setArguments(args);
         return fragment;
@@ -38,10 +36,10 @@ public class PollOptionDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_view_option, container, false);
+                DataBindingUtil.inflate(inflater, R.layout.fragment_view_option, container, false);
         mBinding.setFragment(this);
         getDataFromIntent();
         mAdapter.set(new PollInfoAdapter(mPollOptionItemList));

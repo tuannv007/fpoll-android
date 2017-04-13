@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.ActivityEditProfileBinding;
@@ -40,7 +39,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         mPresenter = new EditProfilePresenter(this, SharePreferenceUtil.getIntances(this),
-            LoginRepository.getInstance(this));
+                LoginRepository.getInstance(this));
         mBinding.setPresenter((EditProfilePresenter) mPresenter);
         mBinding.setHandler(new EditProfileHandle(mPresenter));
     }
@@ -71,12 +70,11 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_PICKER_SELECT && resultCode == RESULT_OK &&
-            null != data) {
+        if (requestCode == IMAGE_PICKER_SELECT && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage,
-                filePathColumn, null, null, null);
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor =
+                    getContentResolver().query(selectedImage, filePathColumn, null, null, null);
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String urlAvatar = cursor.getString(columnIndex);
@@ -87,18 +85,19 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode != PERMISSIONS_REQUEST_WRITE_EXTERNAL) return;
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             pickImage();
-        } else showMessageError(R.string.msg_image_not_choose);
+        } else {
+            showMessageError(R.string.msg_image_not_choose);
+        }
     }
 
     public void pickImage() {
-        Intent intent = new Intent(
-            Intent.ACTION_PICK,
-            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMAGE_PICKER_SELECT);
     }
 
