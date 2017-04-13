@@ -87,7 +87,9 @@
                 >
 
                 <LinearLayout
-                    style="@style/LinearLayoutStyle">
+                    android:visibility="@{voteInfoModel.voteInfo.poll.user.username != null ? View.GONE : View.VISIBLE}"
+                    style="@style/LinearLayoutStyle"
+                    >
 
                     <ImageView
                         android:src="@drawable/ic_person_black_24dp"
@@ -96,7 +98,6 @@
 
                     <EditText
                         android:id="@+id/edit_name"
-                        android:enabled="@{voteInfoModel.itemStatus != ItemStatus.POSTING}"
                         android:hint="@string/hint_enter_name"
                         android:inputType="text"
                         android:text="@={voteInfoModel.voteInfo.poll.user.username}"
