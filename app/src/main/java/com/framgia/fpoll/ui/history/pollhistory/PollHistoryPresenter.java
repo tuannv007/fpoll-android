@@ -7,7 +7,6 @@ import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.ui.history.PollHistoryType;
 import com.framgia.fpoll.util.SharePreferenceUtil;
-
 import java.util.List;
 
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
@@ -25,7 +24,7 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     private SharePreferenceUtil mPreference;
 
     public PollHistoryPresenter(PollHistoryContract.View view, PollHistoryType typeHistory,
-                                ManagerRepository repository, SharePreferenceUtil preference) {
+            ManagerRepository repository, SharePreferenceUtil preference) {
         mView = view;
         mRepository = repository;
         mHistoryType = typeHistory;
@@ -46,45 +45,45 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
         switch (mHistoryType) {
             case INITIATE:
                 mRepository.getHistory(DATA_PREFIX_TOKEN + mUser.getToken(),
-                    new DataCallback<List<HistoryPoll>>() {
-                        @Override
-                        public void onSuccess(List<HistoryPoll> data) {
-                            loadDataSuccess(data);
-                        }
+                        new DataCallback<List<HistoryPoll>>() {
+                            @Override
+                            public void onSuccess(List<HistoryPoll> data) {
+                                loadDataSuccess(data);
+                            }
 
-                        @Override
-                        public void onError(String msg) {
-                            loadDataError();
-                        }
-                    });
+                            @Override
+                            public void onError(String msg) {
+                                loadDataError();
+                            }
+                        });
                 break;
             case PARTICIPATE:
                 mRepository.getPollParticipated(DATA_PREFIX_TOKEN + mUser.getToken(),
-                    new DataCallback<List<HistoryPoll>>() {
-                        @Override
-                        public void onSuccess(List<HistoryPoll> data) {
-                            loadDataSuccess(data);
-                        }
+                        new DataCallback<List<HistoryPoll>>() {
+                            @Override
+                            public void onSuccess(List<HistoryPoll> data) {
+                                loadDataSuccess(data);
+                            }
 
-                        @Override
-                        public void onError(String msg) {
-                            loadDataError();
-                        }
-                    });
+                            @Override
+                            public void onError(String msg) {
+                                loadDataError();
+                            }
+                        });
                 break;
             case CLOSE:
                 mRepository.getPollClosed(DATA_PREFIX_TOKEN + mUser.getToken(),
-                    new DataCallback<List<HistoryPoll>>() {
-                        @Override
-                        public void onSuccess(List<HistoryPoll> data) {
-                            loadDataSuccess(data);
-                        }
+                        new DataCallback<List<HistoryPoll>>() {
+                            @Override
+                            public void onSuccess(List<HistoryPoll> data) {
+                                loadDataSuccess(data);
+                            }
 
-                        @Override
-                        public void onError(String msg) {
-                            loadDataError();
-                        }
-                    });
+                            @Override
+                            public void onError(String msg) {
+                                loadDataError();
+                            }
+                        });
                 break;
             default:
                 break;
@@ -102,38 +101,47 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     }
 
     @Override
-    public void clickPollHistory(HistoryPoll data) {
+    public void openPollHistory(HistoryPoll data) {
         switch (mHistoryType) {
             case INITIATE:
-                if (data != null && data.getLink().get(NUMBER_LINK_ADMIN) != null &&
-                    data.getLink().get(NUMBER_LINK_ADMIN).getToken() != null) {
+                if (data != null
+                        && data.getLink().get(NUMBER_LINK_ADMIN) != null
+                        && data.getLink().get(NUMBER_LINK_ADMIN).getToken() != null) {
                     mView.onOpenManagerPollClick(data.getLink().get(NUMBER_LINK_ADMIN).getToken());
                 }
                 break;
             case PARTICIPATE:
-                if (data != null && data.getLink().get(NUMBER_LINK_ADMIN) != null &&
-                    data.getLink().get(NUMBER_LINK_ADMIN).getToken() != null) {
+                if (data != null
+                        && data.getLink().get(NUMBER_LINK_ADMIN) != null
+                        && data.getLink().get(NUMBER_LINK_ADMIN).getToken() != null) {
                     mView.onOpenVoteClick(data.getLink().get(NUMBER_LINK_ADMIN).getToken());
                 }
                 break;
             case CLOSE:
-                if (mRepository == null) return;
-                mRepository
-                    .switchPollStatus(String.valueOf(data.getId()), new DataCallback<String>() {
-                        @Override
-                        public void onSuccess(String data) {
-                            mView.showMessage(data);
-                            getData();
-                        }
-
-                        @Override
-                        public void onError(String msg) {
-                            mView.showMessage(msg);
-                        }
-                    });
+                mView.showConfirmDialog(data);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void reopenPoll(HistoryPoll data) {
+        mView.showDialog();
+        if (mRepository == null) return;
+        mRepository.switchPollStatus(String.valueOf(data.getId()), new DataCallback<String>() {
+            @Override
+            public void onSuccess(String data) {
+                mView.showMessage(data);
+                getData();
+                mView.hideDialog();
+            }
+
+            @Override
+            public void onError(String msg) {
+                mView.showMessage(msg);
+                mView.hideDialog();
+            }
+        });
     }
 }

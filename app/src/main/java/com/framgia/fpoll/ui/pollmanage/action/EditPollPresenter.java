@@ -80,12 +80,13 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     @Override
     public void updateLinkPoll() {
         if (mRepository == null || mView == null) return;
+        mView.showProgressDialog();
         new UpdateTokenValidation(mLinkVoting.get(), mLinkManager.get()).validate(
                 new UpdateTokenValidation.UpdateTokenCallback() {
                     @Override
                     public void onSuccess() {
-                        mView.showProgressDialog();
                         submitUpdateLink();
+                        mView.hideProgressDialog();
                     }
 
                     @Override
@@ -98,6 +99,7 @@ public class EditPollPresenter implements EditPollContract.Presenter {
                                 mView.showMessage(R.string.msg_link_admin_empty);
                                 break;
                             default:
+                                mView.hideProgressDialog();
                                 break;
                         }
                     }
@@ -105,6 +107,7 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     }
 
     private void submitUpdateLink() {
+        mView.showProgressDialog();
         mRepository.updateLinkPoll(DATA_PREFIX_TOKEN + mUser.getToken(), mOldLinkUser,
                 mOldLinkAdmin, mLinkVoting.get(), mLinkManager.get(), new DataCallback<String>() {
                     @Override
@@ -130,15 +133,19 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     @Override
     public void editPoll() {
         if (mView == null || mRepository == null) return;
+        mView.showProgressDialog();
         mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
                 mView.startModifyPoll(data.getPoll());
+                mView.hideProgressDialog();
+                mView.setResult();
             }
 
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgressDialog();
             }
         });
     }
@@ -152,6 +159,8 @@ public class EditPollPresenter implements EditPollContract.Presenter {
             public void onSuccess(String data) {
                 mView.showMessage(data);
                 loadData();
+                mView.hideProgressDialog();
+                mView.setResult();
             }
 
             @Override
@@ -164,16 +173,20 @@ public class EditPollPresenter implements EditPollContract.Presenter {
 
     @Override
     public void deleteVoting() {
+        mView.showProgressDialog();
         if (mRepository == null) return;
         mRepository.deleteVoting(mToken, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 mView.showMessage(data);
+                mView.hideProgressDialog();
+                mView.setResult();
             }
 
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgressDialog();
             }
         });
     }
@@ -181,15 +194,19 @@ public class EditPollPresenter implements EditPollContract.Presenter {
     @Override
     public void createDuplicate() {
         if (mRepository == null) return;
+        mView.showProgressDialog();
         mRepository.getPoll(mToken, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
                 handlerOption(data.getPoll());
+                mView.hideProgressDialog();
+                mView.setResult();
             }
 
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgressDialog();
             }
         });
     }

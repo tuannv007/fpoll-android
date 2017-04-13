@@ -82,6 +82,7 @@ public class Constant {
         public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL = 4;
         public static final int REQUEST_LOGIN = 5;
         public static final int REQUEST_CREATE_POLL = 6;
+        public static final int REQUEST_CODE_RESULT = 2;
     }
 
     public static class TimeFormat {

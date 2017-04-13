@@ -123,7 +123,7 @@
     <string name="title_more_answer">Nhiều đáp án</string>
     <string name="title_views_history">Xem lịch sử</string>
     <string name="title_edit_this_poll">Chỉnh sửa poll này</string>
-    <string name="title_close_this_poll">ĐÓng poll</string>
+    <string name="title_close_this_poll">Đóng poll</string>
     <string name="title_create_duplicate">Tạo bản sao poll</string>
     <string name="title_activity_manage">Hoạt động</string>
     <string name="title_poll">Tiêu đề poll</string>
@@ -251,4 +251,5 @@
     <string name="msg_vote_time_expired">Thời gian bỏ phiếu hết hạn</string>
     <string name="title_setting_poll"> Cài đặt của poll </string>
     <string name="title_option_poll">Tùy chọn của poll </string>
+    <string name="msg_reopen">Bạn có chắc chắn muốn mở lại poll ? </string>
 </resources>

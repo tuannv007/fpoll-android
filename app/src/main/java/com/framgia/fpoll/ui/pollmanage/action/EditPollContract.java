@@ -21,6 +21,8 @@ public interface EditPollContract {
         void hideProgressDialog();
 
         void viewHistory();
+
+        void setResult();
     }
 
     interface Presenter {
