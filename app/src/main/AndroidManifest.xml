@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.framgia.fpoll"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.framgia.fpoll">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -16,13 +16,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/FACEBOOK_KEY"/>
 
-        <activity android:name=".ui.main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.authenication.activity.AuthenticationActivity"/>
         <activity android:name=".ui.pollmanage.ManagePollActivity"/>
         <activity android:name=".ui.polledition.ModifyPollActivity"/>
@@ -46,7 +40,13 @@
         <activity android:name=".ui.pollcreated.PollCreatedActivity"/>
         <activity android:name=".ui.votemanager.detail.VotingDetailActivity"/>
         <activity android:name=".ui.joinpoll.JoinPollActivity"/>
-        <activity android:name=".ui.introduction.IntroduceActivity"/>
+        <activity android:name=".ui.introduction.IntroduceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

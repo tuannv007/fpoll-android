@@ -34,6 +34,7 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -49,6 +50,7 @@ import com.framgia.fpoll.databinding.PartialHeadBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginType;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryPresenter;
+import com.framgia.fpoll.ui.introduction.IntroduceHandlerAction;
 import com.framgia.fpoll.ui.introduction.ViewPageAdapterAuto;
 import com.framgia.fpoll.ui.main.MainHandler;
 import com.framgia.fpoll.ui.main.MainPresenter;
@@ -60,7 +62,6 @@ import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
 import com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle;
 import com.framgia.fpoll.ui.polledition.editsetting.EditSettingPresenter;
-import com.framgia.fpoll.widget.ViewPageAutoScroll;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -125,10 +126,9 @@ public class DataBindingUtils {
                 });
     }
 
-    @BindingAdapter({ "bind:bindAdapterViewPager" })
-    public static void bindAdapterViewPager(ViewPageAutoScroll viewPageAutoScroll,
-            ViewPageAdapterAuto adapter) {
-        viewPageAutoScroll.setAdapter(adapter);
+    @BindingAdapter({ "bind:viewPagerAdapter" })
+    public static void bindAdapterViewPager(ViewPager viewPager, ViewPageAdapterAuto adapter) {
+        viewPager.setAdapter(adapter);
     }
 
     @BindingAdapter("bind:cardBackground")
@@ -628,5 +628,36 @@ public class DataBindingUtils {
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
+
+    @BindingAdapter({ "bind:linearDot", "bind:handler" })
+    public static void bindPagerListenner(ViewPager viewPager, final LinearLayout linearLayout,
+            final IntroduceHandlerAction handler) {
+        if (linearLayout == null || handler == null) return;
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset,
+                    int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                handler.onPageChange(position);
+                for (int i = 0; i < linearLayout.getChildCount(); i++) {
+                    View v = linearLayout.getChildAt(i);
+                    if (v == null) continue;
+                    v.setBackgroundResource(i != position ? R.drawable.bg_circle_textview
+                            : R.drawable.bg_circle_white);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+
 }
 

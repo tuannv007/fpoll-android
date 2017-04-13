@@ -10,29 +10,11 @@
             type="com.framgia.fpoll.data.model.IntroduceItem"
             />
     </data>
-    <FrameLayout
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            app:imageResource="@{item.image}"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/color_grey_400_transparent"
-            android:gravity="center"
-            android:padding="@dimen/dp_10"
-            android:text="@={item.title}"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/sp_17"
-            />
-    </FrameLayout>
+        android:scaleType="centerInside"
+        app:imageResource="@{item.image}"
+        />
 </layout>

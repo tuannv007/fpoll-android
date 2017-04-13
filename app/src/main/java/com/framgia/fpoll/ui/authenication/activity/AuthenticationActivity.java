@@ -8,23 +8,24 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
 import android.view.MenuItem;
-
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.databinding.ActivityAuthenticationBinding;
 import com.framgia.fpoll.ui.authenication.login.LoginFragment;
 import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
 import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
 import com.framgia.fpoll.ui.base.BaseActivity;
+import com.framgia.fpoll.ui.main.MainActivity;
 import com.framgia.fpoll.util.ActivityUtil;
+
+import static com.framgia.fpoll.ui.introduction.IntroduceActivity.EXTRA_OPEN_FROM_MAIN;
 
 /**
  * Created by tuanbg on 2/9/17.
  * <.
  */
 public class AuthenticationActivity extends BaseActivity implements AuthenticationContract.View {
-    private ActivityAuthenticationBinding mBinding;
-    private AuthenticationContract.Presenter mPresenter;
     private LoginFragment mLoginFragment;
     private RegisterFragment mRegisterFragment;
     private ForgotPasswordFragment mPasswordFragment;
@@ -53,30 +54,62 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
             showLoginFragment();
         }
     };
+    private boolean mIsOpenFromMain;
 
-    public static Intent getAuthenticationIntent(Context context) {
-        return new Intent(context, AuthenticationActivity.class);
+    public static Intent getAuthenticationIntent(Context context, boolean isOpenFromMain) {
+        Intent intent = new Intent(context, AuthenticationActivity.class);
+        intent.putExtra(EXTRA_OPEN_FROM_MAIN, isOpenFromMain);
+        return intent;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication);
-        mPresenter = new AuthenticationPresenter(this);
+        ActivityAuthenticationBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_authentication);
+        setSupportActionBar(binding.layoutToolbar.toolbar);
+        start();
         showLoginFragment();
     }
 
     @Override
     public void start() {
-        setSupportActionBar(mBinding.layoutToolbar.toolbar);
-        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+        if (intent != null && intent.getExtras() != null) {
+            mIsOpenFromMain = intent.getExtras().getBoolean(EXTRA_OPEN_FROM_MAIN);
+        }
+        initToolbar();
+    }
+
+    private void initToolbar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(mIsOpenFromMain);
+        }
         setTitle(R.string.title_login);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) onBackPressed();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_skip:
+                startActivity(MainActivity.getInstance(this));
+                finish();
+                break;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (!mIsOpenFromMain) {
+            getMenuInflater().inflate(R.menu.authenication_menu, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -90,18 +123,16 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
 
     private void showLoginFragment() {
         if (mLoginFragment == null) {
-            mLoginFragment = LoginFragment.newInstance(mEventSwitchUI);
+            mLoginFragment = LoginFragment.newInstance(mIsOpenFromMain, mEventSwitchUI);
         }
-        ActivityUtil
-            .addFragment(getSupportFragmentManager(), mLoginFragment, R.id.frame_layout);
+        ActivityUtil.addFragment(getSupportFragmentManager(), mLoginFragment, R.id.frame_layout);
     }
 
     private void showForgotPasswordFragment() {
         if (mPasswordFragment == null) {
             mPasswordFragment = ForgotPasswordFragment.newInstance();
         }
-        ActivityUtil.addFragment(getSupportFragmentManager(), mPasswordFragment,
-            R.id.frame_layout);
+        ActivityUtil.addFragment(getSupportFragmentManager(), mPasswordFragment, R.id.frame_layout);
         setTitle(R.string.title_forgot_password);
     }
 
@@ -109,8 +140,7 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
         if (mRegisterFragment == null) {
             mRegisterFragment = RegisterFragment.newInstance(mEventSwitchUI);
         }
-        ActivityUtil.addFragment(getSupportFragmentManager(), mRegisterFragment,
-            R.id.frame_layout);
+        ActivityUtil.addFragment(getSupportFragmentManager(), mRegisterFragment, R.id.frame_layout);
         setTitle(R.string.title_register);
     }
 
@@ -127,7 +157,9 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
 
     public interface EventSwitchUI extends Parcelable {
         void switchUiForgotPassword();
+
         void switchUiRegister();
+
         void switchUiLogin();
     }
 }

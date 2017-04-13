@@ -11,147 +11,101 @@
             name="activity"
             type="com.framgia.fpoll.ui.introduction.IntroduceActivity"
             />
+
         <import type="com.framgia.fpoll.util.DataBindingUtils"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
+        android:background="@color/color_teal_800"
         android:orientation="vertical"
         >
-        <com.framgia.fpoll.widget.ViewPageAutoScroll
+        <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200"
-            bind:bindAdapterViewPager="@{activity.adapter}"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            bind:handler="@{handler}"
+            bind:linearDot="@{linearDot}"
+            bind:viewPagerAdapter="@{activity.adapter}"
             />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
-            android:text="@string/title_introduce_poll"
-            android:textSize="@dimen/sp_15"
-            android:textStyle="bold"
+            android:gravity="center"
+            android:lines="2"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="@{activity.currentTitle}"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_16"
             />
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            android:gravity="center"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
-            >
-
-            <ImageView
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:src="@drawable/ic_location_on_black_24px"
-                />
-
-            <TextView
-                android:text="@string/title_address_company"
-                style="@style/TextViewIntroduce"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            android:gravity="center"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
-            >
-
-            <ImageView
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:src="@drawable/ic_phone_in_talk_white_24dp"
-                />
-
-            <TextView
-                android:text="@string/title_phone_company"
-                style="@style/TextViewIntroduce"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:gravity="center"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
-            >
-
-            <ImageView
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:src="@drawable/ic_email_white_24px"
-                />
-
-            <TextView
-                android:text="@string/title_email_company"
-                style="@style/TextViewIntroduce"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
             android:layout_margin="@dimen/dp_10"
-            android:background="@android:color/darker_gray"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
             >
+            <LinearLayout
+                android:id="@+id/linear_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                >
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:background="@drawable/bg_circle_white"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:background="@drawable/bg_circle_textview"
+                    />
 
-            <ImageView
-                android:onClick="@{() -> handler.openFacebook()}"
-                android:src="@drawable/ic_facebook"
-                style="@style/ImageViewIntroduce"
-                />
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:background="@drawable/bg_circle_textview"
+                    />
 
-            <ImageView
-                android:onClick="@{() -> handler.openGitHub()}"
-                android:src="@drawable/ic_github"
-                style="@style/ImageViewIntroduce"
-                />
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:background="@drawable/bg_circle_textview"
+                    />
 
-            <ImageView
-                android:onClick="@{() -> handler.openLinkeDin()}"
-                android:src="@drawable/ic_linkedin"
-                style="@style/ImageViewIntroduce"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_margin="@dimen/dp_10"
-            android:background="@android:color/darker_gray"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:gravity="center"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
-            >
-            <ImageView
-                android:layout_width="@dimen/dp_50"
-                android:layout_height="@dimen/dp_50"
-                android:src="@drawable/ic_framgia"
-                />
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:background="@drawable/bg_circle_textview"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:background="@drawable/bg_circle_textview"
+                    />
+
+            </LinearLayout>
 
             <TextView
-                android:text="@string/title_copy_right"
-                style="@style/TextViewIntroduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> activity.nextAction(viewPager)}"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp_10"
+                android:text="@{activity.currentAction}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_16"
                 />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </layout>
