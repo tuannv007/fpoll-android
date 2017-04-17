@@ -36,20 +36,16 @@ public class Constant {
         public static final String DATA_NO_TITLE = "";
         public static final String DATA_PREFIX_TOKEN = "Bearer ";
         public static final int STATUS_SUCCESS = 200;
+        public static final String DATA_IMAGE = "image/*";
     }
 
     public static class BundleConstant {
         public static final String BUNDLE_TYPE_HISTORY = "BUNDLE_TYPE_HISTORY";
         public static final String BUNDLE_EVENT_SWITCH_UI = "BUNDLE_EVENT_SWITCH_UI";
-        public static final String BUNDLE_VIEW_PAGE_TYPE = "BUNDLE_VIEW_PAGE_TYPE";
-        public static final String BUNDLE_LIST_RESULT_ITEM = "BUNDLE_LIST_RESULT_ITEM";
-        public static final String BUNDLE_LIST_RESULT = "BUNDLE_LIST_RESULT";
-        public static final String BUNDLE_TYPE_ITEM_VOTE = "BUNDLE_TYPE_ITEM_VOTE";
-        public static final String BUNDLE_OPTION_ITEM = "BUNDLE_OPTION_ITEM";
         public static final String BUNDLE_POLL_ITEM = "BUNDLE_POLL_ITEM";
         public static final String BUNDLE_TOKEN = "BUNDLE_TOKEN";
-        public static final String BUNDLE_HISTORY = "BUNDLE_HISTORY";
         public static final String BUNDLE_EVENT = "BUNDLE_EVENT";
+        public static final String BUNDLE_OPTION = "BUNDLE_OPTION";
     }
 
     public static class RequestCode {

@@ -33,6 +33,8 @@ public interface VoteContract {
         void showDialog();
 
         void dismissDialog();
+
+        void showDialogEditOption(Option option);
     }
 
     interface Presenter {

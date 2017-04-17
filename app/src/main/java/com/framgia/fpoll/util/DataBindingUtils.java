@@ -109,23 +109,6 @@ public class DataBindingUtils {
         Glide.with(view.getContext()).load(path).placeholder(R.drawable.ic_no_image).into(view);
     }
 
-    @BindingAdapter({ "bind:imageDrawable" })
-    public static void loadImageDrawable(ImageView view, int source) {
-        Glide.with(view.getContext())
-                .load(source)
-                .asBitmap()
-                .centerCrop()
-                .into(new BitmapImageViewTarget(view) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(view.getResources(), resource);
-                        circularBitmapDrawable.setCircular(true);
-                        view.setImageDrawable(circularBitmapDrawable);
-                    }
-                });
-    }
-
     @BindingAdapter({ "bind:viewPagerAdapter" })
     public static void bindAdapterViewPager(ViewPager viewPager, ViewPageAdapterAuto adapter) {
         viewPager.setAdapter(adapter);

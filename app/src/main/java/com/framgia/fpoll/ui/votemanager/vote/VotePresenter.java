@@ -55,7 +55,9 @@ public class VotePresenter implements VoteContract.Presenter {
         for (Option option : voteInfoModel.getOptionModels()) {
             if (option.isChecked()) options.add(option);
         }
-        if (options.size() == 0) {
+        if (options.size() == 0
+                && mOption.get().getName() == null
+                && mOption.get().getImage() == null) {
             mView.onNotifyVote();
         } else {
             VoteInfoAPI.OptionsBody optionsBody =
@@ -66,7 +68,7 @@ public class VotePresenter implements VoteContract.Presenter {
     }
 
     public void clickEdit(Option option) {
-        // TODO: 4/7/2017  Edit option when vote
+        if (mView != null) mView.showDialogEditOption(option);
     }
 
     @Override

@@ -5,13 +5,14 @@ import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.framgia.fpoll.BR;
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
  * Created by anhtv on 07/03/2017.
  */
-public class Option extends BaseObservable implements Parcelable {
+public class Option extends BaseObservable implements Parcelable, Cloneable {
     public static final Creator<Option> CREATOR = new Creator<Option>() {
         @Override
         public Option createFromParcel(Parcel in) {
@@ -165,5 +166,10 @@ public class Option extends BaseObservable implements Parcelable {
     public void setDate(String date) {
         mDate = date;
         notifyPropertyChanged(BR.date);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return new Gson().fromJson(new Gson().toJson(this), this.getClass());
     }
 }

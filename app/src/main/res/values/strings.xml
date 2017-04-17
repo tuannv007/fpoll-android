@@ -288,4 +288,5 @@
     <string name="msg_closed_poll">Sorry, poll closed. You can not view and vote this poll</string>
     <string name="msg_reopen">Are you sure to reopen this poll ?</string>
     <string name="msg_login_cancel">Canceled login</string>
+    <string name="action_update">Update</string>
 </resources>

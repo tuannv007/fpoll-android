@@ -215,7 +215,7 @@
                     />
 
                 <LinearLayout
-                    android:visibility="@{voteInfoModel.voteInfo.countParticipant != voteInfoModel.numberVoteLimit ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{((voteInfoModel.voteInfo.countParticipant == voteInfoModel.numberVoteLimit) || (presenter.isLogin &amp;&amp; presenter.user.username != null) ) ? View.GONE : View.VISIBLE}"
                     style="@style/LinearLayoutStyle"
                     >
 
@@ -236,7 +236,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="@{voteInfoModel.voteInfo.countParticipant != voteInfoModel.numberVoteLimit ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{((voteInfoModel.voteInfo.countParticipant == voteInfoModel.numberVoteLimit) || (presenter.isLogin &amp;&amp; presenter.user.email != null) ) ? View.GONE : View.VISIBLE}"
                     style="@style/LinearLayoutStyle"
                     >
 
