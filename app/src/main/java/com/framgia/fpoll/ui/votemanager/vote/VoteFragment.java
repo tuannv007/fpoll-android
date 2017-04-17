@@ -1,12 +1,14 @@
 package com.framgia.fpoll.ui.votemanager.vote;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.databinding.FragmentVoteBinding;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
+import com.framgia.fpoll.ui.votemanager.updateoption.UpdateOptionFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
@@ -28,6 +31,7 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
+import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
 
 /**
  * Created by tran.trung.phong on 22/02/2017.
@@ -167,6 +171,14 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         //TODO reset choice box
     }
 
+    @Override
+    public void showDialogEditOption(Option option) {
+        if (getChildFragmentManager() != null) {
+            UpdateOptionFragment fragment = UpdateOptionFragment.newInstance(option);
+            fragment.show(getChildFragmentManager(), "");
+        }
+    }
+
     public ObservableField<VoteAdapter> getAdapter() {
         return mAdapter;
     }
@@ -180,9 +192,21 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         String[] filePathColumn = { MediaStore.Images.Media.DATA };
         Cursor cursor = getActivity().getContentResolver()
                 .query(selectedImage, filePathColumn, null, null, null);
-        if (cursor == null) return;
-        cursor.moveToFirst();
-        mPresenter.setImageOption(cursor.getString(cursor.getColumnIndex(filePathColumn[0])));
+        if (cursor == null || !cursor.moveToFirst()) return;
+        String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
         cursor.close();
+        mPresenter.setImageOption(url);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode != PERMISSIONS_REQUEST_WRITE_EXTERNAL) return;
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            showGallery();
+        } else {
+            ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
+        }
     }
 }

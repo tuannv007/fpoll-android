@@ -24,4 +24,5 @@
     <color name="color_seashell">#F1F1F1</color>
     <color name="color_grey_transparent">#ccf7f3f7</color>
     <color name="color_grey_400_transparent">#B3a4acac</color>
+    <color name="color_blue_action">#3db7ac</color>
 </resources>

@@ -119,8 +119,12 @@ public interface VoteInfoAPI {
                     builder.addFormDataPart(optionKey, String.valueOf(option.getId()));
                 }
             }
-            if (mOptionText != null) builder.addFormDataPart(OPTION_TEXT, mOptionText);
-            if (mOptionImage != null) builder.addFormDataPart(OPTION_IMAGE, mOptionImage);
+            if (!TextUtils.isEmpty(mOptionText)) builder.addFormDataPart(OPTION_TEXT, mOptionText);
+            if (!TextUtils.isEmpty(mOptionImage)) {
+                File file = new File(mOptionImage);
+                RequestBody requestFile = RequestBody.create(MediaType.parse(mOptionImage), file);
+                builder.addFormDataPart(OPTION_IMAGE, mOptionImage, requestFile);
+            }
             return builder.build();
         }
     }
@@ -151,7 +155,7 @@ public interface VoteInfoAPI {
                 File file = new File(mOptionImage);
                 RequestBody requestBody =
                         RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file);
-                builder.addFormDataPart(String.format(OPTION_TEXT, mOptionId), file.getName(),
+                builder.addFormDataPart(String.format(OPTION_IMAGE, mOptionId), mOptionImage,
                         requestBody);
             }
             return builder.build();

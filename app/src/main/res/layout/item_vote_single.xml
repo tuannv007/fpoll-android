@@ -54,10 +54,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
-                android:onClick="@{()-> presenter.clickEdit(option)}"
+                android:onClick="@{()->presenter.clickEdit(option)}"
                 android:padding="@dimen/dp_8"
                 android:src="@drawable/ic_mode_edit_black_24px"
-                android:visibility="@{option.image == null ? View.GONE : View.VISIBLE}"
+                android:visibility="@{((option.participantVotes.size() + option.votes.size()) ==  0 &amp;&amp; option.image != null) ? View.VISIBLE : View.GONE}"
                 />
 
             <LinearLayout
@@ -106,7 +106,16 @@
                     android:textColor="@color/color_grey_700"
                     android:textSize="@dimen/sp_14"
                     />
-
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="@{()-> presenter.clickEdit(option)}"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/ic_mode_edit_black_24px"
+                    android:visibility="@{(((option.participantVotes.size() + option.votes.size()) ==  0) &amp;&amp; (option.image == null)) ? View.VISIBLE : View.GONE}"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,16 +127,6 @@
                     android:padding="@dimen/dp_4"
                     android:text="@{String.valueOf(option.participantVotes.size() + option.votes.size())}"
                     android:textColor="@color/color_white"
-                    />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="@{()-> presenter.clickEdit(option)}"
-                    android:padding="@dimen/dp_8"
-                    android:src="@drawable/ic_mode_edit_black_24px"
-                    android:visibility="@{option.image == null ? View.VISIBLE : View.GONE}"
                     />
             </LinearLayout>
         </FrameLayout>
