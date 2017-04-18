@@ -1,6 +1,9 @@
 package com.framgia.fpoll.util;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,5 +41,21 @@ public class ActivityUtil {
 
     public static String subLinkPoll(String pollLink) {
         return pollLink.substring(pollLink.lastIndexOf(DATA_PLASH) + NUMBER_SPACE);
+    }
+
+    public static String getPathFromUri(Context context, Uri uri) {
+        if (context == null || uri == null) return null;
+        String result = null;
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        if (cursor == null) {
+            result = uri.getPath();
+        } else {
+            if (cursor.moveToFirst()) {
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                result = cursor.getString(idx);
+                cursor.close();
+            }
+        }
+        return result;
     }
 }

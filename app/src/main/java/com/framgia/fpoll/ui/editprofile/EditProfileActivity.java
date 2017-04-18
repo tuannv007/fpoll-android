@@ -3,11 +3,8 @@ package com.framgia.fpoll.ui.editprofile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
@@ -19,6 +16,7 @@ import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_IMAGE;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
 
@@ -70,16 +68,8 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_PICKER_SELECT && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            Cursor cursor =
-                    getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String urlAvatar = cursor.getString(columnIndex);
-            mPresenter.setUserUrlImage(urlAvatar);
-            cursor.close();
+        if (requestCode == IMAGE_PICKER_SELECT && resultCode == RESULT_OK && data != null) {
+            mPresenter.setUserUrlImage(ActivityUtil.getPathFromUri(this, data.getData()));
         }
     }
 
@@ -96,9 +86,11 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     }
 
     public void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, IMAGE_PICKER_SELECT);
+        Intent intent = new Intent();
+        intent.setType(DATA_IMAGE);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.app_name)),
+                IMAGE_PICKER_SELECT);
     }
 
     @Override

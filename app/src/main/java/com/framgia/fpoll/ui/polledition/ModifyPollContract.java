@@ -7,10 +7,6 @@ import com.framgia.fpoll.ui.base.BaseView;
  */
 public interface ModifyPollContract {
     interface View extends BaseView {
-        void previousUI();
-
-        void nextUI();
-
         void showProgress();
 
         void hideProgress();
@@ -23,11 +19,7 @@ public interface ModifyPollContract {
     }
 
     interface Presenter {
-        void onClickSave();
-
-        void onClickNext();
-
-        void onClickPrevious();
+        void onUpdatePoll();
 
         void submitEditInformation();
 

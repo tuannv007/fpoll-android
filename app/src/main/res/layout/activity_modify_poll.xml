@@ -1,101 +1,45 @@
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <data>
-
         <variable
             name="presenter"
             type="com.framgia.fpoll.ui.polledition.ModifyPollPresenter"
             />
-
         <variable
             name="activity"
             type="com.framgia.fpoll.ui.polledition.ModifyPollActivity"
             />
-
         <import type="com.framgia.fpoll.util.LayoutManageUtil"/>
-
         <import type="android.view.View"/>
-
     </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
         <include
             layout="@layout/partial_toolbar"
             android:id="@+id/layout_toolbar"
             />
-
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/dp_180"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/dp_8"
-            android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16"
-            android:paddingTop="@dimen/dp_8"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_16"
+            android:onClick="@{()-> presenter.onUpdatePoll()}"
+            style="@style/FPollCardView"
             >
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_continue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()->presenter.onClickSave()}"
-                style="@style/FPollCardView"
-                >
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:text="@{activity.titleSave}"
-                    style="@style/FPollTextCardView"
-                    />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:onClick="@{()->presenter.onClickNext()}"
-                android:visibility="@{activity.isShowNext ? View.VISIBLE : View.INVISIBLE}"
-                style="@style/FPollCardView"
-                >
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:text="@{activity.titleNext}"
-                    style="@style/FPollTextCardView"
-                    />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="@dimen/dp_8"
-                android:layout_marginRight="@dimen/dp_8"
-                android:layout_toLeftOf="@+id/card_next"
-                android:layout_toStartOf="@+id/card_next"
-                android:onClick="@{()->presenter.onClickPrevious()}"
-                android:visibility="@{activity.isShowPrevious ? View.VISIBLE : View.INVISIBLE}"
-                style="@style/FPollCardView"
-                >
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:text="@{activity.titlePrevious}"
-                    style="@style/FPollTextCardView"
-                    />
-            </android.support.v7.widget.CardView>
-        </RelativeLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:text="@string/action_save"
+                style="@style/FPollTextCardView"
+                />
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </layout>

@@ -2,13 +2,10 @@ package com.framgia.fpoll.ui.polledition.editoption;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +24,7 @@ import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static android.app.Activity.RESULT_OK;
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_IMAGE;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
 
@@ -88,9 +86,11 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
 
     @Override
     public void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, IMAGE_PICKER_SELECT);
+        Intent intent = new Intent();
+        intent.setType(DATA_IMAGE);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.app_name)),
+                IMAGE_PICKER_SELECT);
     }
 
     @Override
@@ -131,18 +131,11 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_PICKER_SELECT && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            Cursor cursor = getActivity().getContentResolver()
-                    .query(selectedImage, filePathColumn, null, null, null);
-            if (cursor == null) return;
-            cursor.moveToFirst();
-            String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
+            String url = ActivityUtil.getPathFromUri(getActivity(), data.getData());
             if (mPosition != UNSELECTED_POSITION) {
                 mPollItem.getOptions().get(mPosition).setImage(url);
                 mAdapter.get().update(mPollItem.getOptions());
             }
-            cursor.close();
         }
     }
 

@@ -33,7 +33,7 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
     }
 
     @Override
-    public void onClickSave() {
+    public void onUpdatePoll() {
         if (mView == null || mRepository == null) return;
         mView.submitEditPoll();
     }
@@ -116,15 +116,5 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
                         mView.showMessage(msg);
                     }
                 });
-    }
-
-    @Override
-    public void onClickNext() {
-        if (mView != null) mView.nextUI();
-    }
-
-    @Override
-    public void onClickPrevious() {
-        if (mView != null) mView.previousUI();
     }
 }
