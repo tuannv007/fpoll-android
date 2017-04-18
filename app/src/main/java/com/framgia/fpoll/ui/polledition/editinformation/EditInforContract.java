@@ -16,7 +16,5 @@ public interface EditInforContract {
 
     interface Presenter {
         void showDatePicker();
-
-        void showTimePicker();
     }
 }

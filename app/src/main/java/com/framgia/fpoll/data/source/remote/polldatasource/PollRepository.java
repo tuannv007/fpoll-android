@@ -6,7 +6,7 @@ import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
-import com.framgia.fpoll.networking.api.UpdateInfoPollService;
+import com.framgia.fpoll.networking.api.UpdatePollService;
 
 /**
  * Created by tuanbg on 3/21/17.
@@ -21,15 +21,16 @@ public class PollRepository implements PollDataSource {
 
     public static PollRepository getInstance(Context context) {
         if (sPollRepository == null) {
-            sPollRepository = new PollRepository(PollRemoteDataSource.getInstance(context));
+            sPollRepository =
+                    new PollRepository(PollRemoteDataSource.getInstance(context));
         }
         return sPollRepository;
     }
 
     @Override
-    public void editPollInformation(int pollId, UpdateInfoPollService.PollInfoBody body,
+    public void updateInformation(int pollId, UpdatePollService.PollInfoBody body,
             @NonNull final DataCallback<DataInfoItem> callback) {
-        mRemoteDataSource.editPollInformation(pollId, body, new DataCallback<DataInfoItem>() {
+        mRemoteDataSource.updateInformation(pollId, body, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
                 callback.onSuccess(data);
@@ -58,9 +59,9 @@ public class PollRepository implements PollDataSource {
     }
 
     @Override
-    public void editPoll(int typeEdit, PollItem pollItem,
+    public void updateOptionSetting(int editType, PollItem pollItem,
             @NonNull final DataCallback<DataInfoItem> callback) {
-        mRemoteDataSource.editPoll(typeEdit, pollItem, new DataCallback<DataInfoItem>() {
+        mRemoteDataSource.updateOptionSetting(editType, pollItem, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
                 callback.onSuccess(data);

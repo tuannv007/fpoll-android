@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.polledition.editinformation;
 
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -10,13 +9,15 @@ import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.databinding.FragmentEditInforBinding;
-import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.util.SharePreferenceUtil;
+import com.framgia.fpoll.util.TimeUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
+import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
 
 /**
  * Created by framgia on 16/03/2017.
@@ -24,11 +25,10 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 public class EditInforFragment extends Fragment
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,
         EditInforContract.View {
-    public final ObservableField<Calendar> mTime = new ObservableField<>();
     private FragmentEditInforBinding mBinding;
     private EditInforContract.Presenter mPresenter;
     private PollItem mPoll;
-    private Calendar mSavePickCalendar = Calendar.getInstance();
+    private Calendar mCalendar = Calendar.getInstance();
 
     public static EditInforFragment newInstance(PollItem pollItem) {
         EditInforFragment editInforFragment = new EditInforFragment();
@@ -49,7 +49,8 @@ public class EditInforFragment extends Fragment
             Bundle savedInstanceState) {
         mBinding = FragmentEditInforBinding.inflate(inflater, container, false);
         getDataFromActivity();
-        mPresenter = new EditInforPresenter(this, mPoll);
+        mPresenter =
+                new EditInforPresenter(this, mPoll, SharePreferenceUtil.getIntances(getActivity()));
         mBinding.setInformation(mPoll);
         mBinding.setHandler(new EditInforHandle(mPresenter));
         mBinding.setPresenter((EditInforPresenter) mPresenter);
@@ -59,31 +60,26 @@ public class EditInforFragment extends Fragment
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        mSavePickCalendar.set(Calendar.YEAR, year);
-        mSavePickCalendar.set(Calendar.MONTH, monthOfYear);
-        mSavePickCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        mCalendar.set(Calendar.YEAR, year);
+        mCalendar.set(Calendar.MONTH, monthOfYear);
+        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         showTimePicker();
     }
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        mSavePickCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        mSavePickCalendar.set(Calendar.MINUTE, minute);
-        mSavePickCalendar.set(Calendar.SECOND, second);
-        if (mSavePickCalendar.before(Calendar.getInstance())) {
-            ActivityUtil.showToast(getContext(), R.string.msg_date_error);
-        } else {
-            mTime.set(mSavePickCalendar);
-            mTime.notifyChange();
-        }
+        mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        mCalendar.set(Calendar.MINUTE, minute);
+        mCalendar.set(Calendar.SECOND, second);
+        mPoll.setDateClose(TimeUtil.convertTimeToString(mCalendar));
     }
 
     @Override
     public void showDatePicker() {
-        if (mTime.get() == null) mTime.set(Calendar.getInstance());
-        DatePickerDialog dpd = DatePickerDialog.newInstance(this, mTime.get().get(Calendar.YEAR),
-                mTime.get().get(Calendar.MONTH), mTime.get().get(Calendar.DAY_OF_MONTH));
-        dpd.show(getActivity().getFragmentManager(), Constant.Tag.DATE_PICKER_TAG);
+        DatePickerDialog datePicker =
+                DatePickerDialog.newInstance(this, mCalendar.get(Calendar.YEAR),
+                        mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+        datePicker.show(getActivity().getFragmentManager(), DATE_PICKER_TAG);
     }
 
     @Override
@@ -94,10 +90,10 @@ public class EditInforFragment extends Fragment
 
     @Override
     public void showTimePicker() {
-        TimePickerDialog timePickerDialog =
-                TimePickerDialog.newInstance(this, mTime.get().get(Calendar.HOUR_OF_DAY),
-                        mTime.get().get(Calendar.MINUTE), mTime.get().get(Calendar.SECOND), true);
-        timePickerDialog.show(getActivity().getFragmentManager(), Constant.Tag.TIME_PICKER_TAG);
+        TimePickerDialog timePicker =
+                TimePickerDialog.newInstance(this, mCalendar.get(Calendar.HOUR_OF_DAY),
+                        mCalendar.get(Calendar.MINUTE), mCalendar.get(Calendar.SECOND), true);
+        timePicker.show(getActivity().getFragmentManager(), Constant.Tag.TIME_PICKER_TAG);
     }
 
     @Override

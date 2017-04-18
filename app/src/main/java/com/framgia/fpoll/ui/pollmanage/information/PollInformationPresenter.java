@@ -8,12 +8,11 @@ import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
-import com.framgia.fpoll.networking.api.UpdateInfoPollService;
+import com.framgia.fpoll.networking.api.UpdatePollService;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 
 import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_MULTI;
 import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_SINGER;
-import static com.framgia.fpoll.util.Constant.TypeEditPoll.TYPE_EDIT_POLL;
 
 /**
  * Created by Nhahv0902 on 2/24/2017.
@@ -82,25 +81,24 @@ public class PollInformationPresenter implements PollInformationContract.Present
         int type = mPoll.get().isMultiple() ? TYPE_MULTI : TYPE_SINGER;
         String dateClose = mPoll.get().getDateClose();
         String description = mPoll.get().getDescription();
-        UpdateInfoPollService.PollInfoBody body =
-                new UpdateInfoPollService.PollInfoBody(username, email, title, type, TYPE_EDIT_POLL,
-                        dateClose, description);
+        UpdatePollService.PollInfoBody body =
+                new UpdatePollService.PollInfoBody(username, email, title, type, dateClose,
+                        description, mPoll.get().getLocation());
         mView.showProgress();
-        mRepository.editPollInformation(mPoll.get().getId(), body,
-                new DataCallback<DataInfoItem>() {
-                    @Override
-                    public void onSuccess(DataInfoItem data) {
-                        mView.showMessage(R.string.update_success);
-                        mPoll.set(data.getPoll());
-                        mView.hideProgress();
-                    }
+        mRepository.updateInformation(mPoll.get().getId(), body, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                mView.showMessage(R.string.update_success);
+                mPoll.set(data.getPoll());
+                mView.hideProgress();
+            }
 
-                    @Override
-                    public void onError(String msg) {
-                        mView.showMessage(msg);
-                        mView.hideProgress();
-                    }
-                });
+            @Override
+            public void onError(String msg) {
+                mView.showMessage(msg);
+                mView.hideProgress();
+            }
+        });
     }
 
     @Override

@@ -139,13 +139,13 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
     public void submitEditPoll() {
         switch (mType) {
             case INFORMATION:
-                mPresenter.submitEditInformation();
+                mPresenter.updateInformation();
                 break;
             case OPTION:
-                mPresenter.submitEditOption();
+                mPresenter.updateOption();
                 break;
             case SETTING:
-                mPresenter.submitEditSetting();
+                mPresenter.updateSetting();
                 break;
             default:
                 break;
