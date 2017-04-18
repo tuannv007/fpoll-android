@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.polledition.editinformation;
 
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -43,15 +42,13 @@ public class EditInforFragment extends Fragment
         Bundle bundle = getArguments();
         if (bundle == null || bundle.getParcelable(BUNDLE_POLL_ITEM) == null) return;
         mPoll = bundle.getParcelable(BUNDLE_POLL_ITEM);
-        if (mPoll == null) mPoll = new PollItem();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mBinding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_edit_infor, container, false);
-        mPoll = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
+        mBinding = FragmentEditInforBinding.inflate(inflater, container, false);
+        getDataFromActivity();
         mPresenter = new EditInforPresenter(this, mPoll);
         mBinding.setInformation(mPoll);
         mBinding.setHandler(new EditInforHandle(mPresenter));

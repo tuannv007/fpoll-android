@@ -2,10 +2,7 @@ package com.framgia.fpoll.ui.votemanager.updateoption;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -26,6 +23,7 @@ import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_OPTION;
+import static com.framgia.fpoll.util.Constant.DataConstant.DATA_IMAGE;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
 import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
@@ -84,9 +82,11 @@ public class UpdateOptionFragment extends DialogFragment
     @Override
     public void pickImageFromGallery(Option option) {
         if (PermissionsUtil.isAllowPermissions(getActivity())) {
-            Intent intent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, IMAGE_PICKER_SELECT);
+            Intent intent = new Intent();
+            intent.setType(DATA_IMAGE);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, getString(R.string.app_name)),
+                    IMAGE_PICKER_SELECT);
         }
     }
 
@@ -184,14 +184,7 @@ public class UpdateOptionFragment extends DialogFragment
                 && resultCode == RESULT_OK
                 && data != null
                 && mOption != null) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            Cursor cursor = getActivity().getContentResolver()
-                    .query(selectedImage, filePathColumn, null, null, null);
-            if (cursor == null || !cursor.moveToFirst()) return;
-            String url = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
-            mOption.setImage(url);
-            cursor.close();
+            mOption.setImage(ActivityUtil.getPathFromUri(getActivity(), data.getData()));
         }
     }
 }

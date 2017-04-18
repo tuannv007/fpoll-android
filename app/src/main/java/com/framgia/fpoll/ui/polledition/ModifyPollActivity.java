@@ -3,11 +3,10 @@ package com.framgia.fpoll.ui.polledition;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
 import android.view.MenuItem;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
@@ -35,11 +34,6 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
     private EditInforFragment mInformationFragment;
     private EditOptionFragment mOptionFragment;
     private EditSettingFragment mSettingFragment;
-    private ObservableField<String> mTitleSave = new ObservableField<>();
-    private ObservableField<String> mTitleNext = new ObservableField<>();
-    private ObservableField<String> mTitlePrevious = new ObservableField<>();
-    private ObservableBoolean mIsShowPrevious = new ObservableBoolean(false);
-    private ObservableBoolean mIsShowNext = new ObservableBoolean(true);
 
     public static Intent getModifyIntent(Context context, PollItem data) {
         Intent intent = new Intent(context, ModifyPollActivity.class);
@@ -71,14 +65,32 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
     public void start() {
         setSupportActionBar(mBinding.layoutToolbar.toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mTitleSave.set(getString(R.string.action_save_information));
-        mTitleNext.set(getString(R.string.action_next_option));
-        mTitlePrevious.set(getString(R.string.action_back_information));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_modify, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) onBackPressed();
+        switch (item.getItemId()) {
+            case R.id.action_information:
+                addInformation();
+                break;
+            case R.id.action_option:
+                addOption();
+                break;
+            case R.id.action_setting:
+                addSetting();
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -93,11 +105,6 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
         addFragment(mInformationFragment);
         mType = PollCreationType.INFORMATION;
         setTitle(R.string.title_information);
-        mTitleSave.set(getString(R.string.action_save_information));
-        mTitleNext.set(getString(R.string.action_next_option));
-        mTitlePrevious.set(getString(R.string.action_back_information));
-        mIsShowPrevious.set(false);
-        mIsShowNext.set(true);
     }
 
     private void addOption() {
@@ -107,11 +114,6 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
         addFragment(mOptionFragment);
         mType = OPTION;
         setTitle(R.string.title_option);
-        mTitleSave.set(getString(R.string.action_save_option));
-        mTitleNext.set(getString(R.string.action_next_setting));
-        mTitlePrevious.set(getString(R.string.action_back_information));
-        mIsShowPrevious.set(true);
-        mIsShowNext.set(true);
     }
 
     private void addSetting() {
@@ -121,11 +123,6 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
         addFragment(mSettingFragment);
         mType = SETTING;
         setTitle(R.string.title_setting);
-        mTitleSave.set(getString(R.string.action_save_setting));
-        mTitleNext.set(getString(R.string.action_next_setting));
-        mTitlePrevious.set(getString(R.string.action_back_option));
-        mIsShowPrevious.set(true);
-        mIsShowNext.set(false);
     }
 
     @Override
@@ -136,46 +133,6 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
     @Override
     public void hideProgress() {
         hideProgressDialog();
-    }
-
-    @Override
-    public void previousUI() {
-        switch (mType) {
-            case OPTION:
-                addInformation();
-                break;
-            case SETTING:
-                addOption();
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void nextUI() {
-        switch (mType) {
-            case INFORMATION:
-                if (mInformationFragment == null) {
-                    mInformationFragment = EditInforFragment.newInstance(mPoll);
-                }
-                if (!mInformationFragment.checkNextUI()) return;
-                addOption();
-                break;
-            case OPTION:
-                if (mOptionFragment == null) {
-                    mOptionFragment = EditOptionFragment.newInstance(mPoll);
-                }
-                mOptionFragment.checkNextUI(new EditOptionFragment.OnCheckOptionListener() {
-                    @Override
-                    public void onSuccessful() {
-                        addSetting();
-                    }
-                });
-                break;
-            default:
-                break;
-        }
     }
 
     @Override
@@ -203,25 +160,5 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
     @Override
     public void showMessage(int message) {
         ActivityUtil.showToast(getApplicationContext(), message);
-    }
-
-    public ObservableField<String> getTitleSave() {
-        return mTitleSave;
-    }
-
-    public ObservableField<String> getTitleNext() {
-        return mTitleNext;
-    }
-
-    public ObservableField<String> getTitlePrevious() {
-        return mTitlePrevious;
-    }
-
-    public ObservableBoolean getIsShowPrevious() {
-        return mIsShowPrevious;
-    }
-
-    public ObservableBoolean getIsShowNext() {
-        return mIsShowNext;
     }
 }

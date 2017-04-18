@@ -55,6 +55,7 @@ public class Constant {
         public static final int REQUEST_LOGIN = 5;
         public static final int REQUEST_CREATE_POLL = 6;
         public static final int REQUEST_CODE_RESULT = 2;
+        public static final int REQUEST_PICK_IMAGE = 7;
     }
 
     public static class TimeFormat {
