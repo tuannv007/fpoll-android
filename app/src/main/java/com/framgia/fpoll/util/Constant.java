@@ -7,7 +7,6 @@ package com.framgia.fpoll.util;
 public class Constant {
     public static final int MIN_LENGTH_PASSWORD = 6;
     public static final CharSequence TITLE_TYPE_TEXT = "text";
-    public static final int TYPE_LAYOUT_GRID_TWO = 2;
     public static final String TYPE_IMAGE = "image";
     public static final long TIME_OUT_SERVER = 5;
     public static final String TYPE_DIALOG_FRAGMENT = "type_dialog_fragment";
@@ -68,15 +67,8 @@ public class Constant {
     }
 
     public static class ConstantApi {
-        /*
-        * do base url cua login khac voi base url cua register len tam thoi de
-        * day va comment
-        * http://quiet-fjord-67201.herokuapp.com/
-        * */
         public static final String BASE_URL = "https://quiet-fjord-67201.herokuapp.com/";
         public static final String KEY_TOKEN = "token";
-        public static final String KEY_POLL_INFO = "key_poll_info";
-        public static final String KEY_HISTORY = "key_history";
         public static final int KEY_MULTI_CHOOSE = 1;
         public static final int KEY_SINGER_CHOOSE = 0;
         public static final String KEY_POLL_OPTION = "key_poll_option";
@@ -112,12 +104,6 @@ public class Constant {
         public static final int TYPE_SINGER = 0;
     }
 
-    public class TypeEditPoll {
-        public static final int TYPE_EDIT_POLL = 1;
-        public static final int TYPE_EDIT_OPTION = 2;
-        public static final int TYPE_EDIT_SETTING = 3;
-    }
-
     public class TypeSetting {
         public static final int TYPE_INPUT_EMAIL = 1;
         public static final int TYPE_INPUT_NAME = 7;
@@ -129,11 +115,6 @@ public class Constant {
         public static final int TYPE_CREATE_PASSWORD = 5;
         public static final int TYPE_ADD_OPTION = 9;
         public static final int TYPE_EDIT_OPTION = 11;
-    }
-
-    public class TokenType {
-        public static final int TYPE_USER = 0;
-        public static final int TYPE_ADMIN = 1;
     }
 
     public class Export {

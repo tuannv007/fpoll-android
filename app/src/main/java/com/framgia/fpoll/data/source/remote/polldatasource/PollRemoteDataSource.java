@@ -11,10 +11,14 @@ import com.framgia.fpoll.networking.CallbackManager;
 import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.networking.ServiceGenerator;
 import com.framgia.fpoll.networking.api.PollCreationApi;
-import com.framgia.fpoll.networking.api.PollEditionApi;
 import com.framgia.fpoll.networking.api.PollManagerAPI;
-import com.framgia.fpoll.networking.api.UpdateInfoPollService;
+import com.framgia.fpoll.networking.api.UpdatePollService;
 import com.framgia.fpoll.util.ActivityUtil;
+import okhttp3.RequestBody;
+
+import static com.framgia.fpoll.networking.api.UpdatePollService.EditTypeConstant.TYPE_OPTION;
+import static com.framgia.fpoll.networking.api.UpdatePollService.UpdatePoll.getOptionRequestBody;
+import static com.framgia.fpoll.networking.api.UpdatePollService.UpdatePoll.getSettingRequestBody;
 
 /**
  * Created by tuanbg on 3/21/17.
@@ -22,9 +26,11 @@ import com.framgia.fpoll.util.ActivityUtil;
 public class PollRemoteDataSource implements PollDataSource {
     private static PollRemoteDataSource sPollRemoteDataSource;
     private Context mContext;
+    private UpdatePollService mService;
 
     public PollRemoteDataSource(Context context) {
         mContext = context;
+        mService = ServiceGenerator.createService(UpdatePollService.class);
     }
 
     public static PollRemoteDataSource getInstance(Context context) {
@@ -35,10 +41,10 @@ public class PollRemoteDataSource implements PollDataSource {
     }
 
     @Override
-    public void editPollInformation(int pollId, UpdateInfoPollService.PollInfoBody item,
+    public void updateInformation(int pollId, UpdatePollService.PollInfoBody item,
             @NonNull final DataCallback<DataInfoItem> callback) {
-        UpdateInfoPollService service = ServiceGenerator.createService(UpdateInfoPollService.class);
-        service.updateInfo(pollId, item)
+        if (mService == null) return;
+        mService.updateInfo(pollId, item)
                 .enqueue(new CallbackManager<>(mContext,
                         new CallbackManager.CallBack<ResponseItem<DataInfoItem>>() {
                             @Override
@@ -86,10 +92,12 @@ public class PollRemoteDataSource implements PollDataSource {
     }
 
     @Override
-    public void editPoll(int typeEdit, PollItem pollItem,
+    public void updateOptionSetting(int editType, PollItem pollItem,
             @NonNull final DataCallback<DataInfoItem> callback) {
-        ServiceGenerator.createService(PollEditionApi.PollEditionService.class)
-                .updatePoll(pollItem.getId(), PollEditionApi.getRequestBodyEdit(typeEdit, pollItem))
+        if (mService == null) return;
+        RequestBody body = editType == TYPE_OPTION ? getOptionRequestBody(pollItem)
+                : getSettingRequestBody(pollItem);
+        mService.updateOption(pollItem.getId(), body)
                 .enqueue(new CallbackManager<>(mContext,
                         new CallbackManager.CallBack<ResponseItem<DataInfoItem>>() {
                             @Override

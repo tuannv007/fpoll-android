@@ -21,10 +21,10 @@ public interface ModifyPollContract {
     interface Presenter {
         void onUpdatePoll();
 
-        void submitEditInformation();
+        void updateInformation();
 
-        void submitEditOption();
+        void updateOption();
 
-        void submitEditSetting();
+        void updateSetting();
     }
 }
