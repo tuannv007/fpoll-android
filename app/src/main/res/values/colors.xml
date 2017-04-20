@@ -25,4 +25,6 @@
     <color name="color_grey_transparent">#ccf7f3f7</color>
     <color name="color_grey_400_transparent">#B3a4acac</color>
     <color name="color_blue_action">#3db7ac</color>
+    <color name="gray_divider">#29000000</color>
+    <color name="gray_shadow">#cc222222</color>
 </resources>

@@ -5,12 +5,13 @@ import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.framgia.fpoll.BR;
+import com.framgia.fpoll.R;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by tuanbg on 2/9/17.
  */
-public class User extends BaseObservable implements Parcelable {
+public class User extends BaseObservable implements Parcelable, Cloneable {
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel in) {
@@ -22,6 +23,10 @@ public class User extends BaseObservable implements Parcelable {
             return new User[size];
         }
     };
+    private final static int MALE = 0;
+    private final static int FEMALE = 1;
+    private final static int OTHER = 2;
+
     @SerializedName("name")
     private String mUsername;
     @SerializedName("email")
@@ -174,5 +179,22 @@ public class User extends BaseObservable implements Parcelable {
         dest.writeString(mChatWorkId);
         dest.writeString(mToken);
         dest.writeByte((byte) (mIsActive ? 1 : 0));
+    }
+
+    public int getDisplayGender() {
+        switch (mGender) {
+            case MALE:
+                return R.string.title_male;
+            case FEMALE:
+                return R.string.title_female;
+            case OTHER:
+            default:
+                return R.string.title_other;
+        }
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

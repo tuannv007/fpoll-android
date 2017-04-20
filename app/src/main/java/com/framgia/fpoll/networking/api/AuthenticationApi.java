@@ -28,6 +28,7 @@ public class AuthenticationApi {
     public static MultipartBody.Part getAvatar(User user) {
         if (user.getAvatar() != null) {
             File file = new File(user.getAvatar());
+            if (!file.exists()) return null;
             return MultipartBody.Part.createFormData(KEY_AVATAR, file.getName(),
                     RequestBody.create(MediaType.parse(Constant.TYPE_IMAGE), file));
         }

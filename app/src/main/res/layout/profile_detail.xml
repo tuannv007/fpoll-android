@@ -1,0 +1,164 @@
+<layout xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.framgia.fpoll.ui.profile.ProfileViewModel"
+            />
+    </data>
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10"
+            >
+            <LinearLayout
+                android:gravity="center"
+                style="@style/LinearLayoutStyle"
+                >
+                <ImageView
+                    android:src="@drawable/ic_person_black_24dp"
+                    style="@style/ImageProfileTitle"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <EditText
+                            android:hint="@string/hint_enter_name"
+                            android:text="@={viewModel.editUser.username}"
+                            android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
+                            style="@style/EditTextProfileTitle"
+                            />
+
+                        <TextView
+                            android:text="@{viewModel.user.username}"
+                            android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
+                            style="@style/TextViewProfileTitle"
+                            />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:text="@string/title_username"
+                        style="@style/TextViewProfileSubTitle"
+                        />
+                    <TextView
+                        android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
+                        style="@style/DividerStyle"
+                        />
+                    />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                style="@style/LinearLayoutStyle"
+                >
+                <ImageView
+                    android:src="@drawable/ic_email_white_24px"
+                    style="@style/ImageProfileTitle"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <EditText
+                            android:hint="@string/hint_email"
+                            android:text="@{viewModel.user.email}"
+                            android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
+                            style="@style/EditTextProfileTitle"
+                            />
+
+                        <TextView
+                            android:text="@={viewModel.editUser.email}"
+                            android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
+                            style="@style/TextViewProfileTitle"
+                            />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:text="@string/title_email"
+                        style="@style/TextViewProfileSubTitle"
+                        />
+                    <TextView
+                        android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
+                        style="@style/DividerStyle"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                style="@style/LinearLayoutStyle"
+                >
+                <ImageView
+                    android:src="@drawable/ic_male"
+                    style="@style/ImageProfileTitle"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        >
+                        <TextView
+                            android:text="@{viewModel.user.displayGender}"
+                            android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
+                            style="@style/TextViewProfileTitle"
+                            />
+
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40"
+                            android:entries="@array/gender"
+                            android:spinnerMode="dropdown"
+                            android:splitMotionEvents="true"
+                            android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
+                            bind:selectedValue="@={viewModel.editUser.gender}"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:text="@string/title_gender"
+                        style="@style/TextViewProfileSubTitle"
+                        />
+                    <TextView
+                        android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
+                        style="@style/DividerStyle"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</layout>

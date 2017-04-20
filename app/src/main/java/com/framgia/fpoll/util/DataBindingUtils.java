@@ -374,7 +374,10 @@ public class DataBindingUtils {
         view.getMenu().findItem(R.id.action_login).setVisible(!isLogin);
         view.getMenu().findItem(R.id.action_log_out).setVisible(isLogin);
         binding.executePendingBindings();
-        view.addHeaderView(binding.getRoot());
+        View v = binding.getRoot();
+        view.addHeaderView(v);
+        float height = v.getContext().getResources().getDimension(R.dimen.dp_200);
+        v.getLayoutParams().height = (int) height;
     }
 
     @BindingAdapter({ "bind:bindAdapter" })

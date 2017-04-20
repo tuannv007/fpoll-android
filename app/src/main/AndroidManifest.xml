@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name="android.support.multidex.MultiDexApplication"
+        android:name=".FPollApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -34,7 +34,7 @@
             android:exported="true"/>
 
         <activity android:name=".ui.votemanager.LinkVoteActivity"/>
-        <activity android:name=".ui.editprofile.EditProfileActivity"/>
+        <activity android:name=".ui.profile.editprofile.EditProfileActivity"/>
         <activity android:name=".ui.pollmanage.history.HistoryManageActivity"/>
         <activity android:name=".ui.pollcreation.PollCreationActivity"/>
         <activity android:name=".ui.pollcreated.PollCreatedActivity"/>
@@ -46,7 +46,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
+        <activity android:name=".ui.profile.ProfileActivity"/>
     </application>
 
 </manifest>

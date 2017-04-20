@@ -11,7 +11,7 @@
     <style name="NavigationHeader">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/color_teal_500</item>
+        <item name="android:background">@drawable/bg_place_holder</item>
         <item name="android:gravity">bottom</item>
         <item name="android:paddingBottom">@dimen/dp_8</item>
         <item name="android:paddingTop">@dimen/dp_40</item>

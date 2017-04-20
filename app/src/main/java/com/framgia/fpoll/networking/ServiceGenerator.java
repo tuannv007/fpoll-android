@@ -1,5 +1,9 @@
 package com.framgia.fpoll.networking;
 
+import android.content.Context;
+import com.framgia.fpoll.FPollApplication;
+import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -30,6 +34,7 @@ public class ServiceGenerator {
                     Request original = chain.request();
                     Request.Builder requestBuilder = original.newBuilder()
                             .header("Accept", "application/json")
+                            .header("Authorization", "Bearer " + getToken())
                             .method(original.method(), original.body());
                     Request request = requestBuilder.build();
                     return chain.proceed(request);
@@ -43,5 +48,13 @@ public class ServiceGenerator {
         OkHttpClient client = sHttpClient.build();
         Retrofit retrofit = sBuilder.client(client).build();
         return retrofit.create(serviceClass);
+    }
+
+    private static String getToken() {
+        Context context = FPollApplication.getContext();
+        if (context == null) return null;
+        SharePreferenceUtil sharePreferenceUtil = SharePreferenceUtil.getIntances(context);
+        User user = sharePreferenceUtil.getUser();
+        return user != null ? user.getToken() : null;
     }
 }
