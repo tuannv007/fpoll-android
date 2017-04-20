@@ -41,6 +41,8 @@ public interface ProfileContract {
         void hideProgressDialog();
 
         void onUpdateUserFaile(String msg);
+
+        void onUpdateUserFaile(int msg);
     }
 
     interface Presenter extends BasePresenter {

@@ -57,7 +57,7 @@ public enum TypeLayoutHistory {
             case TYPE_ADD_A_COMMENT:
                 return R.color.mdtp_accent_color;
             case TYPE_EDIT_POLL:
-                return R.color.color_orange_200;
+                return R.color.colorAccent;
             case TYPE_CLOSE_POLL:
                 return R.color.color_red_500;
             case TYPE_REOPEN_POLL:

@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_3"
                     android:text="@{@string/title_subject(pollHistory.title)}"
-                    android:textColor="@color/color_teal_600"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/sp_20"
                     />
 

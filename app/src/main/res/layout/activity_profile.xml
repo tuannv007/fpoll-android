@@ -43,9 +43,10 @@
                     />
 
                 <RelativeLayout
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="@dimen/dp_100"
-                    android:layout_gravity="center"
+                    android:layout_width="@dimen/dp_120"
+                    android:layout_height="@dimen/dp_120"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="@dimen/dp_70"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:background="@drawable/bg_circle_textview"
                     android:padding="@dimen/dp_2"
@@ -57,15 +58,16 @@
                         bind:bindError="@{@drawable/ic_fpoll_logo}"
                         bind:bindImage="@{viewModel.editUser.avatar}"
                         />
-                    <android.support.design.widget.FloatingActionButton
+                    <ImageView
                         android:layout_width="@dimen/dp_30"
                         android:layout_height="@dimen/dp_30"
                         android:layout_alignParentRight="true"
+                        android:background="@drawable/bg_circle_red"
                         android:onClick="@{() -> viewModel.onChangeAvtClick()}"
+                        android:padding="@dimen/dp_5"
                         android:scaleType="centerInside"
-                        android:background="@drawable/ic_mode_edit_black_24px"
+                        android:src="@drawable/ic_mode_edit_black_24px"
                         android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
-                        app:rippleColor="@color/color_red_500"
                         />
                 </RelativeLayout>
 
@@ -90,9 +92,10 @@
             android:layout_marginRight="@dimen/dp_10"
             android:onClick="@{() -> viewModel.onEditUserClick()}"
             android:src="@{viewModel.editing? @drawable/ic_done: @drawable/ic_mode_edit_black_24px}"
+            app:backgroundTint="@color/color_red_500"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right"
-            app:rippleColor="@color/color_red_500"
+            app:rippleColor="@color/color_green_500"
             />
 
         <include

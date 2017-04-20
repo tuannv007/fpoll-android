@@ -197,4 +197,5 @@ public class User extends BaseObservable implements Parcelable, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
 }

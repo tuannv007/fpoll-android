@@ -82,7 +82,7 @@
                 android:layout_height="@dimen/dp_56"
                 android:layout_marginTop="@dimen/dp_16"
                 android:onClick="@{()->handler.clickLogin(LoginType.NORMAL)}"
-                app:cardBackgroundColor="@color/color_teal_600"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
                 app:cardCornerRadius="@dimen/dp_2"
                 app:cardElevation="@dimen/dp_1"
                 app:cardUseCompatPadding="true"

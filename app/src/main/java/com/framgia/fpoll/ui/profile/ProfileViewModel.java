@@ -61,6 +61,7 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
         try {
             mUser.set((User) user.clone());
             mEditUser.set((User) user.clone());
+            mActivity.setTitle(user.getUsername());
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -68,6 +69,11 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
 
     @Override
     public void onUpdateUserFaile(String msg) {
+        Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUpdateUserFaile(int msg) {
         Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
     }
 

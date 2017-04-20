@@ -39,7 +39,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_20"
-            android:background="@color/color_teal_500"
+            android:background="@color/colorPrimary"
             />
 
         <android.support.v7.widget.RecyclerView
@@ -61,7 +61,7 @@
             android:onClick="@{() -> fragment.dismissDialog()}"
             android:padding="@dimen/dp_10"
             android:text="@string/mdtp_ok"
-            android:textColor="@color/color_teal_500"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp_17"
             android:textStyle="bold"
             />
