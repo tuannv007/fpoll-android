@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_grey_200"
-        bind:colorSwipeLayout="@{@color/color_teal_600}"
+        bind:colorSwipeLayout="@{@color/colorPrimaryDark}"
         bind:refreshSwipeLayout="@{fragment.loadFinish}"
         bind:swipeOnRefresh="@{presenter}"
         >

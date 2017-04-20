@@ -34,7 +34,6 @@
             android:exported="true"/>
 
         <activity android:name=".ui.votemanager.LinkVoteActivity"/>
-        <activity android:name=".ui.profile.editprofile.EditProfileActivity"/>
         <activity android:name=".ui.pollmanage.history.HistoryManageActivity"/>
         <activity android:name=".ui.pollcreation.PollCreationActivity"/>
         <activity android:name=".ui.pollcreated.PollCreatedActivity"/>

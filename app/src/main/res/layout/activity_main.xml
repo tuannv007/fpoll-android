@@ -48,7 +48,6 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@color/color_teal_600"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:layout_collapseMode="pin"
                     app:layout_scrollFlags="scroll|enterAlways"
@@ -72,7 +71,7 @@
                 android:onClick="@{()->handler.clickStartUiPollCreation()}"
                 android:src="@drawable/ic_add_white"
                 android:visibility="@{view.isShowAddPoll ? View.VISIBLE : View.GONE}"
-                app:backgroundTint="@color/color_teal_600"
+                app:backgroundTint="@color/colorPrimaryDark"
                 />
         </android.support.design.widget.CoordinatorLayout>
 

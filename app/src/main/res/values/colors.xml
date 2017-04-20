@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_teal_500">#009688</color>
-    <color name="color_teal_800">#00695C</color>
-    <color name="color_orange_200">#fe8d01</color>
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#00ACC1</color>
+    <color name="colorAccent">#fe8d01</color>
     <color name="color_white">#ffffff</color>
     <color name="color_tit_register">#008B8B</color>
     <color name="color_gray">#EDEEEE</color>
@@ -11,12 +11,11 @@
     <color name="color_grey_400">#a4acac</color>
     <color name="color_grey_300">#b9c2c2</color>
     <color name="color_grey_700">#757575</color>
-    <color name="color_teal_600">#00897B</color>
     <color name="color_indigo_600">#303F9F</color>
     <color name="color_orange_700">#E64A19</color>
     <color name="color_blue">#54acee</color>
     <color name="color_grey_200">#edeeee</color>
-    <color name="color_red_500">#fc3e3e</color>
+    <color name="color_red_500">#d63232</color>
     <color name="color_black_700">#616161</color>
     <color name="color_green_500">#8BC34A</color>
     <color name="color_background_item_vote">#82a0aeac</color>
@@ -25,6 +24,7 @@
     <color name="color_grey_transparent">#ccf7f3f7</color>
     <color name="color_grey_400_transparent">#B3a4acac</color>
     <color name="color_blue_action">#3db7ac</color>
-    <color name="gray_divider">#29000000</color>
-    <color name="gray_shadow">#cc222222</color>
+    <color name="color_gray_divider">#29000000</color>
+    <color name="color_gray_shadow">#cc222222</color>
+    <color name="color_yellow_500">#FFEB3B</color>
 </resources>

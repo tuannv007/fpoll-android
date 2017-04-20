@@ -28,14 +28,12 @@ import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.data.source.remote.settings.SettingRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
-import com.framgia.fpoll.ui.profile.ProfileActivity;
-import com.framgia.fpoll.ui.profile.ProfileContract;
-import com.framgia.fpoll.ui.profile.editprofile.EditProfileActivity;
 import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.introduction.IntroduceActivity;
 import com.framgia.fpoll.ui.joinpoll.JoinPollActivity;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
+import com.framgia.fpoll.ui.profile.ProfileActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.LanguageUtil;
@@ -183,8 +181,8 @@ public class MainActivity extends AppCompatActivity
     public void showHelp() {
         Uri helpUri = Uri.parse(Constant.WebUrl.HELP_URL);
         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.color_teal_500))
-                .setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.color_teal_800))
+        intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .build()
                 .launchUrl(this, helpUri);
     }

@@ -26,7 +26,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_56"
-            android:background="@color/color_teal_600"
+            android:background="@color/colorPrimaryDark"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             bind:titleToolbar="@{@string/title_join_poll}"
@@ -56,7 +56,7 @@
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginStart="@dimen/dp_20"
                 android:text="@string/title_url"
-                android:textColor="@color/color_orange_200"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/sp_17"
                 />
 
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_20"
-            android:background="@color/color_teal_500"
+            android:background="@color/colorPrimary"
             android:onClick="@{() -> presenter.joinPoll()}"
             android:text="@string/title_next_to_vote"
             android:textAllCaps="false"

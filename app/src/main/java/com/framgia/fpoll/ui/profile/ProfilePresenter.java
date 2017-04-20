@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.profile;
 
+import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.login.LoginDataSource;
@@ -61,9 +62,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 mRepository.updateProfile(user, new DataCallback<User>() {
                     @Override
                     public void onSuccess(User data) {
+                        if (data != null) {
+                            mPreference.writeUser(data);
+                            mViewModel.onUpdateUserSuccess(data);
+                        }else {
+                            mViewModel.onUpdateUserFaile(R.string.msg_update_fail);
+                        }
                         mViewModel.hideProgressDialog();
-                        mPreference.writeUser(data);
-                        mViewModel.onUpdateUserSuccess(user);
                     }
 
                     @Override
