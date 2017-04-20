@@ -3,7 +3,7 @@
     >
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="handler"
             type="com.framgia.fpoll.ui.feedback.FeedbackHandler"
@@ -25,7 +25,9 @@
         >
 
         <LinearLayout
-            style="@style/LinearLayoutStyle">
+            android:visibility="@{presenter.isLogin? View.GONE : View.VISIBLE}"
+            style="@style/LinearLayoutStyle"
+            >
 
             <android.support.v7.widget.AppCompatImageView
                 android:src="@drawable/ic_person_black_24dp"
@@ -42,6 +44,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="@{presenter.isLogin? View.GONE : View.VISIBLE}"
             style="@style/LinearLayoutStyle">
 
             <android.support.v7.widget.AppCompatImageView

@@ -10,6 +10,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.feedback.FeedbackRepository;
 import com.framgia.fpoll.databinding.FragmentFeedbackBinding;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
 /**
@@ -28,7 +29,8 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feedback, container, false);
-        mPresenter = new FeedbackPresenter(this, FeedbackRepository.getInstance(getActivity()));
+        mPresenter = new FeedbackPresenter(this, FeedbackRepository.getInstance(getActivity()),
+                SharePreferenceUtil.getIntances(getActivity()));
         mBinding.setPresenter((FeedbackPresenter) mPresenter);
         mBinding.setHandler(new FeedbackHandler(mPresenter));
         return mBinding.getRoot();
@@ -60,4 +62,5 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
     public void sendFeedbackSuccess() {
         ActivityUtil.showToast(getActivity(), R.string.msg_send_feedback_success);
     }
+
 }

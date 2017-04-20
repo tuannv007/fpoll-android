@@ -1,10 +1,14 @@
 package com.framgia.fpoll.ui.feedback;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.feedback.FeedbackRepository;
 import com.framgia.fpoll.util.FeedbackValidation;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 
 /**
  * Created by Nhahv0902 on 2/28/2017.
@@ -16,11 +20,24 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
     private ObservableField<String> mName = new ObservableField<>();
     private ObservableField<String> mEmail = new ObservableField<>();
     private FeedbackRepository mRepository;
+    private ObservableBoolean mIsLogin = new ObservableBoolean(false);
 
-    public FeedbackPresenter(FeedbackContract.View view, FeedbackRepository repository) {
+    public FeedbackPresenter(FeedbackContract.View view, FeedbackRepository repository,
+            SharePreferenceUtil sharePreferenceUtil) {
         mView = view;
         mRepository = repository;
         mView.start();
+        initData(sharePreferenceUtil);
+    }
+
+    private void initData(SharePreferenceUtil sharePreferenceUtil) {
+        User user = sharePreferenceUtil.getUser();
+        if (user != null && !TextUtils.isEmpty(user.getEmail()) &&
+                !TextUtils.isEmpty(user.getUsername())) {
+            mName.set(user.getUsername());
+            mEmail.set(user.getEmail());
+            mIsLogin.set(true);
+        }
     }
 
     @Override
@@ -76,5 +93,9 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
 
     public ObservableField<String> getEmail() {
         return mEmail;
+    }
+
+    public ObservableBoolean getIsLogin() {
+        return mIsLogin;
     }
 }
