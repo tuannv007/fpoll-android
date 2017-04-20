@@ -8,12 +8,12 @@
 
         <variable
             name="presenter"
-            type="com.framgia.fpoll.ui.editprofile.EditProfilePresenter"
+            type="com.framgia.fpoll.ui.profile.editprofile.EditProfilePresenter"
             />
 
         <variable
             name="handler"
-            type="com.framgia.fpoll.ui.editprofile.EditProfileHandle"
+            type="com.framgia.fpoll.ui.profile.editprofile.EditProfileHandle"
             />
     </data>
 

@@ -13,7 +13,7 @@
     <string name="action_register">Register</string>
     <string name="action_forgot_password">Forgot password</string>
     <string name="title_email">Email</string>
-    <string name="title_username">Username</string>
+    <string name="title_username">User name</string>
     <string name="title_password">Password</string>
     <string name="action_confirm_password">Confirm password</string>
     <string name="remember_account">Remember me</string>
@@ -289,4 +289,5 @@
     <string name="msg_reopen">Are you sure to reopen this poll ?</string>
     <string name="msg_login_cancel">Canceled login</string>
     <string name="action_update">Update</string>
+    <string name="title_gender">Gender</string>
 </resources>

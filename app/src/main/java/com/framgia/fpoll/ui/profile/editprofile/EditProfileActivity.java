@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.editprofile;
+package com.framgia.fpoll.ui.profile.editprofile;
 
 import android.content.Context;
 import android.content.Intent;

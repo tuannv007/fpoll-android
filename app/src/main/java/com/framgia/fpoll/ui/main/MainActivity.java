@@ -28,7 +28,9 @@ import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.data.source.remote.settings.SettingRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
-import com.framgia.fpoll.ui.editprofile.EditProfileActivity;
+import com.framgia.fpoll.ui.profile.ProfileActivity;
+import com.framgia.fpoll.ui.profile.ProfileContract;
+import com.framgia.fpoll.ui.profile.editprofile.EditProfileActivity;
 import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.introduction.IntroduceActivity;
@@ -46,6 +48,7 @@ import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_JP;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_VN;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_LOGIN;
+import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_PROFILE_DETAIL;
 
 public class MainActivity extends AppCompatActivity
         implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
@@ -206,6 +209,9 @@ public class MainActivity extends AppCompatActivity
                     ((HistoryFragment) fragment).updatePollHistory(poll);
                 }
                 break;
+            case REQUEST_PROFILE_DETAIL:
+                // TODO: 20/04/2017 update profile navigation 
+                break;
             default:
                 break;
         }
@@ -234,7 +240,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void startUiProfileEdition() {
-        startActivity(EditProfileActivity.getProfileEditionIntent(this));
+        startActivityForResult(ProfileActivity.getInstance(this), Constant.RequestCode.REQUEST_PROFILE_DETAIL);
     }
 
     @Override

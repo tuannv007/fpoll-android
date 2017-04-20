@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.editprofile;
+package com.framgia.fpoll.ui.profile.editprofile;
 
 import com.framgia.fpoll.ui.base.BaseView;
 

@@ -1,5 +1,6 @@
 package com.framgia.fpoll.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,6 +8,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import java.util.List;
 
@@ -58,4 +61,5 @@ public class ActivityUtil {
         }
         return result;
     }
+
 }

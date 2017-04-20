@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.editprofile;
+package com.framgia.fpoll.ui.profile.editprofile;
 
 /**
  * Created by tran.trung.phong on 21/02/2017.

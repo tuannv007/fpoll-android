@@ -1,4 +1,4 @@
-package com.framgia.fpoll.ui.editprofile;
+package com.framgia.fpoll.ui.profile.editprofile;
 
 import android.support.annotation.NonNull;
 import com.framgia.fpoll.R;

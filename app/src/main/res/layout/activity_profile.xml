@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.framgia.fpoll.ui.profile.ProfileViewModel"
+            />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.framgia.fpoll.ui.profile.ProfileActivity"
+        >
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_240"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_place_holder"
+                    app:layout_collapseMode="pin"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:background="@drawable/bg_circle_textview"
+                    android:padding="@dimen/dp_2"
+                    >
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        bind:bindError="@{@drawable/ic_fpoll_logo}"
+                        bind:bindImage="@{viewModel.editUser.avatar}"
+                        />
+                    <android.support.design.widget.FloatingActionButton
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_alignParentRight="true"
+                        android:onClick="@{() -> viewModel.onChangeAvtClick()}"
+                        android:scaleType="centerInside"
+                        android:background="@drawable/ic_mode_edit_black_24px"
+                        android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
+                        app:rippleColor="@color/color_red_500"
+                        />
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:subtitleTextColor="@android:color/white"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:titleTextColor="@android:color/white"
+                    bind:titleToolbar="@{viewModel.user.username}"
+                    bind:view="@{viewModel.activity}"
+                    />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginRight="@dimen/dp_10"
+            android:onClick="@{() -> viewModel.onEditUserClick()}"
+            android:src="@{viewModel.editing? @drawable/ic_done: @drawable/ic_mode_edit_black_24px}"
+            app:layout_anchor="@id/app_bar_layout"
+            app:layout_anchorGravity="bottom|right"
+            app:rippleColor="@color/color_red_500"
+            />
+
+        <include
+            layout="@layout/profile_detail"
+            bind:viewModel="@{viewModel}"
+            />
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
