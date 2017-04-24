@@ -179,7 +179,7 @@
     <string name="title_bar_chart">Biểu đồ cột</string>
     <string name="msg_register_success">Đăng ký thành công !</string>
     <string name="msg_loading">Đang tải</string>
-    <string name="msg_no_internet">Không thể truy cập internet</string>
+    <string name="title_no_internet">Không thể truy cập internet</string>
     <string name="post_comment">%d Bình luận</string>
     <string name="post_comments">%d Bình luận</string>
     <string name="post_user">%d User</string>
@@ -252,4 +252,12 @@
     <string name="title_setting_poll"> Cài đặt của poll </string>
     <string name="title_option_poll">Tùy chọn của poll </string>
     <string name="msg_reopen">Bạn có chắc chắn muốn mở lại poll ? </string>
+    <string name="title_next_to_vote">Tham gia poll</string>
+    <string name="title_no">Không</string>
+    <string name="title_no_login">Lỗi xác thực</string>
+    <string name="title_no_poll">Ồ, Bạn chưa có poll nào cả</string>
+    <string name="title_participated">Tham gia</string>
+    <string name="title_reopen_poll">Mở lại Poll</string>
+    <string name="title_reques_pemissions">Request Permissions</string>
+    <string name="title_reset_link"></string>
 </resources>

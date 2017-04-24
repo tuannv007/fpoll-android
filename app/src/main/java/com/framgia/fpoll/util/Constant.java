@@ -68,7 +68,7 @@ public class Constant {
     }
 
     public static class ConstantApi {
-        public static final String BASE_URL = "https://quiet-fjord-67201.herokuapp.com/";
+        public static final String BASE_URL = "http://quiet-fjord-67201.herokuapp.com/";
         public static final String KEY_TOKEN = "token";
         public static final int KEY_MULTI_CHOOSE = 1;
         public static final int KEY_SINGER_CHOOSE = 0;

@@ -96,7 +96,7 @@ public class LoginRemoteDataSource implements LoginDataSource {
     }
 
     @Override
-    public void updateProfile(@NonNull User user, @NonNull final DataCallback<User> callback) {
+    public void updateProfile(@NonNull User user, @NonNull final DataCallback<SocialData> callback) {
         if (mService == null) return;
         RequestBody email = RequestBody.create(MultipartBody.FORM, user.getEmail());
         RequestBody name = RequestBody.create(MultipartBody.FORM, user.getUsername());
@@ -113,9 +113,9 @@ public class LoginRemoteDataSource implements LoginDataSource {
         MultipartBody.Part avatar = AuthenticationApi.getAvatar(user);
         mService.updateProfile(name, email, password, gender, chatWorkId, avatar)
                 .enqueue(new CallbackManager<>(mContext,
-                        new CallbackManager.CallBack<ResponseItem<User>>() {
+                        new CallbackManager.CallBack<ResponseItem<SocialData>>() {
                             @Override
-                            public void onResponse(ResponseItem<User> data) {
+                            public void onResponse(ResponseItem<SocialData> data) {
                                 callback.onSuccess(data.getData());
                             }
 

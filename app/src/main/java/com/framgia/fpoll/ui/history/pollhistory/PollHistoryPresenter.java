@@ -1,6 +1,9 @@
 package com.framgia.fpoll.ui.history.pollhistory;
 
+import android.databinding.ObservableField;
+import android.view.View;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.EmptyModel;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -9,6 +12,8 @@ import com.framgia.fpoll.ui.history.PollHistoryType;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.List;
 
+import static com.framgia.fpoll.data.model.EmptyModel.State.NO_INTERNET;
+import static com.framgia.fpoll.data.model.EmptyModel.State.NO_LOGIN;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
 
 /**
@@ -22,6 +27,7 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     private ManagerRepository mRepository;
     private User mUser;
     private SharePreferenceUtil mPreference;
+    private ObservableField<EmptyModel> mEmptyModel = new ObservableField<>();
 
     public PollHistoryPresenter(PollHistoryContract.View view, PollHistoryType typeHistory,
             ManagerRepository repository, SharePreferenceUtil preference) {
@@ -30,6 +36,7 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
         mHistoryType = typeHistory;
         mUser = preference.getUser();
         mPreference = preference;
+        mEmptyModel.set(new EmptyModel(View.GONE));
         mView.start();
     }
 
@@ -37,8 +44,14 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
     public void getData() {
         if (mView == null || mRepository == null) return;
         if (!mPreference.isLogin()) {
-            mView.setLoadingTrue();
             mView.setLoadingFalse();
+            mEmptyModel.set(
+                    new EmptyModel(NO_LOGIN, View.VISIBLE, new EmptyModel.OnActionClickListenner() {
+                        @Override
+                        public void onActionClick() {
+                            mView.onOpenLoginClick();
+                        }
+                    }));
             return;
         }
         mView.setLoadingTrue();
@@ -49,11 +62,13 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                             @Override
                             public void onSuccess(List<HistoryPoll> data) {
                                 loadDataSuccess(data);
+                                mEmptyModel.set(new EmptyModel(View.GONE));
                             }
 
                             @Override
                             public void onError(String msg) {
-                                loadDataError();
+                                loadDataError(msg);
+                                mEmptyModel.set(new EmptyModel(NO_INTERNET, View.VISIBLE, null));
                             }
                         });
                 break;
@@ -63,11 +78,13 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                             @Override
                             public void onSuccess(List<HistoryPoll> data) {
                                 loadDataSuccess(data);
+                                mEmptyModel.set(new EmptyModel(View.GONE));
                             }
 
                             @Override
                             public void onError(String msg) {
-                                loadDataError();
+                                loadDataError(msg);
+                                mEmptyModel.set(new EmptyModel(NO_INTERNET, View.VISIBLE, null));
                             }
                         });
                 break;
@@ -77,11 +94,13 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                             @Override
                             public void onSuccess(List<HistoryPoll> data) {
                                 loadDataSuccess(data);
+                                mEmptyModel.set(new EmptyModel(View.GONE));
                             }
 
                             @Override
                             public void onError(String msg) {
-                                loadDataError();
+                                loadDataError(msg);
+                                mEmptyModel.set(new EmptyModel(NO_INTERNET, View.VISIBLE, null));
                             }
                         });
                 break;
@@ -90,8 +109,8 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
         }
     }
 
-    private void loadDataError() {
-        mView.showMessage(R.string.msg_not_load_item);
+    private void loadDataError(String msg) {
+        mView.showMessage(msg);
         mView.setLoadingFalse();
     }
 
@@ -151,5 +170,9 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                 mView.hideDialog();
             }
         });
+    }
+
+    public ObservableField<EmptyModel> getEmptyModel() {
+        return mEmptyModel;
     }
 }

@@ -34,8 +34,11 @@ public class ServiceGenerator {
                     Request original = chain.request();
                     Request.Builder requestBuilder = original.newBuilder()
                             .header("Accept", "application/json")
-                            .header("Authorization", "Bearer " + getToken())
                             .method(original.method(), original.body());
+                    String token = getToken();
+                    if (token != null) {
+                        requestBuilder.header("Authorization", "Bearer " + token);
+                    }
                     Request request = requestBuilder.build();
                     return chain.proceed(request);
                 }

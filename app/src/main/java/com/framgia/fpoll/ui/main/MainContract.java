@@ -38,5 +38,7 @@ public interface MainContract {
         void changeLanguage(String lang);
 
         void startUIPollCreation();
+
+        void onUserUpdate();
     }
 }
