@@ -6,11 +6,11 @@
         android:title="@string/title_login"/>
     <item
         android:id="@+id/action_home"
-        android:icon="@drawable/ic_home_white_24px"
+        android:icon="@drawable/ic_bottom_home_grey"
         android:title="@string/title_home"/>
     <item
         android:id="@+id/action_join_poll"
-        android:icon="@drawable/ic_elections"
+        android:icon="@drawable/ic_bottom_join_grey"
         android:title="@string/title_join_poll"/>
     <item
         android:id="@+id/action_introduce"
@@ -22,7 +22,7 @@
         android:title="@string/title_document"/>
     <item
         android:id="@+id/action_feedback"
-        android:icon="@drawable/ic_feedback_white_24px"
+        android:icon="@drawable/ic_bottom_feedback_grey"
         android:title="@string/title_feedback"/>
     <item
         android:id="@+id/action_log_out"

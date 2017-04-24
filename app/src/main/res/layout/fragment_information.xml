@@ -14,6 +14,7 @@
             name="presenter"
             type="com.framgia.fpoll.ui.pollmanage.information.PollInformationPresenter"
             />
+
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,41 +32,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:paddingRight="@dimen/dp_16"
                     >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:padding="@dimen/dp_4"
-                        android:text="@{presenter.poll.open ? @string/title_poll_open : @string/title_poll_close}"
-                        android:textColor="@color/color_grey_700"
-                        />
                     <LinearLayout
-                        style="@style/LinearLayoutStyle">
+                        android:visibility="@{presenter.emailVisibility}"
+                        style="@style/LinearLayoutStyle"
+                        >
 
                         <ImageView
                             android:src="@drawable/ic_email_white_24px"
                             style="@style/ImageViewStyle"
                             />
-
-                        <EditText
-                            android:enabled="@{!presenter.isLogin || presenter.poll.user.email == null}"
-                            android:inputType="textEmailAddress"
-                            android:text="@={presenter.poll.user.email}"
+                        <android.support.v7.widget.AppCompatTextView
+                            android:background="?attr/editTextBackground"
+                            android:text="@{presenter.poll.user.email}"
                             style="@style/EditTextStyle"
                             />
 
                     </LinearLayout>
-                    <LinearLayout style="@style/LinearLayoutStyle">
+                    <LinearLayout
+                        android:visibility="@{presenter.userNameVisibility}"
+                        style="@style/LinearLayoutStyle"
+                        >
 
                         <ImageView
                             android:src="@drawable/ic_person_black_24dp"
                             style="@style/ImageViewStyle"
                             />
-                        <EditText
-                            android:enabled="@{!presenter.isLogin || presenter.poll.user.username == null}"
-                            android:inputType="text"
-                            android:text="@={presenter.poll.user.username}"
+                        <android.support.v7.widget.AppCompatTextView
+                            android:background="?attr/editTextBackground"
+                            android:text="@{presenter.poll.user.username}"
                             style="@style/EditTextStyle"
                             />
                     </LinearLayout>
@@ -76,8 +72,9 @@
                             android:src="@drawable/ic_title"
                             style="@style/ImageViewStyle"
                             />
-                        <EditText
-                            android:text="@={presenter.poll.title}"
+                        <android.support.v7.widget.AppCompatTextView
+                            android:background="?attr/editTextBackground"
+                            android:text="@{presenter.poll.title}"
                             style="@style/EditTextStyle"
                             />
                     </LinearLayout>
@@ -90,15 +87,12 @@
                             style="@style/ImageViewStyle"
                             />
 
-                        <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:entries="@array/array_answer"
-                            android:padding="@dimen/dp_4"
-                            android:spinnerMode="dropdown"
-                            android:splitMotionEvents="true"
-                            bind:choiceAnswer="@={presenter.poll.multiple}"
-                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                        <android.support.v7.widget.AppCompatTextView
+                            android:background="?attr/editTextBackground"
+                            android:gravity="start"
+                            android:padding="@dimen/dp_8"
+                            android:text="@{presenter.poll.multiple ? @string/title_more_answer : @string/title_one_answer}"
+                            style="@style/EditTextStyle"
                             />
                     </LinearLayout>
 
@@ -110,19 +104,18 @@
                             style="@style/ImageViewStyle"
                             />
 
-                        <android.support.v7.widget.AppCompatEditText
+                        <android.support.v7.widget.AppCompatTextView
+                            android:background="?attr/editTextBackground"
                             android:gravity="start"
-                            android:hint="@string/title_description_poll"
                             android:inputType="textEmailAddress"
                             android:padding="@dimen/dp_8"
-                            android:text="@={presenter.poll.description}"
+                            android:text="@{presenter.poll.description}"
                             style="@style/EditTextStyle"
                             />
 
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/btn_choose_time"
-                        android:onClick="@{() -> handler.showDateTimePicker()}"
                         style="@style/LinearLayoutStyle"
                         >
 
@@ -144,9 +137,9 @@
                             android:src="@drawable/ic_location_on_black_24px"
                             style="@style/ImageViewStyle"
                             />
-                        <EditText
+                        <android.support.v7.widget.AppCompatTextView
+                            android:background="?attr/editTextBackground"
                             android:hint="@string/title_location"
-                            android:inputType="text"
                             android:text="@{presenter.poll.location}"
                             style="@style/EditTextStyle"
                             />
@@ -157,6 +150,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/dp_20"
                         android:onClick="@{() -> handler.saveInformation()}"
+                        android:visibility="gone"
                         style="@style/FPollCardView"
                         >
                         <android.support.v7.widget.AppCompatTextView

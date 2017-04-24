@@ -114,7 +114,7 @@
     <string name="address_edit_profile">Địa chỉ</string>
     <string name="sex_edit_profile">Giới tính</string>
     <string name="title_action_edit_profile">Chỉnh sửa</string>
-    <string name="title_edit_profile">Chỉnh sửa thông tin cá nhân</string>
+    <string name="title_edit_profile">Profile</string>
     <string name="msg_copy_success">Copy thành công</string>
     <string name="time_close_vote">Thời gian đóng bình chọn :</string>
     <string name="show_vote_details">Hiển thị chi tiết bình chọn</string>
