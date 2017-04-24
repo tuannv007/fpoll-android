@@ -18,6 +18,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
+import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.history.PollHistoryType;
 import com.framgia.fpoll.ui.history.dialog.ClosedDialogFragment;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
@@ -126,6 +127,11 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             ClosedDialogFragment.newInstance().show(transaction, "");
         }
+    }
+
+    @Override
+    public void onOpenLoginClick() {
+        startActivity(AuthenticationActivity.getAuthenticationIntent(getContext(), true));
     }
 
     @Override

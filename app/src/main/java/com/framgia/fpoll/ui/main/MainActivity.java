@@ -208,7 +208,8 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case REQUEST_PROFILE_DETAIL:
-                // TODO: 20/04/2017 update profile navigation 
+                // TODO: 20/04/2017 update profile navigation
+                mPresenter.onUserUpdate();
                 break;
             default:
                 break;

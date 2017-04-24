@@ -74,11 +74,11 @@ public class LoginRepository implements LoginDataSource {
     }
 
     @Override
-    public void updateProfile(@NonNull User user, @NonNull final DataCallback<User> callback) {
+    public void updateProfile(@NonNull User user, @NonNull final DataCallback<SocialData> callback) {
         if (mDataSource == null) return;
-        mDataSource.updateProfile(user, new DataCallback<User>() {
+        mDataSource.updateProfile(user, new DataCallback<SocialData>() {
             @Override
-            public void onSuccess(User data) {
+            public void onSuccess(SocialData data) {
                 callback.onSuccess(data);
             }
 

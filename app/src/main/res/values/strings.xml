@@ -181,7 +181,7 @@
         enter a new email
     </string>
     <string name="msg_loading">Loading</string>
-    <string name="msg_no_internet">No access internet</string>
+    <string name="title_no_internet">No access internet</string>
     <string name="post_comment">%d Comment</string>
     <string name="post_comments">%d Comments</string>
     <string name="post_user">%d User</string>
@@ -291,4 +291,9 @@
     <string name="action_update">Update</string>
     <string name="title_gender">Gender</string>
     <string name="msg_error_not_know">Some thing went wrong, please try again later!</string>
+    <string name="title_no_login">Authenicated</string>
+    <string name="msg_no_login_subttile">Opps, please login to manager you polls.</string>
+    <string name="msg_no_internet">No internet connection, please check your internet connection and try again!</string>
+    <string name="title_no_poll">Opps, Empty poll</string>
+    <string name="msg_no_poll">To create a new poll, please click the + button bellow</string>
 </resources>

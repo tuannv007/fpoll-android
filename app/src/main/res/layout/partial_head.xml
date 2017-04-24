@@ -35,7 +35,7 @@
             android:clickable="@{isLogin}"
             android:onClick="@{()->handler.clickUpdateProfile()}"
             android:scaleType="centerCrop"
-            bind:bindError="@{@drawable/ic_fpoll_logo}"
+            bind:bindError="@{@drawable/ic_person_black_24dp}"
             bind:bindImage="@{user.avatar}"
             />
 

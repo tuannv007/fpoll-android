@@ -57,7 +57,7 @@ public class AuthenticationApi {
 
         @POST("api/v1/updateProfile")
         @Multipart
-        Call<ResponseItem<User>> updateProfile(@Part("name") RequestBody name,
+        Call<ResponseItem<SocialData>> updateProfile(@Part("name") RequestBody name,
                 @Part("email") RequestBody email, @Part("password") RequestBody password,
                 @Part("gender") RequestBody gender, @Part("chatwork_id") RequestBody chatWorkId,
                 @Part MultipartBody.Part file);

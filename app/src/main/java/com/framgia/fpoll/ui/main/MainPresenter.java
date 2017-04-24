@@ -1,6 +1,7 @@
 package com.framgia.fpoll.ui.main;
 
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import com.android.annotations.NonNull;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -16,7 +17,7 @@ import com.framgia.fpoll.util.SharePreferenceUtil;
 public class MainPresenter implements MainContract.Presenter {
     private final MainContract.View mView;
     private final ObservableBoolean mIsLogin = new ObservableBoolean();
-    private User mUser;
+    private ObservableField<User> mUser = new ObservableField<>();
     private LoginRepository mRepository;
     private SettingRepository mSettingRepository;
     private SharePreferenceUtil mPreference;
@@ -42,10 +43,15 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
+    public void onUserUpdate() {
+        mUser.set(mPreference.getUser());
+    }
+
+    @Override
     public void logout() {
         if (mRepository == null) return;
         mView.showProgressDialog();
-        mRepository.logout(mUser.getToken(), new DataCallback<String>() {
+        mRepository.logout(mUser.get().getToken(), new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 mView.showMessage(data);
@@ -66,7 +72,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void setInformation() {
-        mUser = mPreference.getUser();
+        mUser.set(mPreference.getUser());
         mIsLogin.set(mPreference.isLogin());
     }
 
@@ -85,7 +91,7 @@ public class MainPresenter implements MainContract.Presenter {
         });
     }
 
-    public User getUser() {
+    public ObservableField<User> getUser() {
         return mUser;
     }
 

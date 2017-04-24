@@ -67,7 +67,7 @@ public class CallbackManager<T extends ResponseItem> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-        mCallback.onFailure(mContext.getString(R.string.msg_no_internet));
+        mCallback.onFailure(mContext.getString(R.string.title_no_internet));
     }
 
     public interface CallBack<T> {

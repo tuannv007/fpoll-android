@@ -62,6 +62,7 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
             mUser.set((User) user.clone());
             mEditUser.set((User) user.clone());
             mActivity.setTitle(user.getUsername());
+            mActivity.setResult(RESULT_OK, new Intent());
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

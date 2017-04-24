@@ -31,6 +31,8 @@ public interface PollHistoryContract {
         void showConfirmDialog(HistoryPoll historyPoll);
 
         void showPollClosedDialog();
+
+        void onOpenLoginClick();
     }
 
     interface Presenter {

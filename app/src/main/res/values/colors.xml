@@ -27,4 +27,6 @@
     <color name="color_gray_divider">#29000000</color>
     <color name="color_gray_shadow">#cc222222</color>
     <color name="color_yellow_500">#FFEB3B</color>
+    <color name="color_gray_500">#F4F6F9</color>
+    <color name="color_gray_800">#80323232</color>
 </resources>
