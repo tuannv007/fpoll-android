@@ -1,5 +1,6 @@
 package com.framgia.fpoll.data.model.authorization;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
@@ -181,15 +182,16 @@ public class User extends BaseObservable implements Parcelable, Cloneable {
         dest.writeByte((byte) (mIsActive ? 1 : 0));
     }
 
-    public int getDisplayGender() {
+    public String getDisplayGender(Context context) {
+        // TODO: 4/24/17 check later
         switch (mGender) {
             case MALE:
-                return R.string.title_male;
+                return context.getString(R.string.title_male);
             case FEMALE:
-                return R.string.title_female;
+                return context.getString(R.string.title_female);
             case OTHER:
             default:
-                return R.string.title_other;
+                return context.getString(R.string.title_other);
         }
     }
 
@@ -197,5 +199,4 @@ public class User extends BaseObservable implements Parcelable, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-
 }

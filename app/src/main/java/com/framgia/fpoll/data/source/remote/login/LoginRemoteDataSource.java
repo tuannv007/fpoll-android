@@ -96,7 +96,8 @@ public class LoginRemoteDataSource implements LoginDataSource {
     }
 
     @Override
-    public void updateProfile(@NonNull User user, @NonNull final DataCallback<SocialData> callback) {
+    public void updateProfile(@NonNull User user,
+            @NonNull final DataCallback<SocialData> callback) {
         if (mService == null) return;
         RequestBody email = RequestBody.create(MultipartBody.FORM, user.getEmail());
         RequestBody name = RequestBody.create(MultipartBody.FORM, user.getUsername());
@@ -137,6 +138,28 @@ public class LoginRemoteDataSource implements LoginDataSource {
                             public void onResponse(ResponseItem data) {
                                 if (data.getStatus() == STATUS_SUCCESS) {
                                     callback.onSuccess(data.getMessage().toString());
+                                } else {
+                                    callback.onError(data.getMessage().toString());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
+    }
+
+    @Override
+    public void getProfile(@NonNull String token, @NonNull final DataCallback callback) {
+        if (mService == null) return;
+        mService.getProfile(token)
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<User>>() {
+                            @Override
+                            public void onResponse(ResponseItem data) {
+                                if (data.getStatus() == STATUS_SUCCESS) {
+                                    callback.onSuccess(data);
                                 } else {
                                     callback.onError(data.getMessage().toString());
                                 }

@@ -43,6 +43,8 @@ public interface ProfileContract {
         void onUpdateUserFaile(String msg);
 
         void onUpdateUserFaile(int msg);
+
+        void getDataUserError(String msg);
     }
 
     interface Presenter extends BasePresenter {

@@ -1,6 +1,6 @@
 package com.framgia.fpoll.data.source.remote.login;
 
-import com.android.annotations.NonNull;
+import android.support.annotation.NonNull;
 import com.framgia.fpoll.data.model.authorization.LoginNormalData;
 import com.framgia.fpoll.data.model.authorization.SocialData;
 import com.framgia.fpoll.data.model.authorization.User;
@@ -22,4 +22,6 @@ public interface LoginDataSource {
     void updateProfile(@NonNull User user, @NonNull DataCallback<SocialData> callback);
 
     void resetPassword(@NonNull String email, @NonNull DataCallback<String> callback);
+
+    void getProfile(@NonNull String token, @NonNull DataCallback callback);
 }

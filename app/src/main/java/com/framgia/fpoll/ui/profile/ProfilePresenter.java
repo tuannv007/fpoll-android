@@ -5,6 +5,7 @@ import com.framgia.fpoll.data.model.authorization.SocialData;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.login.LoginDataSource;
+import com.framgia.fpoll.networking.ResponseItem;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.util.UserValidation;
 
@@ -29,7 +30,20 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public void getUser() {
         User user = mPreference.getUser();
         if (user != null) {
-            mViewModel.onGetUserSuccess(user);
+            mViewModel.showProgressDialog();
+            mRepository.getProfile(user.getToken(), new DataCallback<ResponseItem<User>>() {
+                @Override
+                public void onSuccess(ResponseItem<User> data) {
+                    mViewModel.onGetUserSuccess(data.getData());
+                    mViewModel.hideProgressDialog();
+                }
+
+                @Override
+                public void onError(String msg) {
+                    mViewModel.getDataUserError(msg);
+                    mViewModel.hideProgressDialog();
+                }
+            });
         } else {
             mViewModel.onGetUserFailed();
         }

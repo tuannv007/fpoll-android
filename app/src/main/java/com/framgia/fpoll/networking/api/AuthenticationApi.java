@@ -65,5 +65,8 @@ public class AuthenticationApi {
         @POST("api/v1/password/reset")
         @Multipart
         Call<ResponseItem> resetPassword(@Part("email") RequestBody email);
+
+        @GET("/api/v1/getProfile")
+        Call<ResponseItem<User>> getProfile(@Header("Authorization") String token);
     }
 }
