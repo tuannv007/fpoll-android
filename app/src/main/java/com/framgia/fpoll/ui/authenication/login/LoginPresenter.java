@@ -69,7 +69,6 @@ public class LoginPresenter implements LoginContract.Presenter {
                                     @Override
                                     public void onError(String msg) {
                                         mView.loginError(msg);
-
                                     }
                                 });
                     }

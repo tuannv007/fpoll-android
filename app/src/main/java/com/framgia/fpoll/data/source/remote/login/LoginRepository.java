@@ -1,11 +1,12 @@
 package com.framgia.fpoll.data.source.remote.login;
 
 import android.content.Context;
-import com.android.annotations.NonNull;
+import android.support.annotation.NonNull;
 import com.framgia.fpoll.data.model.authorization.LoginNormalData;
 import com.framgia.fpoll.data.model.authorization.SocialData;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
+import com.framgia.fpoll.networking.ResponseItem;
 
 /**
  * Created by Nhahv0902 on 3/3/2017.
@@ -74,7 +75,8 @@ public class LoginRepository implements LoginDataSource {
     }
 
     @Override
-    public void updateProfile(@NonNull User user, @NonNull final DataCallback<SocialData> callback) {
+    public void updateProfile(@NonNull User user,
+            @NonNull final DataCallback<SocialData> callback) {
         if (mDataSource == null) return;
         mDataSource.updateProfile(user, new DataCallback<SocialData>() {
             @Override
@@ -95,6 +97,21 @@ public class LoginRepository implements LoginDataSource {
         mDataSource.resetPassword(email, new DataCallback<String>() {
             @Override
             public void onSuccess(String data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void getProfile(@NonNull String token, @NonNull final DataCallback callback) {
+        mDataSource.getProfile(token, new DataCallback<ResponseItem<User>>() {
+            @Override
+            public void onSuccess(ResponseItem<User> data) {
                 callback.onSuccess(data);
             }
 

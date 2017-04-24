@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.profile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
@@ -31,9 +32,15 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
     private ObservableField<User> mEditUser = new ObservableField<>();
     private boolean mEditing;
     private FPollProgressDialog mDialog;
+    private Context mContext;
+
+    public Context getContext() {
+        return mContext;
+    }
 
     public ProfileViewModel(AppCompatActivity activity) {
         mActivity = activity;
+        mContext = activity;
     }
 
     public AppCompatActivity getActivity() {
@@ -75,6 +82,11 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
 
     @Override
     public void onUpdateUserFaile(int msg) {
+        Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getDataUserError(String msg) {
         Toast.makeText(mActivity, msg, Toast.LENGTH_SHORT).show();
     }
 

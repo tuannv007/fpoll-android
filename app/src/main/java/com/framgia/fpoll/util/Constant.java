@@ -132,4 +132,10 @@ public class Constant {
         public static final String LANGUAGE_JP = "jp";
         public static final String LANGUAGE_EN = "en";
     }
+
+    public class Gender {
+        public static final int MALE = 0;
+        public static final int FE_MALE = 1;
+        public static final int OTHER = 2;
+    }
 }

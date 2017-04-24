@@ -239,7 +239,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void startUiProfileEdition() {
-        startActivityForResult(ProfileActivity.getInstance(this), Constant.RequestCode.REQUEST_PROFILE_DETAIL);
+        startActivityForResult(ProfileActivity.getInstance(this),
+                Constant.RequestCode.REQUEST_PROFILE_DETAIL);
     }
 
     @Override

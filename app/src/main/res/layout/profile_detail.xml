@@ -60,7 +60,6 @@
                         android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
                         style="@style/DividerStyle"
                         />
-                    />
                 </LinearLayout>
             </LinearLayout>
 
@@ -128,7 +127,7 @@
                         android:layout_height="@dimen/dp_40"
                         >
                         <TextView
-                            android:text="@{viewModel.user.displayGender}"
+                            android:text="@{viewModel.user.getDisplayGender(viewModel.context)}"
                             android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
                             style="@style/TextViewProfileTitle"
                             />
