@@ -19,6 +19,82 @@
             android:orientation="vertical"
             android:padding="@dimen/dp_10"
             >
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dp_20"
+                        android:text="@string/title_poll_profile"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/sp_17"
+                        android:textStyle="bold"
+                        />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/dp_7"
+                            android:text="@{String.valueOf(viewModel.user.countCreatedPoll)}"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:gravity="center"
+                            android:text="@string/title_poll_create_profile"
+                            android:textSize="@dimen/sp_15"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/dp_7"
+                            android:text="@{String.valueOf(viewModel.user.countParticipatedPoll)}"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:gravity="center"
+                            android:text="@string/title_poll_participated_profile"
+                            android:textSize="@dimen/sp_15"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
             <LinearLayout
                 android:gravity="center"
                 style="@style/LinearLayoutStyle"
@@ -154,7 +230,6 @@
                         />
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

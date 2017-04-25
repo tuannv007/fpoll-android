@@ -7,12 +7,16 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.ui.authenication.changepass.ChangePassFragment;
 import com.framgia.fpoll.util.ActivityUtil;
+import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
@@ -208,5 +212,12 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
 
     public ObservableField<User> getEditUser() {
         return mEditUser;
+    }
+
+    public void showChangePasswordDialog() {
+        FragmentTransaction transaction =
+                getActivity().getSupportFragmentManager().beginTransaction();
+        DialogFragment dialog = ChangePassFragment.newInstance();
+        dialog.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
     }
 }
