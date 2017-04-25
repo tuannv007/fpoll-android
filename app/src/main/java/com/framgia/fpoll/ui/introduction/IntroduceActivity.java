@@ -12,7 +12,7 @@ import com.framgia.fpoll.data.model.IntroduceItem;
 import com.framgia.fpoll.data.source.local.IntroduceRepository;
 import com.framgia.fpoll.databinding.ActivityIntroduceBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
-import com.framgia.fpoll.ui.main.MainActivity;
+import com.framgia.fpoll.ui.mainstart.NewMainActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.List;
@@ -92,7 +92,7 @@ public class IntroduceActivity extends AppCompatActivity implements IntroduceApp
 
     @Override
     public void startMainActivity() {
-        startActivity(MainActivity.getInstance(this));
+        startActivity(NewMainActivity.getInstance(this));
     }
 
     @Override
