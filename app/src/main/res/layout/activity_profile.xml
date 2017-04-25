@@ -97,6 +97,18 @@
             app:layout_anchorGravity="bottom|right"
             app:rippleColor="@color/color_green_500"
             />
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_70"
+            android:layout_marginRight="@dimen/dp_70"
+            android:onClick="@{() -> viewModel.showChangePasswordDialog()}"
+            android:src="@drawable/ic_lock_white_24px"
+            app:backgroundTint="@color/color_red_500"
+            app:layout_anchor="@id/app_bar_layout"
+            app:layout_anchorGravity="bottom|end"
+            app:rippleColor="@color/color_green_500"
+            />
 
         <include
             layout="@layout/profile_detail"

@@ -48,6 +48,30 @@ public class User extends BaseObservable implements Parcelable, Cloneable {
     private boolean mIsActive;
     @SerializedName("created_at")
     private String mCreateAt;
+    @SerializedName("countParticipatedPoll")
+    private int mCountParticipatedPoll;
+    @SerializedName("countCreatedPoll")
+    private int mCountCreatedPoll;
+
+    @Bindable
+    public int getCountCreatedPoll() {
+        return mCountCreatedPoll;
+    }
+
+    public void setCountCreatedPoll(int countCreatedPoll) {
+        mCountCreatedPoll = countCreatedPoll;
+        notifyPropertyChanged(BR.countCreatedPoll);
+    }
+
+    @Bindable
+    public int getCountParticipatedPoll() {
+        return mCountParticipatedPoll;
+    }
+
+    public void setCountParticipatedPoll(int countParticipatedPoll) {
+        mCountParticipatedPoll = countParticipatedPoll;
+        notifyPropertyChanged(BR.countParticipatedPoll);
+    }
 
     public User() {
     }

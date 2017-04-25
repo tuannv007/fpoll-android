@@ -236,4 +236,11 @@
         <item name="android:textColor">@color/color_gray_shadow</item>
     </style>
 
+    <style name="EditTextChangePassword">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/dp_7</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
 </resources>
