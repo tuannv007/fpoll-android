@@ -16,7 +16,7 @@ import com.framgia.fpoll.ui.authenication.login.LoginFragment;
 import com.framgia.fpoll.ui.authenication.register.RegisterFragment;
 import com.framgia.fpoll.ui.authenication.resetpassword.ForgotPasswordFragment;
 import com.framgia.fpoll.ui.base.BaseActivity;
-import com.framgia.fpoll.ui.main.MainActivity;
+import com.framgia.fpoll.ui.mainstart.NewMainActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 
 import static com.framgia.fpoll.ui.introduction.IntroduceActivity.EXTRA_OPEN_FROM_MAIN;
@@ -95,7 +95,7 @@ public class AuthenticationActivity extends BaseActivity implements Authenticati
                 onBackPressed();
                 break;
             case R.id.action_skip:
-                startActivity(MainActivity.getInstance(this));
+                startActivity(NewMainActivity.getInstance(this));
                 finish();
                 break;
             default:

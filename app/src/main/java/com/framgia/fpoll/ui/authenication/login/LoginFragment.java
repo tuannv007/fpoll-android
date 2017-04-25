@@ -11,7 +11,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.databinding.FragmentLoginBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
-import com.framgia.fpoll.ui.main.MainActivity;
+import com.framgia.fpoll.ui.mainstart.NewMainActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.google.android.gms.auth.api.Auth;
@@ -132,7 +132,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         if (mIsOpenFromMain) {
             getActivity().setResult(RESULT_OK);
         } else {
-            startActivity(MainActivity.getInstance(getContext()));
+            startActivity(NewMainActivity.getInstance(getContext()));
         }
         getActivity().finish();
     }
@@ -147,5 +147,4 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         hideProgressDialog();
         ActivityUtil.showToast(getActivity(), msg);
     }
-
 }

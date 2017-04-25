@@ -45,4 +45,6 @@
     <dimen name="dp_320">320dp</dimen>
     <dimen name="dp_120">120dp</dimen>
     <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_12_negative">-12dp</dimen>
 </resources>
