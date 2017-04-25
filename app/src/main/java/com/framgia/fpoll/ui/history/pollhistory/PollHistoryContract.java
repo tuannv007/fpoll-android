@@ -33,6 +33,10 @@ public interface PollHistoryContract {
         void showPollClosedDialog();
 
         void onOpenLoginClick();
+
+        void hideBottomNavigation();
+
+        void showBottomNavigation();
     }
 
     interface Presenter {
@@ -41,5 +45,9 @@ public interface PollHistoryContract {
         void openPollHistory(HistoryPoll pollHistoryItem);
 
         void reopenPoll(HistoryPoll historyPoll);
+
+        void onHideBottomNavigation();
+
+        void onShowBottomNavigation();
     }
 }

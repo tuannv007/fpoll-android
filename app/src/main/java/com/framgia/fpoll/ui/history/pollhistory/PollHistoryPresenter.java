@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.history.pollhistory;
 
 import android.databinding.ObservableField;
 import android.view.View;
-import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.EmptyModel;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
@@ -170,6 +169,16 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                 mView.hideDialog();
             }
         });
+    }
+
+    @Override
+    public void onHideBottomNavigation() {
+        if (mView != null) mView.hideBottomNavigation();
+    }
+
+    @Override
+    public void onShowBottomNavigation() {
+        if (mView != null) mView.showBottomNavigation();
     }
 
     public ObservableField<EmptyModel> getEmptyModel() {

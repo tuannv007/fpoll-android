@@ -45,6 +45,10 @@ public interface ProfileContract {
         void onUpdateUserFaile(int msg);
 
         void getDataUserError(String msg);
+
+        void onHideBottomNavigation();
+
+        void onShowBottomNavigation();
     }
 
     interface Presenter extends BasePresenter {

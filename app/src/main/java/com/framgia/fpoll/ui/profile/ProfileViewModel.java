@@ -15,6 +15,7 @@ import com.framgia.fpoll.BR;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.ui.authenication.changepass.ChangePassFragment;
+import com.framgia.fpoll.ui.mainstart.NewMainActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
@@ -204,6 +205,16 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
     public void setEditing(boolean editing) {
         mEditing = editing;
         notifyPropertyChanged(BR.editing);
+    }
+
+    @Override
+    public void onHideBottomNavigation() {
+        ((NewMainActivity) getActivity()).hideBottomNavigation();
+    }
+
+    @Override
+    public void onShowBottomNavigation() {
+        ((NewMainActivity) getActivity()).showBottomNavigation();
     }
 
     public ObservableField<User> getUser() {

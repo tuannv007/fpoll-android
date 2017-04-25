@@ -1,5 +1,7 @@
 package com.framgia.fpoll.ui.mainstart;
 
+import android.databinding.BaseObservable;
+import android.databinding.ObservableBoolean;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,22 +11,22 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
-import com.framgia.fpoll.ui.joinpoll.JoinPollActivity;
+import com.framgia.fpoll.ui.joinpoll.JoinPollFragment;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
-import com.framgia.fpoll.ui.profile.ProfileActivity;
+import com.framgia.fpoll.ui.profile.ProfileFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
-import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_PROFILE_DETAIL;
 
 /**
  * Exposes the data to be used in the NewMain screen.
  */
 
-public class NewMainViewModel implements NewMainContract.ViewModel {
+public class NewMainViewModel extends BaseObservable implements NewMainContract.ViewModel {
     private static final int NUMBER_IMAGE_CHILD = 0;
     private NewMainContract.Presenter mPresenter;
     private final AppCompatActivity mActivity;
+    private ObservableBoolean mIsBottomNavigationShow = new ObservableBoolean(true);
 
     public NewMainViewModel(AppCompatActivity activity) {
         mActivity = activity;
@@ -53,14 +55,13 @@ public class NewMainViewModel implements NewMainContract.ViewModel {
                 startUIHome();
                 break;
             case R.id.relative_join_poll:
-                mActivity.startActivity(JoinPollActivity.getIntent(mActivity));
+                addFragment(JoinPollFragment.newInstance());
                 break;
             case R.id.relative_feedback:
                 addFragment(FeedbackFragment.newInstance());
                 break;
             case R.id.relative_profile:
-                mActivity.startActivityForResult(ProfileActivity.getInstance(mActivity),
-                        REQUEST_PROFILE_DETAIL);
+                addFragment(ProfileFragment.newInstance());
                 break;
             default:
                 break;
@@ -95,5 +96,19 @@ public class NewMainViewModel implements NewMainContract.ViewModel {
     private void addFragment(Fragment fragment) {
         ActivityUtil.addFragment(mActivity.getSupportFragmentManager(), fragment,
                 R.id.frame_layout);
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+        mIsBottomNavigationShow.set(false);
+    }
+
+    @Override
+    public void showBottomNavigation() {
+        mIsBottomNavigationShow.set(true);
+    }
+
+    public ObservableBoolean getIsBottomNavigationShow() {
+        return mIsBottomNavigationShow;
     }
 }

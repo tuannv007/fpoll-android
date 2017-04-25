@@ -158,7 +158,7 @@
     </style>
 
     <style name="FPollCardView" parent="CardView">
-        <item name="cardBackgroundColor">@color/colorPrimaryDark</item>
+        <item name="cardBackgroundColor">@color/colorPrimary</item>
         <item name="cardUseCompatPadding">true</item>
         <item name="cardCornerRadius">@dimen/dp_2</item>
         <item name="cardElevation">@dimen/dp_2</item>

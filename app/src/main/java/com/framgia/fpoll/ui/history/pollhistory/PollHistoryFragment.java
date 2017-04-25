@@ -21,6 +21,7 @@ import com.framgia.fpoll.databinding.FragmentPollHistoryBinding;
 import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.history.PollHistoryType;
 import com.framgia.fpoll.ui.history.dialog.ClosedDialogFragment;
+import com.framgia.fpoll.ui.mainstart.NewMainActivity;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.util.ActivityUtil;
@@ -187,5 +188,15 @@ public class PollHistoryFragment extends Fragment implements PollHistoryContract
                                 })
                         .setNegativeButton(android.R.string.no, null);
         alertBuilder.show();
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+        ((NewMainActivity) getActivity()).hideBottomNavigation();
+    }
+
+    @Override
+    public void showBottomNavigation() {
+        ((NewMainActivity) getActivity()).showBottomNavigation();
     }
 }

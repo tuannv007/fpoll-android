@@ -44,4 +44,12 @@ public class NewMainActivity extends BaseActivity {
         mViewModel.onStop();
         super.onStop();
     }
+
+    public void hideBottomNavigation() {
+        mViewModel.hideBottomNavigation();
+    }
+
+    public void showBottomNavigation() {
+        mViewModel.showBottomNavigation();
+    }
 }

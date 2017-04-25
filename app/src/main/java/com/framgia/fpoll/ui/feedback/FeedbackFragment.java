@@ -1,6 +1,5 @@
 package com.framgia.fpoll.ui.feedback;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,8 +16,6 @@ import com.framgia.fpoll.widget.FPollProgressDialog;
  * A simple {@link Fragment} subclass.
  */
 public class FeedbackFragment extends Fragment implements FeedbackContract.View {
-    private FragmentFeedbackBinding mBinding;
-    private FeedbackContract.Presenter mPresenter;
     private FPollProgressDialog mProgressDialog;
 
     public static FeedbackFragment newInstance() {
@@ -28,12 +25,14 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_feedback, container, false);
-        mPresenter = new FeedbackPresenter(this, FeedbackRepository.getInstance(getActivity()),
-                SharePreferenceUtil.getIntances(getActivity()));
-        mBinding.setPresenter((FeedbackPresenter) mPresenter);
-        mBinding.setHandler(new FeedbackHandler(mPresenter));
-        return mBinding.getRoot();
+        FragmentFeedbackBinding binding =
+                FragmentFeedbackBinding.inflate(inflater, container, false);
+        FeedbackContract.Presenter presenter =
+                new FeedbackPresenter(this, FeedbackRepository.getInstance(getActivity()),
+                        SharePreferenceUtil.getIntances(getActivity()));
+        binding.setPresenter((FeedbackPresenter) presenter);
+        binding.setHandler(new FeedbackHandler(presenter));
+        return binding.getRoot();
     }
 
     @Override
@@ -62,5 +61,4 @@ public class FeedbackFragment extends Fragment implements FeedbackContract.View 
     public void sendFeedbackSuccess() {
         ActivityUtil.showToast(getActivity(), R.string.msg_send_feedback_success);
     }
-
 }
