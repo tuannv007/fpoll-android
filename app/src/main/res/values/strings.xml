@@ -115,7 +115,7 @@
     <string name="address_edit_profile">Address</string>
     <string name="sex_edit_profile">Gender</string>
     <string name="title_action_edit_profile">Edit</string>
-    <string name="title_edit_profile">Edit Profile</string>
+    <string name="title_edit_profile">Profile</string>
     <string name="msg_copy_success">Copy Successfully</string>
     <string name="time_close_vote">Time for close vote :</string>
     <string name="show_vote_details">Show vote details</string>

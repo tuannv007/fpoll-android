@@ -65,7 +65,7 @@
             style="@style/LinearLayoutStyle">
 
             <ImageView
-                android:src="@drawable/ic_feedback_white_24px"
+                android:src="@drawable/ic_bottom_feedback_grey"
                 style="@style/ImageViewStyle"
                 />
 
