@@ -31,9 +31,7 @@ import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.feedback.FeedbackFragment;
 import com.framgia.fpoll.ui.history.HistoryFragment;
 import com.framgia.fpoll.ui.introduction.IntroduceActivity;
-import com.framgia.fpoll.ui.joinpoll.JoinPollActivity;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
-import com.framgia.fpoll.ui.profile.ProfileActivity;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.LanguageUtil;
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity
                 addHomeFragment();
                 break;
             case R.id.action_join_poll:
-                startActivity(JoinPollActivity.getIntent(this));
+                // TODO: 4/25/2017 start ui join poll
                 break;
             case R.id.action_guide:
                 setIsShowAddPoll(false);
@@ -239,8 +237,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void startUiProfileEdition() {
-        startActivityForResult(ProfileActivity.getInstance(this),
-                Constant.RequestCode.REQUEST_PROFILE_DETAIL);
+        // TODO: 4/25/2017 start ui profile
     }
 
     @Override

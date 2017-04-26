@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -62,6 +63,7 @@ import com.framgia.fpoll.ui.pollcreation.setting.RequireVoteType;
 import com.framgia.fpoll.ui.pollcreation.setting.SettingPresenter;
 import com.framgia.fpoll.ui.polledition.editoption.EditOptionHandle;
 import com.framgia.fpoll.ui.polledition.editsetting.EditSettingPresenter;
+import com.framgia.fpoll.ui.profile.ProfileViewModel;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -386,6 +388,36 @@ public class DataBindingUtils {
         view.setAdapter(adapter);
     }
 
+    @BindingAdapter({ "bind:scrollListener" })
+    public static void scrollListener(RecyclerView view, final PollHistoryPresenter presenter) {
+        view.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    presenter.onHideBottomNavigation();
+                } else {
+                    presenter.onShowBottomNavigation();
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+    }
+
+    @BindingAdapter({ "bind:appBarScrollListener" })
+    public static void appBarScrollListener(AppBarLayout view, final ProfileViewModel presenter) {
+        view.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+                    presenter.onShowBottomNavigation();
+                } else {
+                    presenter.onHideBottomNavigation();
+                }
+            }
+        });
+    }
+
     @BindingAdapter({ "bind:setErrorEditText" })
     public static void setError(final EditText editText, final String msg) {
         if (TextUtils.isEmpty(editText.getText())) editText.setError(msg);
@@ -642,6 +674,14 @@ public class DataBindingUtils {
 
             }
         });
+    }
+
+    /*
+    * bind title toolbar
+    * */
+    @BindingAdapter({ "bind:activity", "bind:titleToolBar" })
+    public static void titleToolBar(Toolbar view, AppCompatActivity activity, String title) {
+        if (title != null) activity.setTitle(title);
     }
 }
 

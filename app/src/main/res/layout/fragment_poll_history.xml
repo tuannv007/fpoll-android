@@ -40,6 +40,7 @@
                 android:paddingRight="@dimen/dp_8"
                 app:adapter="@{fragment.adapter}"
                 app:layoutManager="@{LayoutManageUtil.linear()}"
+                bind:scrollListener="@{presenter}"
                 />
             <include
                 layout="@layout/empty_states"

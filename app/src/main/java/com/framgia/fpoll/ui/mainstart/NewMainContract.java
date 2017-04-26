@@ -15,6 +15,10 @@ public interface NewMainContract {
         void onBottomBarClick(View view);
 
         void onStartPollCreate();
+
+        void hideBottomNavigation();
+
+        void showBottomNavigation();
     }
 
     /**
