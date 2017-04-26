@@ -5,6 +5,7 @@ import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.networking.ResponseItem;
+import com.framgia.fpoll.util.ActivityUtil;
 import com.google.gson.annotations.SerializedName;
 import java.io.File;
 import java.util.List;
@@ -31,6 +32,9 @@ import static com.framgia.fpoll.util.Constant.Setting.PASSWORD_REQUIRED;
  * <></>
  */
 public interface UpdatePollService {
+    public static final String TYPE_EDIT = "type_edit";
+    public static final String TEXT_SPACE = "";
+
     @POST("api/v1/poll/update/{id}")
     Call<ResponseItem<DataInfoItem>> updateInfo(@Path("id") int id, @Body PollInfoBody poll);
 
@@ -42,6 +46,61 @@ public interface UpdatePollService {
         public static final int TYPE_INFORMATION = 1;
         public static final int TYPE_OPTION = 2;
         public static final int TYPE_SETTING = 3;
+    }
+
+    public class UpdateOptionBody {
+        private final String OPTION_TEXT = "option[%s][name]";
+        private final String OPTION_IMAGE = "option[%s][image]";
+        private final String OPTION_ID = "option[%s][id]";
+        private List<Option> options;
+
+        public UpdateOptionBody(List<Option> optionList) {
+            options = optionList;
+        }
+
+        public RequestBody getRequestBody() {
+            MultipartBody.Builder builder = new MultipartBody.Builder();
+            builder.setType(MultipartBody.FORM);
+            if (options == null || options.size() == 0) return builder.build();
+            int numberNewOption = 1;
+            for (Option option : options) {
+                if (option.getId() > 0) {
+                    String index = ActivityUtil.randomString();
+                    builder.addFormDataPart(String.format(OPTION_ID, index), option.getName());
+                    if (!TextUtils.isEmpty(option.getName())) {
+                        builder.addFormDataPart(String.format(OPTION_TEXT, index),
+                                option.getName());
+                    }
+                    if (!TextUtils.isEmpty(option.getImage())) {
+                        File file = new File(option.getImage());
+                        if (!file.exists()) continue;
+                        RequestBody requestBody =
+                                RequestBody.create(MediaType.parse(option.getImage()), file);
+                        builder.addFormDataPart(String.format(OPTION_IMAGE, index), file.getName(),
+                                requestBody);
+                    } else {
+                        builder.addFormDataPart(String.format(OPTION_IMAGE, index), TEXT_SPACE);
+                    }
+                } else if (option.getId() == 0) {
+                    if (!TextUtils.isEmpty(option.getName())) {
+                        builder.addFormDataPart(String.format(OPTION_TEXT, numberNewOption),
+                                option.getName());
+                    }
+                    if (!TextUtils.isEmpty(option.getImage())) {
+                        File file = new File(option.getImage());
+                        if (!file.exists()) continue;
+                        RequestBody requestBody =
+                                RequestBody.create(MediaType.parse(option.getImage()), file);
+                        builder.addFormDataPart(String.format(OPTION_IMAGE, numberNewOption),
+                                file.getName(), requestBody);
+                    }
+                    numberNewOption++;
+                }
+            }
+            builder.addFormDataPart(TYPE_EDIT, String.valueOf(TYPE_OPTION));
+            builder.toString();
+            return builder.build();
+        }
     }
 
     class PollInfoBody {
@@ -77,7 +136,6 @@ public interface UpdatePollService {
     public class UpdatePoll {
         private static final String OPTION_TEXT = "optionText[%s]";
         private static final String OPTION_IMAGE = "optionImage[%s]";
-        private static final String TYPE_EDIT = "type_edit";
         private static final String IS_REQUIRE_VOTE = "setting[0]";
         private static final String REQUIRE_TYPE = "setting_child[0]";
         private static final String IS_SAME_EMAIL = "setting[10]";

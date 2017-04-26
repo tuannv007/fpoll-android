@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.api.UpdatePollService;
+import java.util.List;
 
 /**
  * Created by tuanbg on 3/21/17.
@@ -21,8 +23,7 @@ public class PollRepository implements PollDataSource {
 
     public static PollRepository getInstance(Context context) {
         if (sPollRepository == null) {
-            sPollRepository =
-                    new PollRepository(PollRemoteDataSource.getInstance(context));
+            sPollRepository = new PollRepository(PollRemoteDataSource.getInstance(context));
         }
         return sPollRepository;
     }
@@ -62,6 +63,23 @@ public class PollRepository implements PollDataSource {
     public void updateOptionSetting(int editType, PollItem pollItem,
             @NonNull final DataCallback<DataInfoItem> callback) {
         mRemoteDataSource.updateOptionSetting(editType, pollItem, new DataCallback<DataInfoItem>() {
+            @Override
+            public void onSuccess(DataInfoItem data) {
+                callback.onSuccess(data);
+            }
+
+            @Override
+            public void onError(String msg) {
+                callback.onError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void updateOption(int id, @NonNull List<Option> options,
+            @NonNull final DataCallback<DataInfoItem> callback) {
+        if (mRemoteDataSource == null) return;
+        mRemoteDataSource.updateOption(id, options, new DataCallback<DataInfoItem>() {
             @Override
             public void onSuccess(DataInfoItem data) {
                 callback.onSuccess(data);

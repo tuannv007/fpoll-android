@@ -5,6 +5,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.fpoll.R;
@@ -12,6 +15,7 @@ import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
+import com.framgia.fpoll.ui.polledition.ModifyPollActivity;
 import com.framgia.fpoll.ui.pollmanage.ManagePollActivity;
 import com.framgia.fpoll.ui.pollmanage.information.pollsetting.PollSettingDialogFragment;
 import com.framgia.fpoll.ui.pollmanage.information.viewoption.PollOptionDialogFragment;
@@ -85,6 +89,21 @@ public class PollInformationFragment extends Fragment
         if (mPoll != null && mPoll.getPoll() != null && mPoll.getPoll().getTitle() != null) {
             getActivity().setTitle(mPoll.getPoll().getTitle());
         }
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_information_manager, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_edit && mPoll != null && mPoll.getPoll() != null) {
+            startActivity(ModifyPollActivity.getModifyIntent(getActivity(), mPoll.getPoll()));
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
