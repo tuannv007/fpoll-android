@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.polledition.editoption;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,8 +53,7 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        mBinding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_edit_option, container, false);
+        mBinding = FragmentEditOptionBinding.inflate(inflater, container, false);
         mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
         mPresenter =
                 new EditOptionPresenter(this, mPollItem, PollRepository.getInstance(getActivity()));

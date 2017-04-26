@@ -6,6 +6,7 @@ import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.HistoryPoll;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.CallbackManager;
 import com.framgia.fpoll.networking.ResponseItem;
@@ -14,6 +15,7 @@ import com.framgia.fpoll.networking.api.PollCreationApi;
 import com.framgia.fpoll.networking.api.PollManagerAPI;
 import com.framgia.fpoll.networking.api.UpdatePollService;
 import com.framgia.fpoll.util.ActivityUtil;
+import java.util.List;
 import okhttp3.RequestBody;
 
 import static com.framgia.fpoll.networking.api.UpdatePollService.EditTypeConstant.TYPE_OPTION;
@@ -100,6 +102,34 @@ public class PollRemoteDataSource implements PollDataSource {
         mService.updateOption(pollItem.getId(), body)
                 .enqueue(new CallbackManager<>(mContext,
                         new CallbackManager.CallBack<ResponseItem<DataInfoItem>>() {
+                            @Override
+                            public void onResponse(ResponseItem<DataInfoItem> data) {
+                                if (data == null) {
+                                    callback.onError(
+                                            mContext.getString(R.string.msg_create_poll_error));
+                                } else if (data.getData() == null) {
+                                    callback.onError(ActivityUtil.byString(data.getMessage()));
+                                } else {
+                                    callback.onSuccess(data.getData());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(String message) {
+                                callback.onError(message);
+                            }
+                        }));
+    }
+
+    @Override
+    public void updateOption(int id, @NonNull List<Option> options,
+            @NonNull final DataCallback<DataInfoItem> callback) {
+        if (mService == null || mContext == null) return;
+        UpdatePollService.UpdateOptionBody body = new UpdatePollService.UpdateOptionBody(options);
+        mService.updateOption(id, body.getRequestBody())
+                .enqueue(new CallbackManager<>(mContext,
+                        new CallbackManager.CallBack<ResponseItem<DataInfoItem>>() {
+
                             @Override
                             public void onResponse(ResponseItem<DataInfoItem> data) {
                                 if (data == null) {
