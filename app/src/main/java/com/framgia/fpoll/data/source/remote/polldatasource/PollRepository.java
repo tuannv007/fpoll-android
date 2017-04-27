@@ -30,10 +30,10 @@ public class PollRepository implements PollDataSource {
 
     @Override
     public void updateInformation(int pollId, UpdatePollService.PollInfoBody body,
-            @NonNull final DataCallback<DataInfoItem> callback) {
-        mRemoteDataSource.updateInformation(pollId, body, new DataCallback<DataInfoItem>() {
+            @NonNull final DataCallback<PollItem> callback) {
+        mRemoteDataSource.updateInformation(pollId, body, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(DataInfoItem data) {
+            public void onSuccess(PollItem data) {
                 callback.onSuccess(data);
             }
 
@@ -61,10 +61,10 @@ public class PollRepository implements PollDataSource {
 
     @Override
     public void updateOptionSetting(int editType, PollItem pollItem,
-            @NonNull final DataCallback<DataInfoItem> callback) {
-        mRemoteDataSource.updateOptionSetting(editType, pollItem, new DataCallback<DataInfoItem>() {
+            @NonNull final DataCallback<PollItem> callback) {
+        mRemoteDataSource.updateOptionSetting(editType, pollItem, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(DataInfoItem data) {
+            public void onSuccess(PollItem data) {
                 callback.onSuccess(data);
             }
 
@@ -77,11 +77,11 @@ public class PollRepository implements PollDataSource {
 
     @Override
     public void updateOption(int id, @NonNull List<Option> options,
-            @NonNull final DataCallback<DataInfoItem> callback) {
+            @NonNull final DataCallback<PollItem> callback) {
         if (mRemoteDataSource == null) return;
-        mRemoteDataSource.updateOption(id, options, new DataCallback<DataInfoItem>() {
+        mRemoteDataSource.updateOption(id, options, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(DataInfoItem data) {
+            public void onSuccess(PollItem data) {
                 callback.onSuccess(data);
             }
 

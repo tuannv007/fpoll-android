@@ -18,11 +18,10 @@ import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentEditOptionBinding;
 import com.framgia.fpoll.util.ActivityUtil;
-import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static android.app.Activity.RESULT_OK;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_IMAGE;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
@@ -34,17 +33,14 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     private static final int UNSELECTED_POSITION = -1;
     private static final int NUMBER_DEFAULT_OPTION = 4;
     private static final long DELAY_VIEW_TIME = 700;
-    private FragmentEditOptionBinding mBinding;
-    private EditOptionContract.Presenter mPresenter;
     private ObservableField<EditOptionAdapter> mAdapter = new ObservableField<>();
     private int mPosition = UNSELECTED_POSITION;
     private PollItem mPollItem;
-    private FPollProgressDialog mProgressDialog;
 
     public static EditOptionFragment newInstance(PollItem pollItem) {
         EditOptionFragment editOptionFragment = new EditOptionFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM, pollItem);
+        bundle.putParcelable(BUNDLE_POLL_ITEM, pollItem);
         editOptionFragment.setArguments(bundle);
         return editOptionFragment;
     }
@@ -53,16 +49,16 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentEditOptionBinding.inflate(inflater, container, false);
-        mPollItem = getArguments().getParcelable(Constant.BundleConstant.BUNDLE_POLL_ITEM);
-        mPresenter =
+        FragmentEditOptionBinding binding =
+                FragmentEditOptionBinding.inflate(inflater, container, false);
+        mPollItem = getArguments().getParcelable(BUNDLE_POLL_ITEM);
+        EditOptionContract.Presenter presenter =
                 new EditOptionPresenter(this, mPollItem, PollRepository.getInstance(getActivity()));
-        mBinding.setHandler(new EditOptionHandle(mPresenter));
-        mBinding.setPresenter((EditOptionPresenter) mPresenter);
-        mBinding.setFragment(this);
-        mAdapter.set(new EditOptionAdapter(mPresenter, mPollItem.getOptions()));
-        mProgressDialog = new FPollProgressDialog(getActivity());
-        return mBinding.getRoot();
+        binding.setHandler(new EditOptionHandle(presenter));
+        binding.setPresenter((EditOptionPresenter) presenter);
+        binding.setFragment(this);
+        mAdapter.set(new EditOptionAdapter(presenter, mPollItem.getOptions()));
+        return binding.getRoot();
     }
 
     @Override
@@ -108,9 +104,10 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
     }
 
     @Override
-    public void augmentPoll() {
+    public void augmentPoll(int position) {
+        if (position != mAdapter.get().getItemCount() - 1) return;
         mPollItem.getOptions().add(new Option());
-        mAdapter.get().update(mPollItem.getOptions());
+        mAdapter.get().notifyItemInserted(mAdapter.get().getItemCount() - 1);
     }
 
     @Override
@@ -139,10 +136,6 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
 
     public ObservableField<EditOptionAdapter> getAdapter() {
         return mAdapter;
-    }
-
-    public void checkNextUI(final OnCheckOptionListener listener) {
-        if (mPresenter != null) mPresenter.validateNextUI(listener);
     }
 
     @Override

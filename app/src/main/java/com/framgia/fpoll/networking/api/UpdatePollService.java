@@ -1,7 +1,6 @@
 package com.framgia.fpoll.networking.api;
 
 import android.text.TextUtils;
-import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.networking.ResponseItem;
@@ -33,14 +32,13 @@ import static com.framgia.fpoll.util.Constant.Setting.PASSWORD_REQUIRED;
  */
 public interface UpdatePollService {
     public static final String TYPE_EDIT = "type_edit";
-    public static final String TEXT_SPACE = "";
+    public static final String TEXT_SPACE = "0";
 
     @POST("api/v1/poll/update/{id}")
-    Call<ResponseItem<DataInfoItem>> updateInfo(@Path("id") int id, @Body PollInfoBody poll);
+    Call<ResponseItem<PollItem>> updateInfo(@Path("id") int id, @Body PollInfoBody poll);
 
     @POST("api/v1/poll/update/{id}")
-    Call<ResponseItem<DataInfoItem>> updateOption(@Path("id") int id,
-            @Body RequestBody requestBody);
+    Call<ResponseItem<PollItem>> updateOption(@Path("id") int id, @Body RequestBody requestBody);
 
     public static final class EditTypeConstant {
         public static final int TYPE_INFORMATION = 1;
@@ -66,7 +64,8 @@ public interface UpdatePollService {
             for (Option option : options) {
                 if (option.getId() > 0) {
                     String index = ActivityUtil.randomString();
-                    builder.addFormDataPart(String.format(OPTION_ID, index), option.getName());
+                    builder.addFormDataPart(String.format(OPTION_ID, index),
+                            String.valueOf(option.getId()));
                     if (!TextUtils.isEmpty(option.getName())) {
                         builder.addFormDataPart(String.format(OPTION_TEXT, index),
                                 option.getName());
@@ -98,7 +97,6 @@ public interface UpdatePollService {
                 }
             }
             builder.addFormDataPart(TYPE_EDIT, String.valueOf(TYPE_OPTION));
-            builder.toString();
             return builder.build();
         }
     }
@@ -134,8 +132,6 @@ public interface UpdatePollService {
     }
 
     public class UpdatePoll {
-        private static final String OPTION_TEXT = "optionText[%s]";
-        private static final String OPTION_IMAGE = "optionImage[%s]";
         private static final String IS_REQUIRE_VOTE = "setting[0]";
         private static final String REQUIRE_TYPE = "setting_child[0]";
         private static final String IS_SAME_EMAIL = "setting[10]";
@@ -146,29 +142,6 @@ public interface UpdatePollService {
         private static final String ALLOW_ADD_OPTION = "setting[9]";
         private static final String ALLOW_EDIT_OPTION = "setting[11]";
         private static final String IS_HIDE_RESULT = "setting[2]";
-
-        public static RequestBody getOptionRequestBody(PollItem pollItem) {
-            List<Option> options = pollItem.getOptions();
-            MultipartBody.Builder builder = new MultipartBody.Builder();
-            builder.setType(MultipartBody.FORM);
-            if (options == null || options.size() == 0) return builder.build();
-            for (int i = 0; i < options.size(); i++) {
-                if (!TextUtils.isEmpty(options.get(i).getName())) {
-                    builder.addFormDataPart(String.format(OPTION_TEXT, i),
-                            options.get(i).getName());
-                }
-                if (!TextUtils.isEmpty(options.get(i).getImage())) {
-                    File file = new File(options.get(i).getImage());
-                    if (!file.exists()) continue;
-                    RequestBody requestBody =
-                            RequestBody.create(MediaType.parse(options.get(i).getImage()), file);
-                    builder.addFormDataPart(String.format(OPTION_IMAGE, i), file.getName(),
-                            requestBody);
-                }
-            }
-            builder.addFormDataPart(TYPE_EDIT, String.valueOf(TYPE_OPTION));
-            return builder.build();
-        }
 
         public static RequestBody getSettingRequestBody(PollItem pollItem) {
             MultipartBody.Builder builder = new MultipartBody.Builder();

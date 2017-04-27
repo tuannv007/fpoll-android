@@ -9,12 +9,10 @@
             name="handler"
             type="com.framgia.fpoll.ui.pollcreation.option.OptionHandler"
             />
-
         <variable
             name="position"
-            type="java.lang.Integer"
+            type="int"
             />
-
         <variable
             name="option"
             type="com.framgia.fpoll.data.model.poll.Option"
@@ -68,6 +66,7 @@
                         android:onClick="@{()->handler.onDeleteImageClicked(option)}"
                         android:padding="@dimen/dp_5"
                         android:src="@drawable/ic_delete"
+                        android:visibility="@{(((option.participantVotes.size() + option.votes.size()) ==  0) &amp;&amp; (option.image == null)) ? View.VISIBLE : View.GONE}"
                         />
 
                 </RelativeLayout>
@@ -77,6 +76,8 @@
                     android:layout_height="@dimen/dp_20"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:clickable="@{!(((option.participantVotes.size() + option.votes.size()) >  0) &amp;&amp; option.image == null) }"
                     android:onClick="@{()->handler.clickPickImage(option, position)}"
                     android:src="@drawable/ic_add_picture"
                     />
@@ -100,7 +101,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/dp_4"
-                        android:onClick="@{()->handler.clickPickDate(option, position)}"
                         android:src="@drawable/ic_title"
                         />
 
