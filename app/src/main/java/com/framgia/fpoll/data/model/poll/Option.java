@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import com.framgia.fpoll.BR;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,9 +38,9 @@ public class Option extends BaseObservable implements Parcelable, Cloneable {
     @SerializedName("updated_at")
     private String mUpdatedTime;
     @SerializedName("users")
-    private List<ParticipantVotes> mVotes;
+    private List<ParticipantVotes> mVotes = new ArrayList<>();
     @SerializedName("participants")
-    private List<ParticipantVotes> mParticipantVotes;
+    private List<ParticipantVotes> mParticipantVotes = new ArrayList<>();
     private boolean mIsChecked;
     private String mDate;
 
@@ -55,6 +56,7 @@ public class Option extends BaseObservable implements Parcelable, Cloneable {
         mUpdatedTime = in.readString();
         mDate = in.readString();
         mIsChecked = in.readByte() != 0;
+        mVotes = in.createTypedArrayList(ParticipantVotes.CREATOR);
     }
 
     public int getId() {
@@ -156,6 +158,7 @@ public class Option extends BaseObservable implements Parcelable, Cloneable {
         dest.writeString(mUpdatedTime);
         dest.writeString(mDate);
         dest.writeByte((byte) (mIsChecked ? 1 : 0));
+        dest.writeTypedList(mVotes);
     }
 
     @Bindable

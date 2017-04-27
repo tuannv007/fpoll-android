@@ -31,10 +31,6 @@ public class PollInformationHandler {
         mListener.clickViewSetting();
     }
 
-    public void saveInformation() {
-        if (mListener != null) mListener.saveInformation();
-    }
-
     public void showDateTimePicker() {
         if (mListener != null) mListener.showDateTimePicker();
     }

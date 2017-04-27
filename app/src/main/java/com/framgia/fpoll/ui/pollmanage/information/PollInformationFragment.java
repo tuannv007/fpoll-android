@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.DataInfoItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.data.source.remote.pollmanager.ManagerRepository;
 import com.framgia.fpoll.databinding.FragmentInformationBinding;
@@ -33,6 +34,10 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_TOKEN;
 import static com.framgia.fpoll.util.Constant.POSITION_LINK_INVITE;
 import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
 import static com.framgia.fpoll.util.Constant.Tag.TIME_PICKER_TAG;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_DATE;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_FORMAT;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_SIZE;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_SPLIT;
 import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_TITLE;
 
 /**
@@ -101,6 +106,15 @@ public class PollInformationFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_edit && mPoll != null && mPoll.getPoll() != null) {
+            if (mPoll.getPoll().getOptions() != null && mPoll.getPoll().getOptions().size() > 0) {
+                for (Option option : mPoll.getPoll().getOptions()) {
+                    String[] title = option.getName().split(OPTION_SPLIT);
+                    if (title.length > 0) {
+                        option.setName(title[OPTION_TITLE].replace(OPTION_FORMAT, ""));
+                    }
+                    if (title.length == OPTION_SIZE) option.setDate(title[OPTION_DATE]);
+                }
+            }
             startActivity(ModifyPollActivity.getModifyIntent(getActivity(), mPoll.getPoll()));
         }
         return super.onOptionsItemSelected(item);

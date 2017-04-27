@@ -37,6 +37,11 @@ public class EditOptionPresenter implements EditOptionContract.Presenter {
     }
 
     @Override
+    public void onDeleteDate(Option option) {
+        option.setDate(null);
+    }
+
+    @Override
     public void deleteImage(Option option) {
         option.setImage(null);
     }
@@ -48,7 +53,7 @@ public class EditOptionPresenter implements EditOptionContract.Presenter {
 
     @Override
     public void augmentPoll(int position) {
-        mView.augmentPoll();
+        mView.augmentPoll(position);
     }
 
     @Override

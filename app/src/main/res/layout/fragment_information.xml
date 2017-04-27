@@ -144,20 +144,6 @@
                             style="@style/EditTextStyle"
                             />
                     </LinearLayout>
-                    <android.support.v7.widget.CardView
-                        android:layout_width="@dimen/dp_150"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/dp_20"
-                        android:onClick="@{() -> handler.saveInformation()}"
-                        android:visibility="gone"
-                        style="@style/FPollCardView"
-                        >
-                        <android.support.v7.widget.AppCompatTextView
-                            android:text="@string/title_save_data"
-                            style="@style/FPollTextCardView"
-                            />
-                    </android.support.v7.widget.CardView>
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
             <RelativeLayout

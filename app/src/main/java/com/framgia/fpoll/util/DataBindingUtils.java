@@ -624,12 +624,13 @@ public class DataBindingUtils {
     }
 
     @BindingAdapter({ "bind:onTouchEdit", "bind:position" })
-    public static void setOnTouchListenner(EditText view, final EditOptionHandle hanlder,
+    public static void setOnTouchListenner(EditText view, final EditOptionHandle handler,
             final int position) {
+        if (handler == null) return;
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                hanlder.clickAugmentPoll(position);
+                handler.clickAugmentPoll(position);
                 return false;
             }
         });

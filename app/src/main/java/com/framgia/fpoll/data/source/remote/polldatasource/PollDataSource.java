@@ -14,15 +14,15 @@ import java.util.List;
  */
 public interface PollDataSource {
     void updateInformation(int pollId, UpdatePollService.PollInfoBody body,
-            @NonNull DataCallback<DataInfoItem> callback);
+            @NonNull DataCallback<PollItem> callback);
 
     void createPoll(PollItem pollItem, @NonNull DataCallback<HistoryPoll> callback);
 
     void updateOptionSetting(int editType, PollItem pollItem,
-            @NonNull final DataCallback<DataInfoItem> callback);
+            @NonNull final DataCallback<PollItem> callback);
 
     void getActivity(String token, @NonNull DataCallback<DataInfoItem> callback);
 
     void updateOption(int id, @NonNull List<Option> options,
-            @NonNull DataCallback<DataInfoItem> callback);
+            @NonNull DataCallback<PollItem> callback);
 }

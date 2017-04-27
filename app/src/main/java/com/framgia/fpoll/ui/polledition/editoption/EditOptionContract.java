@@ -12,7 +12,7 @@ public class EditOptionContract {
 
         void deletePoll(int position);
 
-        void augmentPoll();
+        void augmentPoll(int position);
 
         void pickImage();
 
@@ -35,5 +35,7 @@ public class EditOptionContract {
         void deleteImage(Option option);
 
         void validateNextUI(EditOptionFragment.OnCheckOptionListener listener);
+
+        void onDeleteDate(Option option);
     }
 }

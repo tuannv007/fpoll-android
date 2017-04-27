@@ -2,7 +2,6 @@ package com.framgia.fpoll.ui.polledition;
 
 import android.support.annotation.Nullable;
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.DataInfoItem;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -11,7 +10,6 @@ import com.framgia.fpoll.networking.api.UpdatePollService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.framgia.fpoll.networking.api.UpdatePollService.EditTypeConstant.TYPE_OPTION;
 import static com.framgia.fpoll.networking.api.UpdatePollService.EditTypeConstant.TYPE_SETTING;
 import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_MULTI;
 import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_SINGER;
@@ -46,9 +44,9 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
                 new UpdatePollService.PollInfoBody(mPoll.getUser().getUsername(),
                         mPoll.getUser().getEmail(), mPoll.getTitle(), type, mPoll.getDateClose(),
                         mPoll.getDescription(), mPoll.getLocation());
-        mRepository.updateInformation(mPoll.getId(), body, new DataCallback<DataInfoItem>() {
+        mRepository.updateInformation(mPoll.getId(), body, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(DataInfoItem data) {
+            public void onSuccess(PollItem data) {
                 onUpdateSuccess(data);
             }
 
@@ -62,13 +60,12 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
 
     @Override
     public void updateOption() {
-        List<Option> listOptionReal = validateOption();
-        if (listOptionReal == null) return;
-        mPoll.setOptions(listOptionReal);
+        List<Option> options = validateOption();
+        if (options == null) return;
         mView.showProgress();
-        mRepository.updateOptionSetting(TYPE_OPTION, mPoll, new DataCallback<DataInfoItem>() {
+        mRepository.updateOption(mPoll.getId(), options, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(DataInfoItem data) {
+            public void onSuccess(PollItem data) {
                 onUpdateSuccess(data);
             }
 
@@ -96,9 +93,9 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
     @Override
     public void updateSetting() {
         mView.showProgress();
-        mRepository.updateOptionSetting(TYPE_SETTING, mPoll, new DataCallback<DataInfoItem>() {
+        mRepository.updateOptionSetting(TYPE_SETTING, mPoll, new DataCallback<PollItem>() {
             @Override
-            public void onSuccess(DataInfoItem data) {
+            public void onSuccess(PollItem data) {
                 onUpdateSuccess(data);
             }
 
@@ -109,8 +106,8 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
         });
     }
 
-    private void onUpdateSuccess(DataInfoItem data) {
-        mPoll = data.getPoll();
+    private void onUpdateSuccess(PollItem data) {
+        mPoll = data;
         mView.hideProgress();
         mView.showMessage(R.string.update_success);
     }

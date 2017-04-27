@@ -16,10 +16,6 @@ public class EditOptionHandle {
         if (mListener != null) mListener.pickImage(optionItem, position);
     }
 
-    public void clickPickDate(Option optionItem, int position) {
-        if (mListener != null) mListener.pickDate(optionItem, position);
-    }
-
     public void clickDeletePoll(Option optionItem, int position) {
         if (mListener != null) mListener.deletePoll(optionItem, position);
     }
@@ -30,5 +26,12 @@ public class EditOptionHandle {
 
     public void onDeleteImageClicked(Option option) {
         if (mListener != null) mListener.deleteImage(option);
+    }
+
+    public void onPickDate(Option optionItem, int position) {
+        if (mListener != null) mListener.pickDate(optionItem, position);
+    }
+    public void onDeleteDate(Option option){
+        if(mListener != null) mListener.onDeleteDate(option);
     }
 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.databinding.ItemEditOptionBinding;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,18 +12,16 @@ import java.util.List;
  */
 public class EditOptionAdapter extends RecyclerView.Adapter<EditOptionAdapter.EditOptionHolder> {
     private LayoutInflater mInflater;
-    private List<Option> mListOption = new ArrayList<>();
+    private List<Option> mListOption;
     private EditOptionContract.Presenter mPresenter;
 
     public EditOptionAdapter(EditOptionContract.Presenter presenter, List<Option> optionItems) {
         mPresenter = presenter;
-        mListOption.addAll(optionItems);
-        notifyDataSetChanged();
+        mListOption = optionItems;
     }
 
     public void update(List<Option> optionItems) {
-        mListOption.clear();
-        mListOption.addAll(optionItems);
+        mListOption = optionItems;
         notifyDataSetChanged();
     }
 
