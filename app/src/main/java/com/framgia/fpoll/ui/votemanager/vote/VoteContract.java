@@ -34,7 +34,7 @@ public interface VoteContract {
 
         void dismissDialog();
 
-        void showDialogEditOption(Option option);
+        void showDialogEditOption(Option option, int position);
     }
 
     interface Presenter {
@@ -47,6 +47,8 @@ public interface VoteContract {
         void setImageOption(String imagePath);
 
         void updateAdditionOption(VoteInfoModel voteInfoModel);
+
+        void splitDateOfOption(List<Option> options);
 
         void cleanOption();
     }

@@ -12,6 +12,7 @@
             type="com.framgia.fpoll.data.model.poll.Option"
             />
 
+
         <variable
             name="presenter"
             type="com.framgia.fpoll.ui.votemanager.vote.VotePresenter"
@@ -20,6 +21,10 @@
         <variable
             name="isMultiple"
             type="boolean"
+            />
+        <variable
+            name="position"
+            type="int"
             />
 
         <import type="java.lang.String"/>
@@ -54,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
-                android:onClick="@{()->presenter.clickEdit(option)}"
+                android:onClick="@{()->presenter.clickEdit(option, position)}"
                 android:padding="@dimen/dp_8"
                 android:src="@drawable/ic_mode_edit_black_24px"
                 android:visibility="@{((option.participantVotes.size() + option.votes.size()) ==  0 &amp;&amp; option.image != null) ? View.VISIBLE : View.GONE}"
@@ -111,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:onClick="@{()-> presenter.clickEdit(option)}"
+                    android:onClick="@{()-> presenter.clickEdit(option, position)}"
                     android:padding="@dimen/dp_8"
                     android:src="@drawable/ic_mode_edit_black_24px"
                     android:visibility="@{(((option.participantVotes.size() + option.votes.size()) ==  0) &amp;&amp; (option.image == null)) ? View.VISIBLE : View.GONE}"

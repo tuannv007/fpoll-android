@@ -22,6 +22,11 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteSingleHold
         mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
     }
 
+    public void update(VoteInfoModel model) {
+        mVoteInfoModel = model;
+        notifyDataSetChanged();
+    }
+
     @Override
     public VoteAdapter.VoteSingleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mInflater == null) mInflater = LayoutInflater.from(parent.getContext());
@@ -34,7 +39,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteSingleHold
     @Override
     public void onBindViewHolder(VoteSingleHolder holder, int position) {
         Option option = mVoteInfoModel.getOptionModels().get(position);
-        if (option != null) holder.bind(option);
+        if (option != null) holder.bind(option, position);
     }
 
     @Override
@@ -51,8 +56,9 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.VoteSingleHold
             mBindingSingle = binDing;
         }
 
-        private void bind(Option option) {
+        private void bind(Option option, int position) {
             mBindingSingle.setOption(option);
+            mBindingSingle.setPosition(position);
             mBindingSingle.executePendingBindings();
         }
     }

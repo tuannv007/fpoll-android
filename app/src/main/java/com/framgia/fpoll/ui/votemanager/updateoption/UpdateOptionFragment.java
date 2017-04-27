@@ -11,18 +11,23 @@ import android.view.ViewGroup;
 import android.view.Window;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.poll.Option;
-import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentUpdateOptionBinding;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
+import com.framgia.fpoll.ui.votemanager.vote.VoteFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
 import com.framgia.fpoll.util.TimeUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_EVENT;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_OPTION;
+import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POSITION;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_IMAGE;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
@@ -33,25 +38,31 @@ public class UpdateOptionFragment extends DialogFragment
         implements UpdateOptionContract.View, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
     private Option mOption;
-    private Option mOptionTemplate = new Option();
+    private List<Option> mOptionTemplate;
     private Calendar mCalendar = Calendar.getInstance();
+    private int mPosition;
+    private VoteFragment.OnUpdateUI mOnUpdateOptionEvent;
 
-    public static UpdateOptionFragment newInstance(Option option) {
+    public static UpdateOptionFragment newInstance(List<Option> options, int position,
+            VoteFragment.OnUpdateUI onUpdateUI) {
         UpdateOptionFragment fragment = new UpdateOptionFragment();
         Bundle args = new Bundle();
-        args.putParcelable(BUNDLE_OPTION, option);
+        args.putParcelableArrayList(BUNDLE_OPTION, (ArrayList<Option>) options);
+        args.putInt(BUNDLE_POSITION, position);
+        args.putParcelable(BUNDLE_EVENT, onUpdateUI);
         fragment.setArguments(args);
         return fragment;
     }
 
     private void getDataFromActivity() {
         if (getArguments() != null) {
-            mOptionTemplate = getArguments().getParcelable(BUNDLE_OPTION);
-            if (mOptionTemplate == null) {
-                mOptionTemplate = new Option();
-            }
+            mOptionTemplate = getArguments().getParcelableArrayList(BUNDLE_OPTION);
+            mPosition = getArguments().getInt(BUNDLE_POSITION);
+            mOnUpdateOptionEvent = getArguments().getParcelable(BUNDLE_EVENT);
+            if (mOptionTemplate == null || mOptionTemplate.size() == 0) return;
             try {
-                mOption = (Option) mOptionTemplate.clone();
+                mOption = (Option) mOptionTemplate.get(mPosition).clone();
+                ActivityUtil.splitDateOption(mOption);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
@@ -69,7 +80,8 @@ public class UpdateOptionFragment extends DialogFragment
         getDataFromActivity();
         binding.setFragment(this);
         binding.setPresenter(
-                new UpdateOptionPresenter(this, VoteInfoRepository.getInstance(getActivity())));
+                new UpdateOptionPresenter(this, PollRepository.getInstance(getActivity()),
+                        mOptionTemplate, mPosition));
         binding.setOption(mOption);
         return binding.getRoot();
     }
@@ -106,9 +118,8 @@ public class UpdateOptionFragment extends DialogFragment
 
     @Override
     public void updateUIVote() {
-        mOptionTemplate.setImage(mOption.getImage());
-        mOptionTemplate.setName(mOption.getName());
-        mOptionTemplate.setDate(mOption.getDate());
+        mOptionTemplate.set(mPosition, mOption);
+        if (mOnUpdateOptionEvent != null) mOnUpdateOptionEvent.updateOption(mOption, mPosition);
     }
 
     @Override

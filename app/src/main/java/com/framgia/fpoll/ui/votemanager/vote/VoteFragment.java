@@ -7,6 +7,8 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,7 +40,6 @@ import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WR
  */
 public class VoteFragment extends Fragment implements VoteContract.View {
     private static final String ARGUMENT_VOTE_INFO = "ARGUMENT_VOTE_INFO";
-    private FragmentVoteBinding mBinding;
     private ObservableField<VoteAdapter> mAdapter = new ObservableField<>();
     private boolean mIsMultiple;
     private VoteInfoModel mVoteInfoModel;
@@ -67,6 +68,12 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         mIsMultiple = mVoteInfoModel.getVoteInfo().getPoll().isMultiple();
         mPresenter = new VotePresenter(this, VoteInfoRepository.getInstance(getContext()),
                 SharePreferenceUtil.getIntances(getActivity()), mIsMultiple, mEventVote);
+
+        if (mVoteInfoModel != null
+                && mVoteInfoModel.getOptionModels() != null
+                && mVoteInfoModel.getOptionModels().size() > 0) {
+            mPresenter.splitDateOfOption(mVoteInfoModel.getOptionModels());
+        }
         mAdapter.set(new VoteAdapter(mPresenter, mVoteInfoModel));
     }
 
@@ -74,12 +81,13 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_vote, container, false);
-        mBinding.setFragment(this);
-        mBinding.setPresenter((VotePresenter) mPresenter);
-        mBinding.setVoteInfoModel(mVoteInfoModel);
-        mBinding.setIsMultiple(mIsMultiple);
-        return mBinding.getRoot();
+        FragmentVoteBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_vote, container, false);
+        binding.setFragment(this);
+        binding.setPresenter((VotePresenter) mPresenter);
+        binding.setVoteInfoModel(mVoteInfoModel);
+        binding.setIsMultiple(mIsMultiple);
+        return binding.getRoot();
     }
 
     @Override
@@ -172,9 +180,28 @@ public class VoteFragment extends Fragment implements VoteContract.View {
     }
 
     @Override
-    public void showDialogEditOption(Option option) {
+    public void showDialogEditOption(Option option, int position) {
         if (getChildFragmentManager() != null) {
-            UpdateOptionFragment fragment = UpdateOptionFragment.newInstance(option);
+            UpdateOptionFragment fragment =
+                    UpdateOptionFragment.newInstance(mVoteInfoModel.getOptionModels(), position,
+                            new OnUpdateUI() {
+                                @Override
+                                public int describeContents() {
+                                    return 0;
+                                }
+
+                                @Override
+                                public void writeToParcel(Parcel dest, int flags) {
+
+                                }
+
+                                @Override
+                                public void updateOption(Option option, int position) {
+                                    mVoteInfoModel.getOptionModels().set(position, option);
+                                    mPresenter.splitDateOfOption(mVoteInfoModel.getOptionModels());
+                                    mAdapter.get().update(mVoteInfoModel);
+                                }
+                            });
             fragment.show(getChildFragmentManager(), "");
         }
     }
@@ -208,5 +235,9 @@ public class VoteFragment extends Fragment implements VoteContract.View {
         } else {
             ActivityUtil.showToast(getActivity(), R.string.msg_image_not_choose);
         }
+    }
+
+    public interface OnUpdateUI extends Parcelable {
+        void updateOption(Option option, int position);
     }
 }

@@ -8,11 +8,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
+import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.data.model.poll.Option;
 import java.util.List;
 import java.util.Random;
 
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PLASH;
 import static com.framgia.fpoll.util.Constant.DataConstant.NUMBER_SPACE;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_DATE;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_FORMAT;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_SIZE;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_SPLIT;
+import static com.framgia.fpoll.util.Constant.WebUrl.OPTION_TITLE;
 
 /**
  * Created by tuanbg on 2/9/17.
@@ -70,5 +77,21 @@ public class ActivityUtil {
             }
         }
         return result;
+    }
+
+    public static void splitDateOptionOfPoll(PollItem poll) {
+        if (poll.getOptions() != null && poll.getOptions().size() > 0) {
+            for (Option option : poll.getOptions()) {
+                splitDateOption(option);
+            }
+        }
+    }
+
+    public static void splitDateOption(Option option) {
+        String[] title = option.getName().split(OPTION_SPLIT);
+        if (title.length > 0) {
+            option.setName(title[OPTION_TITLE].replace(OPTION_FORMAT, ""));
+        }
+        if (title.length == OPTION_SIZE) option.setDate(title[OPTION_DATE]);
     }
 }

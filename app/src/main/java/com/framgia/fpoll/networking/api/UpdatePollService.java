@@ -32,7 +32,7 @@ import static com.framgia.fpoll.util.Constant.Setting.PASSWORD_REQUIRED;
  */
 public interface UpdatePollService {
     public static final String TYPE_EDIT = "type_edit";
-    public static final String TEXT_SPACE = "0";
+    public static final String TEXT_DELETE = "1";
 
     @POST("api/v1/poll/update/{id}")
     Call<ResponseItem<PollItem>> updateInfo(@Path("id") int id, @Body PollInfoBody poll);
@@ -49,6 +49,7 @@ public interface UpdatePollService {
     public class UpdateOptionBody {
         private final String OPTION_TEXT = "option[%s][name]";
         private final String OPTION_IMAGE = "option[%s][image]";
+        private final String OPTION_DELETE_IMAGE = "option[%s][delete_image]";
         private final String OPTION_ID = "option[%s][id]";
         private List<Option> options;
 
@@ -66,9 +67,15 @@ public interface UpdatePollService {
                     String index = ActivityUtil.randomString();
                     builder.addFormDataPart(String.format(OPTION_ID, index),
                             String.valueOf(option.getId()));
+                    String title = null;
                     if (!TextUtils.isEmpty(option.getName())) {
-                        builder.addFormDataPart(String.format(OPTION_TEXT, index),
-                                option.getName());
+                        title = option.getName();
+                    }
+                    if (!TextUtils.isEmpty(option.getDate())) {
+                        title += option.getDate();
+                    }
+                    if (!TextUtils.isEmpty(title)) {
+                        builder.addFormDataPart(String.format(OPTION_TEXT, index), title);
                     }
                     if (!TextUtils.isEmpty(option.getImage())) {
                         File file = new File(option.getImage());
@@ -78,7 +85,8 @@ public interface UpdatePollService {
                         builder.addFormDataPart(String.format(OPTION_IMAGE, index), file.getName(),
                                 requestBody);
                     } else {
-                        builder.addFormDataPart(String.format(OPTION_IMAGE, index), TEXT_SPACE);
+                        builder.addFormDataPart(String.format(OPTION_DELETE_IMAGE, index),
+                                TEXT_DELETE);
                     }
                 } else if (option.getId() == 0) {
                     if (!TextUtils.isEmpty(option.getName())) {

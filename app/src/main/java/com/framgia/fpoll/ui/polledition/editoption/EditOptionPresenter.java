@@ -33,7 +33,7 @@ public class EditOptionPresenter implements EditOptionContract.Presenter {
 
     @Override
     public void pickDate(Option optionItem, int position) {
-        // TODO: 3/13/2017 pick date
+        if(mView != null) mView.onPickDate(optionItem, position);
     }
 
     @Override

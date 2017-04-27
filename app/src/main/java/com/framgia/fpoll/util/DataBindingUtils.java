@@ -551,7 +551,6 @@ public class DataBindingUtils {
     }, requireAll = false)
     public static void setImageUrl(ImageView view, String path, Drawable placeholder,
             Drawable error) {
-        if (TextUtils.isEmpty(path)) return;
         Glide.with(view.getContext()).load(path).placeholder(placeholder).error(error).into(view);
     }
 

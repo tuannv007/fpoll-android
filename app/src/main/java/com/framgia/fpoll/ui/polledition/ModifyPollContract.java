@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.polledition;
 
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.ui.base.BaseView;
 
 /**
@@ -16,6 +17,8 @@ public interface ModifyPollContract {
         void submitEditPoll();
 
         void showMessage(int message);
+
+        void notifyUI(PollItem poll);
     }
 
     interface Presenter {
