@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
-import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -135,32 +134,6 @@ public class VoteInfoRemoteDataSource implements VoteInfoDataSource {
                         new CallbackManager.CallBack<ResponseItem<ParticipantVotes>>() {
                             @Override
                             public void onResponse(ResponseItem<ParticipantVotes> data) {
-                                if (data != null && data.getData() != null) {
-                                    callback.onSuccess(data.getData());
-                                } else if (data != null) {
-                                    callback.onError(ActivityUtil.byString(data.getMessage()));
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(String message) {
-                                callback.onError(message);
-                            }
-                        }));
-    }
-
-    @Override
-    public void updateOption(int pollId, int optionId, String title, String date, String image,
-            @NonNull final DataCallback<Poll> callback) {
-        if (mService == null) return;
-        if (date != null) title = title + date;
-        VoteInfoAPI.UpdateOptionBody body =
-                new VoteInfoAPI.UpdateOptionBody(optionId, title, image);
-        mService.updateOption(pollId, body.getRequestBody())
-                .enqueue(new CallbackManager<>(mContext,
-                        new CallbackManager.CallBack<ResponseItem<Poll>>() {
-                            @Override
-                            public void onResponse(ResponseItem<Poll> data) {
                                 if (data != null && data.getData() != null) {
                                     callback.onSuccess(data.getData());
                                 } else if (data != null) {

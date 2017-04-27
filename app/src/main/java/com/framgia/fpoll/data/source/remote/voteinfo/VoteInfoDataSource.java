@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
-import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.data.source.DataCallback;
@@ -19,9 +18,6 @@ public interface VoteInfoDataSource {
     void postComment(VoteInfoAPI.CommentBody comment, DataCallback<FpollComment> callback);
 
     void votePoll(VoteInfoAPI.OptionsBody optionsBody, DataCallback<ParticipantVotes> callback);
-
-    void updateOption(int pollId, int optionId, String title, String date, String image,
-            @NonNull DataCallback<Poll> callback);
 
     void getVoteResult(@NonNull String token, @NonNull DataCallback<ResultVoteItem> callback);
 

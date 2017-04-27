@@ -132,6 +132,7 @@
                         android:layout_weight="1"
                         android:background="?editTextBackground"
                         android:maxLines="4"
+                        android:onClick="@{()->handler.onPickDate(option, position)}"
                         android:text="@{option.date}"
                         />
 

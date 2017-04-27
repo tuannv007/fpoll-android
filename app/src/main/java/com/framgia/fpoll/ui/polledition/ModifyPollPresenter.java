@@ -7,6 +7,7 @@ import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.networking.api.UpdatePollService;
+import com.framgia.fpoll.util.ActivityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +109,9 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
 
     private void onUpdateSuccess(PollItem data) {
         mPoll = data;
+        ActivityUtil.splitDateOptionOfPoll(mPoll);
         mView.hideProgress();
         mView.showMessage(R.string.update_success);
+        mView.notifyUI(mPoll);
     }
 }

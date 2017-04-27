@@ -19,23 +19,32 @@ import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentEditOptionBinding;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.PermissionsUtil;
+import com.framgia.fpoll.util.TimeUtil;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_IMAGE;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
+import static com.framgia.fpoll.util.Constant.Tag.DATE_PICKER_TAG;
+import static com.framgia.fpoll.util.Constant.Tag.TIME_PICKER_TAG;
 
 /**
  * Created by framgia on 16/03/2017.
  */
-public class EditOptionFragment extends Fragment implements EditOptionContract.View {
+public class EditOptionFragment extends Fragment
+        implements EditOptionContract.View, DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener {
     private static final int UNSELECTED_POSITION = -1;
     private static final int NUMBER_DEFAULT_OPTION = 4;
     private static final long DELAY_VIEW_TIME = 700;
     private ObservableField<EditOptionAdapter> mAdapter = new ObservableField<>();
     private int mPosition = UNSELECTED_POSITION;
     private PollItem mPollItem;
+    private Calendar mCalendar = Calendar.getInstance();
 
     public static EditOptionFragment newInstance(PollItem pollItem) {
         EditOptionFragment editOptionFragment = new EditOptionFragment();
@@ -148,6 +157,46 @@ public class EditOptionFragment extends Fragment implements EditOptionContract.V
                 listener.onSuccessful();
             }
         }, DELAY_VIEW_TIME);
+    }
+
+    public void notifyUI(PollItem poll) {
+        mPollItem = poll;
+        mAdapter.get().update(mPollItem.getOptions());
+    }
+
+    @Override
+    public void onPickDate(Option optionItem, int position) {
+        mPosition = position;
+        if (mCalendar == null) mCalendar = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(this, mCalendar.get(Calendar.YEAR),
+                mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+        dpd.show(getActivity().getFragmentManager(), DATE_PICKER_TAG);
+    }
+
+    private void showTimePicker() {
+        if (mCalendar == null) mCalendar = Calendar.getInstance();
+        TimePickerDialog timePickerDialog =
+                TimePickerDialog.newInstance(this, mCalendar.get(Calendar.HOUR_OF_DAY),
+                        mCalendar.get(Calendar.MINUTE), mCalendar.get(Calendar.SECOND), true);
+        timePickerDialog.show(getActivity().getFragmentManager(), TIME_PICKER_TAG);
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        mCalendar.set(Calendar.YEAR, year);
+        mCalendar.set(Calendar.MONTH, monthOfYear);
+        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        showTimePicker();
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+        mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        mCalendar.set(Calendar.MINUTE, minute);
+        mCalendar.set(Calendar.SECOND, second);
+        if (mPollItem != null && mPollItem.getOptions() != null) {
+            mPollItem.getOptions().get(mPosition).setDate(TimeUtil.timeOptionToString(mCalendar));
+        }
     }
 
     public interface OnCheckOptionListener {

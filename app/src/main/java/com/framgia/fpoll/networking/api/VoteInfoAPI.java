@@ -5,7 +5,6 @@ import com.framgia.fpoll.data.model.FpollComment;
 import com.framgia.fpoll.data.model.VoteDetail;
 import com.framgia.fpoll.data.model.poll.Option;
 import com.framgia.fpoll.data.model.poll.ParticipantVotes;
-import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.model.poll.ResultVoteItem;
 import com.framgia.fpoll.data.model.poll.VoteInfo;
 import com.framgia.fpoll.networking.ResponseItem;
@@ -41,9 +40,6 @@ public interface VoteInfoAPI {
 
     @POST("/api/v1/user/vote")
     Call<ResponseItem<ParticipantVotes>> votePoll(@Body RequestBody options);
-
-    @POST("/api/v1/poll/update/{id}")
-    Call<ResponseItem<Poll>> updateOption(@Path("id") int pollId, @Body RequestBody newOption);
 
     public class CommentBody {
         @SerializedName("name")

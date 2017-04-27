@@ -2,10 +2,12 @@ package com.framgia.fpoll.ui.votemanager.updateoption;
 
 import android.support.annotation.NonNull;
 import com.framgia.fpoll.R;
+import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.data.model.poll.Option;
-import com.framgia.fpoll.data.model.poll.Poll;
 import com.framgia.fpoll.data.source.DataCallback;
-import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
+import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nhahv on 4/17/2017.
@@ -15,12 +17,16 @@ import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 public class UpdateOptionPresenter implements UpdateOptionContract.Presenter {
 
     private final UpdateOptionContract.View mView;
-    private final VoteInfoRepository mRepository;
+    private final int mPosition;
+    private PollRepository mRepository;
+    private final List<Option> mOptions;
 
-    public UpdateOptionPresenter(@NonNull UpdateOptionContract.View view,
-            VoteInfoRepository instance) {
+    public UpdateOptionPresenter(@NonNull UpdateOptionContract.View view, PollRepository instance,
+            List<Option> options, int position) {
         mView = view;
         mRepository = instance;
+        mOptions = options;
+        mPosition = position;
         mView.start();
     }
 
@@ -48,23 +54,24 @@ public class UpdateOptionPresenter implements UpdateOptionContract.Presenter {
 
     public void onUpdateOption(Option option) {
         if (mRepository == null || mView == null) return;
+        List<Option> options = new ArrayList<>();
+        options.addAll(mOptions);
         mView.showProgress();
-        mRepository.updateOption(option.getPollId(), option.getId(), option.getName(),
-                option.getDate(), option.getImage(), new DataCallback<Poll>() {
+        options.set(mPosition, option);
+        mRepository.updateOption(option.getPollId(), options, new DataCallback<PollItem>() {
+            @Override
+            public void onSuccess(PollItem data) {
+                mView.showMessage(R.string.update_success);
+                mView.hideProgress();
+                mView.onDismiss();
+                mView.updateUIVote();
+            }
 
-                    @Override
-                    public void onSuccess(Poll data) {
-                        mView.showMessage(R.string.update_success);
-                        mView.hideProgress();
-                        mView.onDismiss();
-                        mView.updateUIVote();
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        mView.showMessage(msg);
-                        mView.hideProgress();
-                    }
-                });
+            @Override
+            public void onError(String msg) {
+                mView.showMessage(msg);
+                mView.hideProgress();
+            }
+        });
     }
 }

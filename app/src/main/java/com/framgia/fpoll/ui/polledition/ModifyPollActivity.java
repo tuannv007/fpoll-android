@@ -153,6 +153,11 @@ public class ModifyPollActivity extends BaseActivity implements ModifyPollContra
     }
 
     @Override
+    public void notifyUI(PollItem poll) {
+        if (mOptionFragment != null) mOptionFragment.notifyUI(poll);
+    }
+
+    @Override
     public void showMessage(String message) {
         ActivityUtil.showToast(getApplicationContext(), message);
     }

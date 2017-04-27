@@ -11,6 +11,7 @@ import com.framgia.fpoll.data.source.remote.voteinfo.VoteInfoRepository;
 import com.framgia.fpoll.networking.api.VoteInfoAPI;
 import com.framgia.fpoll.ui.votemanager.LinkVoteActivity;
 import com.framgia.fpoll.ui.votemanager.itemmodel.VoteInfoModel;
+import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +68,8 @@ public class VotePresenter implements VoteContract.Presenter {
         }
     }
 
-    public void clickEdit(Option option) {
-        if (mView != null) mView.showDialogEditOption(option);
+    public void clickEdit(Option option, int position) {
+        if (mView != null) mView.showDialogEditOption(option, position);
     }
 
     @Override
@@ -153,6 +154,13 @@ public class VotePresenter implements VoteContract.Presenter {
             }
         }
         return options;
+    }
+
+    @Override
+    public void splitDateOfOption(List<Option> options) {
+        for (Option option : options) {
+            ActivityUtil.splitDateOption(option);
+        }
     }
 
     @Override

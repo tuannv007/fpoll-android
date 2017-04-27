@@ -21,6 +21,8 @@ public class EditOptionContract {
         void showMessage(int resId);
 
         void updateUI(EditOptionFragment.OnCheckOptionListener listener);
+
+        void onPickDate(Option optionItem, int position);
     }
 
     interface Presenter {

@@ -47,6 +47,7 @@ public class Constant {
         public static final String BUNDLE_TOKEN = "BUNDLE_TOKEN";
         public static final String BUNDLE_EVENT = "BUNDLE_EVENT";
         public static final String BUNDLE_OPTION = "BUNDLE_OPTION";
+        public static final String BUNDLE_POSITION = "BUNDLE_POSITION";
     }
 
     public static class RequestCode {
