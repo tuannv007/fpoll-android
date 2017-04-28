@@ -1,12 +1,14 @@
 package com.framgia.fpoll.data.source.remote.login;
 
 import android.content.Context;
+import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 import com.framgia.fpoll.data.model.authorization.LoginNormalData;
 import com.framgia.fpoll.data.model.authorization.SocialData;
 import com.framgia.fpoll.data.model.authorization.User;
 import com.framgia.fpoll.data.source.DataCallback;
 import com.framgia.fpoll.networking.ResponseItem;
+import rx.Observable;
 
 /**
  * Created by Nhahv0902 on 3/3/2017.
@@ -120,5 +122,11 @@ public class LoginRepository implements LoginDataSource {
                 callback.onError(msg);
             }
         });
+    }
+
+    @Override
+    public Observable<Boolean> changePassword(@NonNull String currentPassword, @NonNull String newPassword,
+            @NonNull String newPasswordConfirmation) {
+        return mDataSource.changePassword(currentPassword, newPassword, newPasswordConfirmation);
     }
 }

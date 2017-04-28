@@ -11,9 +11,35 @@ public interface ChangePassContract {
         void dismissDialog();
 
         void changePassword();
+
+        void showProgressDialog();
+
+        void hideProgressDialog();
+
+        void onChangePasswordError(String message);
+
+        void onChangePasswordSuccess();
+
+        void onCurrentPasswordEmpty();
+
+        void onNewPasswordEmpty();
+
+        void onNewPasswordConfirmationEmpty();
+
+        void onNewPassNotSame();
+
+        void onDestroy();
+
+        void dismissView();
     }
 
     interface Presenter {
-        void changePassword();
+        void changePassword(String currentPassword, String newPassword,
+                String newPasswordConfirmation);
+
+        boolean validateData(String currentPassword, String newPassword,
+                String newPasswordConfirmation);
+
+        void onDestroy();
     }
 }

@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 public class FPollProgressDialog extends ProgressDialog {
     public FPollProgressDialog(Context context) {
         super(context);
-        setCancelable(false);
     }
 
     @Override
