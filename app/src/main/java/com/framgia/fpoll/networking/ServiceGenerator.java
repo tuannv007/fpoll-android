@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.framgia.fpoll.util.Constant.ConstantApi.BASE_URL;
@@ -22,7 +23,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class ServiceGenerator {
     private static OkHttpClient.Builder sHttpClient;
     private static Retrofit.Builder sBuilder = new Retrofit.Builder().baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create());
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
     private static HttpLoggingInterceptor sLoggingInterceptor = new HttpLoggingInterceptor();
 
     public static <S> S createService(Class<S> serviceClass) {

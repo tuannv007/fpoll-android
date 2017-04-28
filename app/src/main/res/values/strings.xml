@@ -304,4 +304,9 @@
     <string name="title_poll_create_profile">Created</string>
     <string name="title_poll_participated_profile">Participated</string>
     <string name="title_poll_profile">Poll</string>
+    <string name="msg_change_password_success">Your password had be changed successfully</string>
+    <string name="msg_password_confirmation_miss_match">Password Confirmation miss match</string>
+    <string name="msg_current_password_not_empty">Old password isn\'t empty</string>
+    <string name="msg_new_password_not_empty">New password isn\'t empty</string>
+    <string name="msg_new_password_confirmation_not_empty">New password confirmation isn\'t empty</string>
 </resources>

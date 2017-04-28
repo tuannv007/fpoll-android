@@ -683,5 +683,20 @@ public class DataBindingUtils {
     public static void titleToolBar(Toolbar view, AppCompatActivity activity, String title) {
         if (title != null) activity.setTitle(title);
     }
+
+    @BindingAdapter({ "bind:visibilityAnim" })
+    public static void setVisibilityAnim(final View view, final int visibility) {
+        if (visibility == View.GONE) {
+            view.animate().translationY(view.getHeight()).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    view.setVisibility(visibility);
+                }
+            });
+        } else {
+            view.animate().translationY(0);
+            view.setVisibility(visibility);
+        }
+    }
 }
 

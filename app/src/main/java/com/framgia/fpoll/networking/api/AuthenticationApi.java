@@ -18,6 +18,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by tuanbg on 3/2/17.
@@ -68,5 +69,10 @@ public class AuthenticationApi {
 
         @GET("/api/v1/getProfile")
         Call<ResponseItem<User>> getProfile(@Header("Authorization") String token);
+
+        @POST(" /api/v1/resetPassword")
+        Observable<ResponseItem> changePassword(@Query("old_password") String oldPasword,
+                @Query("password") String newPassword,
+                @Query("password_confirmation") String newPasswordConfirmation);
     }
 }

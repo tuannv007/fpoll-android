@@ -14,6 +14,8 @@ import com.framgia.fpoll.networking.api.AuthenticationApi;
 import com.framgia.fpoll.util.ActivityUtil;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import rx.Observable;
+import rx.functions.Func1;
 
 import static com.framgia.fpoll.util.Constant.DataConstant.STATUS_SUCCESS;
 
@@ -170,5 +172,26 @@ public class LoginRemoteDataSource implements LoginDataSource {
                                 callback.onError(message);
                             }
                         }));
+    }
+
+    @Override
+    public Observable<Boolean> changePassword(@NonNull String currentPassword,
+            @NonNull String newPassword, @NonNull String newPasswordConfirmation) {
+        return mService.changePassword(currentPassword, newPassword, newPasswordConfirmation)
+                .flatMap(new Func1<ResponseItem, Observable<Boolean>>() {
+                    @Override
+                    public Observable<Boolean> call(ResponseItem responseItem) {
+                        if (responseItem == null) {
+                            return Observable.error(new NullPointerException());
+                        } else {
+                            if (responseItem.isError()) {
+                                return Observable.error(new NullPointerException(
+                                        ActivityUtil.byString(responseItem.getMessage())));
+                            } else {
+                                return Observable.just(!responseItem.isError());
+                            }
+                        }
+                    }
+                });
     }
 }
