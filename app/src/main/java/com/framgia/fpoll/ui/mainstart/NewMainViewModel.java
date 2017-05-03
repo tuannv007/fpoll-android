@@ -1,21 +1,19 @@
 package com.framgia.fpoll.ui.mainstart;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
-import android.support.v4.app.Fragment;
+import android.support.annotation.IntDef;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import com.framgia.fpoll.BR;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
-import com.framgia.fpoll.ui.feedback.FeedbackFragment;
-import com.framgia.fpoll.ui.history.HistoryFragment;
-import com.framgia.fpoll.ui.joinpoll.JoinPollFragment;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
-import com.framgia.fpoll.ui.profile.ProfileFragment;
-import com.framgia.fpoll.util.ActivityUtil;
 
+import static com.framgia.fpoll.ui.mainstart.NewMainViewModel.Tab.TAB_HOME;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
 
 /**
@@ -27,10 +25,14 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
     private NewMainContract.Presenter mPresenter;
     private final AppCompatActivity mActivity;
     private ObservableBoolean mIsBottomNavigationShow = new ObservableBoolean(true);
+    private NewMainViewPagerAdapter mViewPagerAdapter;
+    private int mPageLimit = 4;
+    @Tab
+    private int mCurrentTab = TAB_HOME;
 
     public NewMainViewModel(AppCompatActivity activity) {
         mActivity = activity;
-        startUIHome();
+        mViewPagerAdapter = new NewMainViewPagerAdapter(activity.getSupportFragmentManager());
     }
 
     @Override
@@ -52,16 +54,16 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
     public void onBottomBarClick(View view) {
         switch (view.getId()) {
             case R.id.relative_home:
-                startUIHome();
+                setCurrentTab(TAB_HOME);
                 break;
             case R.id.relative_join_poll:
-                addFragment(JoinPollFragment.newInstance());
+                setCurrentTab(Tab.TAB_JOIN);
                 break;
             case R.id.relative_feedback:
-                addFragment(FeedbackFragment.newInstance());
+                setCurrentTab(Tab.TAB_FEED_BACK);
                 break;
             case R.id.relative_profile:
-                addFragment(ProfileFragment.newInstance());
+                setCurrentTab(Tab.TAB_PROFILE);
                 break;
             default:
                 break;
@@ -79,23 +81,10 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
         }
     }
 
-    private void startUIHome() {
-        Fragment fragment =
-                mActivity.getSupportFragmentManager().findFragmentById(R.id.frame_layout);
-        if (!(fragment instanceof HistoryFragment)) {
-            addFragment(HistoryFragment.newInstance());
-        }
-    }
-
     @Override
     public void onStartPollCreate() {
         mActivity.startActivityForResult(PollCreationActivity.getIntent(mActivity, new PollItem()),
                 REQUEST_CREATE_POLL);
-    }
-
-    private void addFragment(Fragment fragment) {
-        ActivityUtil.addFragment(mActivity.getSupportFragmentManager(), fragment,
-                R.id.frame_layout);
     }
 
     @Override
@@ -110,5 +99,31 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
 
     public ObservableBoolean getIsBottomNavigationShow() {
         return mIsBottomNavigationShow;
+    }
+
+    public NewMainViewPagerAdapter getViewPagerAdapter() {
+        return mViewPagerAdapter;
+    }
+
+    public int getPageLimit() {
+        return mPageLimit;
+    }
+
+    @Bindable
+    public int getCurrentTab() {
+        return mCurrentTab;
+    }
+
+    public void setCurrentTab(int currentTab) {
+        mCurrentTab = currentTab;
+        notifyPropertyChanged(BR.currentTab);
+    }
+
+    @IntDef({ TAB_HOME, Tab.TAB_JOIN, Tab.TAB_FEED_BACK, Tab.TAB_PROFILE })
+    public @interface Tab {
+        int TAB_HOME = 0;
+        int TAB_JOIN = 1;
+        int TAB_FEED_BACK = 2;
+        int TAB_PROFILE = 3;
     }
 }
