@@ -25,7 +25,7 @@ public class NewMainActivity extends BaseActivity {
 
         mViewModel = new NewMainViewModel(this);
 
-        NewMainContract.Presenter presenter = new NewMainPresenter(mViewModel);
+        NewMainContract.Presenter presenter = new NewMainPresenter();
         mViewModel.setPresenter(presenter);
 
         ActivityNewMainBinding binding =

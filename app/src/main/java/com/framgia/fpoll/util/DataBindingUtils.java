@@ -698,5 +698,11 @@ public class DataBindingUtils {
             view.setVisibility(visibility);
         }
     }
+
+    @BindingAdapter({ "currentFragment" })
+    public static void setCurrentViewPager(final ViewPager viewPager, int currentPage) {
+        viewPager.setCurrentItem(currentPage);
+        viewPager.beginFakeDrag();
+    }
 }
 

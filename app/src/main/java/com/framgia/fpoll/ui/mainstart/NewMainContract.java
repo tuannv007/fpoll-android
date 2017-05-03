@@ -25,6 +25,5 @@ public interface NewMainContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void onStartUiPollCreation();
     }
 }

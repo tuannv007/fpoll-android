@@ -5,12 +5,7 @@ package com.framgia.fpoll.ui.mainstart;
  * the UI as required.
  */
 public final class NewMainPresenter implements NewMainContract.Presenter {
-    private static final String TAG = NewMainPresenter.class.getName();
-
-    private final NewMainContract.ViewModel mViewModel;
-
-    public NewMainPresenter(NewMainContract.ViewModel viewModel) {
-        mViewModel = viewModel;
+    public NewMainPresenter() {
     }
 
     @Override
@@ -21,8 +16,4 @@ public final class NewMainPresenter implements NewMainContract.Presenter {
     public void onStop() {
     }
 
-    @Override
-    public void onStartUiPollCreation() {
-
-    }
 }
