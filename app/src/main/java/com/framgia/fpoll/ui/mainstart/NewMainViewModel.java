@@ -12,6 +12,9 @@ import com.framgia.fpoll.BR;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
+import com.framgia.fpoll.util.Constant;
+import com.framgia.fpoll.util.LanguageUtil;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 
 import static com.framgia.fpoll.ui.mainstart.NewMainViewModel.Tab.TAB_HOME;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
@@ -22,6 +25,8 @@ import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
 
 public class NewMainViewModel extends BaseObservable implements NewMainContract.ViewModel {
     private static final int NUMBER_IMAGE_CHILD = 0;
+    private static final String LANG_EN = "en";
+    private static final String LANG_VN = "vi";
     private NewMainContract.Presenter mPresenter;
     private final AppCompatActivity mActivity;
     private ObservableBoolean mIsBottomNavigationShow = new ObservableBoolean(true);
@@ -38,6 +43,19 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
     @Override
     public void onStart() {
         mPresenter.onStart();
+        if (SharePreferenceUtil.getIntances(mActivity) == null) return;
+        String language = SharePreferenceUtil.getIntances(mActivity).getLanguage();
+        switch (language) {
+            case LANG_EN:
+                LanguageUtil.changeLang(Constant.Language.LANGUAGE_EN, mActivity);
+                break;
+            case LANG_VN:
+                LanguageUtil.changeLang(Constant.Language.LANGUAGE_VN, mActivity);
+                break;
+            default:
+                LanguageUtil.changeLang(Constant.Language.LANGUAGE_JP, mActivity);
+                break;
+        }
     }
 
     @Override

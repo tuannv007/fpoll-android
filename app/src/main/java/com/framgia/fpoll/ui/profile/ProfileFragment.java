@@ -15,6 +15,7 @@ import com.framgia.fpoll.util.SharePreferenceUtil;
 
 public class ProfileFragment extends Fragment {
     private ProfileContract.ViewModel mViewModel;
+    private FragmentProfileBinding mBinding;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -24,14 +25,14 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        FragmentProfileBinding binding = FragmentProfileBinding.inflate(inflater, container, false);
+        mBinding = FragmentProfileBinding.inflate(inflater, container, false);
         mViewModel = new ProfileViewModel((NewMainActivity) getActivity());
         ProfileContract.Presenter presenter =
                 new ProfilePresenter(mViewModel, SharePreferenceUtil.getIntances(getActivity()),
                         LoginRepository.getInstance(getActivity()));
         mViewModel.setPresenter(presenter);
-        binding.setViewModel((ProfileViewModel) mViewModel);
-        return binding.getRoot();
+        mBinding.setViewModel((ProfileViewModel) mViewModel);
+        return mBinding.getRoot();
     }
 
     @Override

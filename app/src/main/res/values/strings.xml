@@ -309,4 +309,7 @@
     <string name="msg_current_password_not_empty">Old password isn\'t empty</string>
     <string name="msg_new_password_not_empty">New password isn\'t empty</string>
     <string name="msg_new_password_confirmation_not_empty">New password confirmation isn\'t empty</string>
+    <string name="action_show_not_user">No User found</string>
+    <string name="title_np_login">You are not logged</string>
+    <string name="title_login_view_profile">You need to login to view the profile</string>
 </resources>
