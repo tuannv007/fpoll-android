@@ -296,6 +296,8 @@
     <string name="msg_no_internet">No internet connection, please check your internet connection and try again!</string>
     <string name="title_no_poll">Opps, Empty poll</string>
     <string name="msg_no_poll">To create a new poll, please click the + button bellow</string>
+    <string name="msg_no_poll_close">No pul close</string>
+    <string name="msg_no_poll_participate">Click + to create poll or click join pull</string>
     <string name="title_change_password">Change Password</string>
     <string name="title_cancel">Cancel</string>
     <string name="title_old_password">Old password</string>

@@ -13,6 +13,9 @@ import java.util.List;
 
 import static com.framgia.fpoll.data.model.EmptyModel.State.NO_INTERNET;
 import static com.framgia.fpoll.data.model.EmptyModel.State.NO_LOGIN;
+import static com.framgia.fpoll.data.model.EmptyModel.State.NO_POLL;
+import static com.framgia.fpoll.data.model.EmptyModel.State.NO_POLL_CLOSE;
+import static com.framgia.fpoll.data.model.EmptyModel.State.NO_POLL_PARTICIPATE;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_PREFIX_TOKEN;
 
 /**
@@ -61,7 +64,11 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                             @Override
                             public void onSuccess(List<HistoryPoll> data) {
                                 loadDataSuccess(data);
-                                mEmptyModel.set(new EmptyModel(View.GONE));
+                                if (data.size() == 0) {
+                                    mEmptyModel.set(new EmptyModel(NO_POLL, View.VISIBLE, null));
+                                } else {
+                                    mEmptyModel.set(new EmptyModel(View.GONE));
+                                }
                             }
 
                             @Override
@@ -77,7 +84,13 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                             @Override
                             public void onSuccess(List<HistoryPoll> data) {
                                 loadDataSuccess(data);
-                                mEmptyModel.set(new EmptyModel(View.GONE));
+                                if (data.size() == 0) {
+                                    mEmptyModel.set(
+                                            new EmptyModel(NO_POLL_PARTICIPATE, View.VISIBLE,
+                                                    null));
+                                } else {
+                                    mEmptyModel.set(new EmptyModel(View.GONE));
+                                }
                             }
 
                             @Override
@@ -93,7 +106,12 @@ public class PollHistoryPresenter implements PollHistoryContract.Presenter {
                             @Override
                             public void onSuccess(List<HistoryPoll> data) {
                                 loadDataSuccess(data);
-                                mEmptyModel.set(new EmptyModel(View.GONE));
+                                if (data.size() == 0) {
+                                    mEmptyModel.set(
+                                            new EmptyModel(NO_POLL_CLOSE, View.VISIBLE, null));
+                                } else {
+                                    mEmptyModel.set(new EmptyModel(View.GONE));
+                                }
                             }
 
                             @Override
