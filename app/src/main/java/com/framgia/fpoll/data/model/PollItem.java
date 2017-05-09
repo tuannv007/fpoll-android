@@ -2,7 +2,7 @@ package com.framgia.fpoll.data.model;
 
 import android.databinding.Bindable;
 import android.os.Parcel;
-import com.framgia.fpoll.BR;
+import com.android.databinding.library.baseAdapters.BR;
 import com.framgia.fpoll.data.model.poll.Poll;
 
 public class PollItem extends Poll {
@@ -21,7 +21,7 @@ public class PollItem extends Poll {
     private int mRequiteType;
     private boolean mIsSameEmail;
     private boolean mIsMaxVote;
-    private int mNumMaxVote;
+    private String mNumMaxVote;
     private boolean mIsHasPass;
     private String mPass;
     private boolean mIsHideResult;
@@ -41,7 +41,7 @@ public class PollItem extends Poll {
         mRequiteType = in.readInt();
         mIsSameEmail = in.readByte() != 0;
         mIsMaxVote = in.readByte() != 0;
-        mNumMaxVote = in.readInt();
+        mNumMaxVote = in.readString();
         mIsHasPass = in.readByte() != 0;
         mPass = in.readString();
         mIsHideResult = in.readByte() != 0;
@@ -99,11 +99,11 @@ public class PollItem extends Poll {
     }
 
     @Bindable
-    public int getNumMaxVote() {
+    public String getNumMaxVote() {
         return mNumMaxVote;
     }
 
-    public void setNumMaxVote(int numMaxVote) {
+    public void setNumMaxVote(String numMaxVote) {
         mNumMaxVote = numMaxVote;
         notifyPropertyChanged(BR.numMaxVote);
     }
@@ -200,7 +200,7 @@ public class PollItem extends Poll {
         dest.writeInt(mRequiteType);
         dest.writeByte((byte) (mIsSameEmail ? 1 : 0));
         dest.writeByte((byte) (mIsMaxVote ? 1 : 0));
-        dest.writeInt(mNumMaxVote);
+        dest.writeString(mNumMaxVote);
         dest.writeByte((byte) (mIsHasPass ? 1 : 0));
         dest.writeString(mPass);
         dest.writeByte((byte) (mIsHideResult ? 1 : 0));

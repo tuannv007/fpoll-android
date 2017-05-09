@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/dp_16"
                 android:visibility="@{presenter.poll.requireVote ? View.VISIBLE : View.GONE}"
+                bind:onCheckRadioGroup="@{presenter}"
                 >
 
                 <android.support.v7.widget.AppCompatRadioButton
@@ -70,8 +71,7 @@
                     android:checked="true"
                     android:text="@string/msg_enter_name"
                     android:textColor="@color/color_grey_700"
-                    bind:eventRadioButtonEdit="@{presenter}"
-                    bind:requireVoteTypeEdit="@{RequireVoteType.NAME}"
+
                     />
 
                 <android.support.v7.widget.AppCompatRadioButton
@@ -81,8 +81,7 @@
                     android:buttonTint="@color/color_grey_700"
                     android:text="@string/msg_enter_email"
                     android:textColor="@color/color_grey_700"
-                    bind:eventRadioButtonEdit="@{presenter}"
-                    bind:requireVoteTypeEdit="@{RequireVoteType.EMAIL}"
+
                     />
 
                 <include
@@ -100,8 +99,6 @@
                     android:buttonTint="@color/color_grey_700"
                     android:text="@string/msg_enter_name_email"
                     android:textColor="@color/color_grey_700"
-                    bind:eventRadioButtonEdit="@{presenter}"
-                    bind:requireVoteTypeEdit="@{RequireVoteType.NAME_EMAIL}"
                     />
 
                 <include
@@ -142,7 +139,6 @@
                 android:id="@+id/linear_link_poll"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
-                android:background="@drawable/bg_edit_text"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_1"
                 android:visibility="@{presenter.poll.optimizeLink ? View.VISIBLE : View.GONE}"
@@ -184,14 +180,11 @@
 
             <LinearLayout
                 android:id="@+id/linear_limit_voting"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_48"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
-                android:background="@drawable/bg_edit_text"
                 android:orientation="horizontal"
-                android:padding="@dimen/dp_1"
                 android:visibility="@{presenter.poll.maxVote ? View.VISIBLE : View.GONE}"
+                style="@style/LinearLayoutStyle"
                 >
 
                 <ImageView
@@ -204,25 +197,24 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
                     android:gravity="center"
                     android:hint="@string/hint_number_limit"
                     android:inputType="number"
-                    android:text="@{presenter.numberLimit > 0 ? String.valueOf(presenter.numberLimit): DataConstant.DATA_SPACE}"
+                    android:text="@={presenter.poll.numMaxVote}"
                     />
 
                 <ImageView
                     android:id="@+id/image_sub"
                     android:onClick="@{()->handler.clickMinus()}"
                     android:src="@drawable/ic_remove_black_24px"
-                    style="@style/ImageViewAuthorizationCenter"
+                    style="@style/ImageViewStyle"
                     />
 
                 <ImageView
                     android:id="@+id/image_add"
                     android:onClick="@{()->handler.clickAugment()}"
                     android:src="@drawable/ic_add_black_24px"
-                    style="@style/ImageViewAuthorizationRight"
+                    style="@style/ImageViewStyle"
                     />
             </LinearLayout>
 
@@ -241,14 +233,11 @@
 
             <LinearLayout
                 android:id="@+id/linear_set_password"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_48"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
-                android:background="@drawable/bg_edit_text"
                 android:orientation="horizontal"
-                android:padding="@dimen/dp_1"
                 android:visibility="@{presenter.poll.hasPass ? View.VISIBLE : View.GONE}"
+                style="@style/LinearLayoutStyle"
                 >
 
                 <ImageView
@@ -261,7 +250,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
                     android:inputType="textPassword"
                     android:text="@={presenter.poll.pass}"
                     bind:showPassword="@{presenter.showPassword}"
@@ -272,7 +260,7 @@
                     android:onClick="@{()->handler.clickShowPassword()}"
                     android:src="@drawable/ic_eye"
                     bind:showImage="@{presenter.showPassword}"
-                    style="@style/ImageViewAuthorizationRight"
+                    style="@style/ImageViewStyle"
                     />
             </LinearLayout>
 

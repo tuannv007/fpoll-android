@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.framgia.fpoll.data.model.PollItem;
-import com.framgia.fpoll.data.source.remote.polldatasource.PollRepository;
 import com.framgia.fpoll.databinding.FragmentEditSettingBinding;
-import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 
@@ -18,10 +16,7 @@ import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
  * Created by framgia on 17/03/2017.
  */
 public class EditSettingFragment extends Fragment implements EditSettingContract.View {
-    private FragmentEditSettingBinding mBinding;
-    private EditSettingContract.Presenter mPresenter;
-    private PollItem mPollItem;
-    private FPollProgressDialog mProgressDialog;
+    private PollItem mPoll;
 
     public static EditSettingFragment newInstance(PollItem pollItem) {
         EditSettingFragment editSettingFragment = new EditSettingFragment();
@@ -31,18 +26,23 @@ public class EditSettingFragment extends Fragment implements EditSettingContract
         return editSettingFragment;
     }
 
+    private void getDataFromActivity() {
+        if (getArguments() != null) {
+            mPoll = getArguments().getParcelable(BUNDLE_POLL_ITEM);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentEditSettingBinding.inflate(inflater, container, false);
-        mPollItem = getArguments().getParcelable(BUNDLE_POLL_ITEM);
-        mPresenter = new EditSettingPresenter(this, mPollItem,
-                PollRepository.getInstance(getActivity()));
-        mBinding.setHandler(new EditSettingHandler(mPresenter));
-        mBinding.setPresenter((EditSettingPresenter) mPresenter);
-        mProgressDialog = new FPollProgressDialog(getActivity());
-        return mBinding.getRoot();
+        FragmentEditSettingBinding binding =
+                FragmentEditSettingBinding.inflate(inflater, container, false);
+        getDataFromActivity();
+        EditSettingContract.Presenter presenter = new EditSettingPresenter(this, mPoll);
+        binding.setHandler(new EditSettingHandler(presenter));
+        binding.setPresenter((EditSettingPresenter) presenter);
+        return binding.getRoot();
     }
 
     @Override

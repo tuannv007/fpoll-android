@@ -704,5 +704,30 @@ public class DataBindingUtils {
         viewPager.setCurrentItem(currentPage);
         viewPager.beginFakeDrag();
     }
+
+    /*
+    * Event group radio button
+    * EditSettingFragment
+    * */
+    @BindingAdapter({ "bind:onCheckRadioGroup" })
+    public static void onCheckRadioGroup(RadioGroup view, final EditSettingPresenter presenter) {
+        view.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_enter_email:
+                        presenter.setRequireVote(RequireVoteType.EMAIL);
+                        break;
+                    case R.id.radio_enter_name_email:
+                        presenter.setRequireVote(RequireVoteType.NAME_EMAIL);
+                        break;
+                    case R.id.radio_enter_name:
+                    default:
+                        presenter.setRequireVote(RequireVoteType.NAME);
+                        break;
+                }
+            }
+        });
+    }
 }
 

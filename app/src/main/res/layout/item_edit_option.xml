@@ -123,6 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:clickable="@{((option.participantVotes.size() + option.votes.size())== 0)}"
                         android:onClick="@{()->handler.onPickDate(option, position)}"
                         android:src="@drawable/ic_date_range_black_24dp"
                         />
@@ -131,6 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="?editTextBackground"
+                        android:clickable="@{((option.participantVotes.size() + option.votes.size())== 0)}"
                         android:maxLines="4"
                         android:onClick="@{()->handler.onPickDate(option, position)}"
                         android:text="@{option.date}"

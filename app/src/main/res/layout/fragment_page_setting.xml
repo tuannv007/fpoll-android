@@ -209,7 +209,7 @@
                     android:gravity="center"
                     android:hint="@string/hint_number_limit"
                     android:inputType="number"
-                    android:text="@{presenter.numberLimit > 0 ? String.valueOf(presenter.numberLimit): DataConstant.DATA_SPACE}"
+                    android:text="@={presenter.poll.numMaxVote}"
                     />
 
                 <ImageView
