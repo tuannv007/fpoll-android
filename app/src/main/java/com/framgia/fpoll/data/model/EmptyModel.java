@@ -27,21 +27,33 @@ public class EmptyModel extends BaseObservable {
         Context context = FPollApplication.getContext();
         switch (state) {
             case NO_LOGIN:
-                mImage = R.mipmap.ic_launcher;
+                mImage = R.drawable.ic_authentication;
                 mTitle = context.getString(R.string.title_no_login);
                 mSubTitle = context.getString(R.string.msg_no_login_subttile);
                 mActionTitle = context.getString(R.string.action_login);
                 break;
             case NO_INTERNET:
-                mImage = R.mipmap.ic_launcher;
+                mImage = R.drawable.ic_no_conntection;
                 mTitle = context.getString(R.string.title_no_internet);
                 mSubTitle = context.getString(R.string.msg_no_internet);
                 mActionTitle = null;
                 break;
             case NO_POLL:
-                mImage = R.mipmap.ic_launcher;
+                mImage = R.drawable.ic_no_item;
                 mTitle = context.getString(R.string.title_no_poll);
                 mSubTitle = context.getString(R.string.msg_no_poll);
+                mActionTitle = null;
+                break;
+            case NO_POLL_PARTICIPATE:
+                mImage = R.drawable.ic_no_item;
+                mTitle = context.getString(R.string.title_no_poll);
+                mSubTitle = context.getString(R.string.msg_no_poll_participate);
+                mActionTitle = null;
+                break;
+            case NO_POLL_CLOSE:
+                mImage = R.drawable.ic_no_item;
+                mTitle = context.getString(R.string.title_no_poll);
+                mSubTitle = context.getString(R.string.msg_no_poll_close);
                 mActionTitle = null;
                 break;
             default:
@@ -110,6 +122,6 @@ public class EmptyModel extends BaseObservable {
     }
 
     public enum State {
-        NO_LOGIN, NO_INTERNET, NO_POLL
+        NO_LOGIN, NO_INTERNET, NO_POLL, NO_POLL_PARTICIPATE, NO_POLL_CLOSE
     }
 }
