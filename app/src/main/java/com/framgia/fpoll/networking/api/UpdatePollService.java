@@ -23,6 +23,7 @@ import static com.framgia.fpoll.util.Constant.Setting.CAN_ADD_OPTION;
 import static com.framgia.fpoll.util.Constant.Setting.EMAIL_NOT_DUPLICATE;
 import static com.framgia.fpoll.util.Constant.Setting.HIDDEN_RESULT;
 import static com.framgia.fpoll.util.Constant.Setting.LIMIT_VOTE_NUMBER;
+import static com.framgia.fpoll.util.Constant.Setting.LINK_EDITABLE;
 import static com.framgia.fpoll.util.Constant.Setting.OPTION_EDITABLE;
 import static com.framgia.fpoll.util.Constant.Setting.PASSWORD_REQUIRED;
 
@@ -117,7 +118,7 @@ public interface UpdatePollService {
         @SerializedName("title")
         private String mTitle;
         @SerializedName("multiple")
-        private int mMultiple;
+        private boolean mMultiple;
         @SerializedName("type_edit")
         private int mEditType = TYPE_INFORMATION;
         @SerializedName("date_close")
@@ -127,8 +128,8 @@ public interface UpdatePollService {
         @SerializedName("location")
         private String mLocation;
 
-        public PollInfoBody(String name, String email, String title, int multiple, String dateClose,
-                String description, String location) {
+        public PollInfoBody(String name, String email, String title, boolean multiple,
+                String dateClose, String description, String location) {
             mName = name;
             mEmail = email;
             mTitle = title;
@@ -143,6 +144,8 @@ public interface UpdatePollService {
         private static final String IS_REQUIRE_VOTE = "setting[0]";
         private static final String REQUIRE_TYPE = "setting_child[0]";
         private static final String IS_SAME_EMAIL = "setting[10]";
+        private static final String IS_LINK_POLL = "setting[3]";
+        private static final String LINK_POLL = "value[3]";
         private static final String IS_MAX_VOTE = "setting[4]";
         private static final String NUM_MAX_VOTE = "value[4]";
         private static final String IS_HAS_PASS = "setting[5]";
@@ -177,6 +180,10 @@ public interface UpdatePollService {
             }
             if (pollItem.isAllowEditOption()) {
                 builder.addFormDataPart(ALLOW_EDIT_OPTION, String.valueOf(OPTION_EDITABLE));
+            }
+            if (pollItem.isOptimizeLink()) {
+                builder.addFormDataPart(IS_LINK_POLL, String.valueOf(LINK_EDITABLE));
+                builder.addFormDataPart(LINK_POLL, pollItem.getTextOptimizeLink());
             }
             builder.addFormDataPart(TYPE_EDIT, String.valueOf(TYPE_SETTING));
             return builder.build();

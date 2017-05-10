@@ -60,9 +60,8 @@ public class PollRepository implements PollDataSource {
     }
 
     @Override
-    public void updateOptionSetting(int editType, PollItem pollItem,
-            @NonNull final DataCallback<PollItem> callback) {
-        mRemoteDataSource.updateOptionSetting(editType, pollItem, new DataCallback<PollItem>() {
+    public void updateSetting(PollItem pollItem, @NonNull final DataCallback<PollItem> callback) {
+        mRemoteDataSource.updateSetting(pollItem, new DataCallback<PollItem>() {
             @Override
             public void onSuccess(PollItem data) {
                 callback.onSuccess(data);

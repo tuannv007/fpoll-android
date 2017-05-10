@@ -91,8 +91,7 @@ public class PollRemoteDataSource implements PollDataSource {
     }
 
     @Override
-    public void updateOptionSetting(int editType, PollItem pollItem,
-            @NonNull final DataCallback<PollItem> callback) {
+    public void updateSetting(PollItem pollItem, @NonNull final DataCallback<PollItem> callback) {
         if (mService == null) return;
         mService.updateOption(pollItem.getId(), getSettingRequestBody(pollItem))
                 .enqueue(new CallbackManager<>(mContext,

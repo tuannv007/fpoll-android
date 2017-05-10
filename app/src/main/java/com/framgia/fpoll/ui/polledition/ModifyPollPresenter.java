@@ -11,10 +11,6 @@ import com.framgia.fpoll.util.ActivityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.framgia.fpoll.networking.api.UpdatePollService.EditTypeConstant.TYPE_SETTING;
-import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_MULTI;
-import static com.framgia.fpoll.util.Constant.TypeChoose.TYPE_SINGER;
-
 /**
  * Created by framgia on 15/03/2017.
  */
@@ -40,11 +36,10 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
     @Override
     public void updateInformation() {
         mView.showProgress();
-        int type = mPoll.isMultiple() ? TYPE_MULTI : TYPE_SINGER;
         UpdatePollService.PollInfoBody body =
                 new UpdatePollService.PollInfoBody(mPoll.getUser().getUsername(),
-                        mPoll.getUser().getEmail(), mPoll.getTitle(), type, mPoll.getDateClose(),
-                        mPoll.getDescription(), mPoll.getLocation());
+                        mPoll.getUser().getEmail(), mPoll.getTitle(), mPoll.isMultiple(),
+                        mPoll.getDateClose(), mPoll.getDescription(), mPoll.getLocation());
         mRepository.updateInformation(mPoll.getId(), body, new DataCallback<PollItem>() {
             @Override
             public void onSuccess(PollItem data) {
@@ -94,7 +89,7 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
     @Override
     public void updateSetting() {
         mView.showProgress();
-        mRepository.updateOptionSetting(TYPE_SETTING, mPoll, new DataCallback<PollItem>() {
+        mRepository.updateSetting(mPoll, new DataCallback<PollItem>() {
             @Override
             public void onSuccess(PollItem data) {
                 onUpdateSuccess(data);
@@ -103,6 +98,7 @@ public class ModifyPollPresenter implements ModifyPollContract.Presenter {
             @Override
             public void onError(String msg) {
                 mView.showMessage(msg);
+                mView.hideProgress();
             }
         });
     }

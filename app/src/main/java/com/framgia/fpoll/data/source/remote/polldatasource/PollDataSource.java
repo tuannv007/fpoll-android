@@ -18,8 +18,7 @@ public interface PollDataSource {
 
     void createPoll(PollItem pollItem, @NonNull DataCallback<HistoryPoll> callback);
 
-    void updateOptionSetting(int editType, PollItem pollItem,
-            @NonNull final DataCallback<PollItem> callback);
+    void updateSetting(PollItem pollItem, @NonNull final DataCallback<PollItem> callback);
 
     void getActivity(String token, @NonNull DataCallback<DataInfoItem> callback);
 
