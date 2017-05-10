@@ -17,218 +17,325 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/dp_10"
             >
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_15"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_10"
+                android:visibility="@{viewModel.user != null ? View.VISIBLE : View.GONE}"
                 >
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="@dimen/dp_20"
-                        android:text="@string/title_poll_profile"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/sp_17"
-                        android:textStyle="bold"
-                        />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        >
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="@dimen/dp_7"
-                            android:text="@{String.valueOf(viewModel.user.countCreatedPoll)}"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/sp_18"
-                            android:textStyle="bold"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:gravity="center"
-                            android:text="@string/title_poll_create_profile"
-                            android:textSize="@dimen/sp_15"
-                            />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.5"
-                        android:orientation="vertical"
-                        >
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="@dimen/dp_7"
-                            android:text="@{String.valueOf(viewModel.user.countParticipatedPoll)}"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/sp_18"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_5"
-                            android:gravity="center"
-                            android:text="@string/title_poll_participated_profile"
-                            android:textSize="@dimen/sp_15"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <LinearLayout
-                android:gravity="center"
-                style="@style/LinearLayoutStyle"
-                >
-                <ImageView
-                    android:src="@drawable/ic_person_black_24dp"
-                    style="@style/ImageProfileTitle"
+                    android:text="@{viewModel.user.username}"
+                    android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
+                    style="@style/TextViewProfileTitle"
                     />
-
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_margin="@dimen/dp_15"
                     >
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
-                        <EditText
-                            android:hint="@string/hint_enter_name"
-                            android:text="@={viewModel.editUser.username}"
-                            android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
-                            style="@style/EditTextProfileTitle"
-                            />
-
                         <TextView
-                            android:text="@{viewModel.user.username}"
-                            android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
-                            style="@style/TextViewProfileTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="@dimen/dp_20"
+                            android:text="@string/title_poll_profile"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp_17"
+                            android:textStyle="bold"
                             />
-                    </RelativeLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            >
 
-                    <TextView
-                        android:text="@string/title_username"
-                        style="@style/TextViewProfileSubTitle"
-                        />
-                    <TextView
-                        android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
-                        style="@style/DividerStyle"
-                        />
-                </LinearLayout>
-            </LinearLayout>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="@dimen/dp_7"
+                                android:text="@{String.valueOf(viewModel.user.countCreatedPoll)}"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/sp_18"
+                                android:textStyle="bold"
+                                />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:gravity="center"
+                                android:text="@string/title_poll_create_profile"
+                                android:textSize="@dimen/sp_15"
+                                />
+                        </LinearLayout>
 
-            <LinearLayout
-                android:gravity="center"
-                style="@style/LinearLayoutStyle"
-                >
-                <ImageView
-                    android:src="@drawable/ic_email_white_24px"
-                    style="@style/ImageProfileTitle"
-                    />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.5"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="@dimen/dp_7"
+                                android:text="@{String.valueOf(viewModel.user.countParticipatedPoll)}"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="@dimen/sp_18"
+                                android:textStyle="bold"
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_5"
+                                android:gravity="center"
+                                android:text="@string/title_poll_participated_profile"
+                                android:textSize="@dimen/sp_15"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:gravity="center"
+                    style="@style/LinearLayoutStyle"
                     >
+                    <ImageView
+                        android:src="@drawable/ic_person_black_24dp"
+                        style="@style/ImageProfileTitle"
+                        />
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         >
-                        <EditText
-                            android:hint="@string/hint_email"
-                            android:text="@{viewModel.user.email}"
-                            android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
-                            style="@style/EditTextProfileTitle"
-                            />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <EditText
+                                android:hint="@string/hint_enter_name"
+                                android:text="@={viewModel.editUser.username}"
+                                android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
+                                style="@style/EditTextProfileTitle"
+                                />
+
+                        </RelativeLayout>
 
                         <TextView
-                            android:text="@={viewModel.editUser.email}"
-                            android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
-                            style="@style/TextViewProfileTitle"
+                            android:text="@string/title_username"
+                            style="@style/TextViewProfileSubTitle"
                             />
-
-                    </RelativeLayout>
-                    <TextView
-                        android:text="@string/title_email"
-                        style="@style/TextViewProfileSubTitle"
-                        />
-                    <TextView
-                        android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
-                        style="@style/DividerStyle"
-                        />
-
+                        <TextView
+                            android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
+                            style="@style/DividerStyle"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                style="@style/LinearLayoutStyle"
-                >
-                <ImageView
-                    android:src="@drawable/ic_male"
-                    style="@style/ImageProfileTitle"
-                    />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:gravity="center"
+                    style="@style/LinearLayoutStyle"
                     >
-                    <RelativeLayout
+                    <ImageView
+                        android:src="@drawable/ic_email_white_24px"
+                        style="@style/ImageProfileTitle"
+                        />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_40"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <EditText
+                                android:hint="@string/hint_email"
+                                android:text="@{viewModel.user.email}"
+                                android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
+                                style="@style/EditTextProfileTitle"
+                                />
+
+                            <TextView
+                                android:text="@={viewModel.editUser.email}"
+                                android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
+                                style="@style/TextViewProfileTitle"
+                                />
+
+                        </RelativeLayout>
                         <TextView
-                            android:text="@{viewModel.user.getDisplayGender(viewModel.context)}"
-                            android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
-                            style="@style/TextViewProfileTitle"
+                            android:text="@string/title_email"
+                            style="@style/TextViewProfileSubTitle"
+                            />
+                        <TextView
+                            android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
+                            style="@style/DividerStyle"
                             />
 
-                        <android.support.v7.widget.AppCompatSpinner
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    style="@style/LinearLayoutStyle"
+                    >
+                    <ImageView
+                        android:src="@drawable/ic_male"
+                        style="@style/ImageProfileTitle"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_40"
-                            android:entries="@array/gender"
-                            android:spinnerMode="dropdown"
-                            android:splitMotionEvents="true"
-                            android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
-                            bind:selectedValue="@={viewModel.editUser.gender}"
-                            style="@style/Widget.AppCompat.Spinner.Underlined"
-                            />
-                    </RelativeLayout>
+                            >
+                            <TextView
+                                android:text="@{viewModel.user.getDisplayGender(viewModel.context)}"
+                                android:visibility="@{viewModel.editing? View.GONE: View.VISIBLE}"
+                                style="@style/TextViewProfileTitle"
+                                />
 
-                    <TextView
-                        android:text="@string/title_gender"
-                        style="@style/TextViewProfileSubTitle"
+                            <android.support.v7.widget.AppCompatSpinner
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_40"
+                                android:entries="@array/gender"
+                                android:spinnerMode="dropdown"
+                                android:splitMotionEvents="true"
+                                android:visibility="@{viewModel.editing? View.VISIBLE: View.GONE}"
+                                bind:selectedValue="@={viewModel.editUser.gender}"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:text="@string/title_gender"
+                            style="@style/TextViewProfileSubTitle"
+                            />
+                        <TextView
+                            android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
+                            style="@style/DividerStyle"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_50"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:background="@color/colorPrimary"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    >
+                    <ImageView
+                        android:src="@drawable/ic_language_white_24px"
+                        style="@style/ImageProfileTitle"
                         />
                     <TextView
-                        android:visibility="@{viewModel.editing? View.INVISIBLE: View.VISIBLE}"
-                        style="@style/DividerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:gravity="center_vertical"
+                        android:onClick="@{() -> viewModel.changeLanguage()}"
+                        android:text="@string/title_language"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/sp_16"
                         />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:src="@drawable/ic_log_out"
+                        style="@style/ImageProfileTitle"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:gravity="center_vertical"
+                        android:onClick="@{() -> viewModel.logout()}"
+                        android:text="@string/title_log_out"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/sp_16"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.user == null ? View.VISIBLE : View.GONE}"
+                >
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@string/title_np_login"
+                    android:textColor="@color/color_black_transprarent"
+                    android:textSize="@dimen/sp_17"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@string/title_login_view_profile"
+                    android:textColor="@color/color_black_transprarent"
+                    android:textSize="@dimen/sp_17"
+                    />
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_10"
+                    >
+                    <Button
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_orange_700"
+                        android:onClick="@{() -> viewModel.startLoginScreen()}"
+                        android:padding="@dimen/dp_10"
+                        android:text="@string/action_login"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_white"
+                        />
+                </android.support.v7.widget.CardView>
+
             </LinearLayout>
         </LinearLayout>
 

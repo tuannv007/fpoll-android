@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
         <import type="android.view.View"/>
@@ -8,17 +12,13 @@
             type="com.framgia.fpoll.ui.profile.ProfileViewModel"
             />
     </data>
-
     <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:bind="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context="com.framgia.fpoll.ui.profile.ProfileFragment"
         >
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
@@ -93,6 +93,7 @@
             android:layout_marginRight="@dimen/dp_10"
             android:onClick="@{() -> viewModel.onEditUserClick()}"
             android:src="@{viewModel.editing? @drawable/ic_done: @drawable/ic_mode_edit_black_24px}"
+            android:visibility="@{viewModel.user != null ? View.VISIBLE : View.GONE}"
             app:backgroundTint="@color/color_red_500"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|right"
@@ -105,16 +106,17 @@
             android:layout_marginRight="@dimen/dp_70"
             android:onClick="@{() -> viewModel.showChangePasswordDialog()}"
             android:src="@drawable/ic_lock_white_24px"
+            android:visibility="@{viewModel.user != null ? View.VISIBLE : View.GONE}"
             app:backgroundTint="@color/color_red_500"
             app:layout_anchor="@id/app_bar_layout"
             app:layout_anchorGravity="bottom|end"
             app:rippleColor="@color/color_green_500"
             />
-
         <include
             layout="@layout/profile_detail"
+            android:id="@+id/aaa"
             bind:viewModel="@{viewModel}"
             />
-
     </android.support.design.widget.CoordinatorLayout>
+
 </layout>

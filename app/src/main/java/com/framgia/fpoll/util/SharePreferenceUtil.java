@@ -18,6 +18,7 @@ import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_USER;
  */
 public class SharePreferenceUtil {
     private static final String SHARE_PREFERENCE = "SHARE_PREFERENCE";
+    private static final String PREF_POSITION_LANGUAGE = "PREF_POSITION_LANGUAGE";
     private static SharePreferenceUtil sIntances;
     private SharedPreferences mPreferences;
 
@@ -81,5 +82,13 @@ public class SharePreferenceUtil {
 
     public void clearKey(String key) {
         mPreferences.edit().remove(key).apply();
+    }
+
+    public void savePositionLanguage(String value) {
+        mPreferences.edit().putString(PREF_POSITION_LANGUAGE, value).apply();
+    }
+
+    public String getLanguage() {
+        return mPreferences.getString(PREF_POSITION_LANGUAGE, "");
     }
 }

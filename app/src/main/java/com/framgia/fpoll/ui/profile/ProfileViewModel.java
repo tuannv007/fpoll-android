@@ -14,8 +14,10 @@ import android.widget.Toast;
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.authorization.User;
+import com.framgia.fpoll.ui.authenication.activity.AuthenticationActivity;
 import com.framgia.fpoll.ui.authenication.changepass.ChangePassFragment;
 import com.framgia.fpoll.ui.mainstart.NewMainActivity;
+import com.framgia.fpoll.ui.profile.language.LanguageDialogFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
@@ -197,6 +199,11 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
         mPresenter = presenter;
     }
 
+    @Override
+    public void showMessage(String data) {
+        ActivityUtil.showToast(mActivity, data);
+    }
+
     @Bindable
     public boolean isEditing() {
         return mEditing;
@@ -217,6 +224,11 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
         ((NewMainActivity) getActivity()).showBottomNavigation();
     }
 
+    @Override
+    public void startLoginScreen() {
+        mContext.startActivity(AuthenticationActivity.getAuthenticationIntent(mContext, true));
+    }
+
     public ObservableField<User> getUser() {
         return mUser;
     }
@@ -230,5 +242,20 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
                 getActivity().getSupportFragmentManager().beginTransaction();
         DialogFragment dialog = ChangePassFragment.newInstance();
         dialog.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
+    }
+
+    public void logout() {
+        if (mUser.get() == null) {
+            ActivityUtil.showToast(mContext, mContext.getString(R.string.action_show_not_user));
+            startLoginScreen();
+            return;
+        }
+        mPresenter.logout(mUser.get());
+    }
+
+    public void changeLanguage() {
+        FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
+        DialogFragment optionDialog = LanguageDialogFragment.newInstance();
+        optionDialog.show(transaction, Constant.TYPE_DIALOG_FRAGMENT);
     }
 }

@@ -49,11 +49,17 @@ public interface ProfileContract {
         void onHideBottomNavigation();
 
         void onShowBottomNavigation();
+
+        void startLoginScreen();
+
+        void showMessage(String data);
     }
 
     interface Presenter extends BasePresenter {
         void getUser();
 
         void editUser(User user);
+
+        void logout(User user);
     }
 }
