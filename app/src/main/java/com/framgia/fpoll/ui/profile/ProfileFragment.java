@@ -26,7 +26,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         mBinding = FragmentProfileBinding.inflate(inflater, container, false);
-        mViewModel = new ProfileViewModel((NewMainActivity) getActivity());
+        mViewModel = new ProfileViewModel((NewMainActivity) getActivity(),
+                SharePreferenceUtil.getIntances(getActivity()));
         ProfileContract.Presenter presenter =
                 new ProfilePresenter(mViewModel, SharePreferenceUtil.getIntances(getActivity()),
                         LoginRepository.getInstance(getActivity()));

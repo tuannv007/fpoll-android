@@ -21,10 +21,12 @@ import com.framgia.fpoll.ui.profile.language.LanguageDialogFragment;
 import com.framgia.fpoll.util.ActivityUtil;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.PermissionsUtil;
+import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
 import static android.app.Activity.RESULT_OK;
 import static com.framgia.fpoll.util.Constant.DataConstant.DATA_IMAGE;
+import static com.framgia.fpoll.util.Constant.PreferenceConstant.PREF_USER;
 import static com.framgia.fpoll.util.Constant.RequestCode.IMAGE_PICKER_SELECT;
 import static com.framgia.fpoll.util.Constant.RequestCode.PERMISSIONS_REQUEST_WRITE_EXTERNAL;
 
@@ -37,6 +39,7 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
     private AppCompatActivity mActivity;
     private ObservableField<User> mUser = new ObservableField<>();
     private ObservableField<User> mEditUser = new ObservableField<>();
+    private SharePreferenceUtil mPreferenceUtil;
     private boolean mEditing;
     private FPollProgressDialog mDialog;
     private Context mContext;
@@ -45,9 +48,10 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
         return mContext;
     }
 
-    public ProfileViewModel(AppCompatActivity activity) {
+    public ProfileViewModel(AppCompatActivity activity, SharePreferenceUtil sharePreferenceUtil) {
         mActivity = activity;
         mContext = activity;
+        mPreferenceUtil = sharePreferenceUtil;
     }
 
     public AppCompatActivity getActivity() {
@@ -204,6 +208,11 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
         ActivityUtil.showToast(mActivity, data);
     }
 
+    @Override
+    public void setNullUser() {
+        mUser.set(null);
+    }
+
     @Bindable
     public boolean isEditing() {
         return mEditing;
@@ -226,7 +235,7 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
 
     @Override
     public void startLoginScreen() {
-        mContext.startActivity(AuthenticationActivity.getAuthenticationIntent(mContext, true));
+        mActivity.startActivity(AuthenticationActivity.getAuthenticationIntent(mContext, true));
     }
 
     public ObservableField<User> getUser() {
@@ -251,6 +260,8 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
             return;
         }
         mPresenter.logout(mUser.get());
+        mPreferenceUtil.writeUser(null);
+        mPreferenceUtil.clearKey(PREF_USER);
     }
 
     public void changeLanguage() {

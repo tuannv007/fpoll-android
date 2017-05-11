@@ -91,4 +91,5 @@ public class SharePreferenceUtil {
     public String getLanguage() {
         return mPreferences.getString(PREF_POSITION_LANGUAGE, "");
     }
+
 }
