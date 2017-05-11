@@ -9,6 +9,5 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
     public HistoryPresenter(HistoryContract.View view) {
         mView = view;
-        mView.start();
     }
 }

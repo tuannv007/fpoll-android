@@ -1,9 +1,12 @@
 package com.framgia.fpoll.ui.mainstart;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.IntDef;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,10 +14,16 @@ import android.widget.RelativeLayout;
 import com.framgia.fpoll.BR;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
+import com.framgia.fpoll.ui.feedback.FeedbackFragment;
+import com.framgia.fpoll.ui.history.HistoryFragment;
+import com.framgia.fpoll.ui.joinpoll.JoinPollFragment;
 import com.framgia.fpoll.ui.pollcreation.PollCreationActivity;
+import com.framgia.fpoll.ui.profile.ProfileFragment;
 import com.framgia.fpoll.util.Constant;
 import com.framgia.fpoll.util.LanguageUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.framgia.fpoll.ui.mainstart.NewMainViewModel.Tab.TAB_HOME;
 import static com.framgia.fpoll.util.Constant.RequestCode.REQUEST_CREATE_POLL;
@@ -37,7 +46,17 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
 
     public NewMainViewModel(AppCompatActivity activity) {
         mActivity = activity;
-        mViewPagerAdapter = new NewMainViewPagerAdapter(activity.getSupportFragmentManager());
+        initViewPager();
+    }
+
+    private void initViewPager() {
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(HistoryFragment.newInstance());
+        fragments.add(JoinPollFragment.newInstance());
+        fragments.add(FeedbackFragment.newInstance());
+        fragments.add(ProfileFragment.newInstance());
+        mViewPagerAdapter =
+                new NewMainViewPagerAdapter(mActivity.getSupportFragmentManager(), fragments);
     }
 
     @Override
@@ -106,6 +125,16 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK || requestCode != REQUEST_CREATE_POLL) return;
+        setCurrentTab(TAB_HOME);
+        Fragment fragment = mViewPagerAdapter.getItem(TAB_HOME);
+        if (fragment != null && fragment instanceof HistoryFragment) {
+            ((HistoryFragment) fragment).updatePollHistory();
+        }
+    }
+
+    @Override
     public void hideBottomNavigation() {
         mIsBottomNavigationShow.set(false);
     }
@@ -135,6 +164,7 @@ public class NewMainViewModel extends BaseObservable implements NewMainContract.
     public void setCurrentTab(int currentTab) {
         mCurrentTab = currentTab;
         notifyPropertyChanged(BR.currentTab);
+        if (mViewPagerAdapter != null) mViewPagerAdapter.notifyDataSetChanged();
     }
 
     @IntDef({ TAB_HOME, Tab.TAB_JOIN, Tab.TAB_FEED_BACK, Tab.TAB_PROFILE })

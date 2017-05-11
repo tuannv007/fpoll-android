@@ -45,6 +45,12 @@ public class NewMainActivity extends BaseActivity {
         super.onStop();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mViewModel != null) mViewModel.onActivityResult(requestCode, resultCode, data);
+    }
+
     public void hideBottomNavigation() {
         mViewModel.hideBottomNavigation();
     }

@@ -1,12 +1,12 @@
 package com.framgia.fpoll.ui.history;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.fpoll.R;
-import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.databinding.FragmentHistoryBinding;
 import com.framgia.fpoll.ui.history.pollhistory.PollHistoryFragment;
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class HistoryFragment extends Fragment implements HistoryContract.View {
-    private HistoryContract.Presenter mPresenter;
     private ViewPagerAdapter mAdapter;
 
     public static HistoryFragment newInstance() {
@@ -24,11 +23,17 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        start();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         FragmentHistoryBinding binding = FragmentHistoryBinding.inflate(inflater, container, false);
         binding.setFragment(this);
-        mPresenter = new HistoryPresenter(this);
+        HistoryContract.Presenter presenter = new HistoryPresenter(this);
         return binding.getRoot();
     }
 
@@ -72,12 +77,13 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         }
     }
 
-    public void updatePollHistory(HistoryPoll poll) {
+    public void updatePollHistory() {
+        if (mAdapter == null) return;
         int size = mAdapter.getCount();
         for (int i = 0; i < size; i++) {
             Fragment fragment = mAdapter.getItem(i);
             if (fragment != null && fragment instanceof PollHistoryFragment) {
-                ((PollHistoryFragment) fragment).updatePollHistory(poll);
+                ((PollHistoryFragment) fragment).loadData();
             }
         }
     }
