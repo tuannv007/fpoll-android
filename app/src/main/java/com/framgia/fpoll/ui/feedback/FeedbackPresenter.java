@@ -32,11 +32,13 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
 
     private void initData(SharePreferenceUtil sharePreferenceUtil) {
         User user = sharePreferenceUtil.getUser();
-        if (user != null && !TextUtils.isEmpty(user.getEmail()) &&
-                !TextUtils.isEmpty(user.getUsername())) {
+        if (user != null && !TextUtils.isEmpty(user.getEmail()) && !TextUtils.isEmpty(
+                user.getUsername())) {
             mName.set(user.getUsername());
             mEmail.set(user.getEmail());
             mIsLogin.set(true);
+        } else {
+            mIsLogin.set(false);
         }
     }
 

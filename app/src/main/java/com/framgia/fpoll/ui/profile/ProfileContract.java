@@ -53,6 +53,8 @@ public interface ProfileContract {
         void startLoginScreen();
 
         void showMessage(String data);
+
+        void setNullUser();
     }
 
     interface Presenter extends BasePresenter {

@@ -26,4 +26,9 @@ public class NewMainViewPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return mFragments == null ? 0 : mFragments.size();
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
 }

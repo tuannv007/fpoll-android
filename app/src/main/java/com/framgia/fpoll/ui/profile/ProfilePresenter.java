@@ -97,7 +97,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void logout(User user) {
+    public void logout(final User user) {
         if (mRepository == null) return;
         mViewModel.showProgressDialog();
         mRepository.logout(user.getToken(), new DataCallback<String>() {
@@ -108,6 +108,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 mViewModel.showMessage(data);
                 mViewModel.hideProgressDialog();
                 mViewModel.startLoginScreen();
+                mViewModel.setNullUser();
             }
 
             @Override
@@ -117,6 +118,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             }
         });
     }
+
+
 
     @Override
     public void onStart() {
