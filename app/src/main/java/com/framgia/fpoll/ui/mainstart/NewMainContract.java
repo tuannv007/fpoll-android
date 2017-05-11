@@ -1,5 +1,6 @@
 package com.framgia.fpoll.ui.mainstart;
 
+import android.content.Intent;
 import android.view.View;
 import com.framgia.fpoll.ui.base.BasePresenter;
 import com.framgia.fpoll.ui.base.BaseViewModel;
@@ -19,6 +20,8 @@ public interface NewMainContract {
         void hideBottomNavigation();
 
         void showBottomNavigation();
+
+        void onActivityResult(int requestCode, int resultCode, Intent data);
     }
 
     /**

@@ -23,7 +23,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.framgia.fpoll.R;
 import com.framgia.fpoll.data.model.PollItem;
-import com.framgia.fpoll.data.model.poll.HistoryPoll;
 import com.framgia.fpoll.data.source.remote.login.LoginRepository;
 import com.framgia.fpoll.data.source.remote.settings.SettingRepository;
 import com.framgia.fpoll.databinding.ActivityMainBinding;
@@ -38,7 +37,6 @@ import com.framgia.fpoll.util.LanguageUtil;
 import com.framgia.fpoll.util.SharePreferenceUtil;
 import com.framgia.fpoll.widget.FPollProgressDialog;
 
-import static com.framgia.fpoll.util.Constant.BundleConstant.BUNDLE_POLL_ITEM;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_EN;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_JP;
 import static com.framgia.fpoll.util.Constant.Language.LANGUAGE_VN;
@@ -195,15 +193,6 @@ public class MainActivity extends AppCompatActivity
                 addFragment(HistoryFragment.newInstance(), R.string.title_home);
                 mPresenter.setInformation();
                 openNavigation();
-                break;
-            case REQUEST_CREATE_POLL:
-                if (data == null) return;
-                HistoryPoll poll = data.getExtras().getParcelable(BUNDLE_POLL_ITEM);
-                if (poll == null) return;
-                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
-                if (fragment != null && fragment instanceof HistoryFragment) {
-                    ((HistoryFragment) fragment).updatePollHistory(poll);
-                }
                 break;
             case REQUEST_PROFILE_DETAIL:
                 // TODO: 20/04/2017 update profile navigation
